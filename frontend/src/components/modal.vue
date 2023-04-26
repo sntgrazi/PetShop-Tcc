@@ -1,16 +1,18 @@
 <template>
-  <div id="fade" class="hide"></div>
-  <div id="modal" class="hide">
+  <div class="form-overlay"></div>
+  <div class="modal" :class="{ active: active }">
     <div class="modal-header">
       <i :class="['fa regular', icon]"></i>
       <h2>{{ titulo }}</h2>
     </div>
     <div class="modal-body">
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="userId == false ? submitForm() : editarForm()">
         <div class="inputs">
           <BaseInput
-            :modelValue="cliente.nome"
-            @update:modelValue="(newValue) => (cliente.nome = newValue)"
+            :modelValue="cliente.nome_completo"
+            @update:modelValue="
+              (newValue) => (cliente.nome_completo = newValue)
+            "
             :label="'Nome'"
             v-if="mostrarInputsCadastro"
           />
@@ -36,15 +38,13 @@
         <div class="modal-footer">
           <button
             type="button"
-            @click="toggle"
+            @click="() => toggle()"
             id="close-modal"
             class="close"
           >
             Fechar
           </button>
-          <button class="confirm">
-            {{ botaoConfirm }}
-          </button>
+          <button class="confirm">{{ botaoConfirm }}</button>
         </div>
       </form>
     </div>
@@ -57,44 +57,34 @@ import BaseInput from "./BaseInput.vue";
 
 export default {
   name: "Modal",
-  props: {
-    tipo: {
-      type: String,
-      required: true,
-      validator: (value) => ["cliente", "agendamento"].includes(value),
-    },
-    icon: String,
-    mostrarInputsCadastro: {
-      type: Boolean,
-      default: false,
-    },
-    mostrarInputsAgendamento: {
-      type: Boolean,
-      default: false,
-    },
-    modoEdição: {
-      type: Boolean,
-      default: false,
-    },
-    toggle: Function,
-    userId: Boolean,
-  },
+  emits: ["atualizarTabela"],
+  props: [
+    "userId",
+    "tipo",
+    "icon",
+    "mostrarInputsCadastro",
+    "mostrarInputsAgendamento",
+    "toggle",
+    "active",
+    "getClientes",
+  ],
   components: {
     BaseInput,
   },
   data() {
     return {
       cliente: {},
-      titulo: this.tipo === "cliente" ? "Cadastro de Cliente" : "Novo Agendamento",
+      titulo:
+        this.tipo === "cliente" ? "Cadastrar Cliente" : "Novo Agendamento",
       botaoConfirm: this.tipo === "cliente" ? "Cadastrar" : "Agendar",
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       if (this.tipo == "cliente") {
         ApiController.cadastrarCliente(this.cliente)
           .then(() => {
-            this.$emit("clienteAdicionado");
+            this.$emit("atualizarTabela");
             this.toggle();
             this.cliente = {};
           })
@@ -105,23 +95,47 @@ export default {
         console.log("Agendamento");
       }
     },
+    async editarForm() {
+      ApiController.editarCliente(this.userId, this.cliente)
+        .then(() => {
+          this.$emit("atualizarTabela");
+          this.toggle();
+          this.cliente = {};
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async Cliente() {
+      ApiController.cliente(this.userId)
+        .then((cliente) => {
+          this.cliente = cliente;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async Cliente() {
+      ApiController.cliente(this.userId)
+        .then((cliente) => {
+          this.cliente = cliente;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
-  emits: ["clienteAdicionado"],
+  mounted() {
+    if (this.userId != false) {
+      (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
+      this.Cliente();
+    }
+  },
 };
 </script>
 
 <style>
-#fade {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 5;
-}
-
-#modal {
+.modal {
   position: absolute;
   top: 45%;
   left: 50%;
@@ -134,11 +148,14 @@ export default {
   z-index: 10;
 }
 
-#fade,
-#modal {
-  transition: 0.5s;
-  opacity: 1;
-  pointer-events: all;
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 5;
 }
 
 .modal-header {
@@ -154,38 +171,6 @@ export default {
 
 .modal-header i {
   font-size: 30px;
-}
-
-.modal-footer {
-  margin-top: 1rem;
-  border-top: 1px solid #ccc;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.modal-footer button {
-  margin: 20px 0px 10px;
-  padding: 0.6rem 1.2rem;
-  background-color: #888;
-  color: #fff;
-  border: none;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  opacity: 0.9;
-  font-size: 1rem;
-}
-
-.modal-footer .confirm {
-  background-color: #010d55;
-}
-
-.modal-footer .close {
-  background-color: #9e0101;
-}
-
-.modal-body p {
-  margin-bottom: 1rem;
 }
 
 form {
@@ -225,34 +210,31 @@ form {
   width: 220px;
 }
 
-#modal.hide,
-#fade.hide {
-  opacity: 0;
-  pointer-events: none;
+.modal-footer {
+  margin-top: 1rem;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#modal.hide {
-  top: 0;
+.modal-footer button {
+  margin: 20px 0px 10px;
+  padding: 0.6rem 1.2rem;
+  background-color: #888;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0.9;
+  font-size: 1rem;
 }
 
-@media screen and (max-width: 750px) {
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .form-inputs input,
-  .form-inputs input[type="date"],
-  .form-inputs input[type="time"] {
-    width: 250px;
-  }
+.modal-footer .confirm {
+  background-color: #010d55;
 }
 
-@media screen and (max-width: 350px) {
-  #modal {
-    position: absolute;
-    margin-top: 3rem;
-  }
+.modal-footer .close {
+  background-color: #9e0101;
 }
 </style>

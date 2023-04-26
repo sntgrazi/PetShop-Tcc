@@ -3,7 +3,7 @@
     <div class="titulo">
       <h1>{{ type }}</h1>
     </div>
-    <button v-on:click="toggle" id="open-modal">
+    <button @click="() => toggle()" id="open-modal">
       <i :class="['fa regular', icon]"></i>
       {{ botaoAdd }}
     </button>
@@ -11,20 +11,14 @@
 </template>
 
 <script>
-
-
 export default {
   name: "topo",
-  props: {
-    type: String,
-    icon: String,
-    toggle: Function
-  },
+  props: ["type", "icon", "toggle"],
   data() {
     return {
-      botaoAdd: this.type === "Clientes" ? "Novo Cliente" : "Novo Agendamento",
+      botaoAdd: this.type === "Clientes" ? "Novo Cliente" : "Novo Agendamento"
     };
-  },
+  }
 };
 </script>
 

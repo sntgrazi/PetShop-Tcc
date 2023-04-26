@@ -1,11 +1,19 @@
 <template>
   <section>
     <div class="container">
-      <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleModal" />
+      <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-          <modal :tipo="'cliente'" :icon="'fa-user'" :mostrarInputsCadastro="true" @clienteAdicionado="getClientes" :toggle="toggleModal" :userId="userid" />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleModal" />
+          <modal
+            v-if="formActive"
+            :tipo="'cliente'"
+            :icon="'fa-user'"
+            :mostrarInputsCadastro="true"
+            @atualizarTabela="getClientes"
+            :toggle="toggleform"
+            :userId="userId"
+          />
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletarCliente="deletarCliente" />
         </div>
       </div>
     </div>
@@ -16,7 +24,7 @@
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
 import ApiController from "@/ApiController";
-import modal from '../components/modal.vue';
+import modal from "../components/modal.vue";
 import { ref } from "vue";
 
 export default {
@@ -24,44 +32,55 @@ export default {
   components: {
     tabela,
     topo,
-    modal,
+    modal
   },
-  data(){
-    return{
-        topoTabela: ["ID", "NOME", "PETS", "CPF", "TELEFONE", "AÇÕES"],
-        dadosTabela: [],
-    }
+  data() {
+    return {
+      topoTabela: ["ID", "NOME", "PETS", "CPF", "TELEFONE", "AÇÕES"],
+      dadosTabela: []
+    };
   },
-  mounted(){
+  mounted() {
     this.getClientes();
   },
   methods: {
-    getClientes(){
-      ApiController.getClientes().then(clientes =>{
-        this.dadosTabela = clientes;
-      }).catch(error => {
-        console.log(error)
-      })
+    getClientes() {
+      ApiController.getClientes()
+        .then(clientes => {
+          this.dadosTabela = clientes;
+        })
+        .catch(error => {
+          console.log("Erro ao listar os clientes: ",error);
+        });
     },
+    deletarCliente(clienteId){
+      ApiController.deletarCliente(clienteId).then((response) => {
+        console.log("Cliente deletado com sucesso");
+        this.getClientes();
+      }).catch(error => {
+        console.error("Erro ao deletar o cliente: ", error)
+      })
+    }
   },
   setup() {
-    const userid = ref(false);
+    const formActive = ref(false);
+    const userId = ref(false);
 
-    function toggleModal(id) {
-      const modal = document.querySelector("#modal");
-      const fade = document.querySelector("#fade");
-      modal.classList.toggle("hide");
-      fade.classList.toggle("hide");
+    const toggleform = (id = false) => {
+      formActive.value = !formActive.value;
+      userId.value = false;
 
       if (id) {
-        userid.value = id;
+        userId.value = id;
+        console.log(userId.value);
       }
-    }
+    };
 
     return {
-      toggleModal,
-      userid,
+      formActive,
+      toggleform,
+      userId,
     };
-  },
+  }
 };
 </script>

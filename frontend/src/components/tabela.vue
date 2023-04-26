@@ -15,10 +15,10 @@
             <td>{{ dado.cpf }}</td>
             <td>{{ dado.telefone }}</td>
             <td>
-              <button class="btn-acoes" id="btn-editar" @click="toggle">
+              <button class="btn-acoes" id="btn-editar" @click="() => toggle(dado.id)">
                 <i class="fa-solid fa-pencil"></i>
               </button>
-              <button class="btn-acoes" id="btn-deletar">
+              <button class="btn-acoes" id="btn-deletar" @click="excluirCliente(dado.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
@@ -30,14 +30,15 @@
 </template>
 
 <script>
-
 export default {
   name: "tabela",
-  props: {
-    topoTabela: Array,
-    dados: Array,
-    toggle: Function
-  },
+  props: ["topoTabela", "dados", "toggle"],
+  methods: {
+    excluirCliente(id){
+      this.$emit("deletarCliente", id)
+    }
+  }
+  
 };
 </script>
 
