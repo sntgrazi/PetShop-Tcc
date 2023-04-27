@@ -43,10 +43,12 @@
         <span class="tooltip">Clientes</span>
       </li>
       <li>
+        <router-link to="/pets">
         <a href="#">
           <i class="fa-solid fa-dog"></i>
           <span class="links_name">Pets</span>
         </a>
+      </router-link>
         <span class="tooltip">Pets</span>
       </li>
       <li>

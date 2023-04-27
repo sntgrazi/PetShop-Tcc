@@ -27,7 +27,7 @@ import ApiController from "@/ApiController";
 import modal from "../components/modal.vue";
 import { ref } from "vue";
 
-export default {
+export default{
   name: "ClientesView",
   components: {
     tabela,

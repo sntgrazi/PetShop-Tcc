@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Clientes from '../views/ClientesView.vue'
-import Agenda from '../views/AgendaView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Clientes from '../views/ClientesView.vue';
+import Agenda from '../views/AgendaView.vue';
+import Pets from '../views/AnimaisView.vue';
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/',
     name: 'Agenda',
     component: Agenda
+  },
+  {
+    path: '/pets',
+    name: 'Pets',
+    component: Pets
   },
 ]
 

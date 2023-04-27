@@ -1,20 +1,18 @@
 <template>
-      <section>
+    <section>
     <div class="container">
-      <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
+      <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-        <modal
+          <modal
             v-if="formActive"
-            :tipo="'agenda'"
-            :icon="'fa-calendar'"
-            :mostrarInputsAgendamento="true"
+            :tipo="'Pets'"
+            :icon="'fa-paw'"
             :toggle="toggleform"
             :userId="userId"
           />
-          <tabela :topoTabela="topoTabela" />
+          <tabela :topoTabela="topoTabela" :toggle="toggleform" />
         </div>
-            <InfoAgenda />
       </div>
     </div>
   </section>
@@ -23,25 +21,22 @@
 <script>
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
-import ApiController from "@/ApiController";
 import modal from "../components/modal.vue";
-import InfoAgenda from "@/components/InfoAgenda.vue";
 import { ref } from "vue";
 
-export default {
+export default{
   name: "ClientesView",
   components: {
     tabela,
     topo,
-    modal,
-    InfoAgenda
-},
-  data() {
-    return {
-      topoTabela: ["Agenda"],
-    };
+    modal
   },
-  setup() {
+  data(){
+    return{
+        topoTabela: ["ID", "NOME", "RAÇA", "PELAGEM", "ESPECIE", "AÇÕES"],
+    }
+  },    
+  setup(){
     const formActive = ref(false);
     const userId = ref(false);
 
@@ -65,4 +60,5 @@ export default {
 </script>
 
 <style>
+
 </style>

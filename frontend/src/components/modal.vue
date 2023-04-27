@@ -2,12 +2,22 @@
   <div class="form-overlay"></div>
   <div class="modal" :class="{ active: active }">
     <div class="modal-header">
-      <i :class="['fa regular', icon]"></i>
-      <h2>{{ titulo }}</h2>
+      <div class="titulo-modal">
+        <i :class="['fa regular', icon]"></i>
+        <h2>{{ titulo }}</h2>
+      </div>
+      <button
+        type="button"
+        @click="() => toggle()"
+        id="close-modal"
+        class="close"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
     <div class="modal-body">
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
-        <div class="inputs">
+        <div class="form-inputs" v-show="etapaAtual === 1">
           <BaseInput
             :modelValue="cliente.nome_completo"
             @update:modelValue="
@@ -22,6 +32,14 @@
             :label="'Pets'"
             v-if="mostrarInputsCadastro"
           />
+          <div class="modal-footer">
+            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">
+              Próxima etapa
+            </button>
+          </div>
+        </div>
+
+        <div class="form-inputs" v-show="etapaAtual === 2">
           <BaseInput
             :modelValue="cliente.cpf"
             @update:modelValue="(newValue) => (cliente.cpf = newValue)"
@@ -34,17 +52,13 @@
             :label="'telefone'"
             v-if="mostrarInputsCadastro"
           />
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            @click="() => toggle()"
-            id="close-modal"
-            class="close"
-          >
-            Fechar
-          </button>
-          <button class="confirm">{{ botaoConfirm }}</button>
+          <div class="modal-footer">
+            <button type="button" class="proxima-etapa" @click="etapaAtual = 1"> <i class="fa-solid fa-arrow-left"></i>
+              Voltar
+            </button>
+
+            <button class="confirm">{{ botaoConfirm }}</button>
+          </div>
         </div>
       </form>
     </div>
@@ -73,10 +87,11 @@ export default {
   },
   data() {
     return {
+      etapaAtual: 1,
       cliente: {},
       titulo:
-        this.tipo === "cliente" ? "Cadastrar Cliente" : "Novo Agendamento",
-      botaoConfirm: this.tipo === "cliente" ? "Cadastrar" : "Agendar",
+        this.tipo === "cliente" ? "Cadastrar Cliente" : this.tipo == 'Pets' ? "Novo Pet" : "Novo Agendamento",
+      botaoConfirm: this.tipo === "cliente" || this.tipo === "Pets" ? "Cadastrar" : "Agendar",
     };
   },
   methods: {
@@ -140,7 +155,7 @@ export default {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 450px;
+  width: 400px;
   max-width: 90%;
   background-color: #4d72d6;
   padding: 1.2rem;
@@ -160,34 +175,35 @@ export default {
 
 .modal-header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ccc;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   color: #ffffff;
-  gap: 20px;
 }
-
 .modal-header i {
   font-size: 30px;
+}
+
+.titulo-modal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-}
-
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin: 5px auto;
+  align-items: center;
 }
 
 .form-inputs {
   display: flex;
   flex-direction: column;
+ 
 }
 
 .form-inputs label {
@@ -195,7 +211,7 @@ form {
 }
 
 .form-inputs input {
-  width: 220px;
+  width: 300px;
   height: 35px;
   border: none;
   border-radius: 10px;
@@ -212,16 +228,14 @@ form {
 
 .modal-footer {
   margin-top: 1rem;
-  border-top: 1px solid #ccc;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
 .modal-footer button {
-  margin: 20px 0px 10px;
+  background-color: #010d55;
   padding: 0.6rem 1.2rem;
-  background-color: #888;
   color: #fff;
   border: none;
   border-radius: 0.25rem;
@@ -230,11 +244,20 @@ form {
   font-size: 1rem;
 }
 
+.modal-footer button i{
+  margin-right: 5px;
+}
+
+
 .modal-footer .confirm {
   background-color: #010d55;
 }
 
-.modal-footer .close {
-  background-color: #9e0101;
+.close {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #fff;
 }
+
 </style>

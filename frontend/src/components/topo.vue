@@ -16,7 +16,7 @@ export default {
   props: ["type", "icon", "toggle"],
   data() {
     return {
-      botaoAdd: this.type === "Clientes" ? "Novo Cliente" : "Novo Agendamento"
+      botaoAdd: this.type === "Clientes" ? "Novo Cliente" : this.type === "Pets" ? "Novo Pet" : "Novo Agendamento"
     };
   }
 };
