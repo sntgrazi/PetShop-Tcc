@@ -6,54 +6,57 @@
         <i :class="['fa regular', icon]"></i>
         <h2>{{ titulo }}</h2>
       </div>
-      <button
-        type="button"
-        @click="() => toggle()"
-        id="close-modal"
-        class="close"
-      >
+      <button type="button" @click="() => toggle()" id="close-modal" class="close">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
     <div class="modal-body">
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
+
         <div class="form-inputs" v-show="etapaAtual === 1">
-          <BaseInput
-            :modelValue="cliente.nome_completo"
-            @update:modelValue="
-              (newValue) => (cliente.nome_completo = newValue)
-            "
-            :label="'Nome'"
-            v-if="mostrarInputsCadastro"
-          />
-          <BaseInput
-            :modelValue="cliente.qtd_pets"
-            @update:modelValue="(newValue) => (cliente.qtd_pets = newValue)"
-            :label="'Pets'"
-            v-if="mostrarInputsCadastro"
-          />
+          
+          <BaseInput :modelValue="cliente.nome_completo" @update:modelValue="(newValue) => (cliente.nome_completo = newValue)
+            " :label="'Nome'" v-if="mostrarInputsCadastro" :idInput="'inputName'" />
+            
+          <div class="colunaForm">
+            <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) => (cliente.cpf = newValue)"
+              :label="'Cpf'" v-if="mostrarInputsCadastro" :idInput="'inputCpf'" />
+            <BaseInput :modelValue="cliente.rg" @update:modelValue="(newValue) => (cliente.rg = newValue)" :label="'Rg'"
+              v-if="mostrarInputsCadastro" :idInput="'inputRg'" />
+          </div>
+
+          <div class="colunaForm">
+            <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) => (cliente.telefone = newValue)"
+              :label="'Telefone'" v-if="mostrarInputsCadastro" :idInput="'inputTelefone'" />
+            <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) => (cliente.email = newValue)"
+              :label="'Email'" v-if="mostrarInputsCadastro" :idInput="'inputEmail'" />
+              
+          </div>
+
           <div class="modal-footer">
-            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">
-              Próxima etapa
-            </button>
+            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">Próxima etapa</button>
           </div>
         </div>
 
         <div class="form-inputs" v-show="etapaAtual === 2">
-          <BaseInput
-            :modelValue="cliente.cpf"
-            @update:modelValue="(newValue) => (cliente.cpf = newValue)"
-            :label="'Cpf'"
-            v-if="mostrarInputsCadastro"
-          />
-          <BaseInput
-            :modelValue="cliente.telefone"
-            @update:modelValue="(newValue) => (cliente.telefone = newValue)"
-            :label="'telefone'"
-            v-if="mostrarInputsCadastro"
-          />
+         <div class="colunaForm">
+          <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)" :label="'Cep'"
+            v-if="mostrarInputsCadastro" :idInput="'inputCep'" />
+            <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
+            v-if="mostrarInputsCadastro" :idInput="'inputUf'" />
+            <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'Bairro'"
+            v-if="mostrarInputsCadastro" :idInput="'inputBairro'" />
+         </div>
+         <div class="colunaForm">
+          <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Rua'"
+            v-if="mostrarInputsCadastro" :idInput="'inputRua'" />
+            <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'N°'"
+            v-if="mostrarInputsCadastro" :idInput="'inputN_Casa'" />
+         </div>
+         
           <div class="modal-footer">
-            <button type="button" class="proxima-etapa" @click="etapaAtual = 1"> <i class="fa-solid fa-arrow-left"></i>
+            <button type="button" class="proxima-etapa" @click="etapaAtual = 1">
+              <i class="fa-solid fa-arrow-left"></i>
               Voltar
             </button>
 
@@ -80,18 +83,25 @@ export default {
     "mostrarInputsAgendamento",
     "toggle",
     "active",
-    "getClientes",
+    "getClientes"
   ],
   components: {
-    BaseInput,
+    BaseInput
   },
   data() {
     return {
       etapaAtual: 1,
       cliente: {},
       titulo:
-        this.tipo === "cliente" ? "Cadastrar Cliente" : this.tipo == 'Pets' ? "Novo Pet" : "Novo Agendamento",
-      botaoConfirm: this.tipo === "cliente" || this.tipo === "Pets" ? "Cadastrar" : "Agendar",
+        this.tipo === "cliente"
+          ? "Cadastrar Cliente"
+          : this.tipo == "Pets"
+            ? "Novo Pet"
+            : "Novo Agendamento",
+      botaoConfirm:
+        this.tipo === "cliente" || this.tipo === "Pets"
+          ? "Cadastrar"
+          : "Agendar"
     };
   },
   methods: {
@@ -103,7 +113,7 @@ export default {
             this.toggle();
             this.cliente = {};
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
           });
       } else {
@@ -117,35 +127,35 @@ export default {
           this.toggle();
           this.cliente = {};
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
     async Cliente() {
       ApiController.cliente(this.userId)
-        .then((cliente) => {
+        .then(cliente => {
           this.cliente = cliente;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
     async Cliente() {
       ApiController.cliente(this.userId)
-        .then((cliente) => {
+        .then(cliente => {
           this.cliente = cliente;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
-    },
+    }
   },
   mounted() {
     if (this.userId != false) {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
       this.Cliente();
     }
-  },
+  }
 };
 </script>
 
@@ -155,7 +165,7 @@ export default {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  width: 500px;
   max-width: 90%;
   background-color: #4d72d6;
   padding: 1.2rem;
@@ -182,6 +192,7 @@ export default {
   padding-bottom: 1rem;
   color: #ffffff;
 }
+
 .modal-header i {
   font-size: 30px;
 }
@@ -203,7 +214,7 @@ form {
 .form-inputs {
   display: flex;
   flex-direction: column;
- 
+  gap: 10px;
 }
 
 .form-inputs label {
@@ -211,13 +222,13 @@ form {
 }
 
 .form-inputs input {
-  width: 300px;
+  width: 280px;
   height: 35px;
   border: none;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 0.4rem 0.8rem #0005;
-  font-size: 0.9em;
+  font-size: 1em;
   background-color: #fff;
 }
 
@@ -225,6 +236,43 @@ form {
 .form-inputs input[type="time"] {
   width: 220px;
 }
+
+.colunaForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+#inputName {
+  width: 440px;
+}
+
+.colunaForm #inputCpf,
+#inputRg,
+#inputTelefone,
+#inputEmail , #inputCep{
+  width: 210px;
+}
+
+.colunaForm #inputBairro{
+  width: 160px;
+}
+
+.colunaForm #inputUf{
+  width: 60px;
+}
+
+.colunaForm #inputRua{
+  width: 290px;
+}
+
+.colunaForm #inputN_Casa{
+  width: 160px;
+}
+
+
 
 .modal-footer {
   margin-top: 1rem;
@@ -244,10 +292,9 @@ form {
   font-size: 1rem;
 }
 
-.modal-footer button i{
+.modal-footer button i {
   margin-right: 5px;
 }
-
 
 .modal-footer .confirm {
   background-color: #010d55;
@@ -259,5 +306,4 @@ form {
   cursor: pointer;
   color: #fff;
 }
-
 </style>
