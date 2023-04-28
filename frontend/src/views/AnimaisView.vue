@@ -20,7 +20,7 @@
 
 <script>
 import tabela from "@/components/tabela.vue";
-import topo from "@/components/topo.vue";
+import topo from "@/components/topo.vue";t
 import modal from "../components/modal.vue";
 import { ref } from "vue";
 
