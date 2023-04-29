@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ApiUrl = 'http://localhost:84';
+const ApiUrl = 'https://tcc-teste.herokuapp.com';
 
 export default{
     async getClientes(){
