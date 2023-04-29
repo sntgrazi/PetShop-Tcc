@@ -34,7 +34,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">Próxima etapa</button>
+            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">Próximo</button>
           </div>
         </div>
 
@@ -317,6 +317,10 @@ form {
 
   .colunaForm input, #inputName, .colunaForm #inputUf, .colunaForm #inputBairro, .colunaForm #inputRua, .colunaForm #inputN_Casa{
     width: 210px;
+  }
+
+  .modal-footer{
+    gap: 20px;
   }
 
 }
