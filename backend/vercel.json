@@ -1,15 +1,13 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "routes/index.php",
-        "use": "@vercel/php-runtime"
+    "functions": {
+      "routes/*.php": {
+        "runtime": "vercel-php@0.4.0"
       }
-    ],
+    },
     "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/routes/index.php"
-      }
-    ]
-  }
+        { "src": "/(.*)", "dest": "/rotas/index.php" }
+    ],
+    "builds": {
+        "routes/*.php": "composer install && composer run-script build"
+    }
+}
