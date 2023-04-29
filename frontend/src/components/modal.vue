@@ -306,4 +306,24 @@ form {
   cursor: pointer;
   color: #fff;
 }
+
+
+@media screen and (max-width: 750px) {
+  .colunaForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .colunaForm input, #inputName, .colunaForm #inputUf, .colunaForm #inputBairro, .colunaForm #inputRua, .colunaForm #inputN_Casa{
+    width: 210px;
+  }
+
+}
+@media screen and (max-width: 350px) {
+  #modal {
+    position: absolute;
+    margin-top: 3rem;
+  }
+}
 </style>
