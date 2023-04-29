@@ -1,7 +1,4 @@
 {
-    "scripts": {
-        "build": "composer install && php -d phar.readonly=0 bin/compile"
-    },
     "require": {
         "slim/slim": "^4.11",
         "slim/psr7": "^1.6",
