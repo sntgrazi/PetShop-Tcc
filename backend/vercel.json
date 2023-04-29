@@ -6,8 +6,5 @@
     },
     "routes": [
         { "src": "/(.*)", "dest": "/rotas/index.php" }
-    ],
-    "builds": {
-        "routes/*.php": "composer install && composer run-script build"
-    }
+    ]
 }
