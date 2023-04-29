@@ -8,14 +8,13 @@ use Slim\Middleware\CorsMiddleware;
 require "../vendor/autoload.php";
 
 
-header('Access-Control-Allow-Origin: *');
-
-header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
-
-header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-
-
 $app = AppFactory::create();
+
+$app->add(new CorsMiddleware([
+    "origin" => ["*"],
+    "methods" => ["GET", "POST", "PUT", "DELETE"],
+    "headers.allow" => ["Authorization", "Content-Type", "X-Requested-With"],
+]));
 
 $app->addBodyParsingMiddleware();
 
