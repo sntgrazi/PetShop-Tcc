@@ -5,7 +5,7 @@ use Slim\Middleware\BodyParsingMiddleware;
 use App\Controller\ClienteController;
 use Slim\Middleware\CorsMiddleware;
 
-require "../vendor/autoload.php";
+require "vendor/autoload.php";
 
 
 header('Access-Control-Allow-Origin: *');
