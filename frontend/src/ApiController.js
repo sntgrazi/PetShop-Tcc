@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ApiUrl = 'https://petshoptcc.herokuapp.com';
+const ApiUrl = ' https://0c17-177-8-129-153.sa.ngrok.io';
 
 export default{
     async getClientes(){
