@@ -24,8 +24,8 @@ $app->addBodyParsingMiddleware();
 $app->AddErrorMiddleware(true,true,true);
 
 $app->get('/', function(Request $Request, Response $Response, $args){
-    $response->getBody()->write("Olá Mundo");
-    return $response;
+    $Response->getBody()->write("Olá Mundo");
+    return $Response;
 });    
 
 
