@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ApiUrl = ' https://0c17-177-8-129-153.sa.ngrok.io';
+const ApiUrl = 'https://1009-177-8-129-153.sa.ngrok.io';
 
 export default{
     async getClientes(){
