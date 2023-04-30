@@ -1,25 +1,22 @@
-FROM php:7.4-apache
+# Define a imagem base
+FROM php:8.0-apache
 
-WORKDIR /var/www/html
-
-COPY . /var/www/html
-
-RUN apt-get add --no-cache zip libzip-dev
+# Atualiza o gerenciador de pacotes e instala as dependências necessárias
 RUN apt-get update && \
     apt-get install -y \
         libicu-dev \
+        libzip-dev \
         unzip && \
     docker-php-ext-configure intl && \
     docker-php-ext-install intl pdo pdo_mysql zip && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer install --no-interaction --no-dev --optimize-autoloader
 
-ENV APACHE_DOCUMENT_ROOT /var/www/html
+# Copia o código fonte da sua aplicação para o diretório /var/www/html
+COPY . /var/www/html/
 
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
-    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
-    a2enmod rewrite
-
+# Expõe a porta 80 para o tráfego HTTP
 EXPOSE 80
 
+# Inicia o servidor Apache
 CMD ["apache2-foreground"]
