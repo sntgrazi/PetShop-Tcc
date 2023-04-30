@@ -11,3 +11,5 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 
 CMD ["apache2-foreground"]
+
+RUN a2enmod rewrite

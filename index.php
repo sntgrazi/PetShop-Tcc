@@ -23,6 +23,7 @@ $app->addBodyParsingMiddleware();
 
 $app->AddErrorMiddleware(true,true,true);
 
+
 $app->get('/clientes', ClienteController::class . ':getClientes');    
 $app->get('/cliente/{id}', ClienteController::class . ':getCliente');                            
 $app->post('/inserir', ClienteController::class . ':insertCliente');
