@@ -8,13 +8,6 @@ WORKDIR /app
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
-
-RUN sed -i -e 's!/var/www/html!/app!' /etc/apache2/sites-available/*.conf && \
-    sed -i -e 's!/var/www/!/app/!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-ENV APACHE_DOCUMENT_ROOT /app
-
-EXPOSE 80
+RUN composer install --no-dev --optimize-autoloader
 
 CMD ["apache2-foreground"]
