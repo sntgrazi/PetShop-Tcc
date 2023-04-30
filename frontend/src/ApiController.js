@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ApiUrl = 'https://tcc-teste.herokuapp.com';
+const ApiUrl = 'https://petshoptcc.herokuapp.com';
 
 export default{
     async getClientes(){
