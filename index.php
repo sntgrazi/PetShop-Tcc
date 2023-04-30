@@ -23,7 +23,7 @@ $app->addBodyParsingMiddleware();
 
 $app->AddErrorMiddleware(true,true,true);
 
-$app->get('/', function($Request, $Response, $args){
+$app->get('/', function(Request $Request, Response $Response, $args){
     $response->getBody()->write("Olá Mundo");
     return $response;
 });    
