@@ -377,6 +377,7 @@ form {
   margin-left: 260px;
   padding: 15px;
   outline: none;
+  box-shadow: none;
 }
 }
 
