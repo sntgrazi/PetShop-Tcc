@@ -375,6 +375,7 @@ form {
   cursor: pointer;
   margin-bottom: 75px;
   margin-left: 260px;
+  padding: 15px;
 }
 }
 
