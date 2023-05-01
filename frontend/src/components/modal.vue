@@ -14,10 +14,9 @@
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
 
         <div class="form-inputs" v-show="etapaAtual === 1">
-          
           <BaseInput :modelValue="cliente.nome_completo" @update:modelValue="(newValue) => (cliente.nome_completo = newValue)
             " :label="'Nome'" v-if="mostrarInputsCadastro" :idInput="'inputName'" />
-            
+
           <div class="colunaForm">
             <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) => (cliente.cpf = newValue)"
               :label="'Cpf'" v-if="mostrarInputsCadastro" :idInput="'inputCpf'" />
@@ -30,40 +29,37 @@
               :label="'Telefone'" v-if="mostrarInputsCadastro" :idInput="'inputTelefone'" />
             <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) => (cliente.email = newValue)"
               :label="'Email'" v-if="mostrarInputsCadastro" :idInput="'inputEmail'" />
-              
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">Próximo</button>
+            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">
+              Próximo
+            </button>
           </div>
         </div>
-
         <div class="form-inputs" v-show="etapaAtual === 2">
-         <div class="colunaForm">
-          <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)" :label="'Cep'"
-            v-if="mostrarInputsCadastro" :idInput="'inputCep'" />
-            <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'Bairro'"
-            v-if="mostrarInputsCadastro" :idInput="'inputBairro'" />
-           
-           
-         </div>
-         <div class="colunaForm">
-       
-          <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => (cliente.rua = newValue)" :label="'Rua'"
-            v-if="mostrarInputsCadastro" :idInput="'inputRua'" />
-           
-         </div>
+          <div class="colunaForm">
+            <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)"
+              :label="'Cep'" v-if="mostrarInputsCadastro" :idInput="'inputCep'" />
+              <button type="button" class="btn-pesquisar" @click="procurarEndereço"><i class="fa-solid fa-magnifying-glass"></i></button>
+              
+            <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)"
+              :label="'Bairro'" v-if="mostrarInputsCadastro" :idInput="'inputBairro'" />
+          </div>
+          <div class="colunaForm">
+            <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => (cliente.rua = newValue)"
+              :label="'Rua'" v-if="mostrarInputsCadastro" :idInput="'inputRua'" />
+          </div>
 
-         <div class="colunaForm">
-        
-            <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) => (cliente.cidade = newValue)" :label="'Cidade'"
-            v-if="mostrarInputsCadastro" :idInput="'inputCidade'" />
+          <div class="colunaForm">
+            <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) => (cliente.cidade = newValue)"
+              :label="'Cidade'" v-if="mostrarInputsCadastro" :idInput="'inputCidade'" />
             <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
-            v-if="mostrarInputsCadastro" :idInput="'inputUf'" />
-            <BaseInput :modelValue="cliente.N_casa" @update:modelValue="(newValue) => (cliente.N_casa = newValue)" :label="'N°'"
-            v-if="mostrarInputsCadastro" :idInput="'inputN_Casa'" />
-         </div>
-         
+              v-if="mostrarInputsCadastro" :idInput="'inputUf'" />
+            <BaseInput :modelValue="cliente.N_casa" @update:modelValue="(newValue) => (cliente.N_casa = newValue)"
+              :label="'N°'" v-if="mostrarInputsCadastro" :idInput="'inputN_Casa'" />
+          </div>
+
           <div class="modal-footer">
             <button type="button" class="proxima-etapa" @click="etapaAtual = 1">
               <i class="fa-solid fa-arrow-left"></i>
@@ -73,6 +69,7 @@
             <button class="confirm">{{ botaoConfirm }}</button>
           </div>
         </div>
+
       </form>
     </div>
   </div>
@@ -93,10 +90,10 @@ export default {
     "mostrarInputsAgendamento",
     "toggle",
     "active",
-    "getClientes"
+    "getClientes",
   ],
   components: {
-    BaseInput
+    BaseInput,
   },
   data() {
     return {
@@ -111,7 +108,7 @@ export default {
       botaoConfirm:
         this.tipo === "cliente" || this.tipo === "Pets"
           ? "Cadastrar"
-          : "Agendar"
+          : "Agendar",
     };
   },
   methods: {
@@ -123,7 +120,7 @@ export default {
             this.toggle();
             this.cliente = {};
           })
-          .catch(error => {
+          .catch((error) => {
             console.log(error);
           });
       } else {
@@ -137,27 +134,37 @@ export default {
           this.toggle();
           this.cliente = {};
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
     async Cliente() {
       ApiController.cliente(this.userId)
-        .then(cliente => {
+        .then((cliente) => {
           this.cliente = cliente;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     },
     async Cliente() {
       ApiController.cliente(this.userId)
-        .then(cliente => {
+        .then((cliente) => {
           this.cliente = cliente;
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
+    },
+
+    procurarEndereço(){
+      const url = `https://viacep.com.br/ws/${this.cliente.cep}/json/`;
+      fetch(url).then(response => response.json()).then(data =>{
+        this.cliente.rua = data.logradouro;
+        this.cliente.bairro = data.bairro;
+        this.cliente.uf = data.uf;
+        this.cliente.cidade = data.localidade;
+      }).catch(error => console.error(error));
     }
   },
   mounted() {
@@ -165,7 +172,7 @@ export default {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
       this.Cliente();
     }
-  }
+  },
 };
 </script>
 
@@ -262,27 +269,27 @@ form {
 .colunaForm #inputCpf,
 #inputRg,
 #inputTelefone,
-#inputEmail , #inputCep{
+#inputEmail,
+#inputCep {
   width: 210px;
 }
 
-.colunaForm #inputBairro{
+.colunaForm #inputBairro {
   width: 170px;
 }
 
-.colunaForm #inputUf, .colunaForm #inputN_Casa{
+.colunaForm #inputUf,
+.colunaForm #inputN_Casa {
   width: 70px;
 }
 
-.colunaForm #inputRua{
+.colunaForm #inputRua {
   width: 400px;
 }
 
-.colunaForm #inputCidade{
+.colunaForm #inputCidade {
   width: 220px;
 }
-
-
 
 .modal-footer {
   margin-top: 1rem;
@@ -317,24 +324,60 @@ form {
   color: #fff;
 }
 
+#inputCep {
+  padding-right: 40px; /* Espaçamento para o botão */
+}
+
+.btn-pesquisar {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-right: 20px;
+}
 
 @media screen and (max-width: 750px) {
   .colunaForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    
   }
 
-  .colunaForm #inputCpf, .colunaForm #inputRg, .colunaForm #inputTelefone, .colunaForm #inputEmail, #inputName,.colunaForm #inputCep,.colunaForm #inputCidade, .colunaForm #inputUf, .colunaForm #inputBairro, .colunaForm #inputRua, .colunaForm #inputN_Casa{
+  .colunaForm #inputCpf,
+  .colunaForm #inputRg,
+  .colunaForm #inputTelefone,
+  .colunaForm #inputEmail,
+  #inputName,
+  .colunaForm #inputCep,
+  .colunaForm #inputCidade,
+  .colunaForm #inputUf,
+  .colunaForm #inputBairro,
+  .colunaForm #inputRua,
+  .colunaForm #inputN_Casa {
     width: 300px;
   }
 
-  .modal-footer{
+  .modal-footer {
     gap: 20px;
   }
 
+  #inputCep {
+  padding-right: 40px; /* Espaçamento para o botão */
 }
+
+.btn-pesquisar {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  margin-bottom: 75px;
+  margin-left: 260px;
+}
+}
+
 @media screen and (max-width: 350px) {
   #modal {
     position: absolute;
