@@ -42,15 +42,25 @@
          <div class="colunaForm">
           <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)" :label="'Cep'"
             v-if="mostrarInputsCadastro" :idInput="'inputCep'" />
-            <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
-            v-if="mostrarInputsCadastro" :idInput="'inputUf'" />
             <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'Bairro'"
             v-if="mostrarInputsCadastro" :idInput="'inputBairro'" />
+           
+           
          </div>
          <div class="colunaForm">
-          <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Rua'"
+       
+          <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => (cliente.rua = newValue)" :label="'Rua'"
             v-if="mostrarInputsCadastro" :idInput="'inputRua'" />
-            <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'N°'"
+           
+         </div>
+
+         <div class="colunaForm">
+        
+            <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) => (cliente.cidade = newValue)" :label="'Cidade'"
+            v-if="mostrarInputsCadastro" :idInput="'inputCidade'" />
+            <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
+            v-if="mostrarInputsCadastro" :idInput="'inputUf'" />
+            <BaseInput :modelValue="cliente.N_casa" @update:modelValue="(newValue) => (cliente.N_casa = newValue)" :label="'N°'"
             v-if="mostrarInputsCadastro" :idInput="'inputN_Casa'" />
          </div>
          
@@ -228,7 +238,7 @@ form {
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 0.4rem 0.8rem #0005;
-  font-size: 1em;
+  font-size: 1.2em;
   background-color: #fff;
 }
 
@@ -257,19 +267,19 @@ form {
 }
 
 .colunaForm #inputBairro{
-  width: 160px;
+  width: 170px;
 }
 
-.colunaForm #inputUf{
-  width: 60px;
+.colunaForm #inputUf, .colunaForm #inputN_Casa{
+  width: 70px;
 }
 
 .colunaForm #inputRua{
-  width: 290px;
+  width: 400px;
 }
 
-.colunaForm #inputN_Casa{
-  width: 160px;
+.colunaForm #inputCidade{
+  width: 220px;
 }
 
 
@@ -313,10 +323,11 @@ form {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    
   }
 
-  .colunaForm input, #inputName, .colunaForm #inputUf, .colunaForm #inputBairro, .colunaForm #inputRua, .colunaForm #inputN_Casa{
-    width: 210px;
+  .colunaForm #inputCpf, .colunaForm #inputRg, .colunaForm #inputTelefone, .colunaForm #inputEmail, #inputName,.colunaForm #inputCep,.colunaForm #inputCidade, .colunaForm #inputUf, .colunaForm #inputBairro, .colunaForm #inputRua, .colunaForm #inputN_Casa{
+    width: 300px;
   }
 
   .modal-footer{
