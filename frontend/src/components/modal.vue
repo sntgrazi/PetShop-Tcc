@@ -78,6 +78,9 @@
 <script>
 import ApiController from "@/ApiController";
 import BaseInput from "./BaseInput.vue";
+import Swal from "sweetalert2";
+
+
 export default {
   name: "Modal",
   emits: ["atualizarTabela"],
@@ -119,6 +122,11 @@ export default {
             this.$emit("atualizarTabela");
             this.toggle();
             this.cliente = {};
+            Swal.fire(
+              '',
+              'Cliente cadastrado com sucesso!',
+              'success'
+            )
           })
           .catch((error) => {
             console.log(error);
