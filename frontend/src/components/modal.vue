@@ -41,7 +41,7 @@
           <div class="colunaForm">
             <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)"
               :label="'Cep'" v-if="mostrarInputsCadastro" :idInput="'inputCep'" />
-              <button type="button" class="btn-pesquisar" @click="procurarEndereço"><i class="fa-solid fa-magnifying-glass"></i></button>
+              <button type="button" class="btn-pesquisar" @click="procurarEndereço" v-if="mostrarInputsCadastro "><i class="fa-solid fa-magnifying-glass"></i></button>
               
             <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)"
               :label="'Bairro'" v-if="mostrarInputsCadastro" :idInput="'inputBairro'" />
@@ -98,6 +98,7 @@ export default {
     return {
       etapaAtual: 1,
       cliente: { },
+      endereco: {},
       titulo:
         this.tipo === "cliente"
           ? "Cadastrar Cliente"
@@ -132,26 +133,24 @@ export default {
           this.$emit("atualizarTabela");
           this.toggle();
           this.cliente = {};
+
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    async Cliente() {
-      ApiController.cliente(this.userId)
-        .then((item) => {
-            this.cliente = {
-              bairro: item.endereco
-            };
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+
     async Cliente() {
       ApiController.cliente(this.userId)
         .then((cliente) => {
-          this.cliente = cliente;
+         this.cliente = cliente
+         this.endereco = cliente.endereco.split(",")
+         this.cliente.cep = this.endereco[0]
+         this.cliente.bairro = this.endereco[1]
+         this.cliente.rua = this.endereco[2]
+         this.cliente.cidade = this.endereco[3]
+         this.cliente.uf = this.endereco[4]
+         this.cliente.n_casa = this.endereco[5]
         })
         .catch((error) => {
           console.log(error);

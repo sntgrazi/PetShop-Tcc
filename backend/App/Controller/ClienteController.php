@@ -67,10 +67,17 @@ final class ClienteController {
        $clienteDAO = new ClienteDAO();
        $clienteModel = new ClienteModel();
        $clienteModel->setId($id)
-                    ->setNome($data['nome_completo']) 
-                    ->setPets($data['qtd_pets'])
+                    ->setNome($data['nome']) 
+                    ->setTelefone($data['telefone'])
                     ->setCpf($data['cpf'])
-                    ->setTelefone($data['telefone']);
+                    ->setEmail($data['email'])
+                    ->setRg($data['rg'])
+                    ->setCep($data['cep'])
+                    ->setBairro($data['bairro'])
+                    ->setRua($data['rua'])
+                    ->setCidade($data['cidade'])
+                    ->setUf($data['uf'])
+                    ->setN_casa($data['n_casa']);
        $clienteDAO->updateCliente($clienteModel);
 
        $response->getBody()->write(json_encode(['message' => 'Cliente atualziado com sucesso']));
