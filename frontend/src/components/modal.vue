@@ -119,14 +119,15 @@ export default {
       if (this.tipo == "cliente") {
         ApiController.cadastrarCliente(this.cliente)
           .then(() => {
-            this.$emit("atualizarTabela");
-            this.toggle();
-            this.cliente = {};
             Swal.fire(
               '',
               'Cliente cadastrado com sucesso!',
               'success'
             )
+            this.$emit("atualizarTabela");
+            this.toggle();
+            this.cliente = {};
+           
           })
           .catch((error) => {
             console.log(error);
@@ -138,6 +139,11 @@ export default {
     async editarForm() {
       ApiController.editarCliente(this.userId, this.cliente)
         .then(() => {
+          Swal.fire(
+              '',
+              'Cliente atualizado com sucesso!',
+              'success'
+            )
           this.$emit("atualizarTabela");
           this.toggle();
           this.cliente = {};

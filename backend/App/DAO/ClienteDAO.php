@@ -46,7 +46,7 @@ class ClienteDAO extends ConexaoDAO{
     }
 
     public function updateCliente(ClienteModel $cliente): void {
-        $sql = 'UPDATE clientes SET nome = :nome, telefone = :teledone, cpf = :cpf , rg = :rg, email = :email, endereco = :endereco WHERE id = :id';
+        $sql = 'UPDATE clientes SET nome = :nome, telefone = :telefone, cpf = :cpf , rg = :rg, email = :email, endereco = :endereco WHERE id = :id';
 
         $stm = $this->pdo->prepare($sql);
 
