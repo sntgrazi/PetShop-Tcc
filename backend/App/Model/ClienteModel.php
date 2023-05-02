@@ -8,11 +8,26 @@ final class ClienteModel{
 
     private $nome;
 
-    private $pets;
+    private $telefone;
 
     private $cpf;
 
-    private $telefone;
+    private $email;
+
+    private $rg;
+
+    private $cep;
+
+    private $bairro;
+
+    private $rua;
+
+    private $cidade;
+
+    private $uf;
+
+    private $n_casa;
+
 
     public function getId(): int{
         return $this->id;
@@ -32,12 +47,12 @@ final class ClienteModel{
         return $this;
     }
 
-    public function getPets(): string{
-        return $this->pets;
+    public function getEmail(): string{
+        return $this->email;
     }
 
-    public function setPets(string $pets): ClienteModel{
-        $this->pets = $pets;
+    public function setEmail(string $email): ClienteModel{
+        $this->email = $email;
         return $this;
     }
 
@@ -50,6 +65,14 @@ final class ClienteModel{
         return $this;
     }
 
+    public function getRg(): string{
+        return $this->rg;
+    }
+
+    public function setRg(string $rg): ClienteModel{
+        $this->rg = $rg;
+        return $this;
+    }
 
     public function getTelefone(): string{
         return $this->telefone;
@@ -60,6 +83,58 @@ final class ClienteModel{
         return $this;
     }
 
+    public function getCep(): string{
+        return $this->cep;
+    }
+
+    public function setCep(string $cep): ClienteModel{
+        $this->cep = $cep;
+        return $this;
+    }
+
+    public function getBairro(): string{
+        return $this->bairro;
+    }
+
+    public function setBairro(string $bairro): ClienteModel{
+        $this->bairro = $bairro;
+        return $this;
+    }
+
+    public function getRua(): string{
+        return $this->rua;
+    }
+
+    public function setRua(string $rua): ClienteModel{
+        $this->rua = $rua;
+        return $this;
+    }
+
+    public function getCidade(): string{
+        return $this->cidade;
+    }
+
+    public function setCidade(string $cidade): ClienteModel{
+        $this->cidade = $cidade;
+        return $this;
+    }
+
+    public function getUf(): string{
+        return $this->uf;
+    }
+
+    public function setUf(string $uf): ClienteModel{
+        $this->uf = $uf;
+        return $this;
+    }
+
+    public function getN_casa(): string{
+        return $this->n_casa;
+    }
+
+    public function setN_casa(string $n_casa): ClienteModel{
+        $this->n_casa = $n_casa;
+        return $this;
+    }
+
 }
-
-

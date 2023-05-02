@@ -14,7 +14,7 @@
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
 
         <div class="form-inputs" v-show="etapaAtual === 1">
-          <BaseInput :modelValue="cliente.nome_completo" @update:modelValue="(newValue) => (cliente.nome_completo = newValue)
+          <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) => (cliente.nome = newValue)
             " :label="'Nome'" v-if="mostrarInputsCadastro" :idInput="'inputName'" />
 
           <div class="colunaForm">
@@ -56,7 +56,7 @@
               :label="'Cidade'" v-if="mostrarInputsCadastro" :idInput="'inputCidade'" />
             <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
               v-if="mostrarInputsCadastro" :idInput="'inputUf'" />
-            <BaseInput :modelValue="cliente.N_casa" @update:modelValue="(newValue) => (cliente.N_casa = newValue)"
+            <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) => (cliente.n_casa = newValue)"
               :label="'N°'" v-if="mostrarInputsCadastro" :idInput="'inputN_Casa'" />
           </div>
 
@@ -78,7 +78,6 @@
 <script>
 import ApiController from "@/ApiController";
 import BaseInput from "./BaseInput.vue";
-
 export default {
   name: "Modal",
   emits: ["atualizarTabela"],
@@ -98,7 +97,7 @@ export default {
   data() {
     return {
       etapaAtual: 1,
-      cliente: {},
+      cliente: { },
       titulo:
         this.tipo === "cliente"
           ? "Cadastrar Cliente"
@@ -140,8 +139,10 @@ export default {
     },
     async Cliente() {
       ApiController.cliente(this.userId)
-        .then((cliente) => {
-          this.cliente = cliente;
+        .then((item) => {
+            this.cliente = {
+              bairro: item.endereco
+            };
         })
         .catch((error) => {
           console.log(error);
@@ -156,7 +157,6 @@ export default {
           console.log(error);
         });
     },
-
     procurarEndereço(){
       const url = `https://viacep.com.br/ws/${this.cliente.cep}/json/`;
       fetch(url).then(response => response.json()).then(data =>{
@@ -189,7 +189,6 @@ export default {
   border-radius: 0.5rem;
   z-index: 10;
 }
-
 .form-overlay {
   position: fixed;
   top: 0;
@@ -199,7 +198,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 5;
 }
-
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -209,11 +207,9 @@ export default {
   padding-bottom: 1rem;
   color: #ffffff;
 }
-
 .modal-header i {
   font-size: 30px;
 }
-
 .titulo-modal {
   display: flex;
   flex-direction: row;
@@ -221,23 +217,19 @@ export default {
   justify-content: center;
   gap: 20px;
 }
-
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .form-inputs {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
 .form-inputs label {
   color: white;
 }
-
 .form-inputs input {
   width: 280px;
   height: 35px;
@@ -248,12 +240,10 @@ form {
   font-size: 1.2em;
   background-color: #fff;
 }
-
 .form-inputs input[type="date"],
 .form-inputs input[type="time"] {
   width: 220px;
 }
-
 .colunaForm {
   display: flex;
   flex-direction: row;
@@ -261,11 +251,9 @@ form {
   justify-content: center;
   gap: 20px;
 }
-
 #inputName {
   width: 440px;
 }
-
 .colunaForm #inputCpf,
 #inputRg,
 #inputTelefone,
@@ -273,31 +261,25 @@ form {
 #inputCep {
   width: 210px;
 }
-
 .colunaForm #inputBairro {
   width: 170px;
 }
-
 .colunaForm #inputUf,
 .colunaForm #inputN_Casa {
   width: 70px;
 }
-
 .colunaForm #inputRua {
   width: 400px;
 }
-
 .colunaForm #inputCidade {
   width: 220px;
 }
-
 .modal-footer {
   margin-top: 1rem;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
-
 .modal-footer button {
   background-color: #010d55;
   padding: 0.6rem 1.2rem;
@@ -308,26 +290,21 @@ form {
   opacity: 0.9;
   font-size: 1rem;
 }
-
 .modal-footer button i {
   margin-right: 5px;
 }
-
 .modal-footer .confirm {
   background-color: #010d55;
 }
-
 .close {
   border: none;
   background-color: transparent;
   cursor: pointer;
   color: #fff;
 }
-
 #inputCep {
   padding-right: 40px; /* Espaçamento para o botão */
 }
-
 .btn-pesquisar {
   position: absolute;
   background-color: transparent;
@@ -337,14 +314,12 @@ form {
   margin-top: 30px;
   margin-right: 20px;
 }
-
 @media screen and (max-width: 750px) {
   .colunaForm {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-
   .colunaForm #inputCpf,
   .colunaForm #inputRg,
   .colunaForm #inputTelefone,
@@ -358,15 +333,12 @@ form {
   .colunaForm #inputN_Casa {
     width: 300px;
   }
-
   .modal-footer {
     gap: 20px;
   }
-
   #inputCep {
   padding-right: 40px; /* Espaçamento para o botão */
 }
-
 .btn-pesquisar {
   position: absolute;
   background-color: transparent;
@@ -378,7 +350,6 @@ form {
   padding: 10px;
 }
 }
-
 @media screen and (max-width: 350px) {
   #modal {
     position: absolute;

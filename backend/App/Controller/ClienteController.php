@@ -41,10 +41,17 @@ final class ClienteController {
 
         $clienteDAO = new ClienteDAO();
         $cliente = new ClienteModel();
-        $cliente->setNome($data['nome_completo']) 
-             ->setPets($data['qtd_pets'])
+        $cliente->setNome($data['nome']) 
+             ->setTelefone($data['telefone'])
              ->setCpf($data['cpf'])
-             ->setTelefone($data['telefone']);
+             ->setEmail($data['email'])
+             ->setRg($data['rg'])
+             ->setCep($data['cep'])
+             ->setBairro($data['bairro'])
+             ->setRua($data['rua'])
+             ->setCidade($data['cidade'])
+             ->setUf($data['uf'])
+             ->setN_casa($data['n_casa']);
         $clienteDAO->insertCliente($cliente);
 
         

@@ -10,8 +10,7 @@
         <tbody>
           <tr v-for="(dado, index) in dados" :key="index">
             <td>{{ dado.id }}</td>
-            <td>{{ dado.nome_completo }}</td>
-            <td>{{ dado.qtd_pets }}</td>
+            <td>{{ dado.nome }}</td>
             <td>{{ dado.cpf }}</td>
             <td>{{ dado.telefone }}</td>
             <td>

@@ -26,6 +26,8 @@ import topo from "@/components/topo.vue";
 import ApiController from "@/ApiController";
 import modal from "../components/modal.vue";
 import { ref } from "vue";
+import Swal from 'sweetalert2';
+
 
 export default{
   name: "ClientesView",
@@ -36,7 +38,7 @@ export default{
   },
   data() {
     return {
-      topoTabela: ["ID", "NOME", "PETS", "CPF", "TELEFONE", "AÇÕES"],
+      topoTabela: ["ID", "NOME", "CPF", "TELEFONE", "AÇÕES"],
       dadosTabela: []
     };
   },
@@ -53,13 +55,33 @@ export default{
           console.log("Erro ao listar os clientes: ",error);
         });
     },
+
+    
     deletarCliente(clienteId){
-      ApiController.deletarCliente(clienteId).then((response) => {
-        console.log("Cliente deletado com sucesso");
-        this.getClientes();
-      }).catch(error => {
-        console.error("Erro ao deletar o cliente: ", error)
+      Swal.fire({
+        title: 'Você tem certeza que deseja deletar este cliente?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          ApiController.deletarCliente(clienteId).then((response) => {
+            console.log("Cliente deletado com sucesso");
+            this.getClientes();
+          }).catch(error => {
+            console.error("Erro ao deletar o cliente: ", error)
+          })
+          Swal.fire(
+            '',
+            'Cliente deletado com sucesso',
+            'success'
+          )
+        }
       })
+      
     }
   },
   setup() {

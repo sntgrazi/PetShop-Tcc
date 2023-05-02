@@ -30,16 +30,18 @@ class ClienteDAO extends ConexaoDAO{
     }
 
     public function insertCliente(ClienteModel $cliente): void {
-        $sql = 'INSERT INTO clientes VALUES (null, :nome, :qtd_pets, :cpf , :telefone)';
+        $sql = 'INSERT INTO clientes VALUES (null, :nome, :telefone, :cpf, :rg, :email, :endereco)';
 
         $stm = $this->pdo
         ->prepare($sql);
 
         $stm->execute([
             'nome' => $cliente->getNome(),
-            'qtd_pets' => $cliente->getPets(),
+            'telefone' => $cliente->getTelefone(),
             'cpf' => $cliente->getCpf(),
-            'telefone' => $cliente->getTelefone()
+            'rg' => $cliente->getRg(),
+            'email' => $cliente->getEmail(),
+            'endereco' => $endereco = $cliente->getCep() . ',' . $cliente->getBairro() . ',' . $cliente->getRua() . ',' . $cliente->getCidade() . ',' . $cliente->getUf() . ',' . $cliente->getN_casa()
         ]);
     }
 
