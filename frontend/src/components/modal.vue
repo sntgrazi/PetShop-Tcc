@@ -13,22 +13,22 @@
     <div class="modal-body">
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
 
-        <div class="form-inputs" v-show="etapaAtual === 1">
+        <div class="form-inputs" v-show="etapaAtual === 1" v-if="mostrarInputsCadastro">
           <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) => (cliente.nome = newValue)
-            " :label="'Nome'" v-if="mostrarInputsCadastro" :idInput="'inputName'" />
+            " :label="'Nome'"  :idInput="'inputName'" />
 
           <div class="colunaForm">
             <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) => (cliente.cpf = newValue)"
-              :label="'Cpf'" v-if="mostrarInputsCadastro" :idInput="'inputCpf'" />
+              :label="'Cpf'"  :idInput="'inputCpf'" />
             <BaseInput :modelValue="cliente.rg" @update:modelValue="(newValue) => (cliente.rg = newValue)" :label="'Rg'"
-              v-if="mostrarInputsCadastro" :idInput="'inputRg'" />
+               :idInput="'inputRg'" />
           </div>
 
           <div class="colunaForm">
             <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) => (cliente.telefone = newValue)"
-              :label="'Telefone'" v-if="mostrarInputsCadastro" :idInput="'inputTelefone'" />
+              :label="'Telefone'"  :idInput="'inputTelefone'" />
             <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) => (cliente.email = newValue)"
-              :label="'Email'" v-if="mostrarInputsCadastro" :idInput="'inputEmail'" />
+              :label="'Email'" :idInput="'inputEmail'" />
           </div>
 
           <div class="modal-footer">
@@ -37,27 +37,28 @@
             </button>
           </div>
         </div>
-        <div class="form-inputs" v-show="etapaAtual === 2">
+
+        <div class="form-inputs" v-show="etapaAtual === 2" v-if="mostrarInputsCadastro">
           <div class="colunaForm">
             <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)"
-              :label="'Cep'" v-if="mostrarInputsCadastro" :idInput="'inputCep'" />
-              <button type="button" class="btn-pesquisar" @click="procurarEndereço" v-if="mostrarInputsCadastro "><i class="fa-solid fa-magnifying-glass"></i></button>
+              :label="'Cep'"  :idInput="'inputCep'" />
+              <button type="button" class="btn-pesquisar" @click="procurarEndereço" ><i class="fa-solid fa-magnifying-glass"></i></button>
               
             <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)"
-              :label="'Bairro'" v-if="mostrarInputsCadastro" :idInput="'inputBairro'" />
+              :label="'Bairro'" :idInput="'inputBairro'" />
           </div>
           <div class="colunaForm">
             <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => (cliente.rua = newValue)"
-              :label="'Rua'" v-if="mostrarInputsCadastro" :idInput="'inputRua'" />
+              :label="'Rua'"  :idInput="'inputRua'" />
           </div>
 
           <div class="colunaForm">
             <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) => (cliente.cidade = newValue)"
-              :label="'Cidade'" v-if="mostrarInputsCadastro" :idInput="'inputCidade'" />
+              :label="'Cidade'"  :idInput="'inputCidade'" />
             <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
-              v-if="mostrarInputsCadastro" :idInput="'inputUf'" />
+               :idInput="'inputUf'" />
             <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) => (cliente.n_casa = newValue)"
-              :label="'N°'" v-if="mostrarInputsCadastro" :idInput="'inputN_Casa'" />
+              :label="'N°'" :idInput="'inputN_Casa'" />
           </div>
 
           <div class="modal-footer">
@@ -65,11 +66,19 @@
               <i class="fa-solid fa-arrow-left"></i>
               Voltar
             </button>
-
             <button class="confirm">{{ botaoConfirm }}</button>
           </div>
         </div>
 
+        <div class="form-inputs" v-if="inputsAnimais">
+          <div class="colunaForm">
+            <BaseInput :modelValue="agenda.cliente" @update:modelValue="(newValue) => (agenda.cliente = newValue)"
+              :label="'Cliente'"  :idInput="'inputCep'" />
+              
+            <BaseInput :modelValue="agenda.pet" @update:modelValue="(newValue) => (agenda.pet = newValue)"
+              :label="'Pet'" :idInput="'inputBairro'" />
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -90,6 +99,7 @@ export default {
     "icon",
     "mostrarInputsCadastro",
     "mostrarInputsAgendamento",
+    "inputsAnimais",
     "toggle",
     "active",
     "getClientes",
@@ -100,7 +110,8 @@ export default {
   data() {
     return {
       etapaAtual: 1,
-      cliente: { },
+      agenda: {},
+      cliente: {},
       endereco: {},
       titulo:
         this.tipo === "cliente"
