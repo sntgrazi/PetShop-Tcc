@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Raleway:wght@500&display=swap');
 
 /*===== VARIABLES CSS =====*/
 :root {
@@ -6,13 +6,14 @@
   --nav-width: 70px;
 
   /*===== Colors =====*/
-  --first-color: #3C58A6;
+  --first-color: #1E90FF;
   --first-color-light: #AFA5D9;
   --white-color: #F7F6FB;
 
   /*===== Font and typography =====*/
-  --body-font: 'Nunito', sans-serif;
-  --normal-font-size: 1rem;
+  --body-font: 'Raleway', sans-serif;
+
+  --normal-font-size: 1 rem;
 
   /*===== z index =====*/
   --z-fixed: 100;
@@ -38,7 +39,7 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   transition: .5s;
-  background-color: #8b8b8b4b;
+  background-color: #e2ebf4;
 }
 
 a {
@@ -88,7 +89,7 @@ a {
   top: 0;
   height: 100%;
   width: 78px;
-  background: #3C58A6;
+  background: #1E90FF;
   padding: 6px 14px;
   z-index: 101;
   transition: all 0.5s ease;
@@ -178,11 +179,11 @@ a {
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
-  background: #3C58A6;
+  background: #1E90FF;
 }
 
 .sidebar li a:hover {
-  background: #1A274A;
+  background: #02396f;
 }
 
 .sidebar li a .links_name {

@@ -10,7 +10,6 @@
             :icon="'fa-paw'"
             :toggle="toggleform"
             :userId="userId"
-            :inputsAnimais="true"
           />
           <tabela :topoTabela="topoTabela" :toggle="toggleform" />
         </div>
