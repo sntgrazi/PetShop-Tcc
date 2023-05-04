@@ -107,8 +107,17 @@
               <BaseInput :modelValue="animais.especie" @update:modelValue="(newValue) => 
              (animais.especie = newValue)" :label="'Espécie'" :idInput="'inputEspecie'" />
 
+             <BaseInput :modelValue="animais.raca" @update:modelValue="(newValue) => 
+            (animais.raca = newValue)" :label="'Raca'" :idInput="'inputRaca'" />
+            
+            </div>
+
+            <div class="colunaForm">
               <BaseInput :modelValue="animais.pelagem" @update:modelValue="(newValue) => 
             (animais.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
+
+              <BaseInput :modelValue="animais.porte" @update:modelValue="(newValue) => 
+             (animais.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
             </div>
           </div>
 
@@ -338,7 +347,9 @@ form {
 #inputPet, #inputAltura, 
  #inputPeso, 
 #inputEspecie, 
- #inputPelagem {
+ #inputPelagem,
+ #inputPorte,
+ #inputRaca {
   width: 210px;
 }
 
@@ -439,8 +450,9 @@ form {
   .colunaForm #inputAltura,
   .colunaForm #inputPeso,
   .colunaForm #inputEspecie,
-  .colunaForm #inputPelagem {
-    
+  .colunaForm #inputPelagem,
+  .colunaForm #inputRaca,
+  .colunaForm #inputPorte {
     width: 300px;
   }
 
