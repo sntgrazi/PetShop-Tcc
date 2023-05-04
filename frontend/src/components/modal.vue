@@ -102,7 +102,7 @@
           </div>
           </div>
 
-          <div class="inputsAnimais">
+          <div class="inputsAnimais" v-if="inputsAnimais">
             <div class="colunaForm">
               <BaseInput :modelValue="animais.especie" @update:modelValue="(newValue) => 
              (animais.especie = newValue)" :label="'Espécie'" :idInput="'inputEspecie'" />
