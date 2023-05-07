@@ -52,7 +52,7 @@ export default {
     if (window.localStorage.getItem("redirecionado")) {
       // Exibe o alerta
       Swal.fire({
-        title: "Cadastre o tutor primeiro",
+        title: "Faça o cadastro do tutor primeiro",
         icon: "warning",
         confirmButtonText: "Ok",
       }).then((result) => {
