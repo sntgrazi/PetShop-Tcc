@@ -17,7 +17,7 @@ export default{
 
     async cadastrarCliente(cliente){
         try{
-            const url = `${ApiUrl}/inserir`;
+            const url = `${ApiUrl}/inserirCliente`;
             const response = await axios.post(url, cliente);
             return response.data
         } catch (error){
@@ -39,7 +39,7 @@ export default{
 
     async editarCliente(id, clienteAtualizado){
         try{
-            const url = `${ApiUrl}/update/${id}`;
+            const url = `${ApiUrl}/updateCliente/${id}`;
             const response = await axios.put(url, clienteAtualizado);
             return response.data;
         }catch(error){
@@ -49,7 +49,7 @@ export default{
 
     async deletarCliente(id) {
         try {
-          const url = `${ApiUrl}/delete/${id}`;
+          const url = `${ApiUrl}/deleteCliente/${id}`;
           const response = await axios.delete(url);
           return response.data;
         } catch (error) {
