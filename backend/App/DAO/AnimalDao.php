@@ -29,7 +29,7 @@ class AnimalDAO extends ConexaoDAO {
     }
     
     public function insertAnimal(AnimalModel $animal): void {
-        $sql = 'INSERT INTO animais VALUES (null, :nome, :raca, :pelagem, :porte, :sexo, :peso, :nascimento, :especie, :altura, :img_animal)';
+        $sql = 'INSERT INTO animais VALUES (null, :nome, :raca, :pelagem, :porte, :sexo, :peso, :nascimento, :especie, :altura)';
         
         $stm = $this->pdo->prepare($sql);
         $stm->execute([
@@ -41,13 +41,12 @@ class AnimalDAO extends ConexaoDAO {
             'peso' => $animal->getPeso(),
             'nascimento' => $animal->getNascimento(),
             'especie' => $animal->getEspecie(),
-            'altura' => $animal->getAltura(),
-            'img_animal' => $animal->getImgAnimal()
+            'altura' => $animal->getAltura()
         ]);
     }
     
     public function updateAnimal(AnimalModel $animal): void {
-        $sql = 'UPDATE animais SET nome = :nome, raca = :raca, pelagem = :pelagem, porte = :porte, sexo = :sexo, peso = :peso, nascimento = :nascimento, especie = :especie, altura = :altura, img_animal = :img_animal WHERE id = :id';
+        $sql = 'UPDATE animais SET nome = :nome, raca = :raca, pelagem = :pelagem, porte = :porte, sexo = :sexo, peso = :peso, nascimento = :nascimento, especie = :especie, altura = :altura WHERE id = :id';
         
         $stm = $this->pdo->prepare($sql);
         $stm->execute([
@@ -60,8 +59,7 @@ class AnimalDAO extends ConexaoDAO {
             'peso' => $animal->getPeso(),
             'nascimento' => $animal->getNascimento(),
             'especie' => $animal->getEspecie(),
-            'altura' => $animal->getAltura(),
-            'img_animal' => $animal->getImgAnimal()
+            'altura' => $animal->getAltura()
         ]);
     }
     

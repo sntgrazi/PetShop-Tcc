@@ -13,7 +13,7 @@ final class AnimalModel {
     private $nascimento;
     private $especie;
     private $altura;
-    private $img_animal;
+
 
     public function getId(): int {
         return $this->id;
@@ -105,12 +105,4 @@ final class AnimalModel {
         return $this;
     }
 
-    public function getImgAnimal(): string {
-        return $this->img_animal;
-    }
-
-    public function setImgAnimal(string $img_animal): AnimalModel {
-        $this->img_animal = $img_animal;
-        return $this;
-    }
 }

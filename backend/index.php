@@ -3,6 +3,7 @@
 use Slim\Factory\AppFactory;
 use Slim\Middleware\BodyParsingMiddleware;
 use App\Controller\ClienteController;
+use App\Controller\AnimalController;
 use Slim\Middleware\CorsMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
@@ -25,9 +26,9 @@ $app->AddErrorMiddleware(true,true,true);
 
 $app->get('/animais', AnimalController::class . ':getAnimais');    
 $app->get('/animal/{id}', AnimalController::class . ':getAnimal');                            
-$app->post('/inserir', AnimalController::class . ':insertAnimal');
-$app->put('/update/{id}', AnimalController::class . ':updateAnimal');
-$app->delete('/delete/{id}', AnimalController::class . ':deleteAnimal');
+$app->post('/inserirAnimal', AnimalController::class . ':insertAnimal');
+$app->put('/updateAnimal/{id}', AnimalController::class . ':updateAnimal');
+$app->delete('/deleteAnimal/{id}', AnimalController::class . ':deleteAnimal');
 
 $app->get('/clientes', ClienteController::class . ':getClientes');    
 $app->get('/cliente/{id}', ClienteController::class . ':getCliente');                            

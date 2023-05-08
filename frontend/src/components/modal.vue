@@ -14,52 +14,52 @@
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
 
         <div class="form-inputs" v-show="etapaAtual === 1">
-          
-          <div class="inputCadastroCliente"  v-if="mostrarInputsCadastro">
 
-            <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) => 
-            (cliente.nome = newValue)" :label="'Nome'" :idInput="'inputName'" />
+          <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
 
-          <div class="colunaForm">
-            <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) =>
-            (cliente.cpf = newValue)" :label="'Cpf'" :idInput="'inputCpf'" />
+            <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) =>
+              (cliente.nome = newValue)" :label="'Nome'" :idInput="'inputName'" />
 
-            <BaseInput :modelValue="cliente.rg" @update:modelValue="(newValue) => 
-            (cliente.rg = newValue)" :label="'Rg'" :idInput="'inputRg'" />
-          </div>
+            <div class="colunaForm">
+              <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) =>
+                (cliente.cpf = newValue)" :label="'Cpf'" :idInput="'inputCpf'" />
 
-          <div class="colunaForm">
-            <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) => 
-            (cliente.telefone = newValue)" :label="'Telefone'" :idInput="'inputTelefone'" />
+              <BaseInput :modelValue="cliente.rg" @update:modelValue="(newValue) =>
+                (cliente.rg = newValue)" :label="'Rg'" :idInput="'inputRg'" />
+            </div>
 
-            <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) => 
-            (cliente.email = newValue)" :label="'Email'" :idInput="'inputEmail'" />
-          </div>
+            <div class="colunaForm">
+              <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) =>
+                (cliente.telefone = newValue)" :label="'Telefone'" :idInput="'inputTelefone'" />
+
+              <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) =>
+                (cliente.email = newValue)" :label="'Email'" :idInput="'inputEmail'" />
+            </div>
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
 
-          <BaseInput :modelValue="animais.tutor" @update:modelValue="(newValue) => 
-          (animais.tutor = newValue)" :label="'Tutor'" :idInput="'inputTutor'" />
+            <BaseInput :modelValue="animais.tutor" @update:modelValue="(newValue) =>
+              (animais.tutor = newValue)" :label="'Tutor'" :idInput="'inputTutor'" />
 
-          <div class="colunaForm">
-             <BaseInput :modelValue="animais.pet" @update:modelValue="(newValue) => 
-             (animais.pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
+            <div class="colunaForm">
+              <BaseInput :modelValue="animais.pet" @update:modelValue="(newValue) =>
+                (animais.pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
 
-            <BaseInput :modelValue="animais.data_nascimento" @update:modelValue="(newValue) => 
-            (animais.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+              <BaseInput :modelValue="animais.data_nascimento" @update:modelValue="(newValue) =>
+                (animais.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
 
-            <BaseInput :modelValue="animais.sexo" @update:modelValue="(newValue) => 
-            (animais.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
-          </div>
+              <BaseInput :modelValue="animais.sexo" @update:modelValue="(newValue) =>
+                (animais.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
+            </div>
 
-          <div class="colunaForm">
-            <BaseInput :modelValue="animais.altura" @update:modelValue="(newValue) => 
-            (animais.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
+            <div class="colunaForm">
+              <BaseInput :modelValue="animais.altura" @update:modelValue="(newValue) =>
+                (animais.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
 
-            <BaseInput :modelValue="animais.peso" @update:modelValue="(newValue) =>
-            (animais.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
-          </div>
+              <BaseInput :modelValue="animais.peso" @update:modelValue="(newValue) =>
+                (animais.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
+            </div>
 
           </div>
 
@@ -73,64 +73,60 @@
         <div class="form-inputs" v-show="etapaAtual === 2">
 
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-            
-          <div class="colunaForm">
-            <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => 
-            (cliente.cep = newValue)" :label="'Cep'" :idInput="'inputCep'" />
 
-            <button type="button" class="btn-pesquisar" @click="procurarEndereço">
-            <i class="fa-solid fa-magnifying-glass"></i></button>
+            <div class="colunaForm">
+              <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) =>
+                (cliente.cep = newValue)" :label="'Cep'" :idInput="'inputCep'" />
 
-            <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => 
-            (cliente.bairro = newValue)" :label="'Bairro'" :idInput="'inputBairro'" />
-          </div>
+              <button type="button" class="btn-pesquisar" @click="procurarEndereço">
+                <i class="fa-solid fa-magnifying-glass"></i></button>
 
-          <div class="colunaForm">
-            <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => 
-            (cliente.rua = newValue)" :label="'Rua'" :idInput="'inputRua'" />
-          </div>
+              <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) =>
+                (cliente.bairro = newValue)" :label="'Bairro'" :idInput="'inputBairro'" />
+            </div>
 
-          <div class="colunaForm">
-            <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) => 
-            (cliente.cidade = newValue)" :label="'Cidade'" :idInput="'inputCidade'" />
+            <div class="colunaForm">
+              <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) =>
+                (cliente.rua = newValue)" :label="'Rua'" :idInput="'inputRua'" />
+            </div>
 
-            <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => 
-            (cliente.uf = newValue)" :label="'Uf'" :idInput="'inputUf'" />
+            <div class="colunaForm">
+              <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) =>
+                (cliente.cidade = newValue)" :label="'Cidade'" :idInput="'inputCidade'" />
 
-            <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) => 
-            (cliente.n_casa = newValue)" :label="'N°'" :idInput="'inputN_Casa'" />
-          </div>
+              <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) =>
+                (cliente.uf = newValue)" :label="'Uf'" :idInput="'inputUf'" />
+
+              <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) =>
+                (cliente.n_casa = newValue)" :label="'N°'" :idInput="'inputN_Casa'" />
+            </div>
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
             <div class="colunaForm">
-              <BaseInput :modelValue="animais.especie" @update:modelValue="(newValue) => 
-             (animais.especie = newValue)" :label="'Espécie'" :idInput="'inputEspecie'" />
 
-             <BaseInput :modelValue="animais.raca" @update:modelValue="(newValue) => 
-            (animais.raca = newValue)" :label="'Raca'" :idInput="'inputRaca'" />
-            
+              
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animais.pelagem" @update:modelValue="(newValue) => 
-            (animais.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
+              <BaseInput :modelValue="animais.pelagem" @update:modelValue="(newValue) =>
+                (animais.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
 
-              <BaseInput :modelValue="animais.porte" @update:modelValue="(newValue) => 
-             (animais.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
+              <BaseInput :modelValue="animais.porte" @update:modelValue="(newValue) =>
+                (animais.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
             </div>
           </div>
 
           <div class="modal-footer">
             <button type="button" class="proxima-etapa" @click="etapaAtual = 1">
-            <i class="fa-solid fa-arrow-left"></i> Voltar </button>
+              <i class="fa-solid fa-arrow-left"></i> Voltar </button>
 
             <button class="confirm">{{ botaoConfirm }}</button>
           </div>
         </div>
 
 
-        
+
       </form>
     </div>
   </div>
@@ -140,6 +136,7 @@
 import ApiController from "@/ApiController";
 import BaseInput from "./BaseInput.vue";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 export default {
@@ -161,10 +158,10 @@ export default {
   },
   data() {
     return {
+
+      // Cliente DATA
       etapaAtual: 1,
-      animais: {},
       cliente: {},
-      endereco: {},
       titulo:
         this.tipo === "cliente"
           ? "Cadastrar Cliente"
@@ -175,6 +172,8 @@ export default {
         this.tipo === "cliente" || this.tipo === "Pets"
           ? "Cadastrar"
           : "Agendar",
+      // Animais DATA
+      animais: {},
     };
   },
   methods: {
@@ -195,8 +194,10 @@ export default {
           .catch((error) => {
             console.log(error);
           });
-      } else {
+      } else if (this.tipo == "agenda") {
         console.log("Agendamento");
+      } else if (this.tipo == "Pets") {
+        console.log(this.animais);
       }
     },
     async editarForm() {
@@ -248,11 +249,18 @@ export default {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
       this.Cliente();
     }
+
   },
 };
 </script>
 
 <style>
+#breed-select,
+#species-select {
+  width: 210px;
+}
+
+
 .modal {
   position: absolute;
   top: 45%;
@@ -344,12 +352,13 @@ form {
 #inputTelefone,
 #inputEmail,
 #inputCep,
-#inputPet, #inputAltura, 
- #inputPeso, 
-#inputEspecie, 
- #inputPelagem,
- #inputPorte,
- #inputRaca {
+#inputPet,
+#inputAltura,
+#inputPeso,
+#inputEspecie,
+#inputPelagem,
+#inputPorte,
+#inputRaca {
   width: 210px;
 }
 
@@ -377,6 +386,7 @@ form {
 .colunaForm #inputSexo {
   width: 50px;
 }
+
 .modal-footer {
   margin-top: 1rem;
   display: flex;

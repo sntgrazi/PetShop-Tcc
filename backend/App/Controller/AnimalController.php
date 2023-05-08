@@ -46,9 +46,8 @@ final class animalController {
                -> $animal->setPeso()
                -> $animal->setNascimento()
                -> $animal->setEspecie()
-               -> $animal->setAltura()
-               -> $animal->setImgAnimal();
-        $animalDAO->insertanimal($animal);
+               -> $animal->setAltura();
+        $animalDAO->insertAnimal($animal);
 
         
         $response->getBody()->write(json_encode(['message' => 'animal inserido com sucesso']));
@@ -70,9 +69,8 @@ final class animalController {
                     ->setPeso($data['peso'])
                     ->setNascimento($data['nascimento'])
                     ->setEspecie($data['especie'])
-                    ->setAltura($data['altura'])
-                    ->setImgAnimal($data['img_animal']);
-       $animalDAO->updateanimal($animalModel);
+                    ->setAltura($data['altura']);
+       $animalDAO->updateAnimal($animalModel);
 
        $response->getBody()->write(json_encode(['message' => 'animal atualizado com sucesso']));
        return  $response->withHeader('Content-Type', 'application/json');
@@ -86,7 +84,7 @@ final class animalController {
         $animalDAO = new AnimalDAO();
         $animal = new AnimalModel();
         $animal->setId($id);
-        $animalDAO->deleteanimal($animal);
+        $animalDAO->deleteAnimal($animal);
 
         $response->getBody()->write(json_encode(['message' => 'animal deletado com sucesso']));
         return  $response->withHeader('Content-Type', 'application/json');
