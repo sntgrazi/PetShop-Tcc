@@ -55,6 +55,19 @@ export default{
         } catch (error) {
           console.error('Erro ao deletar o cliente: ', error);
         }
-      }
+    },
+
+    // Animais Rotas
+
+    async inserirAnimal(animal){
+        try{
+            const url = `${ApiUrl}/inserirAnimal`;
+            const response = await axios.post(url, animal);
+            return response.data
+        } catch (error){
+            console.error('Erro ao inserir novo animal: ', error);
+            throw error;
+        }
+    }
 
 }

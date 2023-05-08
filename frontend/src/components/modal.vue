@@ -12,11 +12,8 @@
     </div>
     <div class="modal-body">
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
-
         <div class="form-inputs" v-show="etapaAtual === 1">
-
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-
             <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) =>
               (cliente.nome = newValue)" :label="'Nome'" :idInput="'inputName'" />
 
@@ -38,7 +35,6 @@
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
-
             <BaseInput :modelValue="animais.tutor" @update:modelValue="(newValue) =>
               (animais.tutor = newValue)" :label="'Tutor'" :idInput="'inputTutor'" />
 
@@ -60,26 +56,22 @@
               <BaseInput :modelValue="animais.peso" @update:modelValue="(newValue) =>
                 (animais.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
             </div>
-
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">
-              Próximo
-            </button>
+            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">Próximo</button>
           </div>
         </div>
 
         <div class="form-inputs" v-show="etapaAtual === 2">
-
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-
             <div class="colunaForm">
               <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) =>
                 (cliente.cep = newValue)" :label="'Cep'" :idInput="'inputCep'" />
 
               <button type="button" class="btn-pesquisar" @click="procurarEndereço">
-                <i class="fa-solid fa-magnifying-glass"></i></button>
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </button>
 
               <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) =>
                 (cliente.bairro = newValue)" :label="'Bairro'" :idInput="'inputBairro'" />
@@ -103,9 +95,25 @@
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
+
             <div class="colunaForm">
 
-              
+              <div class="selectCampo">
+                <label for="especie">Espécie</label>
+                <select v-model="animais.especie" class="select-species">
+                  <option value>Selecione a espécie</option>
+                  <option value="dog">Cachorro</option>
+                  <option value="cat">Gato</option>
+                </select>
+              </div>
+
+              <div class="selectCampo"> 
+                <label for="raca">Raça</label>
+                <select v-model="animais.raca" class="select-breed">
+                  <option value>Selecione a raça</option>
+                  <option v-for="breed in breeds" :value="breed.name">{{ breed.name }}</option>
+                </select>
+              </div>
             </div>
 
             <div class="colunaForm">
@@ -119,14 +127,12 @@
 
           <div class="modal-footer">
             <button type="button" class="proxima-etapa" @click="etapaAtual = 1">
-              <i class="fa-solid fa-arrow-left"></i> Voltar </button>
+              <i class="fa-solid fa-arrow-left"></i> Voltar
+            </button>
 
             <button class="confirm">{{ botaoConfirm }}</button>
           </div>
         </div>
-
-
-
       </form>
     </div>
   </div>
@@ -137,7 +143,6 @@ import ApiController from "@/ApiController";
 import BaseInput from "./BaseInput.vue";
 import Swal from "sweetalert2";
 import axios from "axios";
-
 
 export default {
   name: "Modal",
@@ -151,14 +156,13 @@ export default {
     "inputsAnimais",
     "toggle",
     "active",
-    "getClientes",
+    "getClientes"
   ],
   components: {
-    BaseInput,
+    BaseInput
   },
   data() {
     return {
-
       // Cliente DATA
       etapaAtual: 1,
       cliente: {},
@@ -173,6 +177,7 @@ export default {
           ? "Cadastrar"
           : "Agendar",
       // Animais DATA
+      breeds: [],
       animais: {},
     };
   },
@@ -181,85 +186,99 @@ export default {
       if (this.tipo == "cliente") {
         ApiController.cadastrarCliente(this.cliente)
           .then(() => {
-            Swal.fire(
-              '',
-              'Cliente cadastrado com sucesso!',
-              'success'
-            )
+            Swal.fire("", "Cliente cadastrado com sucesso!", "success");
             this.$emit("atualizarTabela");
             this.toggle();
             this.cliente = {};
-
           })
-          .catch((error) => {
+          .catch(error => {
             console.log(error);
           });
       } else if (this.tipo == "agenda") {
         console.log("Agendamento");
       } else if (this.tipo == "Pets") {
-        console.log(this.animais);
+        ApiController.inserirAnimal(this.animal).then(() => {
+          Swal.fire("", "Cliente cadastrado com sucesso!", "success");
+            this.toggle();
+            this.animais = {};
+        }).catch(error => {
+          console.log(error);
+        })
       }
     },
     async editarForm() {
       ApiController.editarCliente(this.userId, this.cliente)
         .then(() => {
-          Swal.fire(
-            '',
-            'Cliente atualizado com sucesso!',
-            'success'
-          )
+          Swal.fire("", "Cliente atualizado com sucesso!", "success");
           this.$emit("atualizarTabela");
           this.toggle();
           this.cliente = {};
-
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
 
     async Cliente() {
       ApiController.cliente(this.userId)
-        .then((cliente) => {
-          this.cliente = cliente
-          this.endereco = cliente.endereco.split(",")
-          this.cliente.cep = this.endereco[0]
-          this.cliente.bairro = this.endereco[1]
-          this.cliente.rua = this.endereco[2]
-          this.cliente.cidade = this.endereco[3]
-          this.cliente.uf = this.endereco[4]
-          this.cliente.n_casa = this.endereco[5]
+        .then(cliente => {
+          this.cliente = cliente;
+          this.endereco = cliente.endereco.split(",");
+          this.cliente.cep = this.endereco[0];
+          this.cliente.bairro = this.endereco[1];
+          this.cliente.rua = this.endereco[2];
+          this.cliente.cidade = this.endereco[3];
+          this.cliente.uf = this.endereco[4];
+          this.cliente.n_casa = this.endereco[5];
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     },
-    procurarEndereço() {
+    async procurarEndereço() {
       const url = `https://viacep.com.br/ws/${this.cliente.cep}/json/`;
-      fetch(url).then(response => response.json()).then(data => {
-        this.cliente.rua = data.logradouro;
-        this.cliente.bairro = data.bairro;
-        this.cliente.uf = data.uf;
-        this.cliente.cidade = data.localidade;
-      }).catch(error => console.error(error));
-    }
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          this.cliente.rua = data.logradouro;
+          this.cliente.bairro = data.bairro;
+          this.cliente.uf = data.uf;
+          this.cliente.cidade = data.localidade;
+        })
+        .catch(error => console.error(error));
+    },
+    async getBreeds(species) {
+
+      const apiUrl = `https://api.the${species}api.com/v1/breeds`;
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        this.breeds = data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   mounted() {
     if (this.userId != false) {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
       this.Cliente();
     }
-
+  },
+  watch: {
+    "animais.especie"(newVal) {
+      if (newVal) {
+        this.getBreeds(newVal);
+      } else {
+        this.breeds = [];
+      }
+    },
   },
 };
 </script>
 
 <style>
-#breed-select,
-#species-select {
-  width: 210px;
-}
-
 
 .modal {
   position: absolute;
@@ -387,6 +406,23 @@ form {
   width: 50px;
 }
 
+.select-species,
+.select-breed {
+  width: 210px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  outline: none;
+  box-shadow: 0 0.4rem 0.8rem #0005;
+}
+
+.selectCampo{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .modal-footer {
   margin-top: 1rem;
   display: flex;
@@ -462,7 +498,7 @@ form {
   .colunaForm #inputEspecie,
   .colunaForm #inputPelagem,
   .colunaForm #inputRaca,
-  .colunaForm #inputPorte {
+  .colunaForm #inputPorte, .select-breed, .select-species {
     width: 300px;
   }
 

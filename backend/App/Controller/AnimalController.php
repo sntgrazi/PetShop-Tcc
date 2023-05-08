@@ -38,15 +38,15 @@ final class animalController {
 
         $animalDAO = new AnimalDAO();
         $animal = new AnimalModel();
-        $animal->setNome($data['nome'])
-               -> $animal->setRaca()
-               -> $animal->setPelagem()
-               -> $animal->getPorte()
-               -> $animal->setSexo()
-               -> $animal->setPeso()
-               -> $animal->setNascimento()
-               -> $animal->setEspecie()
-               -> $animal->setAltura();
+        $animal->setNome($data['pet'])
+               ->setRaca($data['raca'])
+               ->setPelagem($data['pelagem'])
+               ->getPorte($data['porte'])
+               ->setSexo($data['sexo'])
+               ->setPeso($data['peso'])
+               ->setNascimento($data['nascimento'])
+               ->setEspecie($data['especie'])
+               ->setAltura($data['altura']);
         $animalDAO->insertAnimal($animal);
 
         
