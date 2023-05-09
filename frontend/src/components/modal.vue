@@ -20,23 +20,20 @@
             <div class="colunaForm">
               <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) =>
                 (cliente.cpf = newValue)" :label="'Cpf'" :idInput="'inputCpf'" />
-
-              <BaseInput :modelValue="cliente.rg" @update:modelValue="(newValue) =>
-                (cliente.rg = newValue)" :label="'Rg'" :idInput="'inputRg'" />
-            </div>
-
-            <div class="colunaForm">
+                
               <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) =>
                 (cliente.telefone = newValue)" :label="'Telefone'" :idInput="'inputTelefone'" />
 
+            </div>
+
+            <div class="colunaForm">
               <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) =>
                 (cliente.email = newValue)" :label="'Email'" :idInput="'inputEmail'" />
             </div>
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
-            <BaseInput :modelValue="animais.tutor" @update:modelValue="(newValue) =>
-              (animais.tutor = newValue)" :label="'Tutor'" :idInput="'inputTutor'" />
+            <BaseInput :label="'Tutor'" :idInput="'inputTutor'" />
 
             <div class="colunaForm">
               <BaseInput :modelValue="animais.pet" @update:modelValue="(newValue) =>
@@ -197,13 +194,7 @@ export default {
       } else if (this.tipo == "agenda") {
         console.log("Agendamento");
       } else if (this.tipo == "Pets") {
-        ApiController.inserirAnimal(this.animal).then(() => {
-          Swal.fire("", "Cliente cadastrado com sucesso!", "success");
-            this.toggle();
-            this.animais = {};
-        }).catch(error => {
-          console.log(error);
-        })
+        console.log(this.animais)
       }
     },
     async editarForm() {

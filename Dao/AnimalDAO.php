@@ -29,19 +29,21 @@ class AnimalDAO extends ConexaoDAO {
     }
     
     public function insertAnimal(AnimalModel $animal): void {
-        $sql = 'INSERT INTO animais VALUES (null, :nome, :raca, :pelagem, :porte, :sexo, :peso, :nascimento, :especie, :altura)';
+        $sql = 'INSERT INTO animais VALUES (null, :pet, :nascimento, :sexo, :altura, :peso, :especie, :raca, :pelagem, :porte)';
         
-        $stm = $this->pdo->prepare($sql);
+        $stm = $this->pdo
+        ->prepare($sql);
+        
         $stm->execute([
-            'nome' => $animal->getNome(),
+            'pet' => $animal->getPet(),
+            'nascimento' => $animal->getNascimento(),
+            'sexo' => $animal->getSexo(),
+            'altura' => $animal->getAltura(),
+            'peso' => $animal->getPeso(),
+            'especie' => $animal->getEspecie(),
             'raca' => $animal->getRaca(),
             'pelagem' => $animal->getPelagem(),
             'porte' => $animal->getPorte(),
-            'sexo' => $animal->getSexo(),
-            'peso' => $animal->getPeso(),
-            'nascimento' => $animal->getNascimento(),
-            'especie' => $animal->getEspecie(),
-            'altura' => $animal->getAltura()
         ]);
     }
     

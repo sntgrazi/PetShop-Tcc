@@ -34,19 +34,21 @@ final class animalController {
     }
 
     public function insertAnimal(Request $request, Response $response, array $args) {
+        
         $data = $request->getParsedBody();
 
+        var_dump($data);
         $animalDAO = new AnimalDAO();
         $animal = new AnimalModel();
-        $animal->setNome($data['pet'])
-               ->setRaca($data['raca'])
-               ->setPelagem($data['pelagem'])
-               ->getPorte($data['porte'])
+        $animal->setPet($data['pet'])
+               ->setNascimento($data['data_nascimento'])
                ->setSexo($data['sexo'])
+               ->setAltura($data['altura'])
                ->setPeso($data['peso'])
-               ->setNascimento($data['nascimento'])
                ->setEspecie($data['especie'])
-               ->setAltura($data['altura']);
+               ->setRaca($data['raca'])
+               ->getPorte($data['porte'])
+               ->setPelagem($data['pelagem']);
         $animalDAO->insertAnimal($animal);
 
         
