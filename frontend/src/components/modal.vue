@@ -353,14 +353,14 @@ form {
 }
 
 #inputName,
-#inputTutor {
+#inputTutor,
+#inputEmail {
   width: 440px;
 }
 
 .colunaForm #inputCpf,
 #inputRg,
 #inputTelefone,
-#inputEmail,
 #inputCep,
 #inputPet,
 #inputAltura,
