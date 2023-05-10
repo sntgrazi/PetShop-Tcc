@@ -1,8 +1,5 @@
 <template>
   <div class="row">
-    <div class="titulo">
-      <h1>{{ type }}</h1>
-    </div>
     <button @click="btnModal" id="open-modal">
       <i :class="['fa regular', icon]"></i>
       {{ botaoAdd }}
