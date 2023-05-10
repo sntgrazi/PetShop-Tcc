@@ -3,7 +3,7 @@
     <div class="titulo">
       <h1>{{ type }}</h1>
     </div>
-    <button @click="() => toggle()" id="open-modal">
+    <button @click="btnModal" id="open-modal">
       <i :class="['fa regular', icon]"></i>
       {{ botaoAdd }}
     </button>
@@ -18,6 +18,30 @@ export default {
     return {
       botaoAdd: this.type === "Clientes" ? "Novo Cliente" : this.type === "Pets" ? "Novo Pet" : "Novo Agendamento"
     };
+  },
+  methods: {
+    btnModal() {
+      if (this.type === 'Pets') {
+      Swal.fire({
+        title: 'Já possui um tutor cadastrado?',
+        showCancelButton: true,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não',
+        cancelButtonColor: 'red',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Abrir modal para cadastrar novo pet
+          this.toggle();
+        } else {
+          // Redirecionar para a tela de cadastro de clientes
+          window.localStorage.setItem('redirecionado', 'true');
+          window.location.href = '/clientes';
+        }
+      });
+    } else {
+      this.toggle();
+    }
+  }
   }
 };
 </script>

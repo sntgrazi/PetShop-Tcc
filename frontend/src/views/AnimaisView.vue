@@ -30,7 +30,7 @@ import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
 
 export default{
-  name: "ClientesView",
+  name: "AnimaisView",
   components: {
     tabela,
     topo,
