@@ -13,16 +13,12 @@
             :toggle="toggleform"
             :userId="userId"
           />
-<<<<<<< HEAD
           <tabela
             :topoTabela="topoTabela"
             :dados="dadosTabela"
             :toggle="toggleform"
             @deletar="deletarCliente"
           />
-=======
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletarCliente="deletarCliente" />
->>>>>>> origin/Style
         </div>
       </div>
     </div>
@@ -53,7 +49,6 @@ export default{
   },
   mounted() {
     this.getClientes();
-<<<<<<< HEAD
 
     if (window.localStorage.getItem("redirecionado")) {
       // Exibe o alerta
@@ -68,8 +63,6 @@ export default{
       window.localStorage.removeItem("redirecionado");
 
     }
-=======
->>>>>>> origin/Style
   },
   methods: {
     getClientes() {
