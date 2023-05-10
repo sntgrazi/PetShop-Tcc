@@ -13,12 +13,16 @@
             :toggle="toggleform"
             :userId="userId"
           />
+<<<<<<< HEAD
           <tabela
             :topoTabela="topoTabela"
             :dados="dadosTabela"
             :toggle="toggleform"
             @deletar="deletarCliente"
           />
+=======
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletarCliente="deletarCliente" />
+>>>>>>> origin/Style
         </div>
       </div>
     </div>
@@ -31,23 +35,25 @@ import topo from "@/components/topo.vue";
 import ApiController from "@/ApiController";
 import modal from "../components/modal.vue";
 import { ref } from "vue";
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
-export default {
+
+export default{
   name: "ClientesView",
   components: {
     tabela,
     topo,
-    modal,
+    modal
   },
   data() {
     return {
       topoTabela: ["ID", "NOME", "CPF", "TELEFONE", "AÇÕES"],
-      dadosTabela: [],
+      dadosTabela: []
     };
   },
   mounted() {
     this.getClientes();
+<<<<<<< HEAD
 
     if (window.localStorage.getItem("redirecionado")) {
       // Exibe o alerta
@@ -62,41 +68,47 @@ export default {
       window.localStorage.removeItem("redirecionado");
 
     }
+=======
+>>>>>>> origin/Style
   },
   methods: {
     getClientes() {
       ApiController.getClientes()
-        .then((clientes) => {
+        .then(clientes => {
           this.dadosTabela = clientes;
         })
-        .catch((error) => {
-          console.log("Erro ao listar os clientes: ", error);
+        .catch(error => {
+          console.log("Erro ao listar os clientes: ",error);
         });
     },
 
-    deletarCliente(clienteId) {
+    
+    deletarCliente(clienteId){
       Swal.fire({
-        title: "Você tem certeza que deseja deletar este cliente?",
-        icon: "warning",
+        title: 'Você tem certeza que deseja deletar este cliente?',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sim",
-        cancelButtonText: "Não",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'
       }).then((result) => {
         if (result.isConfirmed) {
-          ApiController.deletarCliente(clienteId)
-            .then((response) => {
-              console.log("Cliente deletado com sucesso");
-              this.getClientes();
-            })
-            .catch((error) => {
-              console.error("Erro ao deletar o cliente: ", error);
-            });
-          Swal.fire("", "Cliente deletado com sucesso", "success");
+          ApiController.deletarCliente(clienteId).then((response) => {
+            console.log("Cliente deletado com sucesso");
+            this.getClientes();
+          }).catch(error => {
+            console.error("Erro ao deletar o cliente: ", error)
+          })
+          Swal.fire(
+            '',
+            'Cliente deletado com sucesso',
+            'success'
+          )
         }
-      });
-    },
+      })
+      
+    }
   },
   setup() {
     const formActive = ref(false);
@@ -117,6 +129,6 @@ export default {
       toggleform,
       userId,
     };
-  },
+  }
 };
 </script>

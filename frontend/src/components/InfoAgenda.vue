@@ -26,11 +26,12 @@
   width: 50%;
 }
 .left-content h2 {
-  color: #5177e0;
+  color: #1E90FF;
 }
 .left-content h3 {
   color: #868585;
   text-align: center;
+  font-size: 18px
 }
 @media screen and (max-width: 901px) {
 .left-content {
