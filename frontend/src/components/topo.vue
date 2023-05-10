@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
 export default {
   name: "topo",
   props: ["type", "icon", "toggle"],
