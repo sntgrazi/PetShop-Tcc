@@ -10,11 +10,8 @@
             :icon="'fa-paw'"
             :toggle="toggleform"
             :userId="userId"
-<<<<<<< HEAD
             :inputsAnimais="true"
             @atualizarTabela="getAnimais"
-=======
->>>>>>> origin/Style
           />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform"
           @deletar="deletarAnimais" />
