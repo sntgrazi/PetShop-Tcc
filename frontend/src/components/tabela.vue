@@ -154,14 +154,15 @@ thead th {
   position: sticky;
   top: 0;
   left: 0;
-  background-color: #d5d1defe;
+  background-color:#1E90FF;
   cursor: pointer;
   text-align: center;
   text-transform: capitalize;
+  color: white;
 }
 
 tbody tr:nth-child(even) {
-  background-color: #0000000b;
+  background-color: #ffffff0b;
 }
 
 tbody tr {
@@ -228,7 +229,8 @@ thead th:hover span.icon-arrow {
 }
 
 thead th:hover {
-  color: #6c00bd;
+  color: #02396f;
+  transition: 1s;
 }
 
 thead th.active span.icon-arrow {
@@ -242,7 +244,7 @@ thead th.asc span.icon-arrow {
 
 thead th.active,
 tbody td.active {
-  color: #6c00bd;
+  color: #02396f;
 }
 
 .btn-acoes {
@@ -264,7 +266,7 @@ tbody td.active {
 }
 
 #btn-editar {
-  background-color: rgb(83, 93, 228);
+  background-color: #1E90FF;
 }
 
 #btn-deletar {
@@ -272,7 +274,7 @@ tbody td.active {
 }
 
 .btn-pet {
-  background-color: rgb(83, 93, 228);
+  background-color: #1E90FF;
   border: none;
   color: white;
   font-size: 18px;
