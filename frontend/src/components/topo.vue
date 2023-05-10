@@ -45,10 +45,9 @@ export default {
 </script>
 
 <style>
-.titulo {
-  color: #4d72d600;
-  font-size: 1.2em;
-  margin-left: 10px;
+.row {
+  display: flex;
+  justify-content: end;
 }
 
 #open-modal {
