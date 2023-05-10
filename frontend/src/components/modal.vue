@@ -310,7 +310,7 @@ export default {
   transform: translate(-50%, -50%);
   width: 500px;
   max-width: 90%;
-  background-color: #4d72d6;
+  background-color: #02396f ;
   padding: 1.2rem;
   border-radius: 0.5rem;
   z-index: 10;
@@ -357,7 +357,7 @@ form {
 .form-inputs {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 
 .form-inputs label {
@@ -454,22 +454,31 @@ form {
 }
 
 .modal-footer button {
-  background-color: #010d55;
+  background-color: #e2ebf4;
   padding: 0.6rem 1.2rem;
-  color: #fff;
+  color: #02396f;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
   opacity: 0.9;
-  font-size: 1rem;
+  font: bold;
+  font-size: 1.2rem;
 }
 
 .modal-footer button i {
   margin-right: 5px;
 }
 
+.modal-footer button:hover {
+  transition: 1s;
+  background-color: #0005;
+  color: white;
+  
+}
+
 .modal-footer .confirm {
-  background-color: #010d55;
+  background-color: #02396f;
+  color:white;
 }
 
 .close {
@@ -477,6 +486,11 @@ form {
   background-color: transparent;
   cursor: pointer;
   color: #fff;
+}
+
+.close:hover{
+  color:#0005;
+  transition: 1s;
 }
 
 #inputCep {
@@ -490,7 +504,7 @@ form {
   border: none;
   font-size: 1em;
   cursor: pointer;
-  margin-top: 35px;
+  margin-top: 30px;
   margin-right: 20px;
 }
 
