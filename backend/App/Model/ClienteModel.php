@@ -14,8 +14,6 @@ final class ClienteModel{
 
     private $email;
 
-    private $rg;
-
     private $cep;
 
     private $bairro;
@@ -62,15 +60,6 @@ final class ClienteModel{
 
     public function setCpf(string $cpf): ClienteModel{
         $this->cpf = $cpf;
-        return $this;
-    }
-
-    public function getRg(): string{
-        return $this->rg;
-    }
-
-    public function setRg(string $rg): ClienteModel{
-        $this->rg = $rg;
         return $this;
     }
 

@@ -59,7 +59,7 @@ export default{
 
     // Animais Rotas
 
-    async inserirAnimal(animal){
+    async cadastrarAnimal(animal){
         try{
             const url = `${ApiUrl}/inserirAnimal`;
             const response = await axios.post(url, animal);
@@ -68,6 +68,49 @@ export default{
             console.error('Erro ao inserir novo animal: ', error);
             throw error;
         }
-    }
+    },
+
+    async getAnimais(){
+        try{
+            const url = `${ApiUrl}/animais`;
+            const response = await axios.get(url);
+            return response.data
+        } catch (error){
+            console.error('Erro ao buscar os animais: ', error);
+            throw error;
+        }
+        
+    },
+
+    async animal(id){
+        try{
+            const url = `${ApiUrl}/animal/${id}`;
+            const response = await axios.get(url);
+            return response.data
+        } catch (error){
+            console.error('Erro ao buscar o animal: ', error);
+            throw error;
+        }
+    },
+
+    async editarAnimal(id, animalAtualizado){
+        try{
+            const url = `${ApiUrl}/updateAnimal/${id}`;
+            const response = await axios.put(url, animalAtualizado);
+            return response.data;
+        }catch(error){
+            console.error('Erro ao atualizar o animal: ', error);
+        }
+    },
+
+    async deletarAnimal(id) {
+        try {
+          const url = `${ApiUrl}/deleteAnimal/${id}`;
+          const response = await axios.delete(url);
+          return response.data;
+        } catch (error) {
+          console.error('Erro ao deletar o animal: ', error);
+        }
+    },
 
 }

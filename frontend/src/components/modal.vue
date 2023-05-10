@@ -36,22 +36,22 @@
             <BaseInput :label="'Tutor'" :idInput="'inputTutor'" />
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animais.pet" @update:modelValue="(newValue) =>
-                (animais.pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
+              <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) =>
+                (animal.nome_pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
 
-              <BaseInput :modelValue="animais.data_nascimento" @update:modelValue="(newValue) =>
-                (animais.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+              <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) =>
+                (animal.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
 
-              <BaseInput :modelValue="animais.sexo" @update:modelValue="(newValue) =>
-                (animais.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
+              <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) =>
+                (animal.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animais.altura" @update:modelValue="(newValue) =>
-                (animais.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
+              <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) =>
+                (animal.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
 
-              <BaseInput :modelValue="animais.peso" @update:modelValue="(newValue) =>
-                (animais.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
+              <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) =>
+                (animal.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
             </div>
           </div>
 
@@ -97,7 +97,7 @@
 
               <div class="selectCampo">
                 <label for="especie">Espécie</label>
-                <select v-model="animais.especie" class="select-species">
+                <select v-model="animal.especie" class="select-species">
                   <option value>Selecione a espécie</option>
                   <option value="dog">Cachorro</option>
                   <option value="cat">Gato</option>
@@ -106,7 +106,7 @@
 
               <div class="selectCampo"> 
                 <label for="raca">Raça</label>
-                <select v-model="animais.raca" class="select-breed">
+                <select v-model="animal.raca" class="select-breed">
                   <option value>Selecione a raça</option>
                   <option v-for="breed in breeds" :value="breed.name">{{ breed.name }}</option>
                 </select>
@@ -114,11 +114,11 @@
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animais.pelagem" @update:modelValue="(newValue) =>
-                (animais.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
+              <BaseInput :modelValue="animal.pelagem" @update:modelValue="(newValue) =>
+                (animal.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
 
-              <BaseInput :modelValue="animais.porte" @update:modelValue="(newValue) =>
-                (animais.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
+              <BaseInput :modelValue="animal.porte" @update:modelValue="(newValue) =>
+                (animal.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
             </div>
           </div>
 
@@ -175,7 +175,7 @@ export default {
           : "Agendar",
       // Animais DATA
       breeds: [],
-      animais: {},
+      animal: {},
     };
   },
   methods: {
@@ -194,10 +194,20 @@ export default {
       } else if (this.tipo == "agenda") {
         console.log("Agendamento");
       } else if (this.tipo == "Pets") {
-        console.log(this.animais)
+        ApiController.cadastrarAnimal(this.animal)
+          .then(() => {
+            Swal.fire("", "Animal cadastrado com sucesso!", "success");
+            this.$emit("atualizarTabela");
+            this.toggle();
+            this.animal = {};
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     async editarForm() {
+     if(this.tipo == "cliente"){
       ApiController.editarCliente(this.userId, this.cliente)
         .then(() => {
           Swal.fire("", "Cliente atualizado com sucesso!", "success");
@@ -208,10 +218,25 @@ export default {
         .catch(error => {
           console.log(error);
         });
+     } else if (this.tipo == "agenda"){
+      console.log("agendamento")
+     } else if (this.tipo == "Pets"){
+      ApiController.editarCliente(this.userId, this.cliente)
+        .then(() => {
+          Swal.fire("", "Cliente atualizado com sucesso!", "success");
+          this.$emit("atualizarTabela");
+          this.toggle();
+          this.cliente = {};
+        })
+        .catch(error => {
+          console.log(error);
+        });
+     }
     },
 
-    async Cliente() {
-      ApiController.cliente(this.userId)
+    async buscar() {
+      if(this.tipo == "cliente"){
+        ApiController.cliente(this.userId)
         .then(cliente => {
           this.cliente = cliente;
           this.endereco = cliente.endereco.split(",");
@@ -225,6 +250,13 @@ export default {
         .catch(error => {
           console.log(error);
         });
+      } else {
+        ApiController.animal(this.userId).then(animal => {
+          this.animal = animal;
+        }).catch(error => {
+          console.log(error);
+        })
+      }
     },
     async procurarEndereço() {
       const url = `https://viacep.com.br/ws/${this.cliente.cep}/json/`;
@@ -254,11 +286,11 @@ export default {
   mounted() {
     if (this.userId != false) {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
-      this.Cliente();
+      this.buscar();
     }
   },
   watch: {
-    "animais.especie"(newVal) {
+    "animal.especie"(newVal) {
       if (newVal) {
         this.getBreeds(newVal);
       } else {

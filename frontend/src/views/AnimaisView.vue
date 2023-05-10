@@ -11,8 +11,10 @@
             :toggle="toggleform"
             :userId="userId"
             :inputsAnimais="true"
+            @atualizarTabela="getAnimais"
           />
-          <tabela :topoTabela="topoTabela" :toggle="toggleform" />
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform"
+          @deletar="deletarAnimais" />
         </div>
       </div>
     </div>
@@ -24,6 +26,8 @@ import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
 import modal from "../components/modal.vue";
 import { ref } from "vue";
+import ApiController from "@/ApiController";
+import Swal from "sweetalert2";
 
 export default{
   name: "ClientesView",
@@ -34,7 +38,8 @@ export default{
   },
   data(){
     return{
-        topoTabela: ["ID", "NOME", "RAÇA", "PELAGEM", "ESPECIE", "AÇÕES"],
+        topoTabela: ["ID", "PET","SEXO","RAÇA", "AÇÕES"],
+        dadosTabela: []
     }
   },    
   setup(){
@@ -56,6 +61,43 @@ export default{
       toggleform,
       userId,
     };
+  },
+  methods: {
+    getAnimais() {
+      ApiController.getAnimais()
+        .then((animais) => {
+          this.dadosTabela = animais;
+        })
+        .catch((error) => {
+          console.log("Erro ao listar os animais: ", error);
+        });
+    },
+    deletarAnimais(animalId) {
+      Swal.fire({
+        title: "Você tem certeza que deseja deletar este Pet?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim",
+        cancelButtonText: "Não",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          ApiController.deletarAnimal(animalId)
+            .then((response) => {
+              console.log("Pet deletado com sucesso");
+              this.getAnimais();
+            })
+            .catch((error) => {
+              console.error("Erro ao deletar o Animal: ", error);
+            });
+          Swal.fire("", "Pet deletado com sucesso", "success");
+        }
+      });
+    },
+  },
+  mounted(){
+    this.getAnimais();
   }
 }
 </script>

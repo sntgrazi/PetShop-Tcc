@@ -17,7 +17,7 @@
             :topoTabela="topoTabela"
             :dados="dadosTabela"
             :toggle="toggleform"
-            @deletarCliente="deletarCliente"
+            @deletar="deletarCliente"
           />
         </div>
       </div>

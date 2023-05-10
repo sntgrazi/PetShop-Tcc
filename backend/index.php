@@ -2,9 +2,9 @@
 
 use Slim\Factory\AppFactory;
 use Slim\Middleware\BodyParsingMiddleware;
+use Slim\Middleware\CorsMiddleware;
 use App\Controller\ClienteController;
 use App\Controller\AnimalController;
-use Slim\Middleware\CorsMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 

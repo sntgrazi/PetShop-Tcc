@@ -9,15 +9,21 @@
         </thead>
         <tbody>
           <tr v-for="(dado, index) in dados" :key="index">
-            <td>{{ dado.id }}</td>
-            <td>{{ dado.nome }}</td>
-            <td>{{ dado.cpf }}</td>
-            <td>{{ dado.telefone }}</td>
+
+            <td v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
+            <!-- Dados da tabela Cliente -->
+            <td v-if="topoTabela.includes('NOME')">{{ dado.nome }}</td>
+            <td v-if="topoTabela.includes('CPF')">{{ dado.cpf }}</td>
+            <td v-if="topoTabela.includes('TELEFONE')">{{ dado.telefone }}</td>
+             <!-- Dados da tabela Animal -->
+            <td v-if="topoTabela.includes('PET')">{{ dado.nome_pet }}</td>
+            <td v-if="topoTabela.includes('SEXO')">{{ dado.sexo }}</td>
+            <td v-if="topoTabela.includes('RAÇA')">{{ dado.raca }}</td>
             <td>
               <button class="btn-acoes" id="btn-editar" @click="() => toggle(dado.id)">
                 <i class="fa-solid fa-pencil"></i>
               </button>
-              <button class="btn-acoes" id="btn-deletar" @click="excluirCliente(dado.id)">
+              <button class="btn-acoes" id="btn-deletar" @click="excluir(dado.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
@@ -33,8 +39,8 @@ export default {
   name: "tabela",
   props: ["topoTabela", "dados", "toggle"],
   methods: {
-    excluirCliente(id){
-      this.$emit("deletarCliente", id)
+    excluir(id){
+      this.$emit("deletar", id)
     }
   }
   

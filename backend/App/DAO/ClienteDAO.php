@@ -19,7 +19,7 @@ class ClienteDAO extends ConexaoDAO{
 
     
     public function getCliente(ClienteModel $clienteM): array{
-        $sql = 'SELECT * from cliente_petshop WHERE id = :id';
+        $sql = 'SELECT * from clientes WHERE id = :id';
     
         $stm = $this->pdo->prepare($sql);
         $stm->execute([
@@ -30,7 +30,7 @@ class ClienteDAO extends ConexaoDAO{
     }
 
     public function insertCliente(ClienteModel $cliente): void {
-        $sql = 'INSERT INTO cliente_petshop VALUES (null, :nome, :telefone, :cpf, :email, :endereco)';
+        $sql = 'INSERT INTO clientes VALUES (null, :nome, :telefone, :cpf, :email, :endereco)';
 
         $stm = $this->pdo
         ->prepare($sql);
@@ -45,7 +45,7 @@ class ClienteDAO extends ConexaoDAO{
     }
 
     public function updateCliente(ClienteModel $cliente): void {
-        $sql = 'UPDATE cliente_petshop SET nome = :nome, telefone = :telefone, cpf = :cpf , email = :email, endereco = :endereco WHERE id = :id';
+        $sql = 'UPDATE clientes SET nome = :nome, telefone = :telefone, cpf = :cpf , email = :email, endereco = :endereco WHERE id = :id';
 
         $stm = $this->pdo->prepare($sql);
 
@@ -60,7 +60,7 @@ class ClienteDAO extends ConexaoDAO{
     }
 
     public function deleteCliente(ClienteModel $cliente): void{
-        $sql = 'DELETE FROM cliente_petshop WHERE id = :id';
+        $sql = 'DELETE FROM clientes WHERE id = :id';
 
         $stm = $this->pdo->prepare($sql);
 
