@@ -350,15 +350,6 @@ export default {
         })
         .catch(error => console.error(error));
     },
-    async buscarRacas(especie) {
-      const response = await axios.get(
-        `https://api.the${especie}api.com/v1/breeds/search?`
-      );
-      return response.data.map(raca => ({
-        id: raca.id,
-        text: raca.name
-      }));
-    }
   },
   mounted() {
     if (this.userId != false) {
