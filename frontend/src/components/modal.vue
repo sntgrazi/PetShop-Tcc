@@ -14,21 +14,40 @@
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
         <div class="form-inputs" v-show="etapaAtual === 1">
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-            <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) =>
-              (cliente.nome = newValue)" :label="'Nome'" :idInput="'inputName'" />
+            <BaseInput
+              :modelValue="cliente.nome"
+              @update:modelValue="(newValue) =>
+              (cliente.nome = newValue)"
+              :label="'Nome'"
+              :idInput="'inputName'"
+            />
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) =>
-                (cliente.cpf = newValue)" :label="'Cpf'" :idInput="'inputCpf'" />
-                
-              <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) =>
-                (cliente.telefone = newValue)" :label="'Telefone'" :idInput="'inputTelefone'" />
+              <BaseInput
+                :modelValue="cliente.cpf"
+                @update:modelValue="(newValue) =>
+                (cliente.cpf = newValue)"
+                :label="'Cpf'"
+                :idInput="'inputCpf'"
+              />
 
+              <BaseInput
+                :modelValue="cliente.telefone"
+                @update:modelValue="(newValue) =>
+                (cliente.telefone = newValue)"
+                :label="'Telefone'"
+                :idInput="'inputTelefone'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) =>
-                (cliente.email = newValue)" :label="'Email'" :idInput="'inputEmail'" />
+              <BaseInput
+                :modelValue="cliente.email"
+                @update:modelValue="(newValue) =>
+                (cliente.email = newValue)"
+                :label="'Email'"
+                :idInput="'inputEmail'"
+              />
             </div>
           </div>
 
@@ -36,22 +55,47 @@
             <BaseInput :label="'Tutor'" :idInput="'inputTutor'" />
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) =>
-                (animal.nome_pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
+              <BaseInput
+                :modelValue="animal.nome_pet"
+                @update:modelValue="(newValue) =>
+                (animal.nome_pet = newValue)"
+                :label="'Pet'"
+                :idInput="'inputPet'"
+              />
 
-              <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) =>
-                (animal.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+              <BaseInput
+                :modelValue="animal.data_nascimento"
+                @update:modelValue="(newValue) =>
+                (animal.data_nascimento = newValue)"
+                :label="'Nascimento'"
+                :idInput="'inputDataNascimento'"
+              />
 
-              <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) =>
-                (animal.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
+              <BaseInput
+                :modelValue="animal.sexo"
+                @update:modelValue="(newValue) =>
+                (animal.sexo = newValue)"
+                :label="'Sexo'"
+                :idInput="'inputSexo'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) =>
-                (animal.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
+              <BaseInput
+                :modelValue="animal.altura"
+                @update:modelValue="(newValue) =>
+                (animal.altura = newValue)"
+                :label="'Altura'"
+                :idInput="'inputAltura'"
+              />
 
-              <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) =>
-                (animal.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
+              <BaseInput
+                :modelValue="animal.peso"
+                @update:modelValue="(newValue) =>
+                (animal.peso = newValue)"
+                :label="'Peso'"
+                :idInput="'inputPeso'"
+              />
             </div>
           </div>
 
@@ -63,50 +107,78 @@
         <div class="form-inputs" v-show="etapaAtual === 2">
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) =>
-                (cliente.cep = newValue)" :label="'Cep'" :idInput="'inputCep'" />
+              <BaseInput
+                :modelValue="cliente.cep"
+                @update:modelValue="(newValue) =>
+                (cliente.cep = newValue)"
+                :label="'Cep'"
+                :idInput="'inputCep'"
+              />
 
               <button type="button" class="btn-pesquisar" @click="procurarEndereço">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
 
-              <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) =>
-                (cliente.bairro = newValue)" :label="'Bairro'" :idInput="'inputBairro'" />
+              <BaseInput
+                :modelValue="cliente.bairro"
+                @update:modelValue="(newValue) =>
+                (cliente.bairro = newValue)"
+                :label="'Bairro'"
+                :idInput="'inputBairro'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) =>
-                (cliente.rua = newValue)" :label="'Rua'" :idInput="'inputRua'" />
+              <BaseInput
+                :modelValue="cliente.rua"
+                @update:modelValue="(newValue) =>
+                (cliente.rua = newValue)"
+                :label="'Rua'"
+                :idInput="'inputRua'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) =>
-                (cliente.cidade = newValue)" :label="'Cidade'" :idInput="'inputCidade'" />
+              <BaseInput
+                :modelValue="cliente.cidade"
+                @update:modelValue="(newValue) =>
+                (cliente.cidade = newValue)"
+                :label="'Cidade'"
+                :idInput="'inputCidade'"
+              />
 
-              <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) =>
-                (cliente.uf = newValue)" :label="'Uf'" :idInput="'inputUf'" />
+              <BaseInput
+                :modelValue="cliente.uf"
+                @update:modelValue="(newValue) =>
+                (cliente.uf = newValue)"
+                :label="'Uf'"
+                :idInput="'inputUf'"
+              />
 
-              <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) =>
-                (cliente.n_casa = newValue)" :label="'N°'" :idInput="'inputN_Casa'" />
+              <BaseInput
+                :modelValue="cliente.n_casa"
+                @update:modelValue="(newValue) =>
+                (cliente.n_casa = newValue)"
+                :label="'N°'"
+                :idInput="'inputN_Casa'"
+              />
             </div>
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
-
             <div class="colunaForm">
-
               <div class="selectCampo">
                 <label for="especie">Espécie</label>
-                <select v-model="animal.especie" class="select-species">
-                  <option value>Selecione a espécie</option>
-                  <option value="dog">Cachorro</option>
+                <select v-model="animal.especie" id="select-especie">
+                  <option value selected>Selecione a espécie</option>
+                  <option value="dog" data-nome="Cachorro">Cachorro</option>
                   <option value="cat">Gato</option>
                 </select>
               </div>
 
-              <div class="selectCampo"> 
+              <div class="selectCampo">
                 <label for="raca">Raça</label>
-                <select v-model="animal.raca" class="select-breed">
+                <select v-model="animal.raca" id="select-raca">
                   <option value>Selecione a raça</option>
                   <option v-for="breed in breeds" :value="breed.name">{{ breed.name }}</option>
                 </select>
@@ -114,11 +186,21 @@
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.pelagem" @update:modelValue="(newValue) =>
-                (animal.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
+              <BaseInput
+                :modelValue="animal.pelagem"
+                @update:modelValue="(newValue) =>
+                (animal.pelagem = newValue)"
+                :label="'Pelagem'"
+                :idInput="'inputPelagem'"
+              />
 
-              <BaseInput :modelValue="animal.porte" @update:modelValue="(newValue) =>
-                (animal.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
+              <BaseInput
+                :modelValue="animal.porte"
+                @update:modelValue="(newValue) =>
+                (animal.porte = newValue)"
+                :label="'Porte'"
+                :idInput="'inputPorte'"
+              />
             </div>
           </div>
 
@@ -138,8 +220,11 @@
 <script>
 import ApiController from "@/ApiController";
 import BaseInput from "./BaseInput.vue";
-import Swal from "sweetalert2";
 import axios from "axios";
+import Swal from "sweetalert2";
+import $ from "jquery";
+import "select2/dist/css/select2.css";
+import "select2";
 
 export default {
   name: "Modal",
@@ -167,15 +252,17 @@ export default {
         this.tipo === "cliente"
           ? "Cadastrar Cliente"
           : this.tipo == "Pets"
-            ? "Novo Pet"
-            : "Novo Agendamento",
+          ? "Novo Pet"
+          : "Novo Agendamento",
       botaoConfirm:
         this.tipo === "cliente" || this.tipo === "Pets"
           ? "Cadastrar"
           : "Agendar",
       // Animais DATA
       breeds: [],
-      animal: {},
+      especieSelecionada: "",
+      racaSelecionada: "",
+      animal: {}
     };
   },
   methods: {
@@ -194,68 +281,61 @@ export default {
       } else if (this.tipo == "agenda") {
         console.log("Agendamento");
       } else if (this.tipo == "Pets") {
-        ApiController.cadastrarAnimal(this.animal)
+        console.log(this.animal);
+      }
+    },
+    async editarForm() {
+      if (this.tipo == "cliente") {
+        ApiController.editarCliente(this.userId, this.cliente)
           .then(() => {
-            Swal.fire("", "Animal cadastrado com sucesso!", "success");
+            Swal.fire("", "Cliente atualizado com sucesso!", "success");
             this.$emit("atualizarTabela");
             this.toggle();
-            this.animal = {};
+            this.cliente = {};
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else if (this.tipo == "agenda") {
+        console.log("agendamento");
+      } else if (this.tipo == "Pets") {
+        ApiController.editarCliente(this.userId, this.cliente)
+          .then(() => {
+            Swal.fire("", "Cliente atualizado com sucesso!", "success");
+            this.$emit("atualizarTabela");
+            this.toggle();
+            this.cliente = {};
           })
           .catch(error => {
             console.log(error);
           });
       }
     },
-    async editarForm() {
-     if(this.tipo == "cliente"){
-      ApiController.editarCliente(this.userId, this.cliente)
-        .then(() => {
-          Swal.fire("", "Cliente atualizado com sucesso!", "success");
-          this.$emit("atualizarTabela");
-          this.toggle();
-          this.cliente = {};
-        })
-        .catch(error => {
-          console.log(error);
-        });
-     } else if (this.tipo == "agenda"){
-      console.log("agendamento")
-     } else if (this.tipo == "Pets"){
-      ApiController.editarCliente(this.userId, this.cliente)
-        .then(() => {
-          Swal.fire("", "Cliente atualizado com sucesso!", "success");
-          this.$emit("atualizarTabela");
-          this.toggle();
-          this.cliente = {};
-        })
-        .catch(error => {
-          console.log(error);
-        });
-     }
-    },
 
     async buscar() {
-      if(this.tipo == "cliente"){
+      if (this.tipo == "cliente") {
         ApiController.cliente(this.userId)
-        .then(cliente => {
-          this.cliente = cliente;
-          this.endereco = cliente.endereco.split(",");
-          this.cliente.cep = this.endereco[0];
-          this.cliente.bairro = this.endereco[1];
-          this.cliente.rua = this.endereco[2];
-          this.cliente.cidade = this.endereco[3];
-          this.cliente.uf = this.endereco[4];
-          this.cliente.n_casa = this.endereco[5];
-        })
-        .catch(error => {
-          console.log(error);
-        });
+          .then(cliente => {
+            this.cliente = cliente;
+            this.endereco = cliente.endereco.split(",");
+            this.cliente.cep = this.endereco[0];
+            this.cliente.bairro = this.endereco[1];
+            this.cliente.rua = this.endereco[2];
+            this.cliente.cidade = this.endereco[3];
+            this.cliente.uf = this.endereco[4];
+            this.cliente.n_casa = this.endereco[5];
+          })
+          .catch(error => {
+            console.log(error);
+          });
       } else {
-        ApiController.animal(this.userId).then(animal => {
-          this.animal = animal;
-        }).catch(error => {
-          console.log(error);
-        })
+        ApiController.animal(this.userId)
+          .then(animal => {
+            this.animal = animal;
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     async procurarEndereço() {
@@ -270,39 +350,70 @@ export default {
         })
         .catch(error => console.error(error));
     },
-    async getBreeds(species) {
-
-      const apiUrl = `https://api.the${species}api.com/v1/breeds`;
-
-      try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        this.breeds = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
+    async buscarRacas(especie) {
+      const response = await axios.get(
+        `https://api.the${especie}api.com/v1/breeds/search?`
+      );
+      return response.data.map(raca => ({
+        id: raca.id,
+        text: raca.name
+      }));
+    }
   },
   mounted() {
     if (this.userId != false) {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
       this.buscar();
     }
-  },
-  watch: {
-    "animal.especie"(newVal) {
-      if (newVal) {
-        this.getBreeds(newVal);
-      } else {
-        this.breeds = [];
-      }
-    },
-  },
+
+    // Inicializa os selects com o Select2
+    $("#select-especie").select2({
+      placeholder: "Selecione uma Espécie"
+    });
+    $("#select-raca").select2({
+      placeholder: "Selecione uma Raça"
+    });
+
+    // Adiciona um listener de eventos para o select de espécies
+    $("#select-especie").on("change", async e => {
+      // Obtém a espécie selecionada
+      this.especie = e.target.value;
+      this.animal.especie = $("#select-especie option:selected").data("nome");
+
+      // Busca as raças correspondentes na API The Dog API
+      const response = await axios.get(
+        `https://api.the${this.especie}api.com/v1/breeds`
+      );
+      const racas = response.data;
+
+      // Limpa o select de raças e adiciona as novas opções
+      $("#select-raca").empty();
+      $("#select-raca").append(
+        $("<option>", { value: "", text: "Selecione uma raça" })
+      );
+      racas.forEach(raca => {
+        $("#select-raca").append(
+          $("<option>", {
+            value: raca.id,
+            text: raca.name,
+            "data-nome": raca.name
+          })
+        );
+      });
+
+      // Atualiza o select de raças com as novas opções
+      $("#select-raca").trigger("change");
+
+      $("#select-raca").on("change", e => {
+        // Obtém a raça selecionada
+        this.animal.raca = $("#select-raca option:selected").data("nome");
+      });
+    });
+  }
 };
 </script>
 
 <style>
-
 .modal {
   position: absolute;
   top: 45%;
@@ -310,7 +421,7 @@ export default {
   transform: translate(-50%, -50%);
   width: 500px;
   max-width: 90%;
-  background-color: #02396f ;
+  background-color: #02396f;
   padding: 1.2rem;
   border-radius: 0.5rem;
   z-index: 10;
@@ -429,8 +540,12 @@ form {
   width: 50px;
 }
 
-.select-species,
-.select-breed {
+.selectCampo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.select2-container .select2-selection {
   width: 210px;
   height: 35px;
   border: none;
@@ -438,12 +553,19 @@ form {
   font-size: 17px;
   outline: none;
   box-shadow: 0 0.4rem 0.8rem #0005;
+  text-align: justify;
+  color: #000;
 }
 
-.selectCampo{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.select2-container .select2-dropdown .select2-search input {
+  padding: 6px 6px;
+  outline: none;
+}
+
+.select2.select2-container .select2-selection .select2-selection__rendered {
+  color: #333;
+  line-height: 32px;
+  padding-right: 33px;
 }
 
 .modal-footer {
@@ -473,12 +595,11 @@ form {
   transition: 1s;
   background-color: #0005;
   color: white;
-  
 }
 
 .modal-footer .confirm {
   background-color: #02396f;
-  color:white;
+  color: white;
 }
 
 .close {
@@ -488,8 +609,8 @@ form {
   color: #fff;
 }
 
-.close:hover{
-  color:#0005;
+.close:hover {
+  color: #0005;
   transition: 1s;
 }
 
@@ -535,7 +656,9 @@ form {
   .colunaForm #inputEspecie,
   .colunaForm #inputPelagem,
   .colunaForm #inputRaca,
-  .colunaForm #inputPorte, .select-breed, .select-species {
+  .colunaForm #inputPorte,
+  .select-breed,
+  .select-species {
     width: 300px;
   }
 
