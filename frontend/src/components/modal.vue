@@ -35,7 +35,7 @@
 
             <div class="selectCampo" v-if="!userId">
               <label for="tutor">Tutor</label>
-              <select v-model="animal.tutor_id" id="select-tutor">
+              <select v-model="animal.tutor_id" id="select-tutor" class="selectTutor">
                 <option v-for="tutor in tutores" :value="tutor.id" selected>{{ tutor.nome }}</option>
               </select>
             </div>
@@ -362,6 +362,10 @@ export default {
       });
 
       this.selectPet();
+
+      $("#select-tutor").select2({
+        placeholder: "Selecione um Tutor",
+      });
     }
   },
 };
@@ -450,22 +454,9 @@ form {
 }
 
 #inputName,
-#select-tutor,
-#inputEmail {
+#inputEmail{
   width: 440px;
 }
-
-#select-tutor {
-  height: 35px;
-  border: none;
-  border-radius: 10px;
-  font-size: 17px;
-  outline: none;
-  box-shadow: 0 0.4rem 0.8rem #0005;
-  text-align: justify;
-  color: #000;
-}
-
 
 .colunaForm #inputCpf,
 #inputRg,
@@ -474,10 +465,8 @@ form {
 #inputPet,
 #inputAltura,
 #inputPeso,
-#inputEspecie,
 #inputPelagem,
-#inputPorte,
-#inputRaca {
+#inputPorte {
   width: 210px;
 }
 
@@ -512,19 +501,11 @@ form {
   gap: 5px;
 }
 
-
-
-#select-especie {
-  width: 210px;
+#select-tutor.selectTutor + .select2-container .select2-selection {
+  width: 440px;
   height: 35px;
-  border: none;
-  border-radius: 10px;
-  font-size: 17px;
-  outline: none;
-  box-shadow: 0 0.4rem 0.8rem #0005;
-  text-align: justify;
-  color: #000;
 }
+
 
 .select2-container .select2-selection {
   width: 210px;
@@ -637,7 +618,8 @@ form {
   .colunaForm #inputEspecie,
   .colunaForm #inputPelagem,
   .colunaForm #inputRaca,
-  .colunaForm #inputPorte {
+  .colunaForm #inputPorte, .select2-container .select2-selection,
+  #select-tutor.selectTutor + .select2-container .select2-selection{
     width: 300px;
   }
 
