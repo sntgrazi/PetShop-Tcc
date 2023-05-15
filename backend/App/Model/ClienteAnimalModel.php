@@ -8,8 +8,6 @@ final class ClienteAnimalModel{
     private $animal_id;
 
 
-   
-
     public function getAnimal_id(): int{
         return $this->animal_id;
     }

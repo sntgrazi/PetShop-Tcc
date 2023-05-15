@@ -14,25 +14,44 @@
       <form @submit.prevent="userId == false ? submitForm() : editarForm()">
         <div class="form-inputs" v-show="etapaAtual === 1">
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-            <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) =>
-              (cliente.nome = newValue)" :label="'Nome'" :idInput="'inputName'" />
+            <BaseInput
+              :modelValue="cliente.nome"
+              @update:modelValue="(newValue) =>
+              (cliente.nome = newValue)"
+              :label="'Nome'"
+              :idInput="'inputName'"
+            />
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) =>
-                (cliente.cpf = newValue)" :label="'Cpf'" :idInput="'inputCpf'" />
+              <BaseInput
+                :modelValue="cliente.cpf"
+                @update:modelValue="(newValue) =>
+                (cliente.cpf = newValue)"
+                :label="'Cpf'"
+                :idInput="'inputCpf'"
+              />
 
-              <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) =>
-                (cliente.telefone = newValue)" :label="'Telefone'" :idInput="'inputTelefone'" />
+              <BaseInput
+                :modelValue="cliente.telefone"
+                @update:modelValue="(newValue) =>
+                (cliente.telefone = newValue)"
+                :label="'Telefone'"
+                :idInput="'inputTelefone'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) =>
-                (cliente.email = newValue)" :label="'Email'" :idInput="'inputEmail'" />
+              <BaseInput
+                :modelValue="cliente.email"
+                @update:modelValue="(newValue) =>
+                (cliente.email = newValue)"
+                :label="'Email'"
+                :idInput="'inputEmail'"
+              />
             </div>
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
-
             <div class="selectCampo" v-if="!userId">
               <label for="tutor">Tutor</label>
               <select v-model="animal.tutor_id" id="select-tutor" class="selectTutor">
@@ -41,24 +60,48 @@
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) =>
-                (animal.nome_pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
+              <BaseInput
+                :modelValue="animal.nome_pet"
+                @update:modelValue="(newValue) =>
+                (animal.nome_pet = newValue)"
+                :label="'Pet'"
+                :idInput="'inputPet'"
+              />
 
-              <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) =>
-                (animal.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+              <BaseInput
+                :modelValue="animal.data_nascimento"
+                @update:modelValue="(newValue) =>
+                (animal.data_nascimento = newValue)"
+                :label="'Nascimento'"
+                :idInput="'inputDataNascimento'"
+              />
 
-              <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) =>
-                (animal.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
+              <BaseInput
+                :modelValue="animal.sexo"
+                @update:modelValue="(newValue) =>
+                (animal.sexo = newValue)"
+                :label="'Sexo'"
+                :idInput="'inputSexo'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) =>
-                (animal.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
+              <BaseInput
+                :modelValue="animal.altura"
+                @update:modelValue="(newValue) =>
+                (animal.altura = newValue)"
+                :label="'Altura'"
+                :idInput="'inputAltura'"
+              />
 
-              <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) =>
-                (animal.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
+              <BaseInput
+                :modelValue="animal.peso"
+                @update:modelValue="(newValue) =>
+                (animal.peso = newValue)"
+                :label="'Peso'"
+                :idInput="'inputPeso'"
+              />
             </div>
-
           </div>
 
           <div class="modal-footer">
@@ -67,34 +110,63 @@
         </div>
 
         <div class="form-inputs" v-show="etapaAtual === 2">
-
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) =>
-                (cliente.cep = newValue)" :label="'Cep'" :idInput="'inputCep'" />
+              <BaseInput
+                :modelValue="cliente.cep"
+                @update:modelValue="(newValue) =>
+                (cliente.cep = newValue)"
+                :label="'Cep'"
+                :idInput="'inputCep'"
+              />
 
               <button type="button" class="btn-pesquisar" @click="procurarEndereço">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
 
-              <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) =>
-                (cliente.bairro = newValue)" :label="'Bairro'" :idInput="'inputBairro'" />
+              <BaseInput
+                :modelValue="cliente.bairro"
+                @update:modelValue="(newValue) =>
+                (cliente.bairro = newValue)"
+                :label="'Bairro'"
+                :idInput="'inputBairro'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) =>
-                (cliente.rua = newValue)" :label="'Rua'" :idInput="'inputRua'" />
+              <BaseInput
+                :modelValue="cliente.rua"
+                @update:modelValue="(newValue) =>
+                (cliente.rua = newValue)"
+                :label="'Rua'"
+                :idInput="'inputRua'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) =>
-                (cliente.cidade = newValue)" :label="'Cidade'" :idInput="'inputCidade'" />
+              <BaseInput
+                :modelValue="cliente.cidade"
+                @update:modelValue="(newValue) =>
+                (cliente.cidade = newValue)"
+                :label="'Cidade'"
+                :idInput="'inputCidade'"
+              />
 
-              <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) =>
-                (cliente.uf = newValue)" :label="'Uf'" :idInput="'inputUf'" />
+              <BaseInput
+                :modelValue="cliente.uf"
+                @update:modelValue="(newValue) =>
+                (cliente.uf = newValue)"
+                :label="'Uf'"
+                :idInput="'inputUf'"
+              />
 
-              <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) =>
-                (cliente.n_casa = newValue)" :label="'N°'" :idInput="'inputN_Casa'" />
+              <BaseInput
+                :modelValue="cliente.n_casa"
+                @update:modelValue="(newValue) =>
+                (cliente.n_casa = newValue)"
+                :label="'N°'"
+                :idInput="'inputN_Casa'"
+              />
             </div>
           </div>
 
@@ -103,7 +175,11 @@
               <div class="selectCampo">
                 <label for="especie">Espécie</label>
                 <select v-model="animal.especie" id="select-especie">
-                  <option v-for="especie in especies" :value="especie.id" selected>{{ especie.nome }}</option>
+                  <option
+                    v-for="especie in especies"
+                    :value="especie.id"
+                    selected
+                  >{{ especie.nome }}</option>
                 </select>
               </div>
 
@@ -116,14 +192,23 @@
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.pelagem" @update:modelValue="(newValue) =>
-                (animal.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
+              <BaseInput
+                :modelValue="animal.pelagem"
+                @update:modelValue="(newValue) =>
+                (animal.pelagem = newValue)"
+                :label="'Pelagem'"
+                :idInput="'inputPelagem'"
+              />
 
-              <BaseInput :modelValue="animal.porte" @update:modelValue="(newValue) =>
-                (animal.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
+              <BaseInput
+                :modelValue="animal.porte"
+                @update:modelValue="(newValue) =>
+                (animal.porte = newValue)"
+                :label="'Porte'"
+                :idInput="'inputPorte'"
+              />
             </div>
           </div>
-
 
           <div class="modal-footer">
             <button type="button" class="proxima-etapa" @click="etapaAtual = 1">
@@ -174,21 +259,21 @@ export default {
         this.tipo === "cliente"
           ? "Cadastrar Cliente"
           : this.tipo == "Pets"
-            ? "Novo Pet"
-            : "Novo Agendamento",
+          ? "Novo Pet"
+          : "Novo Agendamento",
       botaoConfirm:
         this.tipo === "cliente" || this.tipo === "Pets"
           ? "Cadastrar"
           : "Agendar",
       // Animais DATA
       especies: [
-        { id: 'dog', nome: 'Cachorro' },
-        { id: 'cat', nome: 'Gato' }
+        { id: "dog", nome: "Cachorro" },
+        { id: "cat", nome: "Gato" }
       ],
       breeds: [],
       animal: {},
       tutores: [],
-      watchEnabled: true,
+      watchEnabled: true
     };
   },
   methods: {
@@ -234,15 +319,23 @@ export default {
       } else if (this.tipo == "agenda") {
         console.log("agendamento");
       } else if (this.tipo == "Pets") {
-       console.log(this.animal)
+        ApiController.editarAnimal(this.userId, this.animal)
+          .then(() => {
+            Swal.fire("", "Animal atualizado com sucesso!", "success");
+            this.$emit("atualizarTabela");
+            this.toggle();
+            this.animal = {};
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     async selectPet() {
-
       $("#select-especie").on("change", async e => {
         // Obtém a espécie selecionada
         this.especie = e.target.value;
-    
+
         // Busca as raças correspondentes na API The Dog API
         const response = await axios.get(
           `https://api.the${this.especie}api.com/v1/breeds`
@@ -293,11 +386,22 @@ export default {
           .then(animal => {
             this.animal = animal;
             $("#select-especie").select2();
-            $("#select-especie").val(animal.especie).trigger("change");
+            $("#select-especie")
+              .val(animal.especie)
+              .trigger("change");
             $("#select-raca").select2({
-              placeholder: "Selecione uma Raça",
+              placeholder: "Selecione uma Raça"
             });
-            this.selectPet();
+            $("#select-raca").on("change", e => {
+              this.animal.raca = $("#select-raca option:selected").val();
+            });
+
+            $("#select-especie").on("change", e => {
+              this.animal.especie = $("#select-especie option:selected").val();
+              this.watchEnabled = false;
+              this.breeds = [];
+              this.watchEnabled = true;
+            });
           })
           .catch(error => {
             console.log(error);
@@ -333,11 +437,11 @@ export default {
       this.buscar();
     } else {
       $("#select-especie").select2({
-        placeholder: "Selecione uma espécie",
+        placeholder: "Selecione uma espécie"
       });
 
       $("#select-raca").select2({
-        placeholder: "Selecione uma Raça",
+        placeholder: "Selecione uma Raça"
       });
 
       this.selectPet();
@@ -348,7 +452,7 @@ export default {
       });
 
       $("#select-tutor").select2({
-        placeholder: "Selecione um Tutor",
+        placeholder: "Selecione um Tutor"
       });
 
       $("#select-tutor").on("change", e => {
@@ -360,7 +464,7 @@ export default {
     }
   },
   watch: {
-    "animal.especie": async function (newSpecies) {
+    "animal.especie": async function(newSpecies) {
       if (this.watchEnabled) {
         try {
           const response = await fetch(
@@ -372,7 +476,7 @@ export default {
           console.error(error);
         }
       }
-    },
+    }
   }
 };
 </script>
@@ -507,11 +611,10 @@ form {
   gap: 5px;
 }
 
-#select-tutor.selectTutor+.select2-container .select2-selection {
+#select-tutor.selectTutor + .select2-container .select2-selection {
   width: 440px;
   height: 35px;
 }
-
 
 .select2-container .select2-selection {
   width: 210px;
@@ -626,7 +729,7 @@ form {
   .colunaForm #inputRaca,
   .colunaForm #inputPorte,
   .select2-container .select2-selection,
-  #select-tutor.selectTutor+.select2-container .select2-selection {
+  #select-tutor.selectTutor + .select2-container .select2-selection {
     width: 300px;
   }
 
