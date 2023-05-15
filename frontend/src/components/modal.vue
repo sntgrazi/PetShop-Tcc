@@ -11,7 +11,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <form @submit.prevent="userId == false ? submitForm() : editarForm()">
+      <form class="modalForm" @submit.prevent="userId == false ? submitForm() : editarForm()">
         <div class="form-inputs" v-show="etapaAtual === 1">
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
             <BaseInput
@@ -527,7 +527,7 @@ export default {
   gap: 20px;
 }
 
-form {
+.modalform {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -615,6 +615,8 @@ form {
   width: 440px;
   height: 35px;
 }
+
+
 
 .select2-container .select2-selection {
   width: 210px;

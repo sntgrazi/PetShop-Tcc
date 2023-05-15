@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import "@/assets/css/style.css";
+import "@/assets/css/style.css";  
 import { showNavbar } from "@/assets/js/funcoes";
 
 export default {
