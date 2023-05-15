@@ -250,11 +250,11 @@ export default {
 
       $("#select-especie").on("change", async e => {
         // Obtém a espécie selecionada
-        this.animal.especie = e.target.value;
+        this.especie = e.target.value;
     
         // Busca as raças correspondentes na API The Dog API
         const response = await axios.get(
-          `https://api.the${this.animal.especie}api.com/v1/breeds`
+          `https://api.the${this.especie}api.com/v1/breeds`
         );
         const racas = response.data;
 
@@ -350,6 +350,11 @@ export default {
       });
 
       this.selectPet();
+
+      $("#select-especie").on("change", e => {
+        // Obtém a raça selecionada
+        this.animal.especie = $("#select-especie option:selected").val();
+      });
 
       $("#select-tutor").select2({
         placeholder: "Selecione um Tutor",
