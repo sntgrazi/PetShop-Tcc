@@ -26,6 +26,9 @@
               <button class="btn-acoes" id="btn-deletar" @click="excluir(dado.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
+              <button class="btn-acoes" id="btn-tutores" v-if="topoTabela.includes('PET')" @click="toggleInfo(dado.id)">
+                <i class="fa-solid fa-user"></i>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -37,10 +40,13 @@
 <script>
 export default {
   name: "tabela",
-  props: ["topoTabela", "dados", "toggle"],
+  props: ["topoTabela", "dados", "toggle", "toggleInfo"],
   methods: {
     excluir(id){
       this.$emit("deletar", id)
+    },
+    modalTutores(id){
+      this.$emit('tutor', id)
     }
   }
   
@@ -271,6 +277,10 @@ tbody td.active {
 
 #btn-deletar {
   background-color: red;
+}
+
+#btn-tutores {
+  background-color: rgb(70, 69, 69);
 }
 
 .btn-pet {

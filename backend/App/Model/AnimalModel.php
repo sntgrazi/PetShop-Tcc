@@ -14,6 +14,7 @@ final class AnimalModel{
     private $raca;
     private $pelagem;
     private $porte;
+    private $tutor_id;
 
     public function getId(): int{
         return $this->id;
@@ -100,6 +101,15 @@ final class AnimalModel{
 
     public function setPorte(String $porte): AnimalModel{
         $this->porte = $porte;
+        return $this;
+    }
+
+    public function getTutor_id(): int{
+        return $this->tutor_id;
+    }
+
+    public function setTutor_id(int $tutor_id):  AnimalModel{
+        $this->tutor_id = $tutor_id;
         return $this;
     }
 

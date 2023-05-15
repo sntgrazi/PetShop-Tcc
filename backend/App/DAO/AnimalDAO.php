@@ -3,7 +3,7 @@
 namespace App\DAO;
 
 use App\Model\AnimalModel;
-
+use App\Model\ClienteAnimalModel;
 class AnimalDAO extends ConexaoDAO{
 
     public function __construct(){
@@ -29,11 +29,12 @@ class AnimalDAO extends ConexaoDAO{
     }
 
     public function insertAnimal(AnimalModel $animalModel): void {
+        
         $sql = 'INSERT INTO animais VALUES (null, :nome_pet, :data_nascimento, :sexo, :altura, :peso, :especie, :raca, :pelagem, :porte)';
 
         $stm = $this->pdo
         ->prepare($sql);
-
+        
         $stm->execute([
             'nome_pet' => $animalModel->getNome_pet(),
             'data_nascimento' => $animalModel->getData_nascimento(),
@@ -45,6 +46,18 @@ class AnimalDAO extends ConexaoDAO{
             'pelagem' => $animalModel->getPelagem(),
             'porte' => $animalModel->getPorte(),
         ]);
+
+        $cliente_id = $animalModel->getTutor_id();
+        $animal_id = $this->pdo->lastInsertId();
+     
+        
+        $sql02 = 'INSERT INTO cliente_animal VALUES (:cliente_id, :animal_id)';
+        $stm = $this->pdo->prepare($sql02);
+        $stm->execute([
+            'cliente_id' => $cliente_id,
+            'animal_id' => $animal_id
+        ]);
+
     }
 
     public function updateAnimais(AnimalModel $animalModel): void {

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src=”https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src=”https://dicadodesenvolvedor.com.br/script/select-busca.js"></script>
+    <title>Document</title>
+    <style>
+        .optionT {
+
+            padding: 10px;
+            
+            transition: 0.5s all;
+            
+            cursor: pointer;
+            
+            }
+            
+            .optionT:hover {
+            
+            background-color: aliceblue;
+            
+            }
+            
+            .divOpN {
+            
+            box-shadow: 0px 1px 5px #eee;
+            
+            padding: 20px;
+            
+            margin-top: 5px;
+            
+            display: none;
+            
+            position: absolute;
+            
+            width: 90%;
+            
+            max-height: 200px;
+            
+            overflow: auto;
+            
+            background-color: white;
+            
+            z-index: 100;
+            
+            }
+    </style>
+</head>
+<body>
+   
+    <div class=”divOp divOpN”>
+        <input type=”text” class=”selectHTML” data-div=”divOp” name=”” id=”selectHTML1">
+        <option data-input=’#selectHTML1' data-div=’.divOp’ class=’optionT pesquisado’>Gazolina</option>
+        
+        <option data-input=’#selectHTML1' data-div=’.divOp’ class=’optionT pesquisado’>Alcool</option>
+        
+        <option data-input=’#selectHTML1' data-div=’.divOp’ class=’optionT pesquisado’>Gazolina</option>
+        
+        </div>
+</body>
+</html>

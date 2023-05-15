@@ -57,6 +57,20 @@ export default{
         }
     },
 
+    // Tabela Clinete - Animais
+
+    async vincularAnimal(tabela){
+        try{
+            const url = `${ApiUrl}/inserirClienteAnimal`;
+            const response = await axios.post(url, tabela);
+            return response.data
+        } catch (error){
+            console.error('Erro ao vincular animal: ', error);
+            throw error;
+        }
+    },
+
+
     // Animais Rotas
 
     async cadastrarAnimal(animal){

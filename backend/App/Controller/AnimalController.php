@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DAO\AnimalDAO;
 use App\Model\AnimalModel;
+use App\Model\ClienteAnimalModel;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -46,6 +47,9 @@ final class AnimalController {
              ->setRaca($data['raca'])
              ->setPelagem($data['pelagem'])
              ->setPorte($data['porte']);
+
+        $tabelaM = new ClienteAnimalModel();
+        $animalModel->setTutor_id($data['tutor_id']);
         $animalDAO->insertAnimal($animalModel);
 
         

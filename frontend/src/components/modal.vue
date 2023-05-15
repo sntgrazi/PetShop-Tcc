@@ -32,7 +32,13 @@
           </div>
 
           <div class="inputsAnimais" v-if="inputsAnimais">
-            <BaseInput :label="'Tutor'" :idInput="'inputTutor'" />
+
+            <div class="selectCampo" v-if="!userId">
+              <label for="tutor">Tutor</label>
+              <select v-model="animal.tutor_id" id="select-tutor">
+                <option v-for="tutor in tutores" :value="tutor.id" selected>{{ tutor.nome }}</option>
+              </select>
+            </div>
 
             <div class="colunaForm">
               <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) =>
@@ -52,6 +58,7 @@
               <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) =>
                 (animal.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
             </div>
+
           </div>
 
           <div class="modal-footer">
@@ -60,6 +67,7 @@
         </div>
 
         <div class="form-inputs" v-show="etapaAtual === 2">
+
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
             <div class="colunaForm">
               <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) =>
@@ -95,15 +103,14 @@
               <div class="selectCampo">
                 <label for="especie">Espécie</label>
                 <select v-model="animal.especie" id="select-especie">
-                  <option v-for="especie in especies" :value="especie.id">{{ especie.nome }}</option>
+                  <option v-for="especie in especies" :value="especie.id" selected>{{ especie.nome }}</option>
                 </select>
               </div>
 
               <div class="selectCampo">
                 <label for="raca">Raça</label>
                 <select v-model="animal.raca" id="select-raca">
-                  <option v-for="breed in breeds" :value="breed.name">{{ breed.name
-                  }}</option>
+                  <option v-for="breed in breeds" :value="breed.name">{{ breed.name }}</option>
                 </select>
               </div>
             </div>
@@ -116,6 +123,7 @@
                 (animal.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
             </div>
           </div>
+
 
           <div class="modal-footer">
             <button type="button" class="proxima-etapa" @click="etapaAtual = 1">
@@ -151,7 +159,8 @@ export default {
     "inputsAnimais",
     "toggle",
     "active",
-    "getClientes"
+    "getClientes",
+    "mostratTutor"
   ],
   components: {
     BaseInput
@@ -177,8 +186,22 @@ export default {
         { id: 'cat', nome: 'Gato' }
       ],
       breeds: [],
-      animal: {}
+      animal: { especie: "" },
+      tutores: [],
     };
+  },
+  watch: {
+    "animal.especie": async function (newSpecies) {
+      try {
+        const response = await fetch(
+          `https://api.the${newSpecies}api.com/v1/breeds`
+        );
+        const data = await response.json();
+        this.breeds = data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   methods: {
     async submitForm() {
@@ -196,7 +219,16 @@ export default {
       } else if (this.tipo == "agenda") {
         console.log("Agendamento");
       } else if (this.tipo == "Pets") {
-        console.log(this.animal);
+        ApiController.cadastrarAnimal(this.animal)
+          .then(() => {
+            Swal.fire("", "Animal cadastrado com sucesso!", "success");
+            this.$emit("atualizarTabela");
+            this.toggle();
+            this.animal = {};
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     },
     async editarForm() {
@@ -226,7 +258,42 @@ export default {
           });
       }
     },
+    async selectPet() {
+      $("#select-especie").on("change", async e => {
+        // Obtém a espécie selecionada
+        this.especie = e.target.value;
 
+
+        // Busca as raças correspondentes na API The Dog API
+        const response = await axios.get(
+          `https://api.the${this.especie}api.com/v1/breeds`
+        );
+        const racas = response.data;
+
+        // Limpa o select de raças e adiciona as novas opções
+        $("#select-raca").empty();
+        $("#select-raca").append(
+          $("<option>", { value: "", text: "Selecione uma raça" })
+        );
+        racas.forEach(raca => {
+          $("#select-raca").append(
+            $("<option>", {
+              value: raca.id,
+              text: raca.name,
+              "data-nome": raca.name
+            })
+          );
+        });
+
+        $("#select-raca").trigger("change");
+
+        $("#select-raca").on("change", e => {
+          // Obtém a raça selecionada
+
+          this.animal.raca = $("#select-raca option:selected").data("nome");
+        });
+      });
+    },
     async buscar() {
       if (this.tipo == "cliente") {
         ApiController.cliente(this.userId)
@@ -247,6 +314,12 @@ export default {
         ApiController.animal(this.userId)
           .then(animal => {
             this.animal = animal;
+            $("#select-especie").select2();
+            $("#select-especie").val(animal.especie).trigger("change");
+            $("#select-raca").select2({
+              placeholder: "Selecione uma Raça",
+            });
+            this.selectPet();
           })
           .catch(error => {
             console.log(error);
@@ -265,62 +338,32 @@ export default {
         })
         .catch(error => console.error(error));
     },
+    async Clientes() {
+      ApiController.getClientes()
+        .then(clientes => {
+          this.tutores = clientes;
+        })
+        .catch(error => {
+          console.log("Erro ao listar os clientes: ", error);
+        });
+    }
   },
   mounted() {
+    this.Clientes();
     if (this.userId != false) {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
-
       this.buscar();
-    }
-
-
-    $("#select-especie").select2({
-      placeholder: "Selecione uma Espécie",
-    });
-    $("#select-raca").select2({
-      placeholder: "Selecione uma Raça",
-    });
-
-    // Adiciona um listener de eventos para o select de espécies
-    $("#select-especie").on("change", async e => {
-      // Obtém a espécie selecionada
-      this.especie = e.target.value;
-
-      // Busca as raças correspondentes na API The Dog API
-      const response = await axios.get(
-        `https://api.the${this.especie}api.com/v1/breeds`
-      );
-      const racas = response.data;
-
-      // Limpa o select de raças e adiciona as novas opções
-      $("#select-raca").empty();
-      $("#select-raca").append(
-        $("<option>", { value: "", text: "Selecione uma raça" })
-      );
-      racas.forEach(raca => {
-        $("#select-raca").append(
-          $("<option>", {
-            value: raca.id,
-            text: raca.name,
-            "data-nome": raca.name
-          })
-        );
+    } else {
+      $("#select-especie").select2({
+        placeholder: "Selecione uma espécie",
       });
-    });
+      $("#select-raca").select2({
+        placeholder: "Selecione uma Raça",
+      });
+
+      this.selectPet();
+    }
   },
-  watch: {
-    "animal.especie": async function (newSpecies) {
-      try {
-        const response = await fetch(
-          `https://api.the${newSpecies}api.com/v1/breeds`
-        );
-        const data = await response.json();
-        this.breeds = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  }
 };
 </script>
 
@@ -407,10 +450,22 @@ form {
 }
 
 #inputName,
-#inputTutor,
+#select-tutor,
 #inputEmail {
   width: 440px;
 }
+
+#select-tutor {
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  outline: none;
+  box-shadow: 0 0.4rem 0.8rem #0005;
+  text-align: justify;
+  color: #000;
+}
+
 
 .colunaForm #inputCpf,
 #inputRg,
@@ -456,6 +511,8 @@ form {
   flex-direction: column;
   gap: 5px;
 }
+
+
 
 #select-especie {
   width: 210px;
@@ -580,9 +637,7 @@ form {
   .colunaForm #inputEspecie,
   .colunaForm #inputPelagem,
   .colunaForm #inputRaca,
-  .colunaForm #inputPorte,
-  .select-breed,
-  .select-species {
+  .colunaForm #inputPorte {
     width: 300px;
   }
 

@@ -5,6 +5,7 @@ use Slim\Middleware\BodyParsingMiddleware;
 use Slim\Middleware\CorsMiddleware;
 use App\Controller\ClienteController;
 use App\Controller\AnimalController;
+use App\Controller\ClienteAnimalController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -29,6 +30,11 @@ $app->get('/animal/{id}', AnimalController::class . ':getAnimal');
 $app->post('/inserirAnimal', AnimalController::class . ':insertAnimal');
 $app->put('/updateAnimal/{id}', AnimalController::class . ':updateAnimal');
 $app->delete('/deleteAnimal/{id}', AnimalController::class . ':deleteAnimal');
+
+$app->get('/clienteAnimais', ClienteAnimalController::class . ':getAllClienteAnimal');    
+$app->get('/clienteAnimal/{id}', ClienteAnimalController::class . ':getClienteAnimalById');                            
+$app->post('/inserirClienteAnimal', ClienteAnimalController::class . ':insertClienteAnimal');
+
 
 $app->get('/clientes', ClienteController::class . ':getClientes');    
 $app->get('/cliente/{id}', ClienteController::class . ':getCliente');                            

@@ -13,7 +13,8 @@
             :inputsAnimais="true"
             @atualizarTabela="getAnimais"
           />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform"
+          <InfoModal :toggleinfo="toggleInfo" v-if="formInfo" :titulo="'Tutores'" :icon="'fa-users'"/>
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" :toggleInfo="toggleInfo"
           @deletar="deletarAnimais" />
         </div>
       </div>
@@ -28,13 +29,15 @@ import modal from "../components/modal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
+import InfoModal from '../components/InfoModal.vue';
 
 export default{
   name: "AnimaisView",
   components: {
     tabela,
     topo,
-    modal
+    modal,
+    InfoModal
   },
   data(){
     return{
@@ -45,6 +48,7 @@ export default{
   setup(){
     const formActive = ref(false);
     const userId = ref(false);
+    const formInfo = ref(false)
 
     const toggleform = (id = false) => {
       formActive.value = !formActive.value;
@@ -56,11 +60,25 @@ export default{
       }
     };
 
+    const toggleInfo = (id = false) =>{
+      formInfo.value = !formInfo.value;
+      userId.value = false;
+
+      if (id) {
+        userId.value = id;
+        console.log(userId.value);
+      }
+    }
+
     return {
       formActive,
+      formInfo,
       toggleform,
+      toggleInfo,
       userId,
     };
+
+   
   },
   methods: {
     getAnimais() {
@@ -95,8 +113,10 @@ export default{
         }
       });
     },
+
   },
   mounted(){
+    
     this.getAnimais();
   }
 }
