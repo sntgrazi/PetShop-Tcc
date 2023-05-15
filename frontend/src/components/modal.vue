@@ -186,22 +186,10 @@ export default {
         { id: 'cat', nome: 'Gato' }
       ],
       breeds: [],
-      animal: { especie: "" },
+      animal: {},
       tutores: [],
+      watchEnabled: true,
     };
-  },
-  watch: {
-    "animal.especie": async function (newSpecies) {
-      try {
-        const response = await fetch(
-          `https://api.the${newSpecies}api.com/v1/breeds`
-        );
-        const data = await response.json();
-        this.breeds = data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
   },
   methods: {
     async submitForm() {
@@ -259,14 +247,14 @@ export default {
       }
     },
     async selectPet() {
+
       $("#select-especie").on("change", async e => {
         // Obtém a espécie selecionada
-        this.especie = e.target.value;
-
-
+        this.animal.especie = e.target.value;
+    
         // Busca as raças correspondentes na API The Dog API
         const response = await axios.get(
-          `https://api.the${this.especie}api.com/v1/breeds`
+          `https://api.the${this.animal.especie}api.com/v1/breeds`
         );
         const racas = response.data;
 
@@ -289,7 +277,6 @@ export default {
 
         $("#select-raca").on("change", e => {
           // Obtém a raça selecionada
-
           this.animal.raca = $("#select-raca option:selected").data("nome");
         });
       });
@@ -357,6 +344,7 @@ export default {
       $("#select-especie").select2({
         placeholder: "Selecione uma espécie",
       });
+
       $("#select-raca").select2({
         placeholder: "Selecione uma Raça",
       });
@@ -366,8 +354,30 @@ export default {
       $("#select-tutor").select2({
         placeholder: "Selecione um Tutor",
       });
+
+      $("#select-tutor").on("change", e => {
+        // Obtém a raça selecionada
+        this.animal.tutor_id = $("#select-tutor option:selected").val();
+      });
+
+      this.watchEnabled = false;
     }
   },
+  watch: {
+    "animal.especie": async function (newSpecies) {
+      if (this.watchEnabled) {
+        try {
+          const response = await fetch(
+            `https://api.the${newSpecies}api.com/v1/breeds`
+          );
+          const data = await response.json();
+          this.breeds = data;
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    },
+  }
 };
 </script>
 
@@ -454,7 +464,7 @@ form {
 }
 
 #inputName,
-#inputEmail{
+#inputEmail {
   width: 440px;
 }
 
@@ -501,7 +511,7 @@ form {
   gap: 5px;
 }
 
-#select-tutor.selectTutor + .select2-container .select2-selection {
+#select-tutor.selectTutor+.select2-container .select2-selection {
   width: 440px;
   height: 35px;
 }
@@ -618,8 +628,9 @@ form {
   .colunaForm #inputEspecie,
   .colunaForm #inputPelagem,
   .colunaForm #inputRaca,
-  .colunaForm #inputPorte, .select2-container .select2-selection,
-  #select-tutor.selectTutor + .select2-container .select2-selection{
+  .colunaForm #inputPorte,
+  .select2-container .select2-selection,
+  #select-tutor.selectTutor+.select2-container .select2-selection {
     width: 300px;
   }
 
