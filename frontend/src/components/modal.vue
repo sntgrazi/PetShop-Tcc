@@ -234,16 +234,7 @@ export default {
       } else if (this.tipo == "agenda") {
         console.log("agendamento");
       } else if (this.tipo == "Pets") {
-        ApiController.editarCliente(this.userId, this.cliente)
-          .then(() => {
-            Swal.fire("", "Cliente atualizado com sucesso!", "success");
-            this.$emit("atualizarTabela");
-            this.toggle();
-            this.cliente = {};
-          })
-          .catch(error => {
-            console.log(error);
-          });
+       console.log(this.animal)
       }
     },
     async selectPet() {

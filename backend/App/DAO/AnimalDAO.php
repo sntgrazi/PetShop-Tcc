@@ -60,7 +60,7 @@ class AnimalDAO extends ConexaoDAO{
 
     }
 
-    public function updateAnimais(AnimalModel $animalModel): void {
+    public function updateAnimal(AnimalModel $animalModel): void {
         $sql = 'UPDATE animais SET nome_pet = :nome_pet, data_nascimento = :data_nascimento, sexo = :sexo, altura = :altura, peso = :peso, especie = :especie, raca = :raca, pelagem = :pelagem, porte = :porte WHERE id = :id';
 
         $stm = $this->pdo->prepare($sql);
