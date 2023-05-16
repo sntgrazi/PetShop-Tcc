@@ -1,21 +1,13 @@
 <template>
-    <section>
+  <section>
     <div class="container">
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-          <modal
-            v-if="formActive"
-            :tipo="'Pets'"
-            :icon="'fa-paw'"
-            :toggle="toggleform"
-            :userId="userId"
-            :inputsAnimais="true"
-            @atualizarTabela="getAnimais"
-          />
-          <InfoModal :toggleinfo="toggleInfo" v-if="formInfo" :titulo="'Tutores'" :icon="'fa-users'"/>
+          <modal v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
+            :inputsAnimais="true" @atualizarTabela="getAnimais" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" :toggleInfo="toggleInfo"
-          @deletar="deletarAnimais" />
+            @deletar="deletarAnimais" />
         </div>
       </div>
     </div>
@@ -29,23 +21,21 @@ import modal from "../components/modal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
-import InfoModal from '../components/InfoModal.vue';
 
-export default{
+export default {
   name: "AnimaisView",
   components: {
     tabela,
     topo,
     modal,
-    InfoModal
   },
-  data(){
-    return{
-        topoTabela: ["ID", "PET","SEXO","RAÇA", "AÇÕES"],
-        dadosTabela: []
+  data() {
+    return {
+      topoTabela: ["ID", "PET", "SEXO", "RAÇA", "AÇÕES"],
+      dadosTabela: []
     }
-  },    
-  setup(){
+  },
+  setup() {
     const formActive = ref(false);
     const userId = ref(false);
     const formInfo = ref(false)
@@ -60,7 +50,7 @@ export default{
       }
     };
 
-    const toggleInfo = (id = false) =>{
+    const toggleInfo = (id = false) => {
       formInfo.value = !formInfo.value;
       userId.value = false;
 
@@ -78,7 +68,7 @@ export default{
       userId,
     };
 
-   
+
   },
   methods: {
     getAnimais() {
@@ -115,8 +105,8 @@ export default{
     },
 
   },
-  mounted(){
-    
+  mounted() {
+
     this.getAnimais();
   }
 }
