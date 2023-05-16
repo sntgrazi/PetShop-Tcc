@@ -532,6 +532,8 @@ export default {
 }
 
 .select2-container .select2-selection {
+  width: 210px;
+  height: 35px;
   border: none;
   border-radius: 10px;
   font-size: 17px;
@@ -539,16 +541,6 @@ export default {
   box-shadow: 0 0.4rem 0.8rem #0005;
   text-align: justify;
   color: #000;
-}
-
-#select-raca+.select2-container .select2-selection {
-  width: 210px;
-  height: 35px;
-}
-
-#select-especie+.select2-container .select2-selection {
-  width: 210px;
-  height: 35px;
 }
 
 .select2-container .select2-dropdown .select2-search input {
@@ -650,6 +642,7 @@ export default {
   .colunaForm #inputPelagem,
   .colunaForm #inputRaca,
   .colunaForm #inputPorte,
+  .select2-container .select2-selection,
   #select-tutor.selectTutor +.select2-container .select2-selection {
     width: 300px;
   }
