@@ -11,7 +11,8 @@
       </button>
     </div>
     <div class="modal-body">
-      <form>
+      <form class="formInfo">
+       <div class="colunaForm">
         <div class="selectCampoInfo">
           <label for="">Procurar tutor/a para vincular ao animal</label>
           <select id="selectTutores" class="selectTutores">
@@ -19,6 +20,7 @@
             <option v-for="cliente in clientes" :value="cliente.id">{{ cliente.nome }}</option>
           </select>
         </div>
+       </div>
 
         <table>
           <tr>
@@ -47,6 +49,7 @@ export default {
     this.getTutorVinculado();
     $("#selectTutores").select2({
       placeholder: "Selecione o tutor",
+      width: '100%'
     });
 
   },
@@ -81,10 +84,6 @@ export default {
 </script>
 
 <style>
-#selectTutores.selectTutores+.select2-container .select2-selection {
-  width: 460px;
-  height: 35px;
-}
 
 .selectCampoInfo {
   width: 100%;
@@ -96,25 +95,14 @@ export default {
 }
 
 .selectCampoInfo>label {
+  margin-bottom: 10px;
   color: #fff;
 }
-
-
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 750px) {
   #selectTutores.selectTutores+.select2-container .select2-selection {
-    width: 410px;
+    width: 100%;
   }
-}
 
-@media screen and (max-width: 420px) {
-  #selectTutores.selectTutores+.select2-container .select2-selection {
-    width: 320px;
-  }
-}
-@media screen and (max-width: 370px) {
-  #selectTutores.selectTutores+.select2-container .select2-selection {
-    width: 280px;
-  }
 }
 </style>
 

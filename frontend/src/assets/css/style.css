@@ -270,7 +270,7 @@ a {
   gap: 20px;
 }
 
-form{
+.formModal{
   display: flex;
   flex-direction: column;
   align-items: center;

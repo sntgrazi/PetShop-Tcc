@@ -11,7 +11,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <form @submit.prevent="userId == false ? submitForm() : editarForm()">
+      <form class="formModal" @submit.prevent="userId == false ? submitForm() : editarForm()">
         <div class="form-inputs" v-show="etapaAtual === 1">
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
             <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) =>
@@ -33,11 +33,14 @@
 
           <div class="inputsAnimais" v-if="inputsAnimais">
 
-            <div class="selectCampo" v-if="!userId">
+            <div class="colunaForm">
+              <div class="selectCampo" v-if="!userId">
               <label for="tutor">Tutor</label>
               <select v-model="animal.tutor_id" id="select-tutor" class="selectTutor">
                 <option v-for="tutor in tutores" :value="tutor.id" selected>{{ tutor.nome }}</option>
               </select>
+            </div>
+
             </div>
 
             <div class="colunaForm">
@@ -367,7 +370,8 @@ export default {
       });
 
       $("#select-tutor").select2({
-        placeholder: "Selecione um Tutor"
+        placeholder: "Selecione um Tutor",
+        width: '100%'
       });
 
       $("#select-tutor").on("change", e => {
@@ -398,13 +402,8 @@ export default {
 
 <style>
 
-#select-tutor.selectTutor+.select2-container .select2-selection {
-  width: 440px;
-  height: 35px;
-}
-
 .select2-container .select2-selection {
-  width: 210px;
+  width: 100%;
   height: 35px;
   border: none;
   border-radius: 10px;
