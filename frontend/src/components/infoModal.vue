@@ -98,5 +98,23 @@ export default {
 .selectCampoInfo>label {
   color: #fff;
 }
+
+
+@media screen and (max-width: 550px) {
+  #selectTutores.selectTutores+.select2-container .select2-selection {
+    width: 410px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  #selectTutores.selectTutores+.select2-container .select2-selection {
+    width: 320px;
+  }
+}
+@media screen and (max-width: 370px) {
+  #selectTutores.selectTutores+.select2-container .select2-selection {
+    width: 280px;
+  }
+}
 </style>
 
