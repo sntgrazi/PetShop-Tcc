@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\DAO\ClienteAnimalDAO;
+use App\Model\AnimalModel;
 use App\Model\ClienteAnimalModel;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
@@ -18,14 +19,14 @@ final class ClienteAnimalController {
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function getClienteAnimalById(Request $request, Response $response, array $args) {
+    public function getClienteVinculadoById(Request $request, Response $response, array $args) {
 
         $id = $args['id'];
     
         $tabelaDAO = new ClienteAnimalDAO();
-        $tabelaM = new ClienteAnimalModel();
-        $tabelaM->setId($id);
-        $tabela = $tabelaDAO->getClienteAnimalById($tabelaM);
+        $animalM = new AnimalModel();
+        $animalM->setId($id);
+        $tabela = $tabelaDAO->getClienteVinculadoById($animalM);
 
         $response->getBody()->write(json_encode($tabela));
         return $response->withHeader('Content-Type', 'application/json');

@@ -32,7 +32,7 @@ $app->put('/updateAnimal/{id}', AnimalController::class . ':updateAnimal');
 $app->delete('/deleteAnimal/{id}', AnimalController::class . ':deleteAnimal');
 
 $app->get('/clienteAnimais', ClienteAnimalController::class . ':getAllClienteAnimal');    
-$app->get('/clienteAnimal/{id}', ClienteAnimalController::class . ':getClienteAnimalById');                            
+$app->get('/clienteAnimal/{id}', ClienteAnimalController::class . ':getClienteVinculadoById');                            
 $app->post('/inserirClienteAnimal', ClienteAnimalController::class . ':insertClienteAnimal');
 
 

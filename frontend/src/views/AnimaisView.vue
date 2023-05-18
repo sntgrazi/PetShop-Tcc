@@ -6,6 +6,8 @@
         <div class="main-content">
           <modal v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
             :inputsAnimais="true" @atualizarTabela="getAnimais" />
+          <infoModal :toggleInfo="toggleInfo" v-if="formInfo" :tipo="'Tutores'" :icon="'fa-users'" 
+          :userId="userId"/>
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" :toggleInfo="toggleInfo"
             @deletar="deletarAnimais" />
         </div>
@@ -21,6 +23,7 @@ import modal from "../components/modal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
+import infoModal from '../components/infoModal.vue';
 
 export default {
   name: "AnimaisView",
@@ -28,6 +31,7 @@ export default {
     tabela,
     topo,
     modal,
+    infoModal
   },
   data() {
     return {
@@ -58,11 +62,11 @@ export default {
         userId.value = id;
         console.log(userId.value);
       }
-    }
+    };
 
     return {
-      formActive,
       formInfo,
+      formActive,
       toggleform,
       toggleInfo,
       userId,
@@ -106,7 +110,7 @@ export default {
 
   },
   mounted() {
-
+    
     this.getAnimais();
   }
 }

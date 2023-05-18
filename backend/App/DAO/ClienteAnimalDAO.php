@@ -1,7 +1,7 @@
 <?php
 
 namespace App\DAO;
-
+use App\Model\AnimalModel;
 use App\Model\ClienteAnimalModel;
 
 class  ClienteAnimalDAO extends ConexaoDAO{
@@ -17,43 +17,21 @@ class  ClienteAnimalDAO extends ConexaoDAO{
         return $clientesAnimais;
     }
     
-    public function getClienteAnimalById(ClienteAnimalModel $tabelaM): array {
-        $sql = 'SELECT * from cliente_animal WHERE id = :id';
+    public function getClienteVinculadoById(AnimalModel $animalM): array {
+        $sql = 'SELECT clientes.nome
+        FROM clientes
+        JOIN cliente_animal ON clientes.id = cliente_animal.cliente_id
+        WHERE cliente_animal.animal_id = :id';
     
         $stm = $this->pdo->prepare($sql);
         $stm->execute([
-            'id' => $tabela->getId()
+            'id' => $animalM->getId()
         ]);
-        $tabela = $stm->fetch(\PDO::FETCH_ASSOC);
+        $tabela = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $tabela;
     }
     
-    public function insertClienteAnimal(ClienteAnimalModel $clienteAnimalM): void {
-        $sql = 'INSERT INTO cliente_animal VALUES (:cliente_id, :animal_id)';
-        
-        $stm = $this->pdo->prepare($sql);
-        $stm->execute([
-            'cliente_id' => $clienteAnimalM->getCliente_id(),
-            'animal_id' => $clienteAnimalM->getAnimal_id()
-        ]);
-    }
+   
     
-    public function updateClienteAnimal(ClienteAnimalModel $clienteAnimal): void {
-        $sql = 'UPDATE cliente_animal SET cliente_id = :cliente_id, animal_id = :animal_id WHERE id = :id';
-        
-        $stm = $this->pdo->prepare($sql);
-        $stm->execute([
-            'id' => $clienteAnimal->getId(),
-            'cliente_id' => $clienteAnimal->getClienteId(),
-            'animal_id' => $clienteAnimal->getAnimalId()
-        ]);
-    }
-    
-    public function deleteClienteAnimal(int $id): void {
-        $sql = 'DELETE FROM cliente_animal WHERE id = :id';
-        
-        $stm = $this->pdo->prepare($sql);
-        $stm->execute(['id' => $id]);
-    }
 
 }

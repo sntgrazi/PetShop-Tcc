@@ -127,4 +127,14 @@ export default{
         }
     },
 
+    async getclienteVinculado(id){
+        try{
+            const url = `${ApiUrl}/clienteAnimal/${id}`;
+            const response = await axios.get(url);
+            return response.data;
+        } catch (error){
+            console.error('Erro ao buscar cliente vinculado', error)
+        }
+    }
+
 }

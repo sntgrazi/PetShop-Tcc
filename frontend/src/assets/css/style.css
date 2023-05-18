@@ -225,6 +225,198 @@ a {
   width: 205px;
 }
 
+.modal {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  max-width: 90%;
+  background-color: #02396f;
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+  z-index: 10;
+}
+
+.form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 5;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  color: #ffffff;
+}
+
+.modal-header i {
+  font-size: 30px;
+}
+
+.titulo-modal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-inputs label {
+  color: white;
+  margin-top: 10px;
+}
+
+.form-inputs input {
+  width: 280px;
+  height: 35px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0.4rem 0.8rem #0005;
+  font-size: 1.2em;
+  background-color: #fff;
+}
+
+.colunaForm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+#inputName,
+#inputEmail {
+  width: 440px;
+}
+
+.colunaForm #inputCpf,
+#inputRg,
+#inputTelefone,
+#inputCep,
+#inputPet,
+#inputAltura,
+#inputPeso,
+#inputPelagem,
+#inputPorte {
+  width: 210px;
+}
+
+.colunaForm #inputBairro {
+  width: 170px;
+}
+
+.colunaForm #inputUf,
+.colunaForm #inputN_Casa {
+  width: 70px;
+}
+
+.colunaForm #inputRua {
+  width: 400px;
+}
+
+.colunaForm #inputCidade {
+  width: 220px;
+}
+
+.colunaForm #inputDataNascimento {
+  width: 140px;
+}
+
+.colunaForm #inputSexo {
+  width: 50px;
+}
+
+.selectCampo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+.modal-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.modal-footer button {
+  background-color: #e2ebf4;
+  padding: 0.6rem 1.2rem;
+  color: #02396f;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0.9;
+  font: bold;
+  font-size: 1.2rem;
+}
+
+.modal-footer button i {
+  margin-right: 5px;
+}
+
+.modal-footer button:hover {
+  transition: 1s;
+  background-color: #0005;
+  color: white;
+}
+
+.modal-footer .confirm {
+  background-color: #02396f;
+  color: white;
+}
+
+.close {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #fff;
+}
+
+.close:hover {
+  color: #0005;
+  transition: 1s;
+}
+
+#inputCep {
+  padding-right: 40px;
+  /* Espaçamento para o botão */
+}
+
+.btn-pesquisar {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-right: 20px;
+}
+
 /* ===== MEDIA QUERIES=====*/
 
 @media (max-width: 1000px) {
@@ -265,7 +457,7 @@ a {
   }
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 750px) {
 
   .sidebar {
     transform: translate(-100%);
@@ -288,4 +480,61 @@ a {
     transition: all 0.5s ease;
   }
 
+  .colunaForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .colunaForm #inputCpf,
+  .colunaForm #inputRg,
+  .colunaForm #inputTelefone,
+  .colunaForm #inputEmail,
+  #inputName,
+  .colunaForm #inputCep,
+  .colunaForm #inputCidade,
+  .colunaForm #inputUf,
+  .colunaForm #inputBairro,
+  .colunaForm #inputRua,
+  .colunaForm #inputN_Casa,
+  .colunaForm #inputPet,
+  .colunaForm #inputDataNascimento,
+  .colunaForm #inputSexo,
+  .colunaForm #inputAltura,
+  .colunaForm #inputPeso,
+  .colunaForm #inputEspecie,
+  .colunaForm #inputPelagem,
+  .colunaForm #inputRaca,
+  .colunaForm #inputPorte,
+  .select2-container .select2-selection,
+  #select-tutor.selectTutor+.select2-container .select2-selection {
+    width: 300px;
+  }
+
+  .modal-footer {
+    gap: 20px;
+  }
+
+  #inputCep {
+    padding-right: 40px;
+    /* Espaçamento para o botão */
+  }
+
+  .btn-pesquisar {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 75px;
+    margin-left: 260px;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  #modal {
+    position: absolute;
+    margin-top: 3rem;
+  }
 }
