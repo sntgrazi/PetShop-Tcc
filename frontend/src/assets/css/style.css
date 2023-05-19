@@ -288,7 +288,6 @@ a {
 }
 
 .form-inputs input {
-  width: 280px;
   height: 35px;
   border: none;
   border-radius: 10px;
@@ -299,6 +298,7 @@ a {
 }
 
 .colunaForm {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -355,7 +355,6 @@ a {
   gap: 5px;
 }
 
-
 .modal-footer {
   margin-top: 1rem;
   display: flex;
@@ -402,10 +401,7 @@ a {
   transition: 1s;
 }
 
-#inputCep {
-  padding-right: 40px;
-  /* Espaçamento para o botão */
-}
+
 
 .btn-pesquisar {
   position: absolute;
@@ -413,7 +409,7 @@ a {
   border: none;
   font-size: 1em;
   cursor: pointer;
-  margin-top: 30px;
+  margin-top: 37px;
   margin-right: 20px;
 }
 
@@ -508,16 +504,11 @@ a {
   .colunaForm #inputPorte,
   .select2-container .select2-selection,
   #select-tutor.selectTutor+.select2-container .select2-selection {
-    width: 300px;
+    width: 100%;
   }
 
   .modal-footer {
     gap: 20px;
-  }
-
-  #inputCep {
-    padding-right: 40px;
-    /* Espaçamento para o botão */
   }
 
   .btn-pesquisar {
@@ -526,8 +517,8 @@ a {
     border: none;
     font-size: 1em;
     cursor: pointer;
-    margin-bottom: 75px;
-    margin-left: 260px;
+    margin-bottom: 82px;
+    margin-left: 250px;
     padding: 10px;
   }
 }

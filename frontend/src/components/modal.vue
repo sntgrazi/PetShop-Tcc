@@ -428,7 +428,7 @@ export default {
 @media screen and (max-width: 750px) {
   .select2-container .select2-selection,
   #select-tutor.selectTutor+.select2-container .select2-selection {
-    width: 300px;
+    width: 100%;
   }
 
 }
