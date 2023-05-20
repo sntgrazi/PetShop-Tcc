@@ -257,9 +257,9 @@ tbody td.active {
   border: none;
   font-size: 20px;
   margin: 0 5px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
   cursor: pointer;
   color: #fff;
   box-shadow: 0 1px 1px 0 #000000;

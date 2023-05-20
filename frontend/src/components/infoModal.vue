@@ -12,28 +12,38 @@
     </div>
     <div class="modal-body">
       <form class="formInfo">
-       <div class="colunaForm">
-        <div class="selectCampoInfo">
-          <label for="">Procurar tutor/a para vincular ao animal</label>
-          <select id="selectTutores" class="selectTutores">
-            <option value="" selected></option>
-            <option v-for="cliente in clientes" :value="cliente.id">{{ cliente.nome }}</option>
-          </select>
+        <div class="colunaForm">
+          <div class="selectCampoInfo">
+            <label for="">Procurar tutor/a para vincular ao animal</label>
+            <select id="selectTutores" class="selectTutores">
+              <option value="" selected></option>
+              <option v-for="cliente in clientes" :value="cliente.id">{{ cliente.nome }}</option>
+            </select>
+          </div>
         </div>
-       </div>
-
-        <table>
-          <tr>
-            <th>TUTOR</th>
-            <th>ACOES</th>
-          </tr>
-          <tr v-for="tutor in tutores" :key="tutor">
-            <td>{{ tutor.nome }}</td>
-            <td v-if="tutores.length >= 1"> VER FICHA</td>
-            <td v-if="tutores.length  > 1"> APAGAR CLIENTE</td>
-          </tr>
-        </table>
       </form>
+
+      <div class="containerTabela">
+        <table class="tabelaTutores">
+          <thead>
+            <tr>
+              <th>TUTOR</th>
+              <th>AÇÕES</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="tutor in tutores" :key="tutor">
+              <td>{{ tutor.nome }}</td>
+              <td class="btnTutores">
+                <button type="
+                button" class="btn-acoes" v-if="tutores.length >= 1"><i class="fa-solid fa-user"></i></button>
+                <button type="
+                button" class="btn-acoes" v-if="tutores.length > 1"><i class="fa-solid fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -84,7 +94,6 @@ export default {
 </script>
 
 <style>
-
 .selectCampoInfo {
   width: 100%;
   display: flex;
@@ -98,6 +107,40 @@ export default {
   margin-bottom: 10px;
   color: #fff;
 }
+
+.tabelaTutores {
+  margin-top: 10px;
+}
+
+.tabelaTutores thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.tabelaTutores thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.tabelaTutores tbody {
+  background-color: #ffffff;
+}
+
+.tabelaTutores tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+.tabelaTutores tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+.btnTutores button{
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  background-color: rgb(71, 71, 71);
+  color: #fff;
+  margin-left: 10px;
+}
+
 @media screen and (max-width: 750px) {
   #selectTutores.selectTutores+.select2-container .select2-selection {
     width: 100%;
