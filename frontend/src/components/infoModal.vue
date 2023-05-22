@@ -76,8 +76,9 @@ export default {
       ApiController.adicionarVinculo(tutor_id, animal_id)
         .then(response => {
           this.getTutorVinculado();
-          this.tutores = response.data;
           this.Clientes();
+          this.tutores = response.data;
+
           $("#selectTutores").val(null).trigger("change");
         })
         .catch(error => {
