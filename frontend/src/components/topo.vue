@@ -8,28 +8,32 @@
 </template>
 
 <script>
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 export default {
   name: "topo",
   props: ["type", "icon", "toggle"],
   data() {
     return {
-      botaoAdd: this.type === "Clientes" ? "Novo Cliente" : this.type === "Pets" ? "Novo Pet" : "Novo Agendamento"
+      botaoAdd:
+        this.type === "Clientes"
+          ? "Novo Cliente"
+          : this.type === "Pets"
+            ? "Novo Pet"
+            : "Novo Agendamento"
     };
   },
   methods: {
     btnModal() {
-      if (this.type === 'Pets') {
+      if (this.type === "Pets") {
         Swal.fire({
           showCloseButton: true,
-          title: 'Já possui um tutor cadastrado?',
+          title: "Já possui um tutor cadastrado?",
           showCancelButton: true,
-          confirmButtonText: 'Sim',
-          cancelButtonText: 'Não',
-          cancelButtonColor: 'red',
-          allowOutsideClick: false,
-       
-        }).then((result) => {
+          confirmButtonText: "Sim",
+          cancelButtonText: "Não",
+          cancelButtonColor: "red",
+          allowOutsideClick: false
+        }).then(result => {
           if (result.isConfirmed) {
             // Abrir modal para cadastrar novo pet
             this.toggle();
@@ -37,8 +41,8 @@ export default {
             // Nada a fazer, o modal foi fechado pelo botão de fechar
           } else {
             // Redirecionar para a tela de cadastro de clientes
-            window.localStorage.setItem('redirecionado', 'true');
-            window.location.href = '/clientes';
+            window.localStorage.setItem("redirecionado", "true");
+            window.location.href = "/clientes";
           }
         });
       } else {
@@ -52,12 +56,12 @@ export default {
 <style>
 .row {
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
 }
 
 #open-modal {
   padding: 0.6rem 1.2rem;
-  background-color: #1E90FF;
+  background-color: #1e90ff;
   color: #fff;
   border: none;
   border-radius: 8px;

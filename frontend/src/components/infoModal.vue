@@ -135,6 +135,7 @@ export default {
         const animal_id = this.userId;
 
         const response = await ApiController.adicionarVinculo(tutor_id, animal_id);
+        Swal.fire("", "Tutor vinculado com sucesso", "success");
         this.Clientes();
         this.tutores = response.data;
 
