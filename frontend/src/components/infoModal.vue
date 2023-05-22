@@ -110,10 +110,9 @@ export default {
 
         if (motivoExclusao) {
           await ApiController.deletarVinculo(clienteid, animalid);
+          Swal.fire("", "Tutor removido com sucesso", "success");
           await this.getTutorVinculado();
           await this.Clientes();
-
-          Swal.fire("", "Tutor removido com sucesso", "success");
         }
       } catch (error) {
         console.error("Erro ao remover o vínculo: ", error);
