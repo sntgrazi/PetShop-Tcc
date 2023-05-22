@@ -56,9 +56,70 @@ import ApiController from "@/ApiController";
 
 export default {
   props: ["toggleInfo", "tipo", "icon", "userId"],
-  created(){
-    this.getTutorVinculado();
-    this.Clientes();
+  data() {
+    return {
+      titulo: this.tipo === 'Tutores' ? "Tutores" : "",
+      clientes: [],
+      tutores: []
+    }
+  },
+  methods: {
+    getTutorVinculado() {
+      ApiController.getclienteVinculado(this.userId)
+        .then(tutores => {
+          this.tutores = tutores;
+        }).catch(error => {
+          console.log("Erro ao procurar tutores: ", error)
+        })
+    },
+    async Clientes() {
+      try {
+        const clientes = await ApiController.getClientes();
+        await this.getTutorVinculado();
+
+        const clienteSemVinculo = clientes.filter(cliente => {
+          return !this.tutores.some(tutor => tutor.id === cliente.id);
+        });
+
+        this.clientes = clienteSemVinculo;
+
+        // Restante do seu código...
+      } catch (error) {
+        console.log("Erro ao listar os clientes: ", error);
+      }
+    },
+
+
+    async removerVinculo(clienteid, animalid) {
+      Swal.fire({
+        title: 'Motivo da exclusão',
+        input: 'textarea',
+        inputPlaceholder: 'Digite o motivo da exclusão...',
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancelar',
+        inputAttributes: {
+          required: 'required'
+        },
+        validationMessage: 'Por favor, digite um motivo.'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const motivoExclusao = result.value;
+          if (motivoExclusao) {
+            ApiController.deletarVinculo(clienteid, animalid)
+              .then((response) => {
+                this.getTutorVinculado();
+                this.Clientes();
+              }).catch((error) => {
+                console.error("Erro ao remover o vínculo: ", error);
+              });
+
+            Swal.fire("", "Tutor removido com sucesso", "success");
+          }
+        }
+      });
+
+    }
   },
   mounted() {
     this.getTutorVinculado();
@@ -85,69 +146,8 @@ export default {
         });
     });
 
- 
+
   },
-  data() {
-    return {
-      titulo: this.tipo === 'Tutores' ? "Tutores" : "",
-      clientes: [],
-      tutores: []
-    }
-  },
-  methods: {
-    async Clientes() {
-      ApiController.getClientes()
-        .then(clientes => {
-          const clienteSemVinculo = clientes.filter(cliente => {
-            return !this.tutores.some(tutor => tutor.id === cliente.id);
-          });
-          this.clientes = clienteSemVinculo;
-         
-        })
-        .catch(error => {
-          console.log("Erro ao listar os clientes: ", error);
-        });
-    },
-
-    async getTutorVinculado() {
-      ApiController.getclienteVinculado(this.userId)
-        .then(tutores => {
-          this.tutores = tutores;
-        }).catch(error => {
-          console.log("Erro ao procurar tutores: ", error)
-        })
-    },
-    async removerVinculo(clienteid, animalid) {
-      Swal.fire({
-        title: 'Motivo da exclusão',
-        input: 'textarea',
-        inputPlaceholder: 'Digite o motivo da exclusão...',
-        showCancelButton: true,
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancelar',
-        inputAttributes: {
-          required: 'required'
-        },
-        validationMessage: 'Por favor, digite um motivo.'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const motivoExclusao = result.value;
-          if (motivoExclusao) {
-            ApiController.deletarVinculo(clienteid, animalid)
-              .then((response) => {
-                this.getTutorVinculado(); 
-                this.Clientes();  
-              }).catch((error) => {
-                console.error("Erro ao remover o vínculo: ", error);
-              });
-
-            Swal.fire("", "Tutor removido com sucesso", "success");
-          }
-        }
-      });
-
-    }
-  }
 };
 </script>
 
