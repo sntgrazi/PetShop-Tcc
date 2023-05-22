@@ -38,7 +38,8 @@
                 <button type="
                 button" class="btn-acoes" v-if="tutores.length >= 1"><i class="fa-solid fa-user"></i></button>
                 <button type="
-                button" class="btn-acoes" v-if="tutores.length > 1"><i class="fa-solid fa-trash"></i></button>
+                button" @click="removerVinculo(tutor.id, userId)" class="btn-acoes" v-if="tutores.length > 1"><i
+                    class="fa-solid fa-trash"></i></button>
               </td>
             </tr>
           </tbody>
@@ -50,16 +51,34 @@
 
 <script>
 import $ from "jquery";
+import Swal from "sweetalert2";
 import ApiController from "@/ApiController";
 
 export default {
   props: ["toggleInfo", "tipo", "icon", "userId"],
   mounted() {
-    this.Clientes();
+
     this.getTutorVinculado();
+    this.Clientes();
+
     $("#selectTutores").select2({
       placeholder: "Selecione o tutor",
       width: '100%'
+    });
+
+    $('#selectTutores').on('select2:select', (e) => {
+      const tutor_id = e.params.data.id;
+      const animal_id = this.userId
+
+      ApiController.adicionarVinculo(tutor_id, animal_id)
+        .then(response => {
+          this.getTutorVinculado();
+          this.tutores = response.data;
+          $("#selectTutores").val(null).trigger("change");
+        })
+        .catch(error => {
+          console.log("Erro ao adicionar um vinculo: ", error);
+        });
     });
 
   },
@@ -67,14 +86,17 @@ export default {
     return {
       titulo: this.tipo === 'Tutores' ? "Tutores" : "",
       clientes: [],
-      tutores: {}
+      tutores: []
     }
   },
   methods: {
     async Clientes() {
       ApiController.getClientes()
         .then(clientes => {
-          this.clientes = clientes;
+          const clientesSemVinculo = clientes.filter(cliente => {
+            return !this.tutores.some(tutor => tutor.id === cliente.id);
+          });
+          this.clientes = clientesSemVinculo
         })
         .catch(error => {
           console.log("Erro ao listar os clientes: ", error);
@@ -88,6 +110,36 @@ export default {
         }).catch(error => {
           console.log("Erro ao procurar tutores: ", error)
         })
+    },
+    async removerVinculo(clienteid, animalid) {
+      Swal.fire({
+        title: 'Motivo da exclusão',
+        input: 'textarea',
+        inputPlaceholder: 'Digite o motivo da exclusão...',
+        showCancelButton: true,
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancelar',
+        inputAttributes: {
+          required: 'required'
+        },
+        validationMessage: 'Por favor, digite um motivo.'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const motivoExclusao = result.value;
+          if (motivoExclusao) {
+            ApiController.deletarVinculo(clienteid, animalid)
+              .then((response) => {
+                this.getTutorVinculado();
+                this.Clientes();
+              }).catch((error) => {
+                console.error("Erro ao remover o vínculo: ", error);
+              });
+
+            Swal.fire("", "Tutor removido com sucesso", "success");
+          }
+        }
+      });
+
     }
   }
 };
@@ -132,11 +184,11 @@ export default {
   border-bottom-right-radius: 10px;
 }
 
-.btnTutores button{
+.btnTutores button {
   width: 30px;
   height: 30px;
   font-size: 16px;
-  background-color: rgb(71, 71, 71);
+  background-color: rgb(70, 68, 68);
   color: #fff;
   margin-left: 10px;
 }

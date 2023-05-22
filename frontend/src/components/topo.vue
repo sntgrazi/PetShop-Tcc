@@ -20,26 +20,31 @@ export default {
   methods: {
     btnModal() {
       if (this.type === 'Pets') {
-      Swal.fire({
-        title: 'Já possui um tutor cadastrado?',
-        showCancelButton: true,
-        confirmButtonText: 'Sim',
-        cancelButtonText: 'Não',
-        cancelButtonColor: 'red',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // Abrir modal para cadastrar novo pet
-          this.toggle();
-        } else {
-          // Redirecionar para a tela de cadastro de clientes
-          window.localStorage.setItem('redirecionado', 'true');
-          window.location.href = '/clientes';
-        }
-      });
-    } else {
-      this.toggle();
+        Swal.fire({
+          showCloseButton: true,
+          title: 'Já possui um tutor cadastrado?',
+          showCancelButton: true,
+          confirmButtonText: 'Sim',
+          cancelButtonText: 'Não',
+          cancelButtonColor: 'red',
+          allowOutsideClick: false,
+       
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Abrir modal para cadastrar novo pet
+            this.toggle();
+          } else if (result.dismiss === Swal.DismissReason.close) {
+            // Nada a fazer, o modal foi fechado pelo botão de fechar
+          } else {
+            // Redirecionar para a tela de cadastro de clientes
+            window.localStorage.setItem('redirecionado', 'true');
+            window.location.href = '/clientes';
+          }
+        });
+      } else {
+        this.toggle();
+      }
     }
-  }
   }
 };
 </script>
@@ -72,6 +77,7 @@ export default {
   transform: scale(0.95);
   box-shadow: 2px 2px var(--black);
 }
+
 
 @media screen and (max-width: 370px) {
   #open-modal {

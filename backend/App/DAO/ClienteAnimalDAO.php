@@ -18,7 +18,7 @@ class  ClienteAnimalDAO extends ConexaoDAO{
     }
     
     public function getClienteVinculadoById(AnimalModel $animalM): array {
-        $sql = 'SELECT clientes.nome
+        $sql = 'SELECT clientes.nome, clientes.id
         FROM clientes
         JOIN cliente_animal ON clientes.id = cliente_animal.cliente_id
         WHERE cliente_animal.animal_id = :id';
@@ -29,6 +29,30 @@ class  ClienteAnimalDAO extends ConexaoDAO{
         ]);
         $tabela = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $tabela;
+    }
+
+    public function deleteVinculo(ClienteAnimalModel $tabelaM): void{
+        $sql = 'DELETE FROM cliente_animal
+        WHERE cliente_id = :cliente_id AND animal_id = :animal_id';
+
+
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([
+            'cliente_id' => $tabelaM->getTutor_id(),
+            'animal_id' => $tabelaM->getAnimal_Id()
+        ]);
+
+    }
+
+    public function adicionarVinculo(ClienteAnimalModel $tabelaM): void{
+        $sql = 'INSERT INTO cliente_animal  values (:cliente_id, :animal_id)';
+
+        $stm = $this->pdo->prepare($sql);
+
+        $stm->execute([
+            'cliente_id' => $tabelaM->getTutor_id(),
+            'animal_id' => $tabelaM->getAnimal_Id()
+        ]);
     }
     
    

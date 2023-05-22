@@ -16,4 +16,17 @@ final class ClienteAnimalModel{
         $this->animal_id = $animal_id;
         return $this;
     }
+
+    
+    public function getTutor_id(): int
+    {
+        return $this->tutor_id;
+    }
+
+    public function setTutor_id($tutor_id): ClienteAnimalModel
+    {
+        $this->tutor_id = $tutor_id;
+
+        return $this;
+    }
 }
