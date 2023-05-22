@@ -80,7 +80,8 @@ export default {
           console.log("Erro ao adicionar um vinculo: ", error);
         });
     });
-
+    
+    this.Clientes();
   },
   data() {
     return {
