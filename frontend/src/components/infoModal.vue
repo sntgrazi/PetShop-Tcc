@@ -57,8 +57,9 @@ import ApiController from "@/ApiController";
 export default {
   props: ["toggleInfo", "tipo", "icon", "userId"],
   mounted() {
-
     this.getTutorVinculado();
+    this.Clientes();
+ 
 
 
     $("#selectTutores").select2({
@@ -73,8 +74,8 @@ export default {
       ApiController.adicionarVinculo(tutor_id, animal_id)
         .then(response => {
           this.getTutorVinculado();
-          this.Clientes();
           this.tutores = response.data;
+          this.Clientes();
           $("#selectTutores").val(null).trigger("change");
         })
         .catch(error => {
@@ -82,7 +83,7 @@ export default {
         });
     });
 
-    this.Clientes();
+ 
   },
   data() {
     return {
@@ -95,10 +96,13 @@ export default {
     async Clientes() {
       ApiController.getClientes()
         .then(clientes => {
-          const clientesSemVinculo = clientes.filter(cliente => {
+          const clienteSemVinculo = clientes.filter(cliente => {
             return !this.tutores.some(tutor => tutor.id === cliente.id);
           });
-          this.clientes = clientesSemVinculo
+          console.log(this.tutores)
+          console.log(clienteSemVinculo);
+          this.clientes = clienteSemVinculo;
+         
         })
         .catch(error => {
           console.log("Erro ao listar os clientes: ", error);
@@ -131,8 +135,8 @@ export default {
           if (motivoExclusao) {
             ApiController.deletarVinculo(clienteid, animalid)
               .then((response) => {
-                this.getTutorVinculado();
-                this.Clientes();
+                this.getTutorVinculado(); 
+                this.Clientes();  
               }).catch((error) => {
                 console.error("Erro ao remover o vínculo: ", error);
               });
