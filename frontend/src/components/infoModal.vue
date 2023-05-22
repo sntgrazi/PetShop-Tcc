@@ -59,7 +59,7 @@ export default {
   mounted() {
 
     this.getTutorVinculado();
-    this.Clientes();
+
 
     $("#selectTutores").select2({
       placeholder: "Selecione o tutor",
