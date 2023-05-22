@@ -56,11 +56,13 @@ import ApiController from "@/ApiController";
 
 export default {
   props: ["toggleInfo", "tipo", "icon", "userId"],
+  created(){
+    this.getTutorVinculado();
+    this.Clientes();
+  },
   mounted() {
     this.getTutorVinculado();
     this.Clientes();
- 
-
 
     $("#selectTutores").select2({
       placeholder: "Selecione o tutor",
