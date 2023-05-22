@@ -101,8 +101,6 @@ export default {
           const clienteSemVinculo = clientes.filter(cliente => {
             return !this.tutores.some(tutor => tutor.id === cliente.id);
           });
-          console.log(this.tutores)
-          console.log(clienteSemVinculo);
           this.clientes = clienteSemVinculo;
          
         })
