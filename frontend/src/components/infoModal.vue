@@ -78,7 +78,6 @@ export default {
           this.getTutorVinculado();
           this.Clientes();
           this.tutores = response.data;
-
           $("#selectTutores").val(null).trigger("change");
         })
         .catch(error => {
