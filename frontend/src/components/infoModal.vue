@@ -14,9 +14,9 @@
       <form class="formInfo">
         <div class="colunaForm">
           <div class="selectCampoInfo">
-            <label for="">Procurar tutor/a para vincular ao animal</label>
+            <label for>Procurar tutor/a para vincular ao animal</label>
             <select id="selectTutores" class="selectTutores">
-              <option value="" selected></option>
+              <option value selected></option>
               <option v-for="cliente in clientes" :value="cliente.id">{{ cliente.nome }}</option>
             </select>
           </div>
@@ -36,10 +36,18 @@
               <td>{{ tutor.nome }}</td>
               <td class="btnTutores">
                 <button type="
-                button" class="btn-acoes" v-if="tutores.length >= 1"><i class="fa-solid fa-user"></i></button>
-                <button type="
-                button" @click="removerVinculo(tutor.id, userId)" class="btn-acoes" v-if="tutores.length > 1"><i
-                    class="fa-solid fa-trash"></i></button>
+                button" class="btn-acoes" v-if="tutores.length >= 1">
+                  <i class="fa-solid fa-user"></i>
+                </button>
+                <button
+                  type="
+                button"
+                  @click="removerVinculo(tutor.id, userId)"
+                  class="btn-acoes"
+                  v-if="tutores.length > 1"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -58,19 +66,18 @@ export default {
   props: ["toggleInfo", "tipo", "icon", "userId"],
   data() {
     return {
-      titulo: this.tipo === 'Tutores' ? "Tutores" : "",
+      titulo: this.tipo === "Tutores" ? "Tutores" : "",
       clientes: [],
       tutores: []
-    }
+    };
   },
   methods: {
-    getTutorVinculado() {
-      ApiController.getclienteVinculado(this.userId)
-        .then(tutores => {
-          this.tutores = tutores;
-        }).catch(error => {
-          console.log("Erro ao procurar tutores: ", error)
-        })
+    async getTutorVinculado() {
+      try {
+        this.tutores = await ApiController.getclienteVinculado(this.userId);
+      } catch (error) {
+        console.log("Erro ao procurar tutores: ", error);
+      }
     },
     async Clientes() {
       try {
@@ -82,72 +89,62 @@ export default {
         });
 
         this.clientes = clienteSemVinculo;
-
-        // Restante do seu código...
       } catch (error) {
         console.log("Erro ao listar os clientes: ", error);
       }
     },
-
-
     async removerVinculo(clienteid, animalid) {
-      Swal.fire({
-        title: 'Motivo da exclusão',
-        input: 'textarea',
-        inputPlaceholder: 'Digite o motivo da exclusão...',
-        showCancelButton: true,
-        confirmButtonText: 'OK',
-        cancelButtonText: 'Cancelar',
-        inputAttributes: {
-          required: 'required'
-        },
-        validationMessage: 'Por favor, digite um motivo.'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const motivoExclusao = result.value;
-          if (motivoExclusao) {
-            ApiController.deletarVinculo(clienteid, animalid)
-              .then((response) => {
-                this.getTutorVinculado();
-                this.Clientes();
-              }).catch((error) => {
-                console.error("Erro ao remover o vínculo: ", error);
-              });
+      try {
+        const { value: motivoExclusao } = await Swal.fire({
+          title: "Motivo da exclusão",
+          input: "textarea",
+          inputPlaceholder: "Digite o motivo da exclusão...",
+          showCancelButton: true,
+          confirmButtonText: "OK",
+          cancelButtonText: "Cancelar",
+          inputAttributes: {
+            required: "required"
+          },
+          validationMessage: "Por favor, digite um motivo."
+        });
 
-            Swal.fire("", "Tutor removido com sucesso", "success");
-          }
+        if (motivoExclusao) {
+          await ApiController.deletarVinculo(clienteid, animalid);
+          await this.getTutorVinculado();
+          await this.Clientes();
+
+          Swal.fire("", "Tutor removido com sucesso", "success");
         }
-      });
-
+      } catch (error) {
+        console.error("Erro ao remover o vínculo: ", error);
+      }
     }
   },
+
   mounted() {
     this.getTutorVinculado();
     this.Clientes();
 
     $("#selectTutores").select2({
       placeholder: "Selecione o tutor",
-      width: '100%'
+      width: "100%"
     });
 
-    $('#selectTutores').on('select2:select', (e) => {
-      const tutor_id = e.params.data.id;
-      const animal_id = this.userId
+    $("#selectTutores").on("select2:select", async e => {
+      try {
+        const tutor_id = e.params.data.id;
+        const animal_id = this.userId;
 
-      ApiController.adicionarVinculo(tutor_id, animal_id)
-        .then(response => {
-          this.getTutorVinculado();
-          this.Clientes();
-          this.tutores = response.data;
-          $("#selectTutores").val(null).trigger("change");
-        })
-        .catch(error => {
-          console.log("Erro ao adicionar um vinculo: ", error);
-        });
+        const response = await ApiController.adicionarVinculo(tutor_id, animal_id);
+        this.Clientes();
+        this.tutores = response.data;
+
+        $("#selectTutores").val(null).trigger("change");
+      } catch (error) {
+        console.log("Erro ao adicionar um vinculo: ", error);
+      }
     });
-
-
-  },
+  }
 };
 </script>
 
@@ -161,7 +158,7 @@ export default {
   padding-bottom: 1.5rem;
 }
 
-.selectCampoInfo>label {
+.selectCampoInfo > label {
   margin-bottom: 10px;
   color: #fff;
 }
@@ -200,10 +197,9 @@ export default {
 }
 
 @media screen and (max-width: 750px) {
-  #selectTutores.selectTutores+.select2-container .select2-selection {
+  #selectTutores.selectTutores + .select2-container .select2-selection {
     width: 100%;
   }
-
 }
 </style>
 
