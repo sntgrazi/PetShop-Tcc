@@ -3,56 +3,20 @@
   <div class="modal">
     <div class="modal-header">
       <div class="titulo-modal">
-        <i :class="['fa regular', icon]"></i>
-        <h2>{{ titulo }}</h2>
+        <i class="fa-solid fa-paw"></i>
+        <h2> Tutores </h2>
       </div>
-      <button type="button" @click="() => toggleInfo()" id="close-modal" class="close">
+      <button
+        type="button"
+        @click="() => toggleInfo()"
+        id="close-modal"
+        class="close"
+      >
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
     <div class="modal-body">
-      <form class="formInfo">
-        <div class="colunaForm">
-          <div class="selectCampoInfo">
-            <label for>Procurar tutor/a para vincular ao animal</label>
-            <select id="selectTutores" class="selectTutores">
-              <option value selected></option>
-              <option v-for="cliente in clientes" :value="cliente.id">{{ cliente.nome }}</option>
-            </select>
-          </div>
-        </div>
-      </form>
-
-      <div class="containerTabela">
-        <table class="tabelaTutores">
-          <thead>
-            <tr>
-              <th>TUTOR</th>
-              <th>AÇÕES</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="tutor in tutores" :key="tutor">
-              <td>{{ tutor.nome }}</td>
-              <td class="btnTutores">
-                <button type="
-                button" class="btn-acoes" v-if="tutores.length >= 1">
-                  <i class="fa-solid fa-user"></i>
-                </button>
-                <button
-                  type="
-                button"
-                  @click="removerVinculo(tutor.id, userId)"
-                  class="btn-acoes"
-                  v-if="tutores.length > 1"
-                >
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+     
     </div>
   </div>
 </template>
@@ -61,14 +25,12 @@
 import $ from "jquery";
 import Swal from "sweetalert2";
 import ApiController from "@/ApiController";
-
 export default {
-  props: ["toggleInfo", "tipo", "icon", "userId"],
+  props: ["toggleInfo", "userId"],
   data() {
     return {
-      titulo: this.tipo === "Tutores" ? "Tutores" : "",
       clientes: [],
-      tutores: []
+      tutores: [],
     };
   },
   methods: {
@@ -84,8 +46,8 @@ export default {
         const clientes = await ApiController.getClientes();
         await this.getTutorVinculado();
 
-        const clienteSemVinculo = clientes.filter(cliente => {
-          return !this.tutores.some(tutor => tutor.id === cliente.id);
+        const clienteSemVinculo = clientes.filter((cliente) => {
+          return !this.tutores.some((tutor) => tutor.id === cliente.id);
         });
 
         this.clientes = clienteSemVinculo;
@@ -103,9 +65,9 @@ export default {
           confirmButtonText: "OK",
           cancelButtonText: "Cancelar",
           inputAttributes: {
-            required: "required"
+            required: "required",
           },
-          validationMessage: "Por favor, digite um motivo."
+          validationMessage: "Por favor, digite um motivo.",
         });
 
         if (motivoExclusao) {
@@ -117,7 +79,7 @@ export default {
       } catch (error) {
         console.error("Erro ao remover o vínculo: ", error);
       }
-    }
+    },
   },
 
   mounted() {
@@ -126,15 +88,18 @@ export default {
 
     $("#selectTutores").select2({
       placeholder: "Selecione o tutor",
-      width: "100%"
+      width: "100%",
     });
 
-    $("#selectTutores").on("select2:select", async e => {
+    $("#selectTutores").on("select2:select", async (e) => {
       try {
         const tutor_id = e.params.data.id;
         const animal_id = this.userId;
 
-        const response = await ApiController.adicionarVinculo(tutor_id, animal_id);
+        const response = await ApiController.adicionarVinculo(
+          tutor_id,
+          animal_id
+        );
         Swal.fire("", "Tutor vinculado com sucesso", "success");
         this.Clientes();
         this.tutores = response.data;
@@ -144,7 +109,7 @@ export default {
         console.log("Erro ao adicionar um vinculo: ", error);
       }
     });
-  }
+  },
 };
 </script>
 
@@ -202,4 +167,3 @@ export default {
   }
 }
 </style>
-

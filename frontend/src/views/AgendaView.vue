@@ -24,7 +24,7 @@
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
 import ApiController from "@/ApiController";
-import modal from "../components/modal.vue";
+import modal from "../components/modal/modal.vue";
 import InfoAgenda from "@/components/InfoAgenda.vue";
 import { ref } from "vue";
 

@@ -5,9 +5,7 @@
       <div class="content">
         <div class="main-content">
           <modal v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
-            :inputsAnimais="true" @atualizarTabela="getAnimais" />
-          <infoModal :toggleInfo="toggleInfo" v-if="formInfo" :tipo="'Tutores'" :icon="'fa-users'" 
-          :userId="userId"/>
+            :inputsAnimais="inputsAnimais" :formtutor="formtutores" @atualizarTabela="getAnimais" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" :toggleInfo="toggleInfo"
             @deletar="deletarAnimais" />
         </div>
@@ -19,11 +17,11 @@
 <script>
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
-import modal from "../components/modal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
-import infoModal from '../components/infoModal.vue';
+import modalInfo from "../components/modal/modalInfo.vue";
+import modal from "../components/modal/modal.vue";
 
 export default {
   name: "AnimaisView",
@@ -31,26 +29,37 @@ export default {
     tabela,
     topo,
     modal,
-    infoModal
+    modalInfo,
   },
   data() {
     return {
       topoTabela: ["ID", "PET", "SEXO", "RAÇA", "AÇÕES"],
-      dadosTabela: []
-    }
+      dadosTabela: [],
+    };
   },
   setup() {
+
     const formActive = ref(false);
     const userId = ref(false);
-    const formInfo = ref(false)
+    const formInfo = ref(false);
+    const formtutores = ref(false);
+    const inputsAnimais = ref(false);
 
-    const toggleform = (id = false) => {
+    const toggleform = (id = false, tipo) => {
       formActive.value = !formActive.value;
       userId.value = false;
 
       if (id) {
         userId.value = id;
         console.log(userId.value);
+      }
+
+      if (tipo == 'animais'){
+        inputsAnimais.value = true;
+        formtutores.value = false;
+      } else if (tipo == 'tutores'){
+        inputsAnimais.value = false;
+        formtutores.value = true;
       }
     };
 
@@ -62,6 +71,7 @@ export default {
         userId.value = id;
         console.log(userId.value);
       }
+
     };
 
     return {
@@ -70,9 +80,9 @@ export default {
       toggleform,
       toggleInfo,
       userId,
+      inputsAnimais,
+      formtutores
     };
-
-
   },
   methods: {
     getAnimais() {
@@ -107,15 +117,11 @@ export default {
         }
       });
     },
-
   },
   mounted() {
-    
     this.getAnimais();
-  }
-}
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

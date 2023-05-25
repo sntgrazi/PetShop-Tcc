@@ -50,6 +50,7 @@ class AnimalDAO extends ConexaoDAO{
         $cliente_id = $animalModel->getTutor_id();
         $animal_id = $this->pdo->lastInsertId();
      
+        var_dump($animal_id);
         
         $sql02 = 'INSERT INTO cliente_animal VALUES (:cliente_id, :animal_id)';
         $stm = $this->pdo->prepare($sql02);

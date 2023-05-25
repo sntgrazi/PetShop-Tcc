@@ -10,23 +10,23 @@
         <tbody>
           <tr v-for="(dado, index) in dados" :key="index">
 
-            <td v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
+            <td  v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
             <!-- Dados da tabela Cliente -->
-            <td v-if="topoTabela.includes('NOME')">{{ dado.nome }}</td>
+            <td  @click="toggleInfo(dado.id)" v-if="topoTabela.includes('NOME')">{{ dado.nome }}</td>
             <td v-if="topoTabela.includes('CPF')">{{ dado.cpf }}</td>
             <td v-if="topoTabela.includes('TELEFONE')">{{ dado.telefone }}</td>
              <!-- Dados da tabela Animal -->
-            <td v-if="topoTabela.includes('PET')">{{ dado.nome_pet }}</td>
+            <td  @click="toggleInfo(dado.id, 'animais')" v-if="topoTabela.includes('PET')">{{ dado.nome_pet }}</td>
             <td v-if="topoTabela.includes('SEXO')">{{ dado.sexo }}</td>
             <td v-if="topoTabela.includes('RAÇA')">{{ dado.raca }}</td>
             <td>
-              <button class="btn-acoes" id="btn-editar" @click="() => toggle(dado.id)">
+              <button class="btn-acoes" id="btn-editar" @click="() => toggle(dado.id, 'animais')">
                 <i class="fa-solid fa-pencil"></i>
               </button>
               <button class="btn-acoes" id="btn-deletar" @click="excluir(dado.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
-              <button class="btn-acoes" id="btn-tutores" v-if="topoTabela.includes('PET')" @click="toggleInfo(dado.id)">
+              <button class="btn-acoes" id="btn-tutores" v-if="topoTabela.includes('PET')" @click="toggle(dado.id, 'tutores')">
                 <i class="fa-solid fa-user"></i>
               </button>
             </td>
