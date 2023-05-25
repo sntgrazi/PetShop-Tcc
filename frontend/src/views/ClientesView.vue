@@ -41,7 +41,6 @@ import ApiController from "@/ApiController";
 import modal from "../components/modal/modal.vue";
 import { ref } from "vue";
 import Swal from "sweetalert2";
-import modalInfo from "../components/modal/modalInfo.vue";
 
 export default {
   name: "ClientesView",
@@ -49,7 +48,6 @@ export default {
     tabela,
     topo,
     modal,
-    modalInfo,
   },
   data() {
     return {

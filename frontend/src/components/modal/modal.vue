@@ -11,71 +11,47 @@
       </button>
     </div>
     <div class="modal-body">
-
-      <div class="infoTutoreAnimais" v-if="formtutor">
-        <form class="formInfo">
-          <div class="colunaForm">
-            <div class="selectCampoInfo">
-              <label for>Procurar tutor/a para vincular ao animal</label>
-              <select id="selectTutores" class="selectTutores">
-                <option value selected></option>
-                <option v-for="clienteanimal in clienteSemVinculo" :value="clienteanimal.id">
-                  {{ clienteanimal.nome }}
-                </option>
-              </select>
-            </div>
-          </div>
-        </form>
-
-        <div class="containerTabela">
-          <table class="tabelaTutores">
-            <thead>
-              <tr>
-                <th>TUTOR</th>
-                <th>AÇÕES</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="tutorVinculado in tutoresVinculados" :key="tutorVinculado">
-                <td>{{ tutorVinculado.nome }}</td>
-                <td class="btnTutores">
-                  <button type="
-                button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
-                    <i class="fa-solid fa-user"></i>
-                  </button>
-                  <button type="
-                button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes" v-if="tutoresVinculados.length > 1">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
       <form class="formModal" @submit.prevent="userId == false ? submitForm() : editarForm()">
         <div class="form-inputs" v-show="etapaAtual === 1">
-
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-            <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) =>
-              (cliente.nome = newValue)" :label="'Nome'" :idInput="'inputName'" />
+            <BaseInput
+              :modelValue="cliente.nome"
+              @update:modelValue="(newValue) =>
+              (cliente.nome = newValue)"
+              :label="'Nome'"
+              :idInput="'inputName'"
+            />
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) =>
-                (cliente.cpf = newValue)" :label="'Cpf'" :idInput="'inputCpf'" />
+              <BaseInput
+                :modelValue="cliente.cpf"
+                @update:modelValue="(newValue) =>
+                (cliente.cpf = newValue)"
+                :label="'Cpf'"
+                :idInput="'inputCpf'"
+              />
 
-              <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) =>
-                (cliente.telefone = newValue)" :label="'Telefone'" :idInput="'inputTelefone'" />
+              <BaseInput
+                :modelValue="cliente.telefone"
+                @update:modelValue="(newValue) =>
+                (cliente.telefone = newValue)"
+                :label="'Telefone'"
+                :idInput="'inputTelefone'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) =>
-                (cliente.email = newValue)" :label="'Email'" :idInput="'inputEmail'" />
+              <BaseInput
+                :modelValue="cliente.email"
+                @update:modelValue="(newValue) =>
+                (cliente.email = newValue)"
+                :label="'Email'"
+                :idInput="'inputEmail'"
+              />
             </div>
           </div>
 
-          <div class="inputsAnimais" v-if="!formtutor">
+          <div class="inputsAnimais" v-if="inputsAnimais">
             <div class="colunaForm">
               <div class="selectCampo" v-if="!userId">
                 <label for="tutor">Tutor</label>
@@ -86,26 +62,51 @@
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) =>
-                (animal.nome_pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
+              <BaseInput
+                :modelValue="animal.nome_pet"
+                @update:modelValue="(newValue) =>
+                (animal.nome_pet = newValue)"
+                :label="'Pet'"
+                :idInput="'inputPet'"
+              />
 
-              <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) =>
-                (animal.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+              <BaseInput
+                :modelValue="animal.data_nascimento"
+                @update:modelValue="(newValue) =>
+                (animal.data_nascimento = newValue)"
+                :label="'Nascimento'"
+                :idInput="'inputDataNascimento'"
+              />
 
-              <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) =>
-                (animal.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
+              <BaseInput
+                :modelValue="animal.sexo"
+                @update:modelValue="(newValue) =>
+                (animal.sexo = newValue)"
+                :label="'Sexo'"
+                :idInput="'inputSexo'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) =>
-                (animal.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
+              <BaseInput
+                :modelValue="animal.altura"
+                @update:modelValue="(newValue) =>
+                (animal.altura = newValue)"
+                :label="'Altura'"
+                :idInput="'inputAltura'"
+              />
 
-              <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) =>
-                (animal.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
+              <BaseInput
+                :modelValue="animal.peso"
+                @update:modelValue="(newValue) =>
+                (animal.peso = newValue)"
+                :label="'Peso'"
+                :idInput="'inputPeso'"
+              />
             </div>
           </div>
 
-          <div class="modal-footer" v-if="!formtutor">
+          <div class="modal-footer">
             <button type="button" class="proxima-etapa" @click="etapaAtual = 2">Próximo</button>
           </div>
         </div>
@@ -113,40 +114,74 @@
         <div class="form-inputs" v-show="etapaAtual === 2">
           <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) =>
-                (cliente.cep = newValue)" :label="'Cep'" :idInput="'inputCep'" />
+              <BaseInput
+                :modelValue="cliente.cep"
+                @update:modelValue="(newValue) =>
+                (cliente.cep = newValue)"
+                :label="'Cep'"
+                :idInput="'inputCep'"
+              />
 
               <button type="button" class="btn-pesquisar" @click="procurarEndereço">
                 <i class="fa-solid fa-magnifying-glass"></i>
               </button>
 
-              <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) =>
-                (cliente.bairro = newValue)" :label="'Bairro'" :idInput="'inputBairro'" />
+              <BaseInput
+                :modelValue="cliente.bairro"
+                @update:modelValue="(newValue) =>
+                (cliente.bairro = newValue)"
+                :label="'Bairro'"
+                :idInput="'inputBairro'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) =>
-                (cliente.rua = newValue)" :label="'Rua'" :idInput="'inputRua'" />
+              <BaseInput
+                :modelValue="cliente.rua"
+                @update:modelValue="(newValue) =>
+                (cliente.rua = newValue)"
+                :label="'Rua'"
+                :idInput="'inputRua'"
+              />
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) =>
-                (cliente.cidade = newValue)" :label="'Cidade'" :idInput="'inputCidade'" />
+              <BaseInput
+                :modelValue="cliente.cidade"
+                @update:modelValue="(newValue) =>
+                (cliente.cidade = newValue)"
+                :label="'Cidade'"
+                :idInput="'inputCidade'"
+              />
 
-              <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) =>
-                (cliente.uf = newValue)" :label="'Uf'" :idInput="'inputUf'" />
+              <BaseInput
+                :modelValue="cliente.uf"
+                @update:modelValue="(newValue) =>
+                (cliente.uf = newValue)"
+                :label="'Uf'"
+                :idInput="'inputUf'"
+              />
 
-              <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) =>
-                (cliente.n_casa = newValue)" :label="'N°'" :idInput="'inputN_Casa'" />
+              <BaseInput
+                :modelValue="cliente.n_casa"
+                @update:modelValue="(newValue) =>
+                (cliente.n_casa = newValue)"
+                :label="'N°'"
+                :idInput="'inputN_Casa'"
+              />
             </div>
           </div>
 
-          <div class="inputsAnimais" v-if="!formtutor">
+          <div class="inputsAnimais" v-if="inputsAnimais">
             <div class="colunaForm">
               <div class="selectCampo">
                 <label for="especie">Espécie</label>
                 <select v-model="animal.especie" id="select-especie">
-                  <option v-for="especie in especies" :value="especie.id" selected>{{ especie.nome }}</option>
+                  <option
+                    v-for="especie in especies"
+                    :value="especie.id"
+                    selected
+                  >{{ especie.nome }}</option>
                 </select>
               </div>
 
@@ -159,11 +194,21 @@
             </div>
 
             <div class="colunaForm">
-              <BaseInput :modelValue="animal.pelagem" @update:modelValue="(newValue) =>
-                (animal.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
+              <BaseInput
+                :modelValue="animal.pelagem"
+                @update:modelValue="(newValue) =>
+                (animal.pelagem = newValue)"
+                :label="'Pelagem'"
+                :idInput="'inputPelagem'"
+              />
 
-              <BaseInput :modelValue="animal.porte" @update:modelValue="(newValue) =>
-                (animal.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
+              <BaseInput
+                :modelValue="animal.porte"
+                @update:modelValue="(newValue) =>
+                (animal.porte = newValue)"
+                :label="'Porte'"
+                :idInput="'inputPorte'"
+              />
             </div>
           </div>
 
@@ -202,7 +247,7 @@ export default {
     "toggle",
     "active",
     "getClientes",
-    "formtutor"
+    "mostratTutor"
   ],
   components: {
     BaseInput
@@ -216,8 +261,8 @@ export default {
         this.tipo === "cliente"
           ? "Cadastrar Cliente"
           : this.tipo == "Pets"
-            ? "Novo Pet"
-            : "Novo Agendamento",
+          ? "Novo Pet"
+          : "Novo Agendamento",
       botaoConfirm:
         this.tipo === "cliente" || this.tipo === "Pets"
           ? "Cadastrar"
@@ -230,8 +275,6 @@ export default {
       breeds: [],
       animal: {},
       tutores: [],
-      clienteSemVinculo: [],
-      tutoresVinculados: [],
       watchEnabled: true
     };
   },
@@ -387,60 +430,10 @@ export default {
       } catch (error) {
         console.log("Erro ao listar os clientes: ", error);
       }
-    },
-    async getTutorVinculado() {
-      try {
-        this.tutoresVinculados = await ApiController.getclienteVinculado(this.userId);
-      } catch (error) {
-        console.log("Erro ao procurar tutores: ", error);
-      }
-    },
-    async ClientesSemVinculo() {
-      try {
-        const clientesAnimais = await ApiController.getClientes();
-        await this.getTutorVinculado();
-
-        const clienteSemVinculo = clientesAnimais.filter((cliente) => {
-          return !this.tutoresVinculados.some((tutor) => tutor.id === cliente.id);
-        });
-
-        this.clienteSemVinculo = clienteSemVinculo;
-      } catch (error) {
-        console.log("Erro ao listar os clientes: ", error);
-      }
-    },
-    async removerVinculo(clienteid, animalid) {
-      try {
-        const { value: motivoExclusao } = await Swal.fire({
-          title: "Motivo da exclusão",
-          input: "textarea",
-          inputPlaceholder: "Digite o motivo da exclusão...",
-          showCancelButton: true,
-          confirmButtonText: "OK",
-          cancelButtonText: "Cancelar",
-          inputAttributes: {
-            required: "required",
-          },
-          validationMessage: "Por favor, digite um motivo.",
-        });
-
-        if (motivoExclusao) {
-          await ApiController.deletarVinculo(clienteid, animalid);
-          Swal.fire("", "Tutor removido com sucesso", "success");
-          await this.getTutorVinculado();
-          await this.Clientes();
-        }
-      } catch (error) {
-        console.error("Erro ao remover o vínculo: ", error);
-      }
-    },
+    }
   },
   mounted() {
-    this.getTutorVinculado();
-    this.ClientesSemVinculo();
     this.Clientes();
-
-
     if (this.userId != false) {
       (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
       this.buscar();
@@ -472,33 +465,9 @@ export default {
 
       this.watchEnabled = false;
     }
-
-    $("#selectTutores").select2({
-      placeholder: "Selecione o tutor",
-      width: "100%",
-    });
-
-    $("#selectTutores").on("select2:select", async (e) => {
-      try {
-        const tutor_id = e.params.data.id;
-        const animal_id = this.userId;
-
-        const response = await ApiController.adicionarVinculo(
-          tutor_id,
-          animal_id
-        );
-        Swal.fire("", "Tutor vinculado com sucesso", "success");
-        this.ClientesSemVinculo();
-        this.tutores = response.data;
-
-        $("#selectTutores").val(null).trigger("change");
-      } catch (error) {
-        console.log("Erro ao adicionar um vinculo: ", error);
-      }
-    });
   },
   watch: {
-    "animal.especie": async function (newSpecies) {
+    "animal.especie": async function(newSpecies) {
       if (this.watchEnabled) {
         try {
           const response = await fetch(
@@ -540,9 +509,8 @@ export default {
 }
 
 @media screen and (max-width: 750px) {
-
   .select2-container .select2-selection,
-  #select-tutor.selectTutor+.select2-container .select2-selection {
+  #select-tutor.selectTutor + .select2-container .select2-selection {
     width: 100%;
   }
 }

@@ -20,13 +20,13 @@
             <td v-if="topoTabela.includes('SEXO')">{{ dado.sexo }}</td>
             <td v-if="topoTabela.includes('RAÇA')">{{ dado.raca }}</td>
             <td>
-              <button class="btn-acoes" id="btn-editar" @click="() => toggle(dado.id, 'animais')">
+              <button class="btn-acoes" id="btn-editar" @click="() => toggle(dado.id)">
                 <i class="fa-solid fa-pencil"></i>
               </button>
               <button class="btn-acoes" id="btn-deletar" @click="excluir(dado.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
-              <button class="btn-acoes" id="btn-tutores" v-if="topoTabela.includes('PET')" @click="toggle(dado.id, 'tutores')">
+              <button class="btn-acoes" id="btn-tutores" v-if="topoTabela.includes('PET')" @click="toggleInfo(dado.id, 'tutores')">
                 <i class="fa-solid fa-user"></i>
               </button>
             </td>

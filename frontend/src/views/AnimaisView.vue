@@ -5,7 +5,8 @@
       <div class="content">
         <div class="main-content">
           <modal v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
-            :inputsAnimais="inputsAnimais" :formtutor="formtutores" @atualizarTabela="getAnimais" />
+            :inputsAnimais="true" @atualizarTabela="getAnimais" />
+          <infoModal :toggleInfo="toggleInfo" v-if="formInfo" :userId="userId" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" :toggleInfo="toggleInfo"
             @deletar="deletarAnimais" />
         </div>
@@ -17,11 +18,11 @@
 <script>
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
+import modal from "../components/modal/modal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
-import modalInfo from "../components/modal/modalInfo.vue";
-import modal from "../components/modal/modal.vue";
+import infoModal from "../components/modal/infoModal.vue";
 
 export default {
   name: "AnimaisView",
@@ -29,7 +30,7 @@ export default {
     tabela,
     topo,
     modal,
-    modalInfo,
+    infoModal,
   },
   data() {
     return {
@@ -38,14 +39,12 @@ export default {
     };
   },
   setup() {
-
+    const mostrarInfoTutores = ref(true);
     const formActive = ref(false);
     const userId = ref(false);
     const formInfo = ref(false);
-    const formtutores = ref(false);
-    const inputsAnimais = ref(false);
 
-    const toggleform = (id = false, tipo) => {
+    const toggleform = (id = false) => {
       formActive.value = !formActive.value;
       userId.value = false;
 
@@ -53,23 +52,22 @@ export default {
         userId.value = id;
         console.log(userId.value);
       }
-
-      if (tipo == 'animais'){
-        inputsAnimais.value = true;
-        formtutores.value = false;
-      } else if (tipo == 'tutores'){
-        inputsAnimais.value = false;
-        formtutores.value = true;
-      }
     };
 
-    const toggleInfo = (id = false) => {
+    const toggleInfo = (id = false, tipo) => {
       formInfo.value = !formInfo.value;
       userId.value = false;
 
       if (id) {
         userId.value = id;
         console.log(userId.value);
+      }
+
+      if (tipo == 'tutores') {
+        mostrarInfoTutores.value = true;
+      } else if (tipo == 'animais') {
+        mostrarInfoTutores.value = false;
+        
       }
 
     };
@@ -80,8 +78,7 @@ export default {
       toggleform,
       toggleInfo,
       userId,
-      inputsAnimais,
-      formtutores
+      mostrarInfoTutores
     };
   },
   methods: {
@@ -124,4 +121,5 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+</style>

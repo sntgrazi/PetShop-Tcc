@@ -46,7 +46,7 @@ export default {
           }
         });
       } else {
-        this.toggle('animais');
+        this.toggle();
       }
     }
   }
