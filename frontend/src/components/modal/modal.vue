@@ -434,10 +434,13 @@ export default {
   },
   mounted() {
     this.Clientes();
-
     if (this.userId != false) {
-      (this.titulo = "Editar Cliente"),
-       (this.botaoConfirm = "Editar");
+      this.titulo = 
+        this.tipo === "cliente"
+          ? "Editar Cliente"
+          : this.tipo == "Pets"
+          ? "Editar Pet"
+          : "Novo Agendamento",
       this.buscar();
     } else {
       $("#select-especie").select2({

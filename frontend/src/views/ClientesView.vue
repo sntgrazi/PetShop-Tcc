@@ -13,14 +13,6 @@
             :toggle="toggleform"
             :userId="userId"
           />
-          <modalInfo
-            :toggleInfo="toggleInfo"
-            v-if="formInfo"
-            :tipo="'Cliente'"
-            :icon="'fa-users'"
-            :userId="userId"
-            :mostrarInfoClientes="true"
-          />
           <tabela
             :topoTabela="topoTabela"
             :dados="dadosTabela"
