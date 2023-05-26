@@ -36,7 +36,7 @@ export default {
         }).then(result => {
           if (result.isConfirmed) {
             // Abrir modal para cadastrar novo pet
-            this.toggle();
+            this.toggle('info', null);
           } else if (result.dismiss === Swal.DismissReason.close) {
             // Nada a fazer, o modal foi fechado pelo botão de fechar
           } else {
@@ -46,7 +46,7 @@ export default {
           }
         });
       } else {
-        this.toggle();
+        this.toggle('info', null);
       }
     }
   }

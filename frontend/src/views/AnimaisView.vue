@@ -5,7 +5,7 @@
       <div class="content">
         <div class="main-content">
           <modal v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
-            :inputsAnimais="true" @atualizarTabela="getAnimais" />
+            :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais" :infoTutores="mostrarInfoTutores" />
           <infoModal :toggleInfo="toggleInfo" v-if="formInfo" :userId="userId" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" :toggleInfo="toggleInfo"
             @deletar="deletarAnimais" />
@@ -39,14 +39,23 @@ export default {
     };
   },
   setup() {
-    const mostrarInfoTutores = ref(true);
+    const mostrarInfoTutores = ref(false);
     const formActive = ref(false);
     const userId = ref(false);
     const formInfo = ref(false);
+    const inputsAnimais = ref(false);
 
-    const toggleform = (id = false) => {
+    const toggleform = (tipo,id = false) => {
       formActive.value = !formActive.value;
       userId.value = false;
+
+      if (tipo == 'tutores') {
+        mostrarInfoTutores.value = true;
+        inputsAnimais.value = false;
+      } else if (tipo == 'info') {
+        mostrarInfoTutores.value = false;
+        inputsAnimais.value = true;
+      }
 
       if (id) {
         userId.value = id;
@@ -63,12 +72,7 @@ export default {
         console.log(userId.value);
       }
 
-      if (tipo == 'tutores') {
-        mostrarInfoTutores.value = true;
-      } else if (tipo == 'animais') {
-        mostrarInfoTutores.value = false;
-        
-      }
+      
 
     };
 
@@ -78,7 +82,8 @@ export default {
       toggleform,
       toggleInfo,
       userId,
-      mostrarInfoTutores
+      mostrarInfoTutores,
+      inputsAnimais
     };
   },
   methods: {

@@ -11,48 +11,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <div class="infoTutoreAnimais">
-                <form class="formInfo">
-                    <div class="colunaForm">
-                        <div class="selectCampoInfo">
-                            <label for>Procurar tutor/a para vincular ao animal</label>
-                            <select id="selectTutores" class="selectTutores">
-                                <option value selected></option>
-                                <option v-for="clienteanimal in clienteSemVinculo" :value="clienteanimal.id">
-                                    {{ clienteanimal.nome }}
-                                </option>
-                            </select>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="containerTabela">
-                    <table class="tabelaTutores">
-                        <thead>
-                            <tr>
-                                <th>TUTOR</th>
-                                <th>AÇÕES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="tutorVinculado in tutoresVinculados" :key="tutorVinculado">
-                                <td>{{ tutorVinculado.nome }}</td>
-                                <td class="btnTutores">
-                                    <button type="
-                button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
-                                        <i class="fa-solid fa-user"></i>
-                                    </button>
-                                    <button type="
-                button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
-                                        v-if="tutoresVinculados.length > 1">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+          
         </div>
     </div>
 </template>

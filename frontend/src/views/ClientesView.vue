@@ -18,7 +18,6 @@
             :dados="dadosTabela"
             :toggle="toggleform"
             @deletar="deletarCliente"
-            :toggleInfo="toggleInfo"
           />
         </div>
       </div>
@@ -101,9 +100,9 @@ export default {
   setup() {
     const formActive = ref(false);
     const userId = ref(false);
-    const formInfo = ref(false);
+    const mostrarInputCadastro = ref(false);
 
-    const toggleform = (id = false) => {
+    const toggleform = (tipo,id = false) => {
       formActive.value = !formActive.value;
       userId.value = false;
 
@@ -113,21 +112,10 @@ export default {
       }
     };
 
-    const toggleInfo = (id = false) => {
-      formInfo.value = !formInfo.value;
-      userId.value = false;
-
-      if (id) {
-        userId.value = id;
-        console.log(userId.value);
-      }
-    };
 
     return {
-      formInfo,
       formActive,
       toggleform,
-      toggleInfo,
       userId,
     };
   },
