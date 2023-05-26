@@ -434,8 +434,10 @@ export default {
   },
   mounted() {
     this.Clientes();
+
     if (this.userId != false) {
-      (this.titulo = "Editar Cliente"), (this.botaoConfirm = "Editar");
+      (this.titulo = "Editar Cliente"),
+       (this.botaoConfirm = "Editar");
       this.buscar();
     } else {
       $("#select-especie").select2({
