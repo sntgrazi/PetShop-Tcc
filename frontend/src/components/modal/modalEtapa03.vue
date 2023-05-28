@@ -3,7 +3,7 @@
         <div class="infoAgendamento">
             <p>Resumo do Agendamento</p>
             <br />
-            <span> Cliente: {{ agenda.nomeCliente }}</span> <br />
+            <span> Cliente: {{ agenda.cliente }}</span> <br />
             <span> Pet: {{ agenda.nomePet }}</span> <br />
             <span> Data: {{ agenda.dataFormatada }}</span> <br />
             <span>

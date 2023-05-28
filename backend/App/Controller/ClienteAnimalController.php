@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\DAO\ClienteAnimalDAO;
 use App\Model\ClienteAnimalModel;
 use App\Model\AnimalModel;
+use App\Model\ClienteModel;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -31,6 +32,18 @@ final class ClienteAnimalController {
         $response->getBody()->write(json_encode($tabela));
         return $response->withHeader('Content-Type', 'application/json');
         
+    }
+
+    public function getPetVinculadoById(Request $request, Response $response, array $args){
+        $id = $args['id'];
+    
+        $tabelaDAO = new ClienteAnimalDAO();
+        $clienteM = new ClienteModel();
+        $clienteM->setId($id);
+        $tabela = $tabelaDAO->getPetVinculadoById($clienteM);
+
+        $response->getBody()->write(json_encode($tabela));
+        return $response->withHeader('Content-Type', 'application/json');
     }
 
    public function deletevinculo(Request $request, Response $response, array $args){
@@ -63,6 +76,17 @@ final class ClienteAnimalController {
    
         $response->getBody()->write(json_encode(['message' => 'Vinculo adicionado com sucesso']));
         return  $response->withHeader('Content-Type', 'application/json');
+
+   }
+
+   public function buscarClienteTabelaAuxiliar(Request $request, Response $response, array $args)
+   {
+
+    $tabelaDAO = new ClienteAnimalDAO();
+    $tabela = $tabelaDAO->buscarClienteTabelaAuxiliar();
+
+    $response->getBody()->write(json_encode($tabela));
+    return $response->withHeader('Content-Type', 'application/json');
 
    }
 

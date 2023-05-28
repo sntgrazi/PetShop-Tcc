@@ -34,7 +34,7 @@
             <div class="colunaForm">
                 <div class="selectCampo">
                     <label for="especie">Espécie</label>
-                    <select v-model="animal.especie" id="select-especie">
+                    <select v-model="animal.especie" id="select-especie" class="selectEspecie">
                         <option v-for="especie in especies" :value="especie.id" selected>
                             {{ especie.nome }}
                         </option>
@@ -43,7 +43,7 @@
 
                 <div class="selectCampo">
                     <label for="raca">Raça</label>
-                    <select v-model="animal.raca" id="select-raca">
+                    <select v-model="animal.raca" id="select-raca" class="selectRaca">
                         <option v-for="breed in breeds" :value="breed.name">
                             {{ breed.name }}
                         </option>
@@ -207,3 +207,13 @@ export default {
     },
 }
 </script>
+
+<style>
+
+@media screen and (max-width: 750px){
+    #select-especie.selectEspecie+.select2-container .select2-selection{
+        width: 100%;
+    }
+}
+
+</style>

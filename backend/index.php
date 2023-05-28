@@ -33,7 +33,9 @@ $app->put('/updateAnimal/{id}', AnimalController::class . ':updateAnimal');
 $app->delete('/deleteAnimal/{id}', AnimalController::class . ':deleteAnimal');
 
 $app->get('/clienteAnimais', ClienteAnimalController::class . ':getAllClienteAnimal');    
-$app->get('/clienteAnimal/{id}', ClienteAnimalController::class . ':getClienteVinculadoById');   
+$app->get('/clientevinculado/{id}', ClienteAnimalController::class . ':getClienteVinculadoById');   
+$app->get('/animalvinculado/{id}', ClienteAnimalController::class . ':getPetVinculadoById'); 
+$app->get('/buscarClienteTabela', ClienteAnimalController::class . ':buscarClienteTabelaAuxiliar'); 
 $app->post('/adicionarvinculo', ClienteAnimalController::class . ':adicionarVinculo');                         
 $app->delete('/deletevinculo/{cliente_id}/{animal_id}', ClienteAnimalController::class . ':deletevinculo');
 

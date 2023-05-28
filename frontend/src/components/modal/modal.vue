@@ -82,8 +82,6 @@ import $ from "jquery";
 import "select2/dist/css/select2.css";
 import "select2";
 
-
-
 export default {
   name: "Modal",
   emits: ["atualizarTabela"],
@@ -327,16 +325,6 @@ export default {
         }
       } catch (error) {
         console.error("Erro ao remover o vínculo: ", error);
-      }
-    },
-    formatDate(date) {
-      if (date) {
-        const day = date.getDate().toString().padStart(2, "0");
-        const month = (date.getMonth() + 1).toString().padStart(2, "0");
-        const year = date.getFullYear().toString();
-        this.agenda.dataFormatada = `${year}-${month}-${day}`;
-      } else {
-        this.agenda.dataFormatada = null;
       }
     },
   },

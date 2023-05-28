@@ -52,10 +52,22 @@
 
         <div class="inputAgendamento" v-if="inputsAgendamento">
             <div class="form-inputs">
-                <BaseInput :modelValue="agenda.nomeCliente" @update:modelValue="(newValue) => (agenda.nomeCliente = newValue)
-                    " :label="'Cliente'" />
-                <BaseInput :modelValue="agenda.nomePet" @update:modelValue="(newValue) => (agenda.nomePet = newValue)"
-                    :label="'Pet'" />
+                <div class="selectCampo">
+                    <label for="cliente">Cliente</label>
+                    <select v-model="agenda.cliente" id="select-cliente" class="selectCliente">
+                        <option v-for="cliente in clientesTabela" :value="cliente.id" selected>
+                            {{ cliente.nome }}
+                        </option>
+                    </select>
+                </div>
+                <div class="selectCampo">
+                    <label for="pet">Pet</label>
+                    <select v-model="agenda.nomePet" id="select-pet" class="selectPet">
+                        <option v-for="pet in pets" :value="pet.id" selected>
+                            {{ pet.nome_pet }}
+                        </option>
+                    </select>
+                </div>
                 <div class="colunaForm">
                     <BaseInput :modelValue="agenda.nomeColaborador" @update:modelValue="(newValue) => (agenda.nomeColaborador = newValue)
                         " :label="'Funcionário Responsavel'" :idInput="'inputPorte'" />
@@ -63,7 +75,8 @@
                     <div class="selectCampo">
                         <label for="tutor">Serviço</label>
                         <select v-model="agenda.servico" id="select-servico">
-                            <option v-for="servico in servicos" :value="servico.nome_servico">{{ servico.nome_servico }}</option>
+                            <option v-for="servico in servicos" :value="servico.nome_servico">{{ servico.nome_servico }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -105,7 +118,9 @@ export default {
     data() {
         return {
             tutores: [],
-            servicos: []
+            servicos: [],
+            pets: [],
+            clientesTabela: []
         }
     },
     methods: {
@@ -116,13 +131,28 @@ export default {
                 console.log("Erro ao listar os clientes: ", error);
             }
         },
-        async getServicos(){
-            try{
+        async getServicos() {
+            try {
                 this.servicos = await ApiController.getServicos();
-            } catch (error){
+            } catch (error) {
                 console.log("Erro ao listar os Servicos: ", error);
             }
-        },  
+        },
+        async buscarClienteTabela(){
+            try{
+                this.clientesTabela = await ApiController.buscarClienteTabela();
+            }catch (error){
+                console.log("Erro ao listar os clientes: ", error)
+            }
+        },
+        async getPetVinculado(id) {
+            try {
+                this.pets = await ApiController.getpetVinculado(id);
+                console.log(this.agenda.cliente)
+            } catch (error) {
+                console.log("Erro ao listar os animais vinculados: ", error)
+            }
+        },
         proximo() {
             this.$emit('proximaEtapa')
         }
@@ -130,6 +160,7 @@ export default {
     mounted() {
         this.Clientes();
         this.getServicos();
+        this.buscarClienteTabela();
 
         $("#select-tutor").select2({
             placeholder: "Selecione um Tutor",
@@ -151,7 +182,28 @@ export default {
             this.agenda.servico = $("#select-servico option:selected").val();
         });
 
-    }
+        $("#select-cliente").select2({
+            placeholder: "Selecione um cliente",
+            width: "100%",
+        });
+
+        $("#select-cliente").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.agenda.cliente = $("#select-cliente option:selected").val();
+
+            this.getPetVinculado(this.agenda.cliente)
+        });
+
+        $("#select-pet").select2({
+            placeholder: "Selecione um Pet",
+            width: "100%",
+        });
+
+        $("#select-pet").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.agenda.nomePet = $("#select-pet option:selected").val();
+        });
+    },
 
 }
 </script>

@@ -118,12 +118,34 @@ export default {
 
     async getclienteVinculado(id) {
 
-        const url = `${ApiUrl}/clienteAnimal/${id}`;
+        const url = `${ApiUrl}/clientevinculado/${id}`;
         const response = await axios.get(url)
             .catch(error => {
                 console.error('Erro ao buscar os tutores vinculados: ', error);
                 throw error;
             })
+        return response.data;
+    },
+
+    async getpetVinculado(id) {
+
+        const url = `${ApiUrl}/animalvinculado/${id}`;
+        const response = await axios.get(url)
+            .catch(error => {
+                console.error('Erro ao buscar os animais vinculados: ', error);
+                throw error;
+            })
+        return response.data;
+    },
+
+    async buscarClienteTabela(){
+        const url = `${ApiUrl}/buscarClienteTabela`;
+        const response = await axios.get(url)
+        .catch(error => {
+            console.error('Erro ao buscar os clientes: ', error);
+            throw error;
+        })
+
         return response.data;
     },
 
