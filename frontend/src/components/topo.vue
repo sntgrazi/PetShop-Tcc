@@ -46,7 +46,7 @@ export default {
           }
         });
       } else {
-        this.toggle('info', null);
+        this.toggle('info', false);
       }
     }
   }
@@ -56,7 +56,7 @@ export default {
 <style>
 .row {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 #open-modal {

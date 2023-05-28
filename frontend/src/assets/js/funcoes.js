@@ -1,15 +1,4 @@
 
-export function toggleModal(id) {
-    const modal = document.querySelector("#modal");
-    const fade = document.querySelector("#fade");
-    modal.classList.toggle("hide");
-    fade.classList.toggle("hide");
-
-    if(id){
-      userid.value = id;
-      console.log(userid.value)
-    }
-}
 
 export function showNavbar(toggleId, navId, headerId, bodyId) {
     const toggle = document.getElementById(toggleId),

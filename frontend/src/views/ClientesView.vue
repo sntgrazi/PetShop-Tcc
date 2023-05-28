@@ -8,7 +8,7 @@
             v-if="formActive"
             :tipo="'cliente'"
             :icon="'fa-user'"
-            :mostrarInputsCadastro="true"
+            :inputsCadastro="true"
             @atualizarTabela="getClientes"
             :toggle="toggleform"
             :userId="userId"
@@ -100,7 +100,6 @@ export default {
   setup() {
     const formActive = ref(false);
     const userId = ref(false);
-    const mostrarInputCadastro = ref(false);
 
     const toggleform = (tipo,id = false) => {
       formActive.value = !formActive.value;

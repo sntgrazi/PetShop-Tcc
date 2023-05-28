@@ -12,126 +12,18 @@
     </div>
     <div class="modal-body">
       <form class="formModal" @submit.prevent="userId == false ? submitForm() : editarForm()">
-        <div class="form-inputs" v-show="etapaAtual === 1">
-          <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-            <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) =>
-              (cliente.nome = newValue)" :label="'Nome'" :idInput="'inputName'" />
 
-            <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) =>
-                (cliente.cpf = newValue)" :label="'Cpf'" :idInput="'inputCpf'" />
+        <modalEtapa01 :inputsCadastro="inputsCadastro" :cliente="cliente" :inputsAnimais="inputsAnimais" :animal="animal"
+          :inputsAgendamento="inputsAgendamento" :agenda="agenda" :etapaAtual="etapaAtual" :userId="userId" @proximaEtapa="etapaAtual = 2"/>
 
-              <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) =>
-                (cliente.telefone = newValue)" :label="'Telefone'" :idInput="'inputTelefone'" />
-            </div>
+        <modalEtapa02 :inputsCadastro="inputsCadastro" :cliente="cliente" :inputsAnimais="inputsAnimais" :animal="animal"
+          :inputsAgendamento="inputsAgendamento" :agenda="agenda" :etapaAtual="etapaAtual" :userId="userId"
+          :botaoConfirm="botaoConfirm" :breeds="breeds" @voltarEtapa="etapaAtual = 1" @proximaEtapa="etapaAtual = 3"/>
 
-            <div class="colunaForm">
-              <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) =>
-                (cliente.email = newValue)" :label="'Email'" :idInput="'inputEmail'" />
-            </div>
-          </div>
-
-          <div class="inputsAnimais" v-if="inputsAnimais">
-            <div class="colunaForm">
-              <div class="selectCampo" v-if="!userId">
-                <label for="tutor">Tutor</label>
-                <select v-model="animal.tutor_id" id="select-tutor" class="selectTutor">
-                  <option v-for="tutor in tutores" :value="tutor.id" selected>{{ tutor.nome }}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="colunaForm">
-              <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) =>
-                (animal.nome_pet = newValue)" :label="'Pet'" :idInput="'inputPet'" />
-
-              <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) =>
-                (animal.data_nascimento = newValue)" :label="'Nascimento'" :idInput="'inputDataNascimento'" />
-
-              <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) =>
-                (animal.sexo = newValue)" :label="'Sexo'" :idInput="'inputSexo'" />
-            </div>
-
-            <div class="colunaForm">
-              <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) =>
-                (animal.altura = newValue)" :label="'Altura'" :idInput="'inputAltura'" />
-
-              <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) =>
-                (animal.peso = newValue)" :label="'Peso'" :idInput="'inputPeso'" />
-            </div>
-          </div>
-
-          <div class="modal-footer" v-if="inputsAnimais || mostrarInputsCadastro">
-            <button type="button" class="proxima-etapa" @click="etapaAtual = 2">Próximo</button>
-          </div>
-        </div>
-
-        <div class="form-inputs" v-show="etapaAtual === 2">
-          <div class="inputCadastroCliente" v-if="mostrarInputsCadastro">
-            <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) =>
-                (cliente.cep = newValue)" :label="'Cep'" :idInput="'inputCep'" />
-
-              <button type="button" class="btn-pesquisar" @click="procurarEndereço">
-                <i class="fa-solid fa-magnifying-glass"></i>
-              </button>
-
-              <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) =>
-                (cliente.bairro = newValue)" :label="'Bairro'" :idInput="'inputBairro'" />
-            </div>
-
-            <div class="colunaForm">
-              <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) =>
-                (cliente.rua = newValue)" :label="'Rua'" :idInput="'inputRua'" />
-            </div>
-
-            <div class="colunaForm">
-              <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) =>
-                (cliente.cidade = newValue)" :label="'Cidade'" :idInput="'inputCidade'" />
-
-              <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) =>
-                (cliente.uf = newValue)" :label="'Uf'" :idInput="'inputUf'" />
-
-              <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) =>
-                (cliente.n_casa = newValue)" :label="'N°'" :idInput="'inputN_Casa'" />
-            </div>
-          </div>
-
-          <div class="inputsAnimais" v-if="inputsAnimais">
-            <div class="colunaForm">
-              <div class="selectCampo">
-                <label for="especie">Espécie</label>
-                <select v-model="animal.especie" id="select-especie">
-                  <option v-for="especie in especies" :value="especie.id" selected>{{ especie.nome }}</option>
-                </select>
-              </div>
-
-              <div class="selectCampo">
-                <label for="raca">Raça</label>
-                <select v-model="animal.raca" id="select-raca">
-                  <option v-for="breed in breeds" :value="breed.name">{{ breed.name }}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="colunaForm">
-              <BaseInput :modelValue="animal.pelagem" @update:modelValue="(newValue) =>
-                (animal.pelagem = newValue)" :label="'Pelagem'" :idInput="'inputPelagem'" />
-
-              <BaseInput :modelValue="animal.porte" @update:modelValue="(newValue) =>
-                (animal.porte = newValue)" :label="'Porte'" :idInput="'inputPorte'" />
-            </div>
-          </div>
-
-          <div class="modal-footer" v-if="inputsAnimais || mostrarInputsCadastro">
-            <button type="button" class="proxima-etapa" @click="etapaAtual = 1">
-              <i class="fa-solid fa-arrow-left"></i> Voltar
-            </button>
-
-            <button class="confirm">{{ botaoConfirm }}</button>
-          </div>
-        </div>
+        
+        <modalEtapa03 :inputsAgendamento="inputsAgendamento" :etapaAtual="etapaAtual" :agenda="agenda" :botaoConfirm="botaoConfirm" @voltarEtapa="etapaAtual = 2"/>
       </form>
+
 
       <div class="infoTutoreAnimais" v-if="infoTutores">
         <form class="formInfo">
@@ -181,12 +73,16 @@
 
 <script>
 import ApiController from "@/ApiController";
-import BaseInput from "../BaseInput.vue";
+import modalEtapa01 from './modalEtapa01.vue';
+import modalEtapa02 from './modalEtapa02.vue';
+import modalEtapa03 from './modalEtapa03.vue';
 import axios from "axios";
 import Swal from "sweetalert2";
 import $ from "jquery";
 import "select2/dist/css/select2.css";
 import "select2";
+
+
 
 export default {
   name: "Modal",
@@ -195,16 +91,19 @@ export default {
     "userId",
     "tipo",
     "icon",
-    "mostrarInputsCadastro",
-    "mostrarInputsAgendamento",
+    "inputsCadastro",
+    "inputsAgendamento",
     "inputsAnimais",
     "toggle",
     "active",
     "getClientes",
     "infoTutores",
+    "tituloModal",
   ],
   components: {
-    BaseInput
+    modalEtapa01,
+    modalEtapa02,
+    modalEtapa03
   },
   data() {
     return {
@@ -214,24 +113,26 @@ export default {
       titulo:
         this.tipo === "cliente"
           ? "Cadastrar Cliente"
-          : this.tipo == "Pets"
+          : this.tipo === "Pets"
             ? "Novo Pet"
             : "Novo Agendamento",
       botaoConfirm:
         this.tipo === "cliente" || this.tipo === "Pets"
           ? "Cadastrar"
           : "Agendar",
+
       // Animais DATA
-      especies: [
-        { id: "dog", nome: "Cachorro" },
-        { id: "cat", nome: "Gato" }
-      ],
+
       breeds: [],
       animal: {},
       tutores: [],
       watchEnabled: true,
       clienteSemVinculo: [],
       tutoresVinculados: [],
+
+      // Agendamento DATA
+      agenda: { dataFormatada: new Date().toISOString().split("T")[0] },
+
     };
   },
   methods: {
@@ -247,7 +148,7 @@ export default {
           console.log(error);
         }
       } else if (this.tipo == "agenda") {
-        console.log("Agendamento");
+        console.log(this.agenda);
       } else if (this.tipo == "Pets") {
         try {
           await ApiController.cadastrarAnimal(this.animal);
@@ -286,7 +187,7 @@ export default {
       }
     },
     async selectPet() {
-      $("#select-especie").on("change", async e => {
+      $("#select-especie").on("change", async (e) => {
         try {
           // Obtém a espécie selecionada
           this.especie = e.target.value;
@@ -302,19 +203,19 @@ export default {
           $("#select-raca").append(
             $("<option>", { value: "", text: "Selecione uma raça" })
           );
-          racas.forEach(raca => {
+          racas.forEach((raca) => {
             $("#select-raca").append(
               $("<option>", {
                 value: raca.id,
                 text: raca.name,
-                "data-nome": raca.name
+                "data-nome": raca.name,
               })
             );
           });
 
           $("#select-raca").trigger("change");
 
-          $("#select-raca").on("change", e => {
+          $("#select-raca").on("change", (e) => {
             // Obtém a raça selecionada
             this.animal.raca = $("#select-raca option:selected").data("nome");
           });
@@ -344,19 +245,17 @@ export default {
           this.animal = animal;
 
           $("#select-especie").select2();
-          $("#select-especie")
-            .val(animal.especie)
-            .trigger("change");
+          $("#select-especie").val(animal.especie).trigger("change");
 
           $("#select-raca").select2({
-            placeholder: "Selecione uma Raça"
+            placeholder: "Selecione uma Raça",
           });
 
-          $("#select-raca").on("change", e => {
+          $("#select-raca").on("change", (e) => {
             this.animal.raca = $("#select-raca option:selected").val();
           });
 
-          $("#select-especie").on("change", e => {
+          $("#select-especie").on("change", (e) => {
             this.animal.especie = $("#select-especie option:selected").val();
             this.watchEnabled = false;
             this.breeds = [];
@@ -380,16 +279,11 @@ export default {
         console.error(error);
       }
     },
-    async Clientes() {
-      try {
-        this.tutores = await ApiController.getClientes();
-      } catch (error) {
-        console.log("Erro ao listar os clientes: ", error);
-      }
-    },
     async getTutorVinculado() {
       try {
-        this.tutoresVinculados = await ApiController.getclienteVinculado(this.userId);
+        this.tutoresVinculados = await ApiController.getclienteVinculado(
+          this.userId
+        );
       } catch (error) {
         console.log("Erro ao procurar tutores: ", error);
       }
@@ -400,7 +294,9 @@ export default {
         await this.getTutorVinculado();
 
         const clienteSemVinculo = clientesAnimais.filter((cliente) => {
-          return !this.tutoresVinculados.some((tutor) => tutor.id === cliente.id);
+          return !this.tutoresVinculados.some(
+            (tutor) => tutor.id === cliente.id
+          );
         });
 
         this.clienteSemVinculo = clienteSemVinculo;
@@ -432,17 +328,30 @@ export default {
       } catch (error) {
         console.error("Erro ao remover o vínculo: ", error);
       }
-    }
+    },
+    formatDate(date) {
+      if (date) {
+        const day = date.getDate().toString().padStart(2, "0");
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const year = date.getFullYear().toString();
+        this.agenda.dataFormatada = `${year}-${month}-${day}`;
+      } else {
+        this.agenda.dataFormatada = null;
+      }
+    },
   },
   mounted() {
-    this.Clientes();
+
     if (this.userId != false) {
       this.titulo =
         this.tipo === "cliente"
           ? "Editar Cliente"
-          : this.tipo == "Pets"
-            ? "Editar Pet"
-            : "Novo Agendamento",
+          : this.tituloModal === true
+            ? "Tutores"
+            : this.tipo == "Pets"
+              ? "Editar Pet"
+              : "Editar Agenda";
+
       this.botaoConfirm = "Editar";
       this.buscar();
 
@@ -474,29 +383,20 @@ export default {
       });
     } else if (this.userId == false) {
       $("#select-especie").select2({
-        placeholder: "Selecione uma espécie"
+        placeholder: "Selecione uma espécie",
       });
 
       $("#select-raca").select2({
-        placeholder: "Selecione uma Raça"
+        placeholder: "Selecione uma Raça",
       });
 
       this.selectPet();
 
-      $("#select-especie").on("change", e => {
+      $("#select-especie").on("change", (e) => {
         // Obtém a raça selecionada
         this.animal.especie = $("#select-especie option:selected").val();
       });
 
-      $("#select-tutor").select2({
-        placeholder: "Selecione um Tutor",
-        width: "100%"
-      });
-
-      $("#select-tutor").on("change", e => {
-        // Obtém a raça selecionada
-        this.animal.tutor_id = $("#select-tutor option:selected").val();
-      });
 
       this.watchEnabled = false;
     }
@@ -514,8 +414,8 @@ export default {
           console.error(error);
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -541,6 +441,21 @@ export default {
   color: #333;
   line-height: 32px;
   padding-right: 33px;
+}
+
+.inputsAgendamento {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+}
+
+.colunaAgenda {
+  width: 200px;
+}
+
+.infoAgendamento {
+  color: white;
 }
 
 @media screen and (max-width: 750px) {

@@ -1,20 +1,14 @@
 <template>
-      <section>
+  <section>
     <div class="container">
       <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-        <modal
-            v-if="formActive"
-            :tipo="'agenda'"
-            :icon="'fa-calendar'"
-            :mostrarInputsAgendamento="true"
-            :toggle="toggleform"
-            :userId="userId"
-          />
+          <modal v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true"
+            :toggle="toggleform" :userId="userId" />
           <tabela :topoTabela="topoTabela" />
         </div>
-            <InfoAgenda />
+        <InfoAgenda />
       </div>
     </div>
   </section>
@@ -23,19 +17,18 @@
 <script>
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
-import ApiController from "@/ApiController";
 import modal from "../components/modal/modal.vue";
 import InfoAgenda from "@/components/InfoAgenda.vue";
 import { ref } from "vue";
 
 export default {
-  name: "ClientesView",
+  name: "AgendaView",
   components: {
     tabela,
     topo,
     modal,
     InfoAgenda
-},
+  },
   data() {
     return {
       topoTabela: ["Agenda"],
@@ -45,7 +38,7 @@ export default {
     const formActive = ref(false);
     const userId = ref(false);
 
-    const toggleform = (id = false) => {
+    const toggleform = (tipo, id = false) => {
       formActive.value = !formActive.value;
       userId.value = false;
 
@@ -64,5 +57,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

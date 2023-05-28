@@ -148,6 +148,19 @@ export default {
                 throw error;
             })
         return response.data;
+    },
+
+    // Buscar Servicos
+
+    async getServicos(){
+        const url = `${ApiUrl}/servicos`;
+        const response = await axios.get(url)
+        .catch(error => {
+            console.error("Erro ao buscar os servicos: ", error);
+            throw error
+        })
+
+        return response.data;
     }
 
 }

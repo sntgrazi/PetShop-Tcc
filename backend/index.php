@@ -6,6 +6,7 @@ use Slim\Middleware\CorsMiddleware;
 use App\Controller\ClienteController;
 use App\Controller\AnimalController;
 use App\Controller\ClienteAnimalController;
+use App\Controller\ServicosController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -72,7 +73,7 @@ $app->delete('/deleteCliente/{id}', ClienteController::class . ':deleteCliente')
 // ProdutoVendidoController
 
 // ServicoController
-//$app->get('/servicos', ServicoController::class . ':getServicos');    
+$app->get('/servicos', ServicosController::class . ':getServicos');    
 //$app->get('/servico/{id}', ServicoController::class . ':getServico');                            
 //$app->post('/inserir', ServicoController::class . ':insertServico');
 //$app->put('/update/{id}', ServicoController::class . ':updateServico');

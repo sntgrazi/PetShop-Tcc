@@ -4,10 +4,9 @@
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-          <modal v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
+          <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
             :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais" :infoTutores="mostrarInfoTutores" />
-          <infoModal :toggleInfo="toggleInfo" v-if="formInfo" :userId="userId" />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" :toggleInfo="toggleInfo"
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" 
             @deletar="deletarAnimais" />
         </div>
       </div>
@@ -22,7 +21,7 @@ import modal from "../components/modal/modal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
-import infoModal from "../components/modal/infoModal.vue";
+import infoModal from "../components/modal/modalEtapa03.vue";
 
 export default {
   name: "AnimaisView",
@@ -42,48 +41,37 @@ export default {
     const mostrarInfoTutores = ref(false);
     const formActive = ref(false);
     const userId = ref(false);
-    const formInfo = ref(false);
     const inputsAnimais = ref(false);
+    const tituloModal = ref(false)
 
     const toggleform = (tipo,id = false) => {
       formActive.value = !formActive.value;
       userId.value = false;
 
+    
       if (tipo == 'tutores') {
         mostrarInfoTutores.value = true;
         inputsAnimais.value = false;
+        tituloModal.value = true;
       } else if (tipo == 'info') {
         mostrarInfoTutores.value = false;
         inputsAnimais.value = true;
+        tituloModal.value = false;
       }
 
       if (id) {
         userId.value = id;
         console.log(userId.value);
       }
-    };
-
-    const toggleInfo = (id = false, tipo) => {
-      formInfo.value = !formInfo.value;
-      userId.value = false;
-
-      if (id) {
-        userId.value = id;
-        console.log(userId.value);
-      }
-
-      
-
     };
 
     return {
-      formInfo,
       formActive,
       toggleform,
-      toggleInfo,
       userId,
       mostrarInfoTutores,
-      inputsAnimais
+      inputsAnimais,
+      tituloModal
     };
   },
   methods: {
