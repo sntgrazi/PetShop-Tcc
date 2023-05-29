@@ -235,8 +235,12 @@ export default {
         width: 100%;
     }
 
-    .colunaAgenda {
-        width: 75%;
+    .colunaAgenda{
+        width: 80%;
+    }
+
+    .colunaAgenda > input {
+        width: 100%;
     }
 }
 </style>
