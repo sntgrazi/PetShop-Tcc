@@ -16,31 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clientes`
+-- Table structure for table `funcionarios`
 --
 
-DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS `funcionarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clientes` (
+CREATE TABLE `funcionarios` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(200) DEFAULT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
-  `cpf` varchar(20) DEFAULT NULL,
-  `email` varchar(200) DEFAULT NULL,
-  `endereco` varchar(250) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `telefone` varchar(15) DEFAULT NULL,
+  `cpf` varchar(15) DEFAULT NULL,
+  `endereco` varchar(300) DEFAULT NULL,
+  `cargo_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cargo_id` (`cargo_id`),
+  CONSTRAINT `funcionarios_ibfk_1` FOREIGN KEY (`cargo_id`) REFERENCES `cargos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `clientes`
+-- Dumping data for table `funcionarios`
 --
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (3,'x','x','x','xx','44091388,Tomba,Rua André Vidal de Negreiros,Feira de Santana,BA,x');
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+LOCK TABLES `funcionarios` WRITE;
+/*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
+INSERT INTO `funcionarios` VALUES (1,'Marcos','(75) 99233-0055','000.000.000-00','44001325,Centro,Avenida Getúlio Vargas,Feira de Santana,BA,20',3);
+/*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 20:48:00
+-- Dump completed on 2023-05-29 20:47:36

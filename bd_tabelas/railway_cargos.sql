@@ -16,31 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `clientes`
+-- Table structure for table `cargos`
 --
 
-DROP TABLE IF EXISTS `clientes`;
+DROP TABLE IF EXISTS `cargos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `clientes` (
+CREATE TABLE `cargos` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(200) DEFAULT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
-  `cpf` varchar(20) DEFAULT NULL,
-  `email` varchar(200) DEFAULT NULL,
-  `endereco` varchar(250) DEFAULT NULL,
+  `nome_cargo` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `clientes`
+-- Dumping data for table `cargos`
 --
 
-LOCK TABLES `clientes` WRITE;
-/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (3,'x','x','x','xx','44091388,Tomba,Rua André Vidal de Negreiros,Feira de Santana,BA,x');
-/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+LOCK TABLES `cargos` WRITE;
+/*!40000 ALTER TABLE `cargos` DISABLE KEYS */;
+INSERT INTO `cargos` VALUES (1,'Administrador'),(2,'Vendedor'),(3,'Banhista e tosador'),(4,'Veterinário'),(5,'Recepcionista');
+/*!40000 ALTER TABLE `cargos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 20:48:00
+-- Dump completed on 2023-05-29 20:47:41
