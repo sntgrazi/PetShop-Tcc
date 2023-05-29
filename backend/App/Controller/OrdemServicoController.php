@@ -19,22 +19,20 @@ final class OrdemServicoController {
     {
         $data = $request->getParsedBody();
 
-        $clienteDAO = new ClienteDAO();
-        $cliente = new ClienteModel();
-        $cliente->setNome($data['nome']) 
-             ->setTelefone($data['telefone'])
-             ->setCpf($data['cpf'])
-             ->setEmail($data['email'])
-             ->setCep($data['cep'])
-             ->setBairro($data['bairro'])
-             ->setRua($data['rua'])
-             ->setCidade($data['cidade'])
-             ->setUf($data['uf'])
-             ->setN_casa($data['n_casa']);
-        $clienteDAO->insertCliente($cliente);
+        $ordemDAO = new OrdemServicoDAO();
+        $ordemM = new OrdemServicoModel();
+        $ordemM->setData($data['data']) 
+             ->setCliente_id($data['cliente_id'])
+             ->setAnimal_id($data['animal_id'])
+             ->setFuncionario_id($data['funcionario_id'])
+             ->setServico_id($data['servico_id'])
+             ->setHora_inicio($data['hora_inicio'])
+             ->setHora_termino($data['hora_termino'])
+             ->setDuracao($data['duracao']);
+        $clienteDAO->insertOrdem($ordemM);
 
         
-        $response->getBody()->write(json_encode(['message' => 'Cliente inserido com sucesso']));
+        $response->getBody()->write(json_encode(['message' => 'Ordem feita com sucesso']));
         return  $response->withHeader('Content-Type', 'application/json');
     }
     
