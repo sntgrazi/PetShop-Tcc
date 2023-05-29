@@ -235,11 +235,11 @@ export default {
         width: 100%;
     }
 
-    .colunaAgenda{
+    .colunaAgenda {
         width: 80%;
     }
 
-    .colunaAgenda > input {
+    .colunaAgenda>input[type="time"] {
         width: 100%;
     }
 }
