@@ -63,9 +63,7 @@
                 <div class="selectCampo">
                     <label for="pet">Pet</label>
                     <select v-model="agenda.nomePet" id="select-pet" class="selectPet">
-                        <option v-for="pet in pets" :value="pet.id" selected>
-                            {{ pet.nome_pet }}
-                        </option>
+
                     </select>
                 </div>
                 <div class="colunaForm">
@@ -138,17 +136,30 @@ export default {
                 console.log("Erro ao listar os Servicos: ", error);
             }
         },
-        async buscarClienteTabela(){
-            try{
+        async buscarClienteTabela() {
+            try {
                 this.clientesTabela = await ApiController.buscarClienteTabela();
-            }catch (error){
+            } catch (error) {
                 console.log("Erro ao listar os clientes: ", error)
             }
         },
         async getPetVinculado(id) {
             try {
+
                 this.pets = await ApiController.getpetVinculado(id);
                 console.log(this.agenda.cliente)
+                $("#select-pet").empty();
+                $("#select-pet").empty();
+                $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
+
+                this.pets.forEach((pet) => {
+                    $("#select-pet").append(
+                        $("<option>", {
+                            value: pet.id,
+                            text: pet.nome_pet,
+                        })
+                    );
+                });
             } catch (error) {
                 console.log("Erro ao listar os animais vinculados: ", error)
             }
@@ -192,7 +203,9 @@ export default {
             this.agenda.cliente = $("#select-cliente option:selected").val();
 
             this.getPetVinculado(this.agenda.cliente)
+
         });
+
 
         $("#select-pet").select2({
             placeholder: "Selecione um Pet",
