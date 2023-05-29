@@ -149,7 +149,6 @@ export default {
                 this.pets = await ApiController.getpetVinculado(id);
                 console.log(this.agenda.cliente)
                 $("#select-pet").empty();
-                $("#select-pet").empty();
                 $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
 
                 this.pets.forEach((pet) => {

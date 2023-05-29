@@ -209,11 +209,34 @@ export default {
 </script>
 
 <style>
-
-@media screen and (max-width: 750px){
-    #select-especie.selectEspecie+.select2-container .select2-selection{
-        width: 100%;
-    }
+.inputsAgendamento {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
 }
 
+.colunaAgenda {
+    width: 200px;
+}
+
+.infoAgendamento {
+    color: white;
+}
+
+@media screen and (max-width: 750px) {
+    #select-especie.selectEspecie+.select2-container .select2-selection {
+        width: 100%;
+    }
+
+    .inputsAgendamento {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .colunaAgenda {
+        width: 75%;
+    }
+}
 </style>

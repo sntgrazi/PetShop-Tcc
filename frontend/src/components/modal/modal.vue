@@ -431,20 +431,7 @@ export default {
   padding-right: 33px;
 }
 
-.inputsAgendamento {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 25px;
-}
 
-.colunaAgenda {
-  width: 200px;
-}
-
-.infoAgendamento {
-  color: white;
-}
 
 @media screen and (max-width: 750px) {
 
