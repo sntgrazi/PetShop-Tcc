@@ -67,13 +67,18 @@
                     </select>
                 </div>
                 <div class="colunaForm">
-                    <BaseInput :modelValue="agenda.nomeColaborador" @update:modelValue="(newValue) => (agenda.nomeColaborador = newValue)
-                        " :label="'Funcionário Responsavel'" :idInput="'inputPorte'" />
+                    <div class="selectCampo">
+                        <label for="tutor">Funcionário Responsável</label>
+                        <select v-model="agenda.funcionario" id="select-funcionario">
+                            <option v-for="funcionario in funcionarios" :value="funcionario.id">{{ funcionario.nome }}
+                            </option>
+                        </select>
+                    </div>
 
                     <div class="selectCampo">
-                        <label for="tutor">Serviço</label>
+                        <label for="servico">Serviço</label>
                         <select v-model="agenda.servico" id="select-servico">
-                            <option v-for="servico in servicos" :value="servico.nome_servico">{{ servico.nome_servico }}
+                            <option v-for="servico in servicos" :value="servico.id">{{ servico.nome_servico }}
                             </option>
                         </select>
                     </div>
@@ -118,7 +123,8 @@ export default {
             tutores: [],
             servicos: [],
             pets: [],
-            clientesTabela: []
+            clientesTabela: [],
+            funcionarios: [],
         }
     },
     methods: {
@@ -163,14 +169,24 @@ export default {
                 console.log("Erro ao listar os animais vinculados: ", error)
             }
         },
+        async getFuncionarios(){
+            try {
+                this.funcionarios = await ApiController.getFuncionarios();
+            } catch (error) {
+                console.log("Erro ao listar os funcionarios: ", error)
+            }
+        },
+
         proximo() {
             this.$emit('proximaEtapa')
-        }
+        },
+
     },
     mounted() {
         this.Clientes();
         this.getServicos();
         this.buscarClienteTabela();
+        this.getFuncionarios();
 
         $("#select-tutor").select2({
             placeholder: "Selecione um Tutor",
@@ -205,7 +221,6 @@ export default {
 
         });
 
-
         $("#select-pet").select2({
             placeholder: "Selecione um Pet",
             width: "100%",
@@ -214,6 +229,16 @@ export default {
         $("#select-pet").on("change", (e) => {
             // Obtém a raça selecionada
             this.agenda.nomePet = $("#select-pet option:selected").val();
+        });
+
+        $("#select-funcionario").select2({
+            placeholder: "Selecione um Funcionário",
+            width: "100%"
+        });
+
+        $("#select-funcionario").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.agenda.funcionario = $("#select-funcionario option:selected").val();
         });
     },
 

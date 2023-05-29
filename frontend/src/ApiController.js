@@ -183,6 +183,19 @@ export default {
         })
 
         return response.data;
+    },
+
+    // Funcionarios
+
+    async getFuncionarios(){
+        const url = `${ApiUrl}/funcionarios`;
+        const response = await axios.get(url)
+        .catch(error => {
+            console.error("Erro ao buscar os funcionários: ", error);
+            throw error
+        })
+
+        return response.data;
     }
 
 }

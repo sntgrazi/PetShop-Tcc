@@ -7,6 +7,7 @@ use App\Controller\ClienteController;
 use App\Controller\AnimalController;
 use App\Controller\ClienteAnimalController;
 use App\Controller\ServicosController;
+use App\Controller\FuncionariosController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -47,7 +48,8 @@ $app->put('/updateCliente/{id}', ClienteController::class . ':updateCliente');
 $app->delete('/deleteCliente/{id}', ClienteController::class . ':deleteCliente');
 
 // ColaboradorController
-//$app->get('/colaboradores', ColaboradorController::class . ':getColaboradores');    
+
+$app->get('/funcionarios', FuncionariosController::class . ':getFuncionarios');    
 //$app->get('/colaborador/{id}', ColaboradorController::class . ':getColaborador');                            
 //$app->post('/inserir', ColaboradorController::class . ':insertColaborador');
 //$app->put('/update/{id}', ColaboradorController::class . ':updateColaborador');

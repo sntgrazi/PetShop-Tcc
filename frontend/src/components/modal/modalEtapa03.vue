@@ -11,7 +11,7 @@
             <br />
             <span> Duração Aprox: {{ agenda.duracao }} </span> <br />
             <span> Servico: {{ agenda.servico }} </span> <br />
-            <span> Profissional Responsavel: {{ agenda.nomeColaborador }}</span>
+            <span> Profissional Responsavel: {{ agenda.funcionario }}</span>
             <br />
         </div>
         <div class="modal-footer">
