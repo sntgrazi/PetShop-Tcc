@@ -25,8 +25,14 @@ class OrdemServicDAO extends ConexaoDAO{
         ->prepare($sql);
 
         $stm->execute([
-            
+            'data_ordem' => $ordemM->getData(),
+            'cliente_id' => $ordemM->getCliente_id(),
+            'animal_id' => $ordemM->getAnimal_id(),
+            'funcionario_id' => $ordemM->getFuncionario_id(),
+            'servico_id' => $ordemM->getServico_id(),
+            'hora_inicio' => $ordemM->getHora_inicio(),
+            'hora_termino' => $ordemM->getHora_termino(),
+            'duracao' => $ordemM->getDuracao()
         ]);
-
     }
 }
