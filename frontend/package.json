@@ -16,6 +16,7 @@
     "sweetalert2": "^11.7.3",
     "v-calendar": "^3.0.3",
     "vue": "^3.2.13",
+    "vue-cal": "^4.8.1",
     "vue-router": "^4.0.3"
   },
   "devDependencies": {
