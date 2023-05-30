@@ -62,8 +62,7 @@
                 </div>
                 <div class="selectCampo">
                     <label for="pet">Pet</label>
-                    <select v-model="agenda.nomePet" id="select-pet" class="selectPet">
-
+                    <select v-model="agenda.pet" id="select-pet" class="selectPet">
                     </select>
                 </div>
                 <div class="colunaForm">
@@ -228,7 +227,7 @@ export default {
 
         $("#select-pet").on("change", (e) => {
             // Obtém a raça selecionada
-            this.agenda.nomePet = $("#select-pet option:selected").val();
+            this.agenda.pet = $("#select-pet option:selected").val();
         });
 
         $("#select-funcionario").select2({

@@ -4,10 +4,10 @@
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-          <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
-            :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais" :infoTutores="mostrarInfoTutores" />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" 
-            @deletar="deletarAnimais" />
+          <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform"
+            :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
+            :infoTutores="mostrarInfoTutores" />
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarAnimais" :tipo="'pet'"/>
         </div>
       </div>
     </div>
@@ -44,11 +44,11 @@ export default {
     const inputsAnimais = ref(false);
     const tituloModal = ref(false)
 
-    const toggleform = (tipo,id = false) => {
+    const toggleform = (tipo, id = false) => {
       formActive.value = !formActive.value;
       userId.value = false;
 
-    
+
       if (tipo == 'tutores') {
         mostrarInfoTutores.value = true;
         inputsAnimais.value = false;
@@ -75,38 +75,36 @@ export default {
     };
   },
   methods: {
-    getAnimais() {
-      ApiController.getAnimais()
-        .then((animais) => {
-          this.dadosTabela = animais;
-        })
-        .catch((error) => {
-          console.log("Erro ao listar os animais: ", error);
+    async getAnimais() {
+      try {
+        const animais = await ApiController.getAnimais();
+        this.dadosTabela = animais;
+      } catch (error) {
+        console.log("Erro ao listar os animais: ", error);
+      }
+    },
+    async deletarAnimais(animalId) {
+      try {
+        const result = await Swal.fire({
+          title: "Você tem certeza que deseja deletar este Pet?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sim",
+          cancelButtonText: "Não",
         });
-    },
-    deletarAnimais(animalId) {
-      Swal.fire({
-        title: "Você tem certeza que deseja deletar este Pet?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sim",
-        cancelButtonText: "Não",
-      }).then((result) => {
+
         if (result.isConfirmed) {
-          ApiController.deletarAnimal(animalId)
-            .then((response) => {
-              console.log("Pet deletado com sucesso");
-              this.getAnimais();
-            })
-            .catch((error) => {
-              console.error("Erro ao deletar o Animal: ", error);
-            });
+          await ApiController.deletarAnimal(animalId);
           Swal.fire("", "Pet deletado com sucesso", "success");
+          this.getAnimais();
+         
         }
-      });
-    },
+      } catch (error) {
+        console.error("Erro ao deletar o Animal: ", error);
+      }
+    }
   },
   mounted() {
     this.getAnimais();
@@ -114,5 +112,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

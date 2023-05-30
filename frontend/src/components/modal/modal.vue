@@ -14,14 +14,16 @@
       <form class="formModal" @submit.prevent="userId == false ? submitForm() : editarForm()">
 
         <modalEtapa01 :inputsCadastro="inputsCadastro" :cliente="cliente" :inputsAnimais="inputsAnimais" :animal="animal"
-          :inputsAgendamento="inputsAgendamento" :agenda="agenda" :etapaAtual="etapaAtual" :userId="userId" @proximaEtapa="etapaAtual = 2"/>
+          :inputsAgendamento="inputsAgendamento" :agenda="agenda" :etapaAtual="etapaAtual" :userId="userId"
+          @proximaEtapa="etapaAtual = 2" />
 
         <modalEtapa02 :inputsCadastro="inputsCadastro" :cliente="cliente" :inputsAnimais="inputsAnimais" :animal="animal"
           :inputsAgendamento="inputsAgendamento" :agenda="agenda" :etapaAtual="etapaAtual" :userId="userId"
-          :botaoConfirm="botaoConfirm" :breeds="breeds" @voltarEtapa="etapaAtual = 1" @proximaEtapa="etapaAtual = 3"/>
+          :botaoConfirm="botaoConfirm" :breeds="breeds" @voltarEtapa="etapaAtual = 1" @proximaEtapa="etapaAtual = 3" />
 
-        
-        <modalEtapa03 :inputsAgendamento="inputsAgendamento" :etapaAtual="etapaAtual" :agenda="agenda" :botaoConfirm="botaoConfirm" @voltarEtapa="etapaAtual = 2"/>
+
+        <modalEtapa03 :inputsAgendamento="inputsAgendamento" :etapaAtual="etapaAtual" :agenda="agenda"
+          :botaoConfirm="botaoConfirm" @voltarEtapa="etapaAtual = 2" />
       </form>
 
 
@@ -129,7 +131,7 @@ export default {
       tutoresVinculados: [],
 
       // Agendamento DATA
-      agenda: { dataFormatada: new Date().toISOString().split("T")[0] },
+      agenda: { data: new Date().toISOString().split("T")[0] },
 
     };
   },
@@ -146,7 +148,14 @@ export default {
           console.log(error);
         }
       } else if (this.tipo == "agenda") {
-        console.log(this.agenda);
+        try {
+          await ApiController.inserirOrdem(this.agenda);
+          Swal.fire("", "Agendamento feito com sucesso!", "success");
+          this.toggle();
+          this.agenda = {};
+        } catch (error) {
+          console.log(error);
+        }
       } else if (this.tipo == "Pets") {
         try {
           await ApiController.cadastrarAnimal(this.animal);

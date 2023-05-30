@@ -12,13 +12,21 @@
 
             <td  v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
             <!-- Dados da tabela Cliente -->
-            <td  @click="toggle(dado.id)" v-if="topoTabela.includes('NOME')">{{ dado.nome }}</td>
-            <td v-if="topoTabela.includes('CPF')">{{ dado.cpf }}</td>
-            <td v-if="topoTabela.includes('TELEFONE')">{{ dado.telefone }}</td>
+
+            <td v-if="this.tipo == 'cliente'">{{ dado.nome }}</td>
+            <td v-if="this.tipo == 'cliente'">{{ dado.cpf }}</td>
+            <td v-if="this.tipo == 'cliente'">{{ dado.telefone }}</td>
+
              <!-- Dados da tabela Animal -->
-            <td  @click="toggle('animais', dado.id)" v-if="topoTabela.includes('PET')">{{ dado.nome_pet }}</td>
-            <td v-if="topoTabela.includes('SEXO')">{{ dado.sexo }}</td>
-            <td v-if="topoTabela.includes('RAÇA')">{{ dado.raca }}</td>
+            <td v-if="this.tipo == 'pet'">{{ dado.nome_pet }}</td>
+            <td v-if="this.tipo == 'pet'">{{ dado.sexo }}</td>
+            <td v-if="this.tipo == 'pet'">{{ dado.raca }}</td>
+
+            <td v-if="this.tipo == 'agenda'">{{ dado.nome_cliente }}</td>
+            <td v-if="this.tipo == 'agenda'">{{ dado.nome_animal }}</td>
+            <td v-if="this.tipo == 'agenda'">{{ dado.nome_servico }}</td>
+            <td v-if="this.tipo == 'agenda'">{{ dado.status }}</td>
+
             <td>
               <button class="btn-acoes" id="btn-editar" @click="() => toggle('info',dado.id)">
                 <i class="fa-solid fa-pencil"></i>
@@ -26,7 +34,7 @@
               <button class="btn-acoes" id="btn-deletar" @click="excluir(dado.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
-              <button class="btn-acoes" id="btn-tutores" v-if="topoTabela.includes('PET')" @click="toggle('tutores',dado.id)">
+              <button class="btn-acoes" id="btn-tutores" v-if="this.tipo == 'pet'" @click="toggle('tutores',dado.id)">
                 <i class="fa-solid fa-user"></i>
               </button>
             </td>
@@ -40,7 +48,7 @@
 <script>
 export default {
   name: "tabela",
-  props: ["topoTabela", "dados", "toggle", "toggleInfo"],
+  props: ["topoTabela", "dados", "toggle", "tipo"],
   methods: {
     excluir(id){
       this.$emit("deletar", id)

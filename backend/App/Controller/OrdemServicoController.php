@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\DAO\OrdemServicoDAO;
-use App\DAO\OrdemServicoModel;
+use App\Model\OrdemServicoModel;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\RequestInterface as Request;
 
 final class OrdemServicoController {
 
-    public function getFuncionarios(Request $request, Response $response, array $args){
+    public function getOrdens(Request $request, Response $response, array $args){
         $ordemDAO = new OrdemServicoDAO();
         $ordens = $ordemDAO->getAllOrdens();
 
@@ -22,14 +24,14 @@ final class OrdemServicoController {
         $ordemDAO = new OrdemServicoDAO();
         $ordemM = new OrdemServicoModel();
         $ordemM->setData($data['data']) 
-             ->setCliente_id($data['cliente_id'])
-             ->setAnimal_id($data['animal_id'])
-             ->setFuncionario_id($data['funcionario_id'])
-             ->setServico_id($data['servico_id'])
-             ->setHora_inicio($data['hora_inicio'])
-             ->setHora_termino($data['hora_termino'])
+             ->setCliente_id($data['cliente'])
+             ->setAnimal_id($data['pet'])
+             ->setFuncionario_id($data['funcionario'])
+             ->setServico_id($data['servico'])
+             ->setHora_inicio($data['horaInicio'])
+             ->setHora_termino($data['horaTermino'])
              ->setDuracao($data['duracao']);
-        $clienteDAO->insertOrdem($ordemM);
+        $ordemDAO->insertOrdem($ordemM);
 
         
         $response->getBody()->write(json_encode(['message' => 'Ordem feita com sucesso']));

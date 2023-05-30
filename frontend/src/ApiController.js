@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { error } from 'jquery';
 
 const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
 
@@ -193,6 +194,30 @@ export default {
         .catch(error => {
             console.error("Erro ao buscar os funcionários: ", error);
             throw error
+        })
+
+        return response.data;
+    },
+
+    //Ordem de servico
+
+    async getAllOrdens(){
+        const url = `${ApiUrl}/ordens`;
+        const response = await axios.get(url).catch(
+            error => {
+                console.error("Erro ao buscar as Ordens de Serviços: ", error);
+                throw error;
+            }
+        )
+        return response.data
+    },
+
+    async inserirOrdem(ordem){
+        const url = `${ApiUrl}/inserirOrdem`;
+        const response = await axios.post(url, ordem)
+        .catch(error => {
+            console.error("Erro ao tentar cadastrar a Ordem de Serviço: ", error);
+            throw error;
         })
 
         return response.data;

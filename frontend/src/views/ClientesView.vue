@@ -4,21 +4,9 @@
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-          <modal
-            v-if="formActive"
-            :tipo="'cliente'"
-            :icon="'fa-user'"
-            :inputsCadastro="true"
-            @atualizarTabela="getClientes"
-            :toggle="toggleform"
-            :userId="userId"
-          />
-          <tabela
-            :topoTabela="topoTabela"
-            :dados="dadosTabela"
-            :toggle="toggleform"
-            @deletar="deletarCliente"
-          />
+          <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true"
+            @atualizarTabela="getClientes" :toggle="toggleform" :userId="userId" />
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente" :tipo="'cliente'"/>
         </div>
       </div>
     </div>
@@ -63,45 +51,43 @@ export default {
     }
   },
   methods: {
-    getClientes() {
-      ApiController.getClientes()
-        .then((clientes) => {
-          this.dadosTabela = clientes;
-        })
-        .catch((error) => {
-          console.log("Erro ao listar os clientes: ", error);
-        });
+    async getClientes() {
+      try {
+        const clientes = await ApiController.getClientes();
+        this.dadosTabela = clientes;
+      } catch (error) {
+        console.log("Erro ao listar os clientes: ", error);
+      }
     },
 
-    deletarCliente(clienteId) {
-      Swal.fire({
-        title: "Você tem certeza que deseja deletar este cliente?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sim",
-        cancelButtonText: "Não",
-      }).then((result) => {
+    async deletarCliente(clienteId) {
+      try {
+        const result = await Swal.fire({
+          title: "Você tem certeza que deseja deletar este cliente?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sim",
+          cancelButtonText: "Não",
+        });
+
         if (result.isConfirmed) {
-          ApiController.deletarCliente(clienteId)
-            .then((response) => {
-              console.log("Cliente deletado com sucesso");
-              this.getClientes();
-            })
-            .catch((error) => {
-              console.error("Erro ao deletar o cliente: ", error);
-            });
+          await ApiController.deletarCliente(clienteId);
+          console.log("Cliente deletado com sucesso");
+          await this.getClientes();
           Swal.fire("", "Cliente deletado com sucesso", "success");
         }
-      });
-    },
+      } catch (error) {
+        console.error("Erro ao deletar o cliente: ", error);
+      }
+    }
   },
   setup() {
     const formActive = ref(false);
     const userId = ref(false);
 
-    const toggleform = (tipo,id = false) => {
+    const toggleform = (tipo, id = false) => {
       formActive.value = !formActive.value;
       userId.value = false;
 

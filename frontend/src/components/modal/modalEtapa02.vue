@@ -153,9 +153,9 @@ export default {
                 const day = date.getDate().toString().padStart(2, "0");
                 const month = (date.getMonth() + 1).toString().padStart(2, "0");
                 const year = date.getFullYear().toString();
-                this.agenda.dataFormatada = `${year}-${month}-${day}`;
+                this.agenda.data = `${year}-${month}-${day}`;
             } else {
-                this.agenda.dataFormatada = null;
+                this.agenda.data = null;
             }
         },
     },

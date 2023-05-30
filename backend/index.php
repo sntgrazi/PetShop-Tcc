@@ -8,6 +8,7 @@ use App\Controller\AnimalController;
 use App\Controller\ClienteAnimalController;
 use App\Controller\ServicosController;
 use App\Controller\FuncionariosController;
+use App\Controller\OrdemServicoController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -51,7 +52,7 @@ $app->delete('/deleteCliente/{id}', ClienteController::class . ':deleteCliente')
 
 $app->get('/funcionarios', FuncionariosController::class . ':getFuncionarios');    
 //$app->get('/colaborador/{id}', ColaboradorController::class . ':getColaborador');                            
-//$app->post('/inserir', ColaboradorController::class . ':insertColaborador');
+// $app->post('/inserirFuncionario', FuncionariosController::class . ':insertFuncionario');
 //$app->put('/update/{id}', ColaboradorController::class . ':updateColaborador');
 //$app->delete('/delete/{id}', ColaboradorController::class . ':deleteColaborador');
 
@@ -65,6 +66,10 @@ $app->get('/funcionarios', FuncionariosController::class . ':getFuncionarios');
 //$app->delete('/delete/{id}', FornecedorController::class . ':deleteFornecedor');
 
 // OrdemDeServicoController
+
+$app->get('/ordens', OrdemServicoController::class . ':getOrdens'); 
+$app->post('/inserirOrdem', OrdemServicoController::class . ':insertOrdem'); 
+
 // ProdutoCompradoController
 
 // ProdutoController
