@@ -1,24 +1,17 @@
 <template>
-  <Navbar />
   <router-view />
 </template>
 
 <script>
 
-import Navbar from "./components/navbar.vue";
+
 
 export default {
   name: "App",
-  components: {
-    Navbar,
-  },
 };
 </script>
 
 <style>
-  section {
-  margin: auto;
-}
 
 .row {
   display: flex;
@@ -41,14 +34,10 @@ export default {
   background-color: white;
   display: flex;
   flex-direction: column;
-  height: 78vh;
+  height: 100%;
 }
 
 @media screen and (min-width: 768px) {
-  body {
-    margin: calc(var(--header-height) + 1rem) 0 0 0;
-    padding-left: calc(var(--nav-width) + 2rem);
-  }
   /*Show navbar desktop*/
   .show {
     width: calc(var(--nav-width) + 156px);

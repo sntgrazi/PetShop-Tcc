@@ -1,4 +1,5 @@
 <template>
+    <Navbar />
   <section>
     <div class="container">
       <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
@@ -14,7 +15,7 @@
           />
 
           <!--<tabela :topoTabela="topoTabela" :dados="dadosTabela" :tipo="'agenda'" :toggle="toggleform" /> -->
-          <vue-cal show-week-numbers :disable-views="['years', 'year']" locale="pt-br" />
+          <FullCalendar :options="calendarOptions" id="calendar"/>
         </div>
 
         <InfoAgenda />
@@ -24,13 +25,15 @@
 </template>
 
 <script>
+import Navbar from "@/components/navbar.vue";
 import topo from "@/components/topo.vue";
 import modal from "../components/modal/modal.vue";
 import InfoAgenda from "@/components/InfoAgenda.vue";
 import ApiController from "@/ApiController";
 import { ref } from "vue";
-import VueCal from "vue-cal";
-import "vue-cal/dist/vuecal.css";
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 
 //import tabela from "@/components/tabela.vue";
 
@@ -41,12 +44,15 @@ export default {
     modal,
     InfoAgenda,
     //tabela,
-    VueCal
+    //VueCal
+    FullCalendar,
+    Navbar
   },
   data() {
     return {
       topoTabela: ["ID", "CLIENTE", "PET", "SERVICO", "STATUS", "AÇOES"],
-      dadosTabela: []
+      dadosTabela: [],
+      
     };
   },
   methods: {
@@ -74,36 +80,41 @@ export default {
       }
     };
 
+    const calendarOptions = {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: "dayGridMonth",
+        height: "100%",
+        headerToolbar: {
+          left: "prev,next today",
+          center: "title",
+          right: "dayGridMonth"
+        },
+        buttonText: {
+          today: "Hoje",
+          month: "Mês",
+          week: "Semana",
+          day: "Dia",
+        },
+        locale: "pt-br"
+    }
+
     return {
       formActive,
       toggleform,
-      userId
+      userId,
+      calendarOptions
     };
   },
   mounted() {
     this.getOrdens();
-  }
+    
+  },
 };
 </script>
 
 <style>
-.vuecal__flex {
-  border-radius: 20px 20px 0 0;
-}
-
-
-
-.vuecal__title-bar{
-  background-color: #1e90ff;
-  color: white;
-}
-
-.vuecal__arrow i.angle{
-  color: white;
-}
-
-.vuecal__title button{
-  color: white;
+.fc .fc-toolbar.fc-header-toolbar {
+  margin: 10px;
 }
 
 </style>
