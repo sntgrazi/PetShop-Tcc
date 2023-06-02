@@ -272,6 +272,7 @@ export default {
     .calendario{
         flex-direction: column;
         width: 80%;
+        gap: 0;
     }
 
     .colunaAgenda {
