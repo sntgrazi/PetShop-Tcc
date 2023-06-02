@@ -34,7 +34,6 @@
 
 body {
   position: relative;
-  margin: var(--header-height) 0 0 0;
   padding: 0 1rem;
   font-size: var(--normal-font-size);
   transition: .5s;
@@ -48,7 +47,7 @@ a {
 /*===== HEADER =====*/
 .header {
   width: 100%;
-  height: var(--header-height);
+
   position: fixed;
   top: 0;
   left: 0;
@@ -466,6 +465,7 @@ a {
   body {
     margin: calc(var(--header-height) + 1rem) 0 0 0;
     padding-left: calc(var(--nav-width) + 2rem);
+    box-sizing: content-box; /* Adicione esta linha */
   }
 
 
@@ -489,8 +489,7 @@ a {
   }
 
   /*Add padding body desktop*/
-  .body-pd {
-    padding-left: calc(var(--nav-width) + 160px);
+  .body-pd { padding-left: calc(var(--nav-width) + 160px);
   }
 }
 
