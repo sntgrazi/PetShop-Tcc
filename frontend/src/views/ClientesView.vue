@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <section>
     <div class="container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
@@ -15,7 +14,6 @@
 </template>
 
 <script>
-import Navbar from "@/components/navbar.vue";
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
 import ApiController from "@/ApiController";
@@ -29,7 +27,6 @@ export default {
     tabela,
     topo,
     modal,
-    Navbar
   },
   data() {
     return {

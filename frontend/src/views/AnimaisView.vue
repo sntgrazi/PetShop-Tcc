@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <section>
     <div class="container">
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
@@ -16,7 +15,7 @@
 </template>
 
 <script>
-import Navbar from "@/components/navbar.vue";
+
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
 import modal from "../components/modal/modal.vue";
@@ -32,7 +31,6 @@ export default {
     topo,
     modal,
     infoModal,
-    Navbar
   },
   data() {
     return {

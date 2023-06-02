@@ -4,8 +4,8 @@
             <p>Resumo do Agendamento</p>
             <br />
             <span> Cliente: {{ agenda.cliente }}</span> <br />
-            <span> Pet: {{ agenda.nomePet }}</span> <br />
-            <span> Data: {{ agenda.data }}</span> <br />
+            <span> Pet: {{ agenda.pet }}</span> <br />
+            <span> Data: {{ agenda.dataInicio }}</span> <br />
             <span>
                 Hora: {{ agenda.horaInicio }} às {{ agenda.horaTermino }}</span>
             <br />
