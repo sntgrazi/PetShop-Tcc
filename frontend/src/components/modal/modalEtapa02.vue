@@ -80,6 +80,10 @@
             <div class="colunaAgenda">
                 <BaseInput v-model="agenda.horaInicio" :label="'Hora Início'" :tipo="'time'" @input="updateDuration" />
                 <BaseInput v-model="agenda.horaTermino" :label="'Hora Término'" :tipo="'time'" @input="updateDuration" />
+            </div>
+
+            <div class="colunaAgenda">
+               
                 <BaseInput :modelValue="duration" :label="'Duração'" readonly />
             </div>
         </div>
@@ -237,11 +241,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
 }
 
 .colunaAgenda {
     display: flex;
+    width: 100%;
     gap: 20px;
 }
 
@@ -271,7 +275,7 @@ export default {
     }
 
     .colunaAgenda {
-        flex-direction: column;
+        flex-direction: row;
         width: 80%;
     }
 
