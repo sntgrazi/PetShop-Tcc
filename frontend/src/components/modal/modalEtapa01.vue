@@ -30,12 +30,14 @@
                 </div>
             </div>
 
+          
+
             <div class="colunaForm">
                 <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) => (animal.nome_pet = newValue)"
                     :label="'Pet'" :idInput="'inputPet'" />
 
                 <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                    " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+                " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
 
                 <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
                     :label="'Sexo'" :idInput="'inputSexo'" />
@@ -168,7 +170,7 @@ export default {
                 console.log("Erro ao listar os animais vinculados: ", error)
             }
         },
-        async getFuncionarios(){
+        async getFuncionarios() {
             try {
                 this.funcionarios = await ApiController.getFuncionarios();
             } catch (error) {
