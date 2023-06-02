@@ -4,17 +4,10 @@
       <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
       <div class="content">
         <div class="main-content">
-          <modal
-            v-if="formActive"
-            :tipo="'agenda'"
-            :icon="'fa-calendar'"
-            :inputsAgendamento="true"
-            :toggle="toggleform"
-            :userId="userId"
-          />
+          <modal v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true" :toggle="toggleform"
+            :userId="userId" />
 
-          <!--<tabela :topoTabela="topoTabela" :dados="dadosTabela" :tipo="'agenda'" :toggle="toggleform" /> -->
-          <vue-cal show-week-numbers :disable-views="['years', 'year']" locale="pt-br" />
+          <vue-cal show-week-numbers :disable-views="['years', 'year']" locale="pt-br"  />
         </div>
 
         <InfoAgenda />
@@ -28,9 +21,10 @@ import topo from "@/components/topo.vue";
 import modal from "../components/modal/modal.vue";
 import InfoAgenda from "@/components/InfoAgenda.vue";
 import ApiController from "@/ApiController";
-import { ref } from "vue";
 import VueCal from "vue-cal";
 import "vue-cal/dist/vuecal.css";
+import { ref } from "vue";
+
 
 //import tabela from "@/components/tabela.vue";
 
@@ -40,13 +34,13 @@ export default {
     topo,
     modal,
     InfoAgenda,
-    //tabela,
     VueCal
   },
   data() {
     return {
       topoTabela: ["ID", "CLIENTE", "PET", "SERVICO", "STATUS", "AÇOES"],
-      dadosTabela: []
+      dadosTabela: [],
+
     };
   },
   methods: {
@@ -77,12 +71,13 @@ export default {
     return {
       formActive,
       toggleform,
-      userId
+      userId,
     };
   },
   mounted() {
     this.getOrdens();
-  }
+
+  },
 };
 </script>
 
@@ -91,19 +86,16 @@ export default {
   border-radius: 20px 20px 0 0;
 }
 
-
-
-.vuecal__title-bar{
+.vuecal__title-bar {
   background-color: #1e90ff;
   color: white;
 }
 
-.vuecal__arrow i.angle{
+.vuecal__arrow i.angle {
   color: white;
 }
 
-.vuecal__title button{
+.vuecal__title button {
   color: white;
 }
-
 </style>

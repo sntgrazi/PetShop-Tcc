@@ -5,7 +5,7 @@
             <br />
             <span> Cliente: {{ agenda.cliente }}</span> <br />
             <span> Pet: {{ agenda.nomePet }}</span> <br />
-            <span> Data: {{ agenda.dataFormatada }}</span> <br />
+            <span> Data: {{ agenda.data }}</span> <br />
             <span>
                 Hora: {{ agenda.horaInicio }} às {{ agenda.horaTermino }}</span>
             <br />

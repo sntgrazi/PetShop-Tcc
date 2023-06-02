@@ -62,8 +62,17 @@
 
         <div class="inputsAgendamento" v-if="inputsAgendamento">
             <div class="calendario">
-                <DatePicker v-model="dataSelecionada" @click="formatDate(dataSelecionada)" title-position="left" mode="date"
-                    :select-attribute="selectAttribute" :attributes="attrs" />
+                <DatePicker v-model="dataInicio"  @click="formatDate(dataInicio)">
+                    <template #default="{ inputValue, inputEvents }">
+                        <BaseInput :modelValue="agenda.dataInicio" v-on="inputEvents" :label="'Data Início'"/>
+                    </template>
+                </DatePicker>
+
+                <DatePicker v-model="dataTermino"  @click="formatDate(dataTermino)">
+                    <template #default="{ inputValue, inputEvents }">
+                        <BaseInput :modelValue="agenda.dataTermino" v-on="inputEvents" :label="'Data Término'"/>
+                    </template>
+                </DatePicker>
             </div>
             <div class="colunaAgenda">
                 <BaseInput v-model="agenda.horaInicio" :label="'Horário Início'" :tipo="'time'" @input="updateDuration" />
@@ -89,13 +98,13 @@
 </template>
 
 <script>
-
 import "select2/dist/css/select2.css";
 import "select2";
 import { DatePicker } from "v-calendar";
 import "v-calendar/style.css";
 import BaseInput from '../BaseInput.vue';
 import { ref } from "vue";
+import moment from 'moment';
 
 
 export default {
@@ -110,7 +119,8 @@ export default {
                 { id: "dog", nome: "Cachorro" },
                 { id: "cat", nome: "Gato" },
             ],
-            dataSelecionada: null,
+            dataInicio: null,
+            dataTermino: null
         }
     },
     props: [
@@ -153,15 +163,18 @@ export default {
                 const day = date.getDate().toString().padStart(2, "0");
                 const month = (date.getMonth() + 1).toString().padStart(2, "0");
                 const year = date.getFullYear().toString();
-                this.agenda.data = `${year}-${month}-${day}`;
+                this.agenda.dataInicio = `${day}/${month}/${year}`;
+                this.agenda.dataTermino= `${day}/${month}/${year}`;
             } else {
-                this.agenda.data = null;
+                this.agenda.dataInicio = null;
+                this.agenda.dataTermino = null;
             }
         },
     },
     setup() {
         const date = ref(new Date());
         const selectAttribute = ref({ dot: true });
+
         const attrs = ref([
             {
                 key: "today",
