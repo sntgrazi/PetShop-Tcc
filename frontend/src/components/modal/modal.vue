@@ -86,7 +86,7 @@ import "select2";
 
 export default {
   name: "Modal",
-  emits: ["atualizarTabela"],
+  emits: ["atualizarTabela", "agendamentoCadastrado"],
   props: [
     "userId",
     "tipo",
@@ -152,6 +152,7 @@ export default {
           await ApiController.inserirOrdem(this.agenda);
           Swal.fire("", "Agendamento feito com sucesso!", "success");
           this.toggle();
+          this.$emit('agendamentoCadstrado', this.agenda);
           this.agenda = {};
         } catch (error) {
           console.log(error);

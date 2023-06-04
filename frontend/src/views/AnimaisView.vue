@@ -6,7 +6,7 @@
         <div class="main-content">
           <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform"
             :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
-            :infoTutores="mostrarInfoTutores" />
+            :infoTutores="mostrarInfoTutores"/>
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarAnimais" :tipo="'pet'"/>
         </div>
       </div>
