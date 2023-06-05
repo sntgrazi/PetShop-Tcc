@@ -3,13 +3,17 @@
         <div class="header__toggle">
             <i class="bx bx-menu" id="header-toggle"></i>
         </div>
+        <div class="header__img">
+            <img src alt />
+        </div>
     </header>
 
     <div class="sidebar" id="nav-bar">
         <div class="logo-details">
+
             <i class="fa-solid fa-shield-dog icon"></i>
-            <div class="logo_name">DooPet's</div>
-            <i class='bx bx-menu' id="btn"></i>
+            <div class="logo_name">PETSHOP</div>
+
         </div>
         <ul class="nav-list">
             <hr />
@@ -20,7 +24,6 @@
                         <span class="links_name">Agenda</span>
                     </a>
                 </router-link>
-
                 <span class="tooltip">Agenda</span>
             </li>
             <li>
@@ -31,12 +34,12 @@
                 <span class="tooltip">Caixa</span>
             </li>
             <li>
-                <router-link to="/clientes">
-                    <a href="#">
+                <a href="#">
+                    <router-link to="/clientes">
                         <i class="fa-solid fa-users"></i>
                         <span class="links_name">Clientes</span>
-                    </a>
-                </router-link>
+                    </router-link>
+                </a>
                 <span class="tooltip">Clientes</span>
             </li>
             <li>
@@ -65,7 +68,7 @@
             </li>
             <li class="profile">
                 <a href="#">
-                    <i class="bx bx-log-out"></i>
+                    <i class="bx bx-log-out" id="log_out"></i>
                     <span class="links_name">Sair</span>
                 </a>
                 <span class="tooltip">Sair</span>
@@ -73,43 +76,31 @@
         </ul>
     </div>
 </template>
-
+  
 <script>
+import "@/assets/css/style.css";
 import { showNavbar } from "@/assets/js/funcoes";
+
 export default {
-    methods:{
+    name: "Navbar",
+    methods: {
         showNavbar: showNavbar
-    },  
+    },
     mounted() {
-        let sidebar = document.querySelector(".sidebar");
-        let closeBtn = document.querySelector("#btn");
-
-        closeBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("open");
-            menuBtnChange();//calling the function(optional)
-        });
-        // following are the code to change sidebar button(optional)
-        function menuBtnChange() {
-            if (sidebar.classList.contains("open")) {
-                closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
-            } else {
-                closeBtn.classList.replace("bx-menu-alt-right", "bx-menu");//replacing the iocns class
-            }
-        }
-
         const toggle = document.getElementById("header-toggle");
         toggle.addEventListener("click", event => {
             event.stopPropagation();
             showNavbar("header-toggle", "nav-bar", "header", "body-pd");
         });
-    }
-}
-</script>
 
-<style>
-@media (max-width: 420px) {
-    .sidebar li .tooltip {
-        display: none;
+        window.addEventListener("click", event => {
+            const nav = document.getElementById("nav-bar");
+            if (nav.classList.contains("open") && !event.target.closest("#nav-bar")) {
+                showNavbar("header-toggle", "nav-bar", "header", "body-pd");
+            }
+        });
     }
-}
-</style>
+};
+</script>
+  
+<style></style>
