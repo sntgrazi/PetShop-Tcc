@@ -4,7 +4,7 @@
 </template>
 
 <script>
-
+import "@/assets/css/style.css";  
 import Navbar from './components/navbar.vue';
 
 export default {
@@ -16,30 +16,6 @@ export default {
 </script>
 
 <style>
-
-.row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.container {
-  margin-top: 80px;
-}
-
-.content {
-  display: flex;
-  flex-direction: row;
-  height: 78vh;
-}
-
-.main-content {
-  border-radius: 20px;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
 
 @media screen and (min-width: 768px) {
   /*Show navbar desktop*/

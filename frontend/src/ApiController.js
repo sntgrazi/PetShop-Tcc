@@ -139,13 +139,13 @@ export default {
         return response.data;
     },
 
-    async buscarClienteTabela(){
+    async buscarClienteTabela() {
         const url = `${ApiUrl}/buscarClienteTabela`;
         const response = await axios.get(url)
-        .catch(error => {
-            console.error('Erro ao buscar os clientes: ', error);
-            throw error;
-        })
+            .catch(error => {
+                console.error('Erro ao buscar os clientes: ', error);
+                throw error;
+            })
 
         return response.data;
     },
@@ -175,33 +175,33 @@ export default {
 
     // Buscar Servicos
 
-    async getServicos(){
+    async getServicos() {
         const url = `${ApiUrl}/servicos`;
         const response = await axios.get(url)
-        .catch(error => {
-            console.error("Erro ao buscar os servicos: ", error);
-            throw error
-        })
+            .catch(error => {
+                console.error("Erro ao buscar os servicos: ", error);
+                throw error
+            })
 
         return response.data;
     },
 
     // Funcionarios
 
-    async getFuncionarios(){
+    async getFuncionarios() {
         const url = `${ApiUrl}/funcionarios`;
         const response = await axios.get(url)
-        .catch(error => {
-            console.error("Erro ao buscar os funcionários: ", error);
-            throw error
-        })
+            .catch(error => {
+                console.error("Erro ao buscar os funcionários: ", error);
+                throw error
+            })
 
         return response.data;
     },
 
     //Ordem de servico
 
-    async getAllOrdens(){
+    async getOrdens() {
         const url = `${ApiUrl}/ordens`;
         const response = await axios.get(url).catch(
             error => {
@@ -211,14 +211,24 @@ export default {
         )
         return response.data
     },
+    async getAllOrdens() {
+        const url = `${ApiUrl}/Allordens`;
+        const response = await axios.get(url).catch(
+            error => {
+                console.error("Erro ao buscar as Ordens de Serviços: ", error);
+                throw error;
+            }
+        )
+        return response.data
+    },
 
-    async inserirOrdem(ordem){
+    async inserirOrdem(ordem) {
         const url = `${ApiUrl}/inserirOrdem`;
         const response = await axios.post(url, ordem)
-        .catch(error => {
-            console.error("Erro ao tentar cadastrar a Ordem de Serviço: ", error);
-            throw error;
-        })
+            .catch(error => {
+                console.error("Erro ao tentar cadastrar a Ordem de Serviço: ", error);
+                throw error;
+            })
 
         return response.data;
     }

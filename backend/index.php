@@ -68,6 +68,7 @@ $app->get('/funcionarios', FuncionariosController::class . ':getFuncionarios');
 // OrdemDeServicoController
 
 $app->get('/ordens', OrdemServicoController::class . ':getOrdens'); 
+$app->get('/Allordens', OrdemServicoController::class . ':getAllOrdens');
 $app->post('/inserirOrdem', OrdemServicoController::class . ':insertOrdem'); 
 
 // ProdutoCompradoController

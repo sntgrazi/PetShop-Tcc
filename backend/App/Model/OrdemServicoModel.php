@@ -6,7 +6,9 @@ final class OrdemServicoModel{
 
     private $id;
 
-    private $data;
+    private $data_Inicio;
+
+    private $data_Termino;
 
     private $cliente_id;
 
@@ -35,13 +37,24 @@ final class OrdemServicoModel{
         return $this;
     }
 
-    public function getData(): string{
-        return $this->data;
+    public function getData_Inicio(): string{
+        return $this->data_Inicio;
     }
 
-    public function setData(string $data): OrdemServicoModel{
-        $this->data = $data;
 
+    public function setData_Inicio(string $data_Inicio): OrdemServicoModel{
+        $this->data_Inicio = $data_Inicio;
+
+        return $this;
+    }
+
+
+    public function getData_Termino(): string{
+        return $this->data_Termino;
+    }
+
+    public function setData_Termino(string $data_Termino): OrdemServicoModel{
+        $this->data_Termino = $data_Termino;
         return $this;
     }
 

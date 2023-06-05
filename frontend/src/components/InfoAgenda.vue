@@ -13,8 +13,8 @@
 .left-content {
   margin-left: 20px;
   border-radius: 20px;
-  width: 28%;
-  height: 78vh;
+  width: 30%;
+  height: 83vh;
   background-color: white;
   display: flex;
   flex-direction: column;

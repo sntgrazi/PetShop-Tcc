@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="home-section">
     <div class="container">
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">

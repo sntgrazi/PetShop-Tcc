@@ -30,14 +30,14 @@
                 </div>
             </div>
 
-          
+
 
             <div class="colunaForm">
                 <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) => (animal.nome_pet = newValue)"
                     :label="'Pet'" :idInput="'inputPet'" />
 
                 <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+                    " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
 
                 <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
                     :label="'Sexo'" :idInput="'inputSexo'" />
@@ -98,10 +98,10 @@
 <script>
 
 import BaseInput from "../BaseInput.vue";
-import "select2/dist/css/select2.css";
-import "select2";
 import ApiController from "@/ApiController";
 import $ from "jquery";
+import 'select2';
+import 'select2/dist/css/select2.css';
 
 
 export default {
