@@ -131,7 +131,7 @@ export default {
       tutoresVinculados: [],
 
       // Agendamento DATA
-      agenda: {  },
+      agenda: {},
 
     };
   },
@@ -418,16 +418,19 @@ export default {
 </script>
 
 <style>
+
+
 .select2-container .select2-selection {
-  width: 100%;
-  height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 40px;
   border: none;
   border-radius: 10px;
   font-size: 17px;
   outline: none;
   box-shadow: 0 0.4rem 0.8rem #0005;
-  text-align: justify;
   color: #000;
+
 }
 
 .select2-container .select2-dropdown .select2-search input {
@@ -441,6 +444,11 @@ export default {
   padding-right: 33px;
 }
 
+.select2-container .select2-selection--single {
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
 
 
 @media screen and (max-width: 750px) {

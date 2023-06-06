@@ -33,7 +33,7 @@
   text-align: center;
   font-size: 18px
 }
-@media screen and (max-width: 901px) {
+@media screen and (max-width: 1010px) {
 .left-content {
     margin-top: 20px;
     width: 100%;

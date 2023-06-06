@@ -1,5 +1,5 @@
 <template>
-  <section class="home-section">
+  <section>
     <div class="container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="content">
@@ -17,7 +17,7 @@
 import tabela from "@/components/tabela.vue";
 import topo from "@/components/topo.vue";
 import ApiController from "@/ApiController";
-import modal from "../components/modal/modal.vue";
+import modal from "@/components/modal/modal.vue";
 import { ref } from "vue";
 import Swal from "sweetalert2";
 

@@ -1,22 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+/*===== VARIABLES CSS =====*/
+:root {
+  --header-height: 3rem;
+  --nav-width: 70px;
 
+  /*===== Colors =====*/
+  --first-color: #1E90FF;
+  --first-color-light: #AFA5D9;
+  --white-color: #F7F6FB;
+
+  /*===== Font and typography =====*/
+
+  --normal-font-size: 1 rem;
+
+  /*===== z index =====*/
+  --z-fixed: 100;
 }
 
-body{
-  background-color: #e2ebf4;
-  overflow-y: hidden;
+/*===== BASE =====*/
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
-.header {
-  width: 100%;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
+body {
+  position: relative;
+  padding: 0 1rem;
+  font-size: var(--normal-font-size);
+  transition: .5s;
+  background-color: #e2ebf4;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*===== HEADER =====*/
+.header {
   position: fixed;
   top: 0;
   left: 0;
@@ -24,7 +53,6 @@ body{
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
-  background-color: var(--white-color);
   z-index: var(--z-fixed);
   transition: .5s;
   position: fixed;
@@ -192,45 +220,6 @@ body{
   width: 205px;
 }
 
-.home-section {
-  position: absolute;
-    background: #E4E9F7;
-    height: 100vh;
-    top: 0;
-    left: 78px;
-    width: calc(100% - 78px);
-    transition: all 0.5s ease;
-    z-index: 2;
-}
-
-.sidebar.open~.home-section {
-    left: 205px;
-    width: calc(100% - 205px);
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
-  justify-content: center;
-}
-
-.content {
-  display: flex;
-  flex-direction: row;
-  height: 83vh;
-  
-}
-
-.main-content {
-  border-radius: 20px;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
 .modal {
   position: absolute;
   top: 45%;
@@ -276,7 +265,7 @@ body{
   gap: 20px;
 }
 
-.formModal {
+.formModal{
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -296,10 +285,9 @@ body{
 }
 
 .form-inputs input {
-  height: 35px;
   border: none;
   border-radius: 10px;
-  padding: 10px;
+  padding: 0.3em;
   box-shadow: 0 0.4rem 0.8rem #0005;
   font-size: 1.2em;
   background-color: #fff;
@@ -319,7 +307,17 @@ body{
   width: 510px;
 }
 
-.colunaForm #inputCpf #inputRg #inputTelefone #inputCep #inputPet #inputAltura #inputPeso #inputPelagem #inputPorte #inputBairro #inputCidade {
+.colunaForm #inputCpf
+#inputRg
+#inputTelefone
+#inputCep
+#inputPet
+#inputAltura
+#inputPeso
+#inputPelagem
+#inputPorte
+#inputBairro
+#inputCidade {
   width: 100%;
 }
 
@@ -342,6 +340,7 @@ body{
 
 .selectCampo {
   width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -404,15 +403,15 @@ body{
 }
 
 .selectCampoInfo {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 5px;
   border-bottom: 1px solid #bebdbd;
   padding-bottom: 1.5rem;
+  max-width: 100%;
 }
 
-.selectCampoInfo>label {
+.selectCampoInfo > label {
   margin-bottom: 10px;
   color: #fff;
 }
@@ -450,6 +449,26 @@ body{
   margin-left: 10px;
 }
 
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -40px;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  height: 83vh;
+}
+
+.main-content {
+  border-radius: 20px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
 
 /* ===== MEDIA QUERIES=====*/
@@ -460,21 +479,52 @@ body{
   }
 }
 
+@media screen and (max-width: 1010px) {
+
+  .container {
+    margin-top: 60px;
+  }
+  .content {
+    
+    flex-direction: column;
+  }
+  main.table {
+    width: 85vw;
+  }
+}
+
 @media screen and (min-width: 768px) {
- 
+  body {
+    margin: calc(var(--header-height) + 1rem) 0 0 0;
+    padding-left: calc(var(--nav-width) + 2rem);
+    box-sizing: content-box; /* Adicione esta linha */
+  }
+
   .header {
-    height: calc(var(--header-height) + 1rem);
+  
     padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
   }
 
+  .header__img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header__img img {
+    width: 45px;
+  }
+
+  /*Show navbar desktop*/
+  .open {
+    width: calc(var(--nav-width) + 136px);
+  }
+
+  /*Add padding body desktop*/
+  .body-pd { padding-left: calc(var(--nav-width) + 160px);
+  }
 }
 
 @media screen and (max-width: 750px) {
-
-  .home-section{
-    padding-left: 0;
-    width: 100%;
-  }
 
   .sidebar {
     transform: translate(-100%);
