@@ -9,7 +9,7 @@
 
           <FullCalendar ref="calendar" :options="calendarOptions" />
         </div>
-        <InfoAgenda />
+        <InfoAgenda :agendaDados="agendaDados"/>
       </div>
     </div>
   </section>
@@ -57,15 +57,23 @@ export default {
         events: [
 
         ],
-        eventClick: function(info){
-
-        }
+        eventClick: this.getAgendamentosDetalhes
       },
+      agendaDados: [],
     }
   },
   methods: {
-    async getAgendamentosDetalhes(id){
-      
+    async getAgendamentosDetalhes(info) {
+      const eventId = info.event.id
+      console.log(eventId)
+      try {
+        const eventData = await ApiController.getOrdensById(eventId)
+        this.agendaDados = eventData
+        console.log(this.agendaDados)
+      } catch (error) {
+        console.log("Erro ao listar a ordem: ", error);
+      }
+  
     },
     async getAllOrdens() {
       try {
@@ -76,6 +84,7 @@ export default {
           const endDateTime = new Date(`${agendamento.data_Termino}T${agendamento.hora_termino}`);
 
           return {
+            id: agendamento.id,
             title: agendamento.servico_id,
             start: startDateTime,
             end: endDateTime,

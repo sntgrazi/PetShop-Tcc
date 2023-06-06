@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { error } from 'jquery';
 
 const ApiUrl = 'http://localhost:84';
 

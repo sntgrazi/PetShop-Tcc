@@ -1,13 +1,23 @@
 <template>
    <div class="left-content">
-    <h2>Agendamento</h2>
-    <h3>Nenhum agendamento selecionado</h3>
-    <img class="gif" src="@/assets/img/blue.gif" alt="searchGif" />
-    <h3>Selecione um agendamento para visualizar os detalhes</h3>
+      <div v-for="(dado, index) in agendaDados" :key="index">
+          <p>{{ dado.nome_cliente }}</p>
+          <p>{{ dado.nome_funcionario }}</p>
+          <p>{{ dado.nome_servico }}</p>
+          <p>{{ dado.nome_animal }}</p>
+          <p>{{ dado.status}}</p>
+          <p>{{ dado.duracao }}</p>
+          <p>{{ dado.hora_inicio}} á {{ dado.hora_termino }}</p>
+      </div>
    </div>
 </template>
 
+<script>
 
+  export default {
+    props: ["agendaDados"]
+  }
+</script>
 
 <style>
 .left-content {
