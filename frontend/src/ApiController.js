@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { error } from 'jquery';
 
-const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
+const ApiUrl = 'http://localhost:84';
 
 export default {
 
@@ -201,11 +201,11 @@ export default {
 
     //Ordem de servico
 
-    async getOrdens() {
-        const url = `${ApiUrl}/ordens`;
-        const response = await axios.get(url).catch(
+    async getOrdensById(id) {
+        const url = `${ApiUrl}/ordem/${id}`;
+        const response = await axios.get(url, id).catch(
             error => {
-                console.error("Erro ao buscar as Ordens de Serviços: ", error);
+                console.error("Erro ao buscar a ordem de serviço: ", error);
                 throw error;
             }
         )

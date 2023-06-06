@@ -10,9 +10,9 @@ use Psr\Http\Message\RequestInterface as Request;
 
 final class OrdemServicoController {
 
-    public function getOrdens(Request $request, Response $response, array $args){
+    public function getOrdensById(Request $request, Response $response, array $args){
         $ordemDAO = new OrdemServicoDAO();
-        $ordens = $ordemDAO->getOrdens();
+        $ordens = $ordemDAO->getOrdensById();
 
         $response->getBody()->write(json_encode($ordens));
         return $response->withHeader('Content-Type', 'application/json');

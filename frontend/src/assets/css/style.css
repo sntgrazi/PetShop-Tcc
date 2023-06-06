@@ -398,7 +398,7 @@ a {
   border: none;
   font-size: 1em;
   cursor: pointer;
-  margin-top: 38px;
+  margin-top: 45px;
   margin-right: 60px;
 }
 
@@ -526,6 +526,15 @@ a {
 
 @media screen and (max-width: 750px) {
 
+  .header{
+    background-color: white;
+    width: 100%;
+  }
+
+  .row{
+    margin-top: 30px;
+  }
+
   .sidebar {
     transform: translate(-100%);
   }
@@ -592,8 +601,8 @@ a {
     border: none;
     font-size: 1em;
     cursor: pointer;
-    margin-bottom: 82px;
-    margin-left: 99%;
+    margin-bottom: 95px;
+    margin-left: 98%;
     padding: 10px;
   }
 

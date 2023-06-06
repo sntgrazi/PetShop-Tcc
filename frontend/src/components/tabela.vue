@@ -22,11 +22,6 @@
             <td v-if="this.tipo == 'pet'">{{ dado.sexo }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.raca }}</td>
 
-            <td v-if="this.tipo == 'agenda'">{{ dado.nome_cliente }}</td>
-            <td v-if="this.tipo == 'agenda'">{{ dado.nome_animal }}</td>
-            <td v-if="this.tipo == 'agenda'">{{ dado.nome_servico }}</td>
-            <td v-if="this.tipo == 'agenda'">{{ dado.status }}</td>
-
             <td>
               <button class="btn-acoes" id="btn-editar" @click="() => toggle('info',dado.id)">
                 <i class="fa-solid fa-pencil"></i>

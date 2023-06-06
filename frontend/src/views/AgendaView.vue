@@ -56,11 +56,17 @@ export default {
         },
         events: [
 
-        ]
+        ],
+        eventClick: function(info){
+
+        }
       },
     }
   },
   methods: {
+    async getAgendamentosDetalhes(id){
+      
+    },
     async getAllOrdens() {
       try {
         const ordens = await ApiController.getAllOrdens();

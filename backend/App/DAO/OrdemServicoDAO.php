@@ -9,13 +9,28 @@ class OrdemServicoDAO extends ConexaoDAO{
         parent::__construct();
     }
 
-    public function getOrdens(): array{
-        $sql = 'SELECT ordem_de_servico.id, clientes.nome AS nome_cliente, animais.nome_pet AS nome_animal, funcionarios.nome AS nome_funcionario, servicos.nome_servico AS nome_servico , ordem_de_servico.status
-        FROM ordem_de_servico 
-        JOIN clientes ON ordem_de_servico.cliente_id = clientes.id 
-        JOIN animais ON ordem_de_servico.animal_id = animais.id 
-        JOIN funcionarios ON ordem_de_servico.funcionario_id = funcionarios.id 
-        JOIN servicos ON ordem_de_servico.servico_id = servicos.id;';
+    public function getOrdensById(): array{
+        $sql = 'SELECT 
+        ord.data_inicio, 
+        ord.data_termino, 
+        ord.hora_inicio, 
+        ord.hora_termino, 
+        ord.duracao, 
+        ord.status,
+        an.nome_pet AS nome_animal,
+        f.nome AS nome_funcionario,
+        c.nome AS nome_cliente, 
+        s.nome_servico AS nome_servico
+        FROM 
+            ordem_de_servico ord
+        JOIN 
+            animais an ON ord.animal_id = an.id
+        JOIN 
+            funcionarios f ON ord.funcionario_id = f.id
+        JOIN 
+            clientes c ON ord.cliente_id = c.id
+        JOIN 
+            servicos s ON ord.servico_id = s.id;';
         $ordens = $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
         return $ordens;
