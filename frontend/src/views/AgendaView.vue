@@ -8,8 +8,10 @@
             :userId="userId" @atualizarCalendario="getAllOrdens" />
 
           <FullCalendar ref="calendar" :options="calendarOptions" />
+
+          
         </div>
-        <InfoAgenda :agendaDados="agendaDados"/>
+        <InfoAgenda :agendaDados="agendaDados" />
       </div>
     </div>
   </section>
@@ -54,16 +56,33 @@ export default {
           week: "Semana",
           list: 'Dia'
         },
-        events: [
-
-        ],
-        eventClick: this.getAgendamentosDetalhes
+        events: [],
+        eventClick: this.getAgendamentosDetalhes,
+        eventMouseEnter: this.mouseHover,
+        eventMouseLeave: this.mouseLeave
       },
       agendaDados: [],
     }
   },
   methods: {
+    mouseHover(info) {
+      const eventElement = info.el;
+      this.togglePointerCursor(eventElement);
+    },
+    mouseLeave(info) {
+      const eventElement = info.el;
+      this.togglePointerCursor(eventElement);
+    },
+    togglePointerCursor(element) {
+      if (element.classList.contains('pointer-cursor')) {
+        element.classList.remove('pointer-cursor');
+      } else {
+        element.classList.add('pointer-cursor');
+      }
+    },
     async getAgendamentosDetalhes(info) {
+      const eventElement = info.el;
+
       const eventId = info.event.id
       console.log(eventId)
       try {
@@ -73,7 +92,7 @@ export default {
       } catch (error) {
         console.log("Erro ao listar a ordem: ", error);
       }
-  
+
     },
     async getAllOrdens() {
       try {
@@ -140,5 +159,9 @@ export default {
 
 .fc .fc-view-harness-active>.fc-view {
   border-radius: 0 0 20px 20px;
+}
+
+.pointer-cursor {
+  cursor: pointer;
 }
 </style>
