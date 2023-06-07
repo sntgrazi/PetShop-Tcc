@@ -1,14 +1,6 @@
 <template>
    <div class="left-content">
-      <div v-for="(dado, index) in agendaDados" :key="index">
-          <p>{{ dado.nome_cliente }}</p>
-          <p>{{ dado.nome_funcionario }}</p>
-          <p>{{ dado.nome_servico }}</p>
-          <p>{{ dado.nome_animal }}</p>
-          <p>{{ dado.status}}</p>
-          <p>{{ dado.duracao }}</p>
-          <p>{{ dado.hora_inicio}} á {{ dado.hora_termino }}</p>
-      </div>
+     
    </div>
 </template>
 

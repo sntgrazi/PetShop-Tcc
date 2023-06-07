@@ -256,6 +256,10 @@ tbody td.active {
   color: #02396f;
 }
 
+tbody, td, tfoot, th, thead, tr{
+  border-style: none;
+}
+
 .btn-acoes {
   border: none;
   font-size: 20px;

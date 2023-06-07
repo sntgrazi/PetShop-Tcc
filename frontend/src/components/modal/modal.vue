@@ -1,10 +1,10 @@
 <template>
-  <div class="form-overlay"></div>
-  <div class="modal" :class="{ active: active }">
+  <div class="custom-form-overlay"></div>
+  <div class="custom-modal" :class="{ active: active }">
     <div class="modal-header">
       <div class="titulo-modal">
         <i :class="['fa regular', icon]"></i>
-        <h2>{{ titulo }}</h2>
+        <h3>{{ titulo }}</h3>
       </div>
       <button type="button" @click="() => toggle()" id="close-modal" class="close">
         <i class="fa-solid fa-xmark"></i>

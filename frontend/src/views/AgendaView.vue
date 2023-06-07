@@ -9,8 +9,29 @@
 
           <FullCalendar ref="calendar" :options="calendarOptions" />
 
+
+
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasRightLabel">Agendamento</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <div v-for="(dado, index) in agendaDados" :key="index">
+                <p>{{ dado.nome_cliente }}</p>
+                <p>{{ dado.nome_funcionario }}</p>
+                <p>{{ dado.nome_servico }}</p>
+                <p>{{ dado.nome_animal }}</p>
+                <p>{{ dado.status }}</p>
+                <p>{{ dado.duracao }}</p>
+                <p>{{ dado.hora_inicio }} á {{ dado.hora_termino }}</p>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <InfoAgenda :agendaDados="agendaDados" />
+
+
       </div>
     </div>
   </section>
@@ -72,6 +93,7 @@ export default {
       const eventElement = info.el;
       this.togglePointerCursor(eventElement);
     },
+
     togglePointerCursor(element) {
       if (element.classList.contains('pointer-cursor')) {
         element.classList.remove('pointer-cursor');
@@ -83,6 +105,7 @@ export default {
       const eventElement = info.el;
 
       const eventId = info.event.id
+      $('#offcanvasRight').offcanvas('show');
       console.log(eventId)
       try {
         const eventData = await ApiController.getOrdensById(eventId)

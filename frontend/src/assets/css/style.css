@@ -3,7 +3,7 @@
 /*===== VARIABLES CSS =====*/
 :root {
   --header-height: 3rem;
-  --nav-width: 70px;
+  --nav-width: 80px;
 
   /*===== Colors =====*/
   --first-color: #1E90FF;
@@ -83,11 +83,20 @@ a {
   left: 0;
   top: 0;
   height: 100%;
-  width: 78px;
+  width: 85px;
   background: #1E90FF;
   padding: 6px 14px;
   z-index: 101;
   transition: all 0.5s ease;
+}
+
+.custom-sidebar ol, ul{
+  padding-left: 0;
+}
+
+.custom-sidebar hr{
+  color: white;
+  opacity: 1;
 }
 
 .custom-sidebar .custom-logo-details {
@@ -169,9 +178,9 @@ a {
 .custom-sidebar li a {
   display: flex;
   height: 100%;
-  width: 100%;
-  border-radius: 12px;
+  width: 95%;
   align-items: center;
+  border-radius: 12px;
   text-decoration: none;
   transition: all 0.4s ease;
   background: #1E90FF;
@@ -220,7 +229,7 @@ a {
   width: 205px;
 }
 
-.modal {
+.custom-modal {
   position: absolute;
   top: 45%;
   left: 50%;
@@ -233,7 +242,7 @@ a {
   z-index: 10;
 }
 
-.form-overlay {
+.custom-form-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -263,6 +272,11 @@ a {
   align-items: center;
   justify-content: center;
   gap: 20px;
+}
+
+.titulo-modal > h3 {
+  text-align: center;
+  margin: 0;
 }
 
 .formModal{
@@ -408,7 +422,7 @@ a {
   gap: 5px;
   border-bottom: 1px solid #bebdbd;
   padding-bottom: 1.5rem;
-  max-width: 100%;
+  width: 100%;
 }
 
 .selectCampoInfo > label {
@@ -500,19 +514,11 @@ a {
     box-sizing: content-box; /* Adicione esta linha */
   }
 
-  .header {
+  .custom-header{
   
     padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
   }
 
-  .header__img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .header__img img {
-    width: 45px;
-  }
 
   /*Show navbar desktop*/
   .open {
@@ -526,7 +532,7 @@ a {
 
 @media screen and (max-width: 750px) {
 
-  .header{
+  .custom-header{
     background-color: white;
     width: 100%;
   }
@@ -535,15 +541,15 @@ a {
     margin-top: 30px;
   }
 
-  .sidebar {
+  .custom-sidebar {
     transform: translate(-100%);
   }
 
-  .sidebar.open {
+  .custom-sidebar.open {
     transform: translateX(0.1%);
   }
 
-  .sidebar.open li.profile {
+  .custom-sidebar.open li.custom-profile {
     width: 78px;
   }
 
