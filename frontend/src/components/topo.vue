@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="custom-row">
     <button @click="btnModal" id="open-modal">
       <i :class="['fa regular', icon]"></i>
       {{ botaoAdd }}
@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style>
-.row {
+.custom-row {
   display: flex;
   justify-content: flex-end;
 }

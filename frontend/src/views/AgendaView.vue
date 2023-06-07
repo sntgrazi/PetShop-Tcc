@@ -1,15 +1,14 @@
 <template>
   <section>
-    <div class="container">
+    <div class="custom-container">
       <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
-      <div class="content">
-        <div class="main-content">
+      <div class="custom-content">
+        <div class="custom-main-content">
           <modal v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true" :toggle="toggleform"
             :userId="userId" @atualizarCalendario="getAllOrdens" />
 
           <FullCalendar ref="calendar" :options="calendarOptions" />
 
-          
         </div>
         <InfoAgenda :agendaDados="agendaDados" />
       </div>

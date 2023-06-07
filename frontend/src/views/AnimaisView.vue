@@ -1,9 +1,9 @@
 <template>
   <section>
-    <div class="container">
+    <div class="custom-container">
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
-      <div class="content">
-        <div class="main-content">
+      <div class="custom-content">
+        <div class="custom-main-content">
           <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform"
             :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
             :infoTutores="mostrarInfoTutores"/>

@@ -1,9 +1,9 @@
 <template>
   <section>
-    <div class="container">
+    <div class="custom-container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
-      <div class="content">
-        <div class="main-content">
+      <div class="custom-content">
+        <div class="custom-main-content">
           <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true"
             @atualizarTabela="getClientes" :toggle="toggleform" :userId="userId" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente" :tipo="'cliente'"/>
