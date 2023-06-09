@@ -14,17 +14,65 @@
           <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="offcanvasRightLabel">Agendamento</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+              <div class="btnAcaoOff">
+                <button class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-pen"></i></button>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
             </div>
             <div class="offcanvas-body">
-              <div v-for="(dado, index) in agendaDados" :key="index">
-                <p>{{ dado.nome_cliente }}</p>
-                <p>{{ dado.nome_funcionario }}</p>
-                <p>{{ dado.nome_servico }}</p>
-                <p>{{ dado.nome_animal }}</p>
-                <p>{{ dado.status }}</p>
-                <p>{{ dado.duracao }}</p>
-                <p>{{ dado.hora_inicio }} á {{ dado.hora_termino }}</p>
+              <div>
+                <div class="servicoDetalhes">
+                  <div class="detalhesTitulo">
+                    <h4>{{ agendaDados.nome_servico }}</h4>
+                  </div>
+                  <hr>
+                  <h6>Data e Hora</h6>
+                  <p> {{ agendaDados.data_inicio }} - {{ agendaDados.hora_inicio }} ás {{ agendaDados.hora_termino }}</p>
+                  <div class="servicoDetalhescolumn">
+                    <div class="colunaDetalhes">
+                      <h6>Duração Aprox.</h6>
+                      <p>{{ agendaDados.duracao }}</p>
+                    </div>
+                    <div class="colunaDetalhes">
+                      <h6>Profissional</h6>
+                      <p>{{ agendaDados.nome_funcionario }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="servicoDetalhes">
+                  <div class="detalhesTitulo">
+                    <h4> Status </h4>
+                  </div>
+                  <hr>
+                  <div class="detalhesInfoStatus">
+                    <span> <i class="fa-sharp fa-regular fa-circle-dot"></i> </span>
+                    <span>{{ agendaDados.status }}</span>
+                  </div>
+                </div>
+
+
+                <div class="servicoDetalhes">
+                  <div class="detalhesTitulo">
+                    <h4>Cliente</h4>
+                  </div>
+                  <hr>
+                  <div class="detalhesCliente">
+                    <span><i class="fa-solid fa-user"></i></span>
+                    <span>{{ agendaDados.nome_cliente }}</span>
+                  </div>
+                  <div class="detalhesAnimal">
+                    <span><i class="fa-solid fa-paw"></i></span>
+                    <span>{{ agendaDados.nome_animal }}</span>
+                  </div>
+                </div>
+
+
+                <div class="btnAcoesAgendamento">
+                  <button  class="btnIniciar" type="button"> Iniciar Atendimento</button>
+                  <button  class="btnCancelar" type="button"> Cancelar Atendimento</button>
+                </div>
               </div>
             </div>
           </div>
@@ -79,7 +127,8 @@ export default {
         events: [],
         eventClick: this.getAgendamentosDetalhes,
         eventMouseEnter: this.mouseHover,
-        eventMouseLeave: this.mouseLeave
+        eventMouseLeave: this.mouseLeave,
+
       },
       agendaDados: [],
     }
@@ -102,15 +151,23 @@ export default {
       }
     },
     async getAgendamentosDetalhes(info) {
-      const eventElement = info.el;
-
       const eventId = info.event.id
       $('#offcanvasRight').offcanvas('show');
       console.log(eventId)
       try {
         const eventData = await ApiController.getOrdensById(eventId)
         this.agendaDados = eventData
-        console.log(this.agendaDados)
+        const dataInicio = new Date(`${eventData.data_inicio}T00:00:00Z`); // Adiciona 'T00:00:00Z' para especificar o formato UTC
+
+        const dia = String(dataInicio.getUTCDate()).padStart(2, '0');
+        const mes = String(dataInicio.getUTCMonth() + 1).padStart(2, '0');
+        const ano = dataInicio.getUTCFullYear();
+
+
+        this.agendaDados.data_inicio = `${dia}/${mes}/${ano}`;
+
+        this.agendaDados.hora_inicio = eventData.hora_inicio.substring(0, 5);
+        this.agendaDados.hora_termino = eventData.hora_termino.substring(0, 5);
       } catch (error) {
         console.log("Erro ao listar a ordem: ", error);
       }
@@ -126,7 +183,7 @@ export default {
 
           return {
             id: agendamento.id,
-            title: agendamento.servico_id,
+            title: agendamento.nome_servico,
             start: startDateTime,
             end: endDateTime,
           };
@@ -185,5 +242,113 @@ export default {
 
 .pointer-cursor {
   cursor: pointer;
+}
+
+.offcanvas-header > h5 {
+  font-size: 25px;
+  font-weight: bold;
+  color: gray;
+}
+
+.btnAcaoOff {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnEditarOffCanvas {
+  border: none;
+  background-color: transparent;
+  margin-right: 15px;
+  color: gray;
+}
+
+.servicoDetalhes>.detalhesTitulo>h4 {
+  font-weight: bold;
+  color: #1e90ff;
+}
+
+.servicoDetalhes>h6 {
+  color: gray;
+}
+
+.detalhesInfoStatus {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.detalhesInfoStatus>span {
+  color: orange;
+  font-size: 20px;
+}
+
+.detalhesInfoStatus>span>i {
+  font-size: 28px;
+}
+
+.servicoDetalhescolumn {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.colunaDetalhes>h6 {
+  color: gray;
+}
+
+.detalhesCliente {
+  display: flex;
+  gap: 20px;
+}
+
+.detalhesCliente>span {
+  font-size: 20px;
+}
+
+.detalhesCliente>span>i {
+  font-size: 25px;
+  color: #1e90ff;
+}
+
+.detalhesAnimal {
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.detalhesAnimal>span {
+  font-size: 20px;
+}
+
+.detalhesAnimal>span>i {
+  font-size: 25px;
+  color: #1e90ff;
+}
+
+.btnAcoesAgendamento{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btnAcoesAgendamento > button{
+  padding: 15px;
+  border: none;
+  border-radius: 15px;
+  color: #fff;
+  width: 250px;
+}
+
+.btnIniciar{
+  background-color: rgb(66, 151, 66);
+}
+
+.btnCancelar{
+  background-color: rgb(228, 48, 48);
 }
 </style>

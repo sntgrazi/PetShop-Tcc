@@ -9,7 +9,7 @@ class OrdemServicoDAO extends ConexaoDAO{
         parent::__construct();
     }
 
-    public function getOrdensById(): array{
+    public function getOrdensById(OrdemServicoModel $ordemM): array{
         $sql = 'SELECT 
         ord.data_inicio, 
         ord.data_termino, 
@@ -30,15 +30,23 @@ class OrdemServicoDAO extends ConexaoDAO{
         JOIN 
             clientes c ON ord.cliente_id = c.id
         JOIN 
-            servicos s ON ord.servico_id = s.id;';
-        $ordens = $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+            servicos s ON ord.servico_id = s.id WHERE
+        ord.id = :id;';
+            
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([
+                'id' => $ordemM->getId()
+            ]);
+        $ordem = $stm->fetch(\PDO::FETCH_ASSOC);
+            
+        return $ordem;
 
-        return $ordens;
     }
 
     public function getAllOrdens(): array{
-        $sql = 'SELECT *
-        FROM ordem_de_servico ';
+        $sql = 'SELECT ordem_de_servico.*, servicos.nome_servico, servicos.valor
+        FROM ordem_de_servico
+        JOIN servicos ON ordem_de_servico.servico_id = servicos.id;';
         $ordens = $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
 
         return $ordens;

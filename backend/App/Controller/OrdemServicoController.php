@@ -11,8 +11,13 @@ use Psr\Http\Message\RequestInterface as Request;
 final class OrdemServicoController {
 
     public function getOrdensById(Request $request, Response $response, array $args){
+
+        $id = $args['id'];
+
         $ordemDAO = new OrdemServicoDAO();
-        $ordens = $ordemDAO->getOrdensById();
+        $ordemM = new OrdemServicoModel();
+        $ordemM ->setId($id);
+        $ordens = $ordemDAO->getOrdensById($ordemM);
 
         $response->getBody()->write(json_encode($ordens));
         return $response->withHeader('Content-Type', 'application/json');

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
 
 /*===== VARIABLES CSS =====*/
 :root {
@@ -29,7 +30,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 body {
@@ -540,6 +541,10 @@ a {
     width: 100%;
   }
 
+  .custom-sidebar.open{
+    width: 78px;
+  }
+
   .custom-row{
     margin-top: 30px;
   }
@@ -618,6 +623,16 @@ a {
   #selectTutores.selectTutores + .select2-container .select2-selection {
     width: 100%;
   }
+
+  .fc .fc-toolbar.fc-header-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    
+}
+
+
 }
 
 @media screen and (max-width: 350px) {
