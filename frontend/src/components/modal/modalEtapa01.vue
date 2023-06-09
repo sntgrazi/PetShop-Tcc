@@ -2,28 +2,29 @@
     <div class="form-inputs" v-show="etapaAtual === 1">
         <div class="inputCadastroCliente" v-if="inputsCadastro">
             <div class="container-fluid">
-                
+
                 <div class="col-sm-12">
                     <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) => (cliente.nome = newValue)"
-                    :label="'Nome'" :idInput="'inputName'" />
+                        :label="'Nome'" :idInput="'inputName'" />
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="row">
                             <div class="col-6 col-sm-6">
-                                <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) => (cliente.cpf = newValue)"
-                        :label="'Cpf'" :idInput="'inputCpf'" />
+                                <BaseInput :modelValue="cliente.cpf"
+                                    @update:modelValue="(newValue) => (cliente.cpf = newValue)" :label="'Cpf'"
+                                    :idInput="'inputCpf'" />
 
                             </div>
                             <div class="col-6 col-sm-6">
                                 <BaseInput :modelValue="cliente.telefone"
-                        @update:modelValue="(newValue) => (cliente.telefone = newValue)" :label="'Telefone'"
-                        :idInput="'inputTelefone'" />
+                                    @update:modelValue="(newValue) => (cliente.telefone = newValue)" :label="'Telefone'"
+                                    :idInput="'inputTelefone'" />
                             </div>
                         </div>
                     </div>
                 </div>
-        
+
                 <div class="col-sm-12">
                     <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) => (cliente.email = newValue)"
                         :label="'Email'" :idInput="'inputEmail'" />
@@ -32,8 +33,9 @@
         </div>
 
         <div class="inputsAnimais" v-if="inputsAnimais">
-            <div class="colunaForm">
-                <div class="selectCampo" v-if="!userId">
+
+            <div class="col-sm-12">
+                <div v-if="!userId">
                     <label for="tutor">Tutor</label>
                     <select v-model="animal.tutor_id" id="select-tutor" class="selectTutor">
                         <option v-for="tutor in tutores" :value="tutor.id" selected>
@@ -44,59 +46,84 @@
             </div>
 
 
-
-            <div class="colunaForm">
-                <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) => (animal.nome_pet = newValue)"
-                    :label="'Pet'" :idInput="'inputPet'" />
-
-                <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                    " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
-
-                <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
-                    :label="'Sexo'" :idInput="'inputSexo'" />
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6 col-sm-6">
+                        <BaseInput :modelValue="animal.nome_pet"
+                            @update:modelValue="(newValue) => (animal.nome_pet = newValue)" :label="'Pet'"
+                            :idInput="'inputPet'" />
+                    </div>
+                    <div class="col-4 col-sm-4">
+                        <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
+                            " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+                    </div>
+                    <div class="col-2 col-sm-2">
+                        <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
+                            :label="'Sexo'" :idInput="'inputSexo'" />
+                    </div>
+                </div>
             </div>
 
-            <div class="colunaForm">
-                <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) => (animal.altura = newValue)"
-                    :label="'Altura'" :idInput="'inputAltura'" />
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-6 col-sm-6">
+                        <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) => (animal.altura = newValue)"
+                            :label="'Altura'" :idInput="'inputAltura'" />
 
-                <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) => (animal.peso = newValue)"
-                    :label="'Peso'" :idInput="'inputPeso'" />
+                    </div>
+                    <div class="col-6 col-sm-6">
+                        <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) => (animal.peso = newValue)"
+                            :label="'Peso'" :idInput="'inputPeso'" />
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="inputAgendamento" v-if="inputsAgendamento">
             <div class="form-inputs">
-                <div class="selectCampo">
-                    <label for="cliente">Cliente</label>
-                    <select v-model="agenda.cliente" id="select-cliente" class="selectCliente">
-                        <option v-for="cliente in clientesTabela" :value="cliente.id" selected>
-                            {{ cliente.nome }}
-                        </option>
-                    </select>
-                </div>
-                <div class="selectCampo">
-                    <label for="pet">Pet</label>
-                    <select v-model="agenda.pet" id="select-pet" class="selectPet">
-                    </select>
-                </div>
-                <div class="colunaForm">
+                <div class="col-sm-12">
                     <div class="selectCampo">
-                        <label for="tutor">Funcionário Responsável</label>
-                        <select v-model="agenda.funcionario" id="select-funcionario">
-                            <option v-for="funcionario in funcionarios" :value="funcionario.id">{{ funcionario.nome }}
+                        <label for="cliente">Cliente</label>
+                        <select v-model="agenda.cliente" id="select-cliente" class="selectCliente">
+                            <option v-for="cliente in clientesTabela" :value="cliente.id" selected>
+                                {{ cliente.nome }}
                             </option>
                         </select>
                     </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="selectCampo">
+                        <label for="pet">Pet</label>
+                        <select v-model="agenda.pet" id="select-pet" class="selectPet">
+                        </select>
+                    </div>
+                </div>
 
-                    <div class="selectCampo">
-                        <label for="servico">Serviço</label>
-                        <select v-model="agenda.servico" id="select-servico">
-                            <option v-for="servico in servicos" :value="servico.id">{{ servico.nome_servico }}
-                            </option>
-                        </select>
+
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-7 col-sm-7">
+                            <div class="selectCampo">
+                                <label for="tutor">Funcionário Responsável</label>
+                                <select v-model="agenda.funcionario" id="select-funcionario">
+                                    <option v-for="funcionario in funcionarios" :value="funcionario.id">{{ funcionario.nome
+                                    }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm-5">
+                            <div class="selectCampo">
+                                <label for="servico">Serviço</label>
+                                <select v-model="agenda.servico" id="select-servico">
+                                    <option v-for="servico in servicos" :value="servico.id">{{ servico.nome_servico }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
