@@ -321,41 +321,6 @@ a {
   gap: 20px;
 }
 
-#inputName,
-#inputEmail {
-  width: 510px;
-}
-
-.colunaForm #inputCpf
-#inputRg
-#inputTelefone
-#inputCep
-#inputPet
-#inputAltura
-#inputPeso
-#inputPelagem
-#inputPorte
-#inputBairro
-#inputCidade {
-  width: 100%;
-}
-
-.colunaForm #inputUf,
-.colunaForm #inputN_Casa {
-  width: 110px;
-}
-
-.colunaForm #inputRua {
-  width: 510px;
-}
-
-.colunaForm #inputDataNascimento {
-  width: 160px;
-}
-
-.colunaForm #inputSexo {
-  width: 65px;
-}
 
 .selectCampo {
   width: 100%;
@@ -418,7 +383,7 @@ a {
   font-size: 1em;
   cursor: pointer;
   margin-top: 45px;
-  margin-right: 60px;
+  margin-left: 48%;
 }
 
 .selectCampoInfo {
@@ -574,36 +539,6 @@ a {
     width: 100%;
   }
 
-  .colunaForm {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .colunaForm #inputCpf,
-  .colunaForm #inputRg,
-  .colunaForm #inputTelefone,
-  .colunaForm #inputEmail,
-  #inputName,
-  .colunaForm #inputCep,
-  .colunaForm #inputCidade,
-  .colunaForm #inputUf,
-  .colunaForm #inputBairro,
-  .colunaForm #inputRua,
-  .colunaForm #inputN_Casa,
-  .colunaForm #inputPet,
-  .colunaForm #inputDataNascimento,
-  .colunaForm #inputSexo,
-  .colunaForm #inputAltura,
-  .colunaForm #inputPeso,
-  .colunaForm #inputEspecie,
-  .colunaForm #inputPelagem,
-  .colunaForm #inputRaca,
-  .colunaForm #inputPorte,
-  #select-tutor.selectTutor+.select2-container .select2-selection {
-    width: 100%;
-  }
 
   .modal-footer {
     gap: 20px;
@@ -615,8 +550,7 @@ a {
     border: none;
     font-size: 1em;
     cursor: pointer;
-    margin-bottom: 95px;
-    margin-left: 98%;
+    margin-left: 45%;
     padding: 10px;
   }
 

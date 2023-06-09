@@ -1,32 +1,49 @@
 <template>
     <div class="form-inputs" v-show="etapaAtual === 2">
         <div class="inputCadastroCliente" v-if="inputsCadastro">
-            <div class="colunaForm">
-                <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)"
-                    :label="'Cep'" :idInput="'inputCep'" />
 
-                <button type="button" class="btn-pesquisar" @click="procurarEndereço">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-7 col-sm-7">
+                        <div class="colunaForm">
+                            <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)"
+                                :label="'Cep'" :idInput="'inputCep'" />
 
-                <BaseInput :modelValue="cliente.bairro" @update:modelValue="(newValue) => (cliente.bairro = newValue)"
-                    :label="'Bairro'" :idInput="'inputBairro'" />
+                            <button type="button" class="btn-pesquisar" @click="procurarEndereço">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-5 col-sm-5">
+                        <BaseInput :modelValue="cliente.bairro"
+                            @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'Bairro'"
+                            :idInput="'inputBairro'" />
+                    </div>
+                </div>
             </div>
 
-            <div class="colunaForm">
+            <div class="col-sm-12">
                 <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => (cliente.rua = newValue)"
                     :label="'Rua'" :idInput="'inputRua'" />
             </div>
 
-            <div class="colunaForm">
-                <BaseInput :modelValue="cliente.cidade" @update:modelValue="(newValue) => (cliente.cidade = newValue)"
-                    :label="'Cidade'" :idInput="'inputCidade'" />
-
-                <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
-                    :idInput="'inputUf'" />
-
-                <BaseInput :modelValue="cliente.n_casa" @update:modelValue="(newValue) => (cliente.n_casa = newValue)"
-                    :label="'N°'" :idInput="'inputN_Casa'" />
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-7 col-sm-7">
+                        <BaseInput :modelValue="cliente.cidade"
+                            @update:modelValue="(newValue) => (cliente.cidade = newValue)" :label="'Cidade'"
+                            :idInput="'inputCidade'" />
+                    </div>
+                    <div class="col-3 col-sm-3">
+                        <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)"
+                            :label="'Uf'" :idInput="'inputUf'" />
+                    </div>
+                    <div class="col-2 col-sm-2">
+                        <BaseInput :modelValue="cliente.n_casa"
+                            @update:modelValue="(newValue) => (cliente.n_casa = newValue)" :label="'N°'"
+                            :idInput="'inputN_Casa'" />
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -83,7 +100,7 @@
             </div>
 
             <div class="colunaAgenda">
-               
+
                 <BaseInput :modelValue="duration" :label="'Duração'" readonly />
             </div>
         </div>
@@ -269,7 +286,7 @@ export default {
         width: 100%;
     }
 
-    .calendario{
+    .calendario {
         flex-direction: column;
         width: 80%;
         gap: 0;

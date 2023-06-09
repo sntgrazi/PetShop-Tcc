@@ -71,7 +71,7 @@
 
                 <div class="btnAcoesAgendamento">
                   <button  class="btnIniciar" type="button"> Iniciar Atendimento</button>
-                  <button  class="btnCancelar" type="button"> Cancelar Atendimento</button>
+                  <button  class="btnCancelar" type="button"> Cancelar Agendamento</button>
                 </div>
               </div>
             </div>
@@ -285,7 +285,7 @@ export default {
 }
 
 .detalhesInfoStatus>span>i {
-  font-size: 28px;
+  font-size: 25px;
 }
 
 .servicoDetalhescolumn {

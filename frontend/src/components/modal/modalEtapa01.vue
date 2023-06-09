@@ -1,20 +1,33 @@
 <template>
     <div class="form-inputs" v-show="etapaAtual === 1">
         <div class="inputCadastroCliente" v-if="inputsCadastro">
-            <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) => (cliente.nome = newValue)"
-                :label="'Nome'" :idInput="'inputName'" />
+            <div class="container-fluid">
+                
+                <div class="col-sm-12">
+                    <BaseInput :modelValue="cliente.nome" @update:modelValue="(newValue) => (cliente.nome = newValue)"
+                    :label="'Nome'" :idInput="'inputName'" />
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-6 col-sm-6">
+                                <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) => (cliente.cpf = newValue)"
+                        :label="'Cpf'" :idInput="'inputCpf'" />
 
-            <div class="colunaForm">
-                <BaseInput :modelValue="cliente.cpf" @update:modelValue="(newValue) => (cliente.cpf = newValue)"
-                    :label="'Cpf'" :idInput="'inputCpf'" />
-
-                <BaseInput :modelValue="cliente.telefone" @update:modelValue="(newValue) => (cliente.telefone = newValue)"
-                    :label="'Telefone'" :idInput="'inputTelefone'" />
-            </div>
-
-            <div class="colunaForm">
-                <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) => (cliente.email = newValue)"
-                    :label="'Email'" :idInput="'inputEmail'" />
+                            </div>
+                            <div class="col-6 col-sm-6">
+                                <BaseInput :modelValue="cliente.telefone"
+                        @update:modelValue="(newValue) => (cliente.telefone = newValue)" :label="'Telefone'"
+                        :idInput="'inputTelefone'" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-sm-12">
+                    <BaseInput :modelValue="cliente.email" @update:modelValue="(newValue) => (cliente.email = newValue)"
+                        :label="'Email'" :idInput="'inputEmail'" />
+                </div>
             </div>
         </div>
 
@@ -30,14 +43,14 @@
                 </div>
             </div>
 
-          
+
 
             <div class="colunaForm">
                 <BaseInput :modelValue="animal.nome_pet" @update:modelValue="(newValue) => (animal.nome_pet = newValue)"
                     :label="'Pet'" :idInput="'inputPet'" />
 
                 <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+                    " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
 
                 <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
                     :label="'Sexo'" :idInput="'inputSexo'" />
