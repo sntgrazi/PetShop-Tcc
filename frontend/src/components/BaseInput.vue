@@ -1,7 +1,7 @@
 <template>
   <div class="form-inputs">
     <label>{{ label }}</label>
-    <input :id="idInput" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"  :placeholder="place" :type="tipo" :readonly="readonly"/> 
+    <input :id="idInput" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"  :placeholder="place" :type="tipo" :readonly="readonly" /> 
   </div>
 </template>
 

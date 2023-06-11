@@ -72,4 +72,15 @@ class OrdemServicoDAO extends ConexaoDAO{
             'data_Termino' => $ordemM->getData_Termino()
         ]);
     }
+
+    public function updateStatus(OrdemServicoModel $ordemM){
+        $sql = 'UPDATE ordem_de_servico SET status = :status WHERE id = :id';
+
+        $stm = $this->pdo->prepare($sql);
+
+        $stm -> execute([
+            'status' =>$ordemM->getStatus(),
+            'id' =>$ordemM->getId()
+        ]);
+    }
 }

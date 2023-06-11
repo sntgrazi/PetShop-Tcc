@@ -89,4 +89,14 @@ class AnimalDAO extends ConexaoDAO{
     }
 
 
+    public function buscarRaca(AnimalModel $animalModel): array{
+        $sql = 'SELECT * FROM racas WHERE especie = :especie';
+
+        $stm = $this->pdo->prepare($sql);
+
+        $stm->execute(['especie' => $animalModel->getEspecie()]);
+        $animal = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        return $animal;
+    }
+
 }

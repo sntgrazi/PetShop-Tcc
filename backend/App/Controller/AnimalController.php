@@ -94,4 +94,15 @@ final class AnimalController {
         return  $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function buscarRaca(Request $request, Response $response, array $args){
+        $especie = $args['especie'];
+
+        $animalDAO = new AnimalDAO();
+        $animalModel = new AnimalModel();
+        $animalModel->setEspecie($especie);
+        $animal =  $animalDAO->buscarRaca($animalModel);
+
+        $response->getBody()->write(json_encode($animal));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }

@@ -9,74 +9,7 @@
 
           <FullCalendar ref="calendar" :options="calendarOptions" />
 
-
-
-          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasRightLabel">Agendamento</h5>
-
-              <div class="btnAcaoOff">
-                <button class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-pen"></i></button>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-            </div>
-            <div class="offcanvas-body">
-              <div>
-                <div class="servicoDetalhes">
-                  <div class="detalhesTitulo">
-                    <h4>{{ agendaDados.nome_servico }}</h4>
-                  </div>
-                  <hr>
-                  <h6>Data e Hora</h6>
-                  <p> {{ agendaDados.data_inicio }} - {{ agendaDados.hora_inicio }} ás {{ agendaDados.hora_termino }}</p>
-                  <div class="servicoDetalhescolumn">
-                    <div class="colunaDetalhes">
-                      <h6>Duração Aprox.</h6>
-                      <p>{{ agendaDados.duracao }}</p>
-                    </div>
-                    <div class="colunaDetalhes">
-                      <h6>Profissional</h6>
-                      <p>{{ agendaDados.nome_funcionario }}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="servicoDetalhes">
-                  <div class="detalhesTitulo">
-                    <h4> Status </h4>
-                  </div>
-                  <hr>
-                  <div class="detalhesInfoStatus">
-                    <span> <i class="fa-sharp fa-regular fa-circle-dot"></i> </span>
-                    <span>{{ agendaDados.status }}</span>
-                  </div>
-                </div>
-
-
-                <div class="servicoDetalhes">
-                  <div class="detalhesTitulo">
-                    <h4>Cliente</h4>
-                  </div>
-                  <hr>
-                  <div class="detalhesCliente">
-                    <span><i class="fa-solid fa-user"></i></span>
-                    <span>{{ agendaDados.nome_cliente }}</span>
-                  </div>
-                  <div class="detalhesAnimal">
-                    <span><i class="fa-solid fa-paw"></i></span>
-                    <span>{{ agendaDados.nome_animal }}</span>
-                  </div>
-                </div>
-
-
-                <div class="btnAcoesAgendamento">
-                  <button  class="btnIniciar" type="button"> Iniciar Atendimento</button>
-                  <button  class="btnCancelar" type="button"> Cancelar Agendamento</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <InfoAgenda :agendaDados="agendaDados" @atualizarcalendario="getAllOrdens" />
         </div>
 
 
@@ -95,6 +28,7 @@ import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
+
 
 export default {
   name: "AgendaView",
@@ -128,12 +62,15 @@ export default {
         eventClick: this.getAgendamentosDetalhes,
         eventMouseEnter: this.mouseHover,
         eventMouseLeave: this.mouseLeave,
-
+        eventDidMount: this.getCores,
       },
       agendaDados: [],
+
+
     }
   },
   methods: {
+
     mouseHover(info) {
       const eventElement = info.el;
       this.togglePointerCursor(eventElement);
@@ -163,6 +100,7 @@ export default {
         const mes = String(dataInicio.getUTCMonth() + 1).padStart(2, '0');
         const ano = dataInicio.getUTCFullYear();
 
+        this.agendaDados.id = eventId
 
         this.agendaDados.data_inicio = `${dia}/${mes}/${ano}`;
 
@@ -178,25 +116,71 @@ export default {
         const ordens = await ApiController.getAllOrdens();
         this.agendamentos = ordens;
         const eventos = this.agendamentos.map(agendamento => {
-          const startDateTime = new Date(`${agendamento.data_Inicio}T${agendamento.hora_inicio}`);
-          const endDateTime = new Date(`${agendamento.data_Termino}T${agendamento.hora_termino}`);
+        const startDateTime = new Date(`${agendamento.data_Inicio}T${agendamento.hora_inicio}`);
+        const endDateTime = new Date(`${agendamento.data_Termino}T${agendamento.hora_termino}`);
+
 
           return {
             id: agendamento.id,
             title: agendamento.nome_servico,
             start: startDateTime,
             end: endDateTime,
+            extendedProps: {
+              status: agendamento.status
+            }
+
           };
         });
 
-        this.events = eventos;
-        const calendarApi = this.$refs.calendar.getApi();
-        calendarApi.removeAllEvents();
-        calendarApi.addEventSource(eventos);
+        this.calendarOptions.events = eventos;
+
+
       } catch (error) {
         console.log("Erro ao listar as ordens de serviços: ", error);
       }
     },
+    getCores(info) {
+      if (info.event.extendedProps.status === 'Aguardando atendimento') {
+
+        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+        if (dotEl) {
+          dotEl.style.border = 'calc(10px/2) solid yellow';
+        }
+        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+        if (dayGridDotEl) {
+          dayGridDotEl.style.border = 'calc(10px/2) solid yellow';
+        }
+      } else if (info.event.extendedProps.status === 'Em atendimento') {
+        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+        if (dotEl) {
+          dotEl.style.border = 'calc(10px/2) solid #191970';
+        }
+        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+        if (dayGridDotEl) {
+          dayGridDotEl.style.border = 'calc(10px/2) solid #191970';
+        }
+      } else if (info.event.extendedProps.status === 'Cancelado') {
+        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+        if (dotEl) {
+          dotEl.style.border = 'calc(10px/2) solid red';
+        }
+        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+        if (dayGridDotEl) {
+          dayGridDotEl.style.border = 'calc(10px/2) solid red';
+        }
+      } else if (info.event.extendedProps.status === 'Concluído') {
+        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+        if (dotEl) {
+          dotEl.style.border = 'calc(10px/2) solid green';
+        }
+        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+        if (dayGridDotEl) {
+          dayGridDotEl.style.border = 'calc(10px/2) solid green';
+        }
+      }
+    }
+
+
   },
   setup() {
     const formActive = ref(false);
@@ -240,11 +224,15 @@ export default {
   border-radius: 0 0 20px 20px;
 }
 
+.fc .fc-col-header-cell-cushion {
+  color: white;
+}
+
 .pointer-cursor {
   cursor: pointer;
 }
 
-.offcanvas-header > h5 {
+.offcanvas-header>h5 {
   font-size: 25px;
   font-weight: bold;
   color: gray;
@@ -327,7 +315,7 @@ export default {
   color: #1e90ff;
 }
 
-.btnAcoesAgendamento{
+.btnAcoesAgendamento {
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -336,7 +324,7 @@ export default {
   gap: 10px;
 }
 
-.btnAcoesAgendamento > button{
+.btnAcoesAgendamento>button {
   padding: 15px;
   border: none;
   border-radius: 15px;
@@ -344,11 +332,11 @@ export default {
   width: 250px;
 }
 
-.btnIniciar{
+.btnIniciar {
   background-color: rgb(66, 151, 66);
 }
 
-.btnCancelar{
+.btnCancelar {
   background-color: rgb(228, 48, 48);
 }
 </style>

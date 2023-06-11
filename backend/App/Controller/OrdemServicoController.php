@@ -54,5 +54,22 @@ final class OrdemServicoController {
         $response->getBody()->write(json_encode(['message' => 'Ordem feita com sucesso']));
         return  $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function updateStatus(Request $request, Response $response, array $args){
+        $id = $args['id'];
+        $data = $request->getParsedBody();
+
+
+        $ordemDAO = new OrdemServicoDAO();
+        $ordemM = new OrdemServicoModel();
+
+        $ordemM->setId($id)
+                ->setStatus($data['status']);
+    
+        $ordemDAO->updateStatus($ordemM);
+
+        $response->getBody()->write(json_encode(['message' => 'Status atualizado com sucesso']));
+        return  $response->withHeader('Content-Type', 'application/json');
+    }
     
 }

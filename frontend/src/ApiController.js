@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { error } from 'jquery';
 
 const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
 
@@ -111,6 +112,17 @@ export default {
                 console.error('Erro ao tentar deletar o animal: ', error);
                 throw error;
             })
+        return response.data;
+    },
+
+    async buscarRaca(especie) {
+        const url = `${ApiUrl}/buscarRaca/${especie}`
+        const response = await axios.get(url)
+            .catch(error => {
+                console.error('Erro ao tentar buscar a raca: ', error);
+                throw error;
+            })
+
         return response.data;
     },
 
@@ -229,6 +241,16 @@ export default {
                 throw error;
             })
 
+        return response.data;
+    },
+
+    async updateStatus(id, status) {
+        const url = `${ApiUrl}/atualizarStatus/${id}`;
+        const response = await axios.put(url, { status })
+            .catch(error => {
+                console.error('Erro ao tentar atualizar o status: ', error);
+                throw error;
+            })
         return response.data;
     }
 

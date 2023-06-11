@@ -56,7 +56,7 @@
                         <div class="selectCampo">
                             <label for="especie">Espécie</label>
                             <select v-model="animal.especie" id="select-especie" class="selectEspecie">
-                                <option v-for="especie in especies" :value="especie.id" selected>
+                                <option v-for="especie in especies" :value="especie.nome" selected>
                                     {{ especie.nome }}
                                 </option>
                             </select>
@@ -66,8 +66,8 @@
                         <div class="selectCampo">
                             <label for="raca">Raça</label>
                             <select v-model="animal.raca" id="select-raca" class="selectRaca">
-                                <option v-for="breed in breeds" :value="breed.name">
-                                    {{ breed.name }}
+                                <option v-for="breed in breeds" :value="breed.noma_raca">
+                                    {{ breed.noma_raca }}
                                 </option>
                             </select>
                         </div>
@@ -123,6 +123,8 @@
                     <div class="col-6 col-sm-6">
                         <BaseInput v-model="agenda.horaTermino" :label="'Hora Término'" :tipo="'time'"
                             @input="updateDuration" />
+
+                            <BaseInput :modelValue="duration" :label="'Duração'" readonly />
                     </div>
                 </div>
             </div>
@@ -295,7 +297,7 @@ export default {
     .inputsAgendamento {
         display: flex;
         flex-direction: column;
-       
+        width: 100%;
     }
 
 

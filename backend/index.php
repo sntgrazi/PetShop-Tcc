@@ -33,6 +33,7 @@ $app->get('/animal/{id}', AnimalController::class . ':getAnimal');
 $app->post('/inserirAnimal', AnimalController::class . ':insertAnimal');
 $app->put('/updateAnimal/{id}', AnimalController::class . ':updateAnimal');
 $app->delete('/deleteAnimal/{id}', AnimalController::class . ':deleteAnimal');
+$app->get('/buscarRaca/{especie}', AnimalController::class . ':buscarRaca');
 
 $app->get('/clienteAnimais', ClienteAnimalController::class . ':getAllClienteAnimal');    
 $app->get('/clientevinculado/{id}', ClienteAnimalController::class . ':getClienteVinculadoById');   
@@ -69,7 +70,8 @@ $app->get('/funcionarios', FuncionariosController::class . ':getFuncionarios');
 
 $app->get('/ordem/{id}', OrdemServicoController::class . ':getOrdensById'); 
 $app->get('/Allordens', OrdemServicoController::class . ':getAllOrdens');
-$app->post('/inserirOrdem', OrdemServicoController::class . ':insertOrdem'); 
+$app->post('/inserirOrdem', OrdemServicoController::class . ':insertOrdem');
+$app->put('/atualizarStatus/{id}', OrdemServicoController::class . ':updateStatus');
 
 // ProdutoCompradoController
 

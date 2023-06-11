@@ -201,10 +201,8 @@ export default {
           this.especie = e.target.value;
 
           // Busca as raças correspondentes na API The Dog API
-          const response = await axios.get(
-            `https://api.the${this.especie}api.com/v1/breeds`
-          );
-          const racas = response.data;
+          const response = await ApiController.buscarRaca(this.especie);
+          const racas = response;
 
           // Limpa o select de raças e adiciona as novas opções
           $("#select-raca").empty();
@@ -215,8 +213,8 @@ export default {
             $("#select-raca").append(
               $("<option>", {
                 value: raca.id,
-                text: raca.name,
-                "data-nome": raca.name,
+                text: raca.noma_raca,
+                "data-nome": raca.noma_raca,
               })
             );
           });
@@ -254,6 +252,7 @@ export default {
 
           $("#select-especie").select2();
           $("#select-especie").val(animal.especie).trigger("change");
+
 
           $("#select-raca").select2({
             placeholder: "Selecione uma Raça",
@@ -403,11 +402,9 @@ export default {
     "animal.especie": async function (newSpecies) {
       if (this.watchEnabled) {
         try {
-          const response = await fetch(
-            `https://api.the${newSpecies}api.com/v1/breeds`
-          );
-          const data = await response.json();
+          const data = await ApiController.buscarRaca(newSpecies);
           this.breeds = data;
+          console.log(data)
         } catch (error) {
           console.error(error);
         }
@@ -418,8 +415,6 @@ export default {
 </script>
 
 <style>
-
-
 .select2-container .select2-selection {
   overflow: hidden;
   text-overflow: ellipsis;
