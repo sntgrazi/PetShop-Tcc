@@ -95,10 +95,10 @@
 
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-6 col-sm-6">
+                    <div class="col-5 col-sm-5">
                         <BaseInput v-model="agenda.data_inicio" :label="'Data Início'" :tipo="'date'"/>
                     </div>
-                    <div class="col-6 col-sm-6">
+                    <div class="col-5 col-sm-5">
                         <BaseInput v-model="agenda.data_termino" :label="'Data Término'"
                         :idInput="'inputDataTermino'"  :tipo="'date'"/>
                     </div>
