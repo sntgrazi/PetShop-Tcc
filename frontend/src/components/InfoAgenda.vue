@@ -4,8 +4,8 @@
       <h5 class="offcanvas-title" id="offcanvasRightLabel">Agendamento</h5>
 
       <div class="btnAcaoOff">
-        <button class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-pen"></i></button>
-        <button class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-trash"></i></button>
+        <button @click="abriModalEdit(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-pen"></i></button>
+        <button @click="deletar(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-trash"></i></button>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
     </div>
@@ -76,7 +76,7 @@ import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
 
 export default {
-  props: ["agendaDados"],
+  props: ["agendaDados", "toggle"],
   methods: {
     getButtonText(status) {
       if (status === 'Aguardando atendimento') {
@@ -113,6 +113,14 @@ export default {
         console.log('Erro ao tentar atualizar o status do agendamento: ', error)
       }
     },
+    abriModalEdit(id){
+      console.log(id)
+      $('#offcanvasRight').offcanvas('hide');
+      this.toggle('info', id)
+    },
+    deletar(id){
+      this.$emit('deletarAgendamento', id)
+    }
   }
 
 }

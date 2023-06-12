@@ -39,14 +39,14 @@ final class OrdemServicoController {
 
         $ordemDAO = new OrdemServicoDAO();
         $ordemM = new OrdemServicoModel();
-        $ordemM->setData_Inicio(DateTime::createFromFormat('d/m/Y', $data['dataInicio'])->format('Y-m-d')) 
-             ->setData_Termino(DateTime::createFromFormat('d/m/Y', $data['dataTermino'])->format('Y-m-d')) 
+        $ordemM->setData_Inicio($data['data_inicio'])
+             ->setData_Termino($data['data_termino'])
              ->setCliente_id($data['cliente'])
              ->setAnimal_id($data['pet'])
              ->setFuncionario_id($data['funcionario'])
              ->setServico_id($data['servico'])
-             ->setHora_inicio($data['horaInicio'])
-             ->setHora_termino($data['horaTermino'])
+             ->setHora_inicio($data['hora_inicio'])
+             ->setHora_termino($data['hora_termino'])
              ->setDuracao($data['duracao']);
         $ordemDAO->insertOrdem($ordemM);
 
@@ -69,6 +69,41 @@ final class OrdemServicoController {
         $ordemDAO->updateStatus($ordemM);
 
         $response->getBody()->write(json_encode(['message' => 'Status atualizado com sucesso']));
+        return  $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function updateOrdem(Request $request, Response $response, array $args)
+    {
+        $id = $args['id'];
+        $data = $request->getParsedBody();
+
+       $ordemDAO = new OrdemServicoDAO();
+       $ordemModel = new OrdemServicoModel();
+       $ordemModel->setId($id)
+                ->setData_Inicio($data['data_inicio'])
+                ->setData_Termino($data['data_termino']) 
+                ->setCliente_id($data['cliente'])
+                ->setAnimal_id($data['pet'])
+                ->setFuncionario_id($data['funcionario'])
+                ->setServico_id($data['servico'])
+                ->setHora_inicio($data['hora_inicio'])
+                ->setHora_termino($data['hora_termino'])
+                ->setDuracao($data['duracao']);
+       $ordemDAO->updateOrdem($ordemModel);
+
+       $response->getBody()->write(json_encode(['message' => 'Agendamento atualizado com sucesso']));
+       return  $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function deleteOrdem(Request $request, Response $response, array $args){
+        $id = $args['id'];
+
+        $ordemDAO = new OrdemServicoDAO();
+        $ordemM = new OrdemServicomodel();
+        $ordemM->setId($id);
+        $ordemDAO->deleteOrdem($ordemM);
+
+        $response->getBody()->write(json_encode(['message' => 'Ordem deletada com sucesso']));
         return  $response->withHeader('Content-Type', 'application/json');
     }
     

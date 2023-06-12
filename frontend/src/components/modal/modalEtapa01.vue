@@ -1,5 +1,6 @@
 <template>
     <div class="form-inputs" v-show="etapaAtual === 1">
+        <loading :loading="loading" />
         <div class="inputCadastroCliente" v-if="inputsCadastro">
             <div class="container-fluid">
 
@@ -136,7 +137,7 @@
 </template>
 
 <script>
-
+import loading from "../loading.vue";
 import BaseInput from "../BaseInput.vue";
 import "select2/dist/css/select2.css";
 import "select2";
@@ -148,6 +149,7 @@ export default {
     name: 'modalEtapa01',
     components: {
         BaseInput,
+        loading
     },
     props: [
         "inputsCadastro",
@@ -166,12 +168,16 @@ export default {
             pets: [],
             clientesTabela: [],
             funcionarios: [],
+            loading: true
         }
     },
     methods: {
         async Clientes() {
             try {
+                this.loading = true
                 this.tutores = await ApiController.getClientes();
+
+                this.loading = false
             } catch (error) {
                 console.log("Erro ao listar os clientes: ", error);
             }
@@ -185,16 +191,17 @@ export default {
         },
         async buscarClienteTabela() {
             try {
+                this.loading = true
                 this.clientesTabela = await ApiController.buscarClienteTabela();
+                this.loading = false
             } catch (error) {
                 console.log("Erro ao listar os clientes: ", error)
             }
         },
         async getPetVinculado(id) {
             try {
-
+                this.loading = true
                 this.pets = await ApiController.getpetVinculado(id);
-                console.log(this.agenda.cliente)
                 $("#select-pet").empty();
                 $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
 
@@ -206,6 +213,7 @@ export default {
                         })
                     );
                 });
+                this.loading = false
             } catch (error) {
                 console.log("Erro ao listar os animais vinculados: ", error)
             }
@@ -224,6 +232,7 @@ export default {
 
     },
     mounted() {
+        this.loading = true
         this.Clientes();
         this.getServicos();
         this.buscarClienteTabela();
@@ -254,13 +263,16 @@ export default {
             width: "100%",
         });
 
+
         $("#select-cliente").on("change", (e) => {
             // Obtém a raça selecionada
+
             this.agenda.cliente = $("#select-cliente option:selected").val();
 
             this.getPetVinculado(this.agenda.cliente)
 
         });
+
 
         $("#select-pet").select2({
             placeholder: "Selecione um Pet",
@@ -281,7 +293,9 @@ export default {
             // Obtém a raça selecionada
             this.agenda.funcionario = $("#select-funcionario option:selected").val();
         });
+
     },
+
 
 }
 </script>

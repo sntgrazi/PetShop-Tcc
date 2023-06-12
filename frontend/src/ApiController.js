@@ -244,6 +244,26 @@ export default {
         return response.data;
     },
 
+    async deleteOrdem(id) {
+        const url = `${ApiUrl}/deleteOrdem/${id}`;
+        const response = await axios.delete(url, id)
+            .catch(error => {
+                console.error('Erro ao tentar apagar o agendamento: ', error);
+                throw error;
+            })
+        return response.data;
+    },
+
+    async updateOrdem(id, ordem) {
+        const url = `${ApiUrl}/updateOrdem/${id}`;
+        const response = await axios.put(url, ordem)
+            .catch(error => {
+                console.error('Erro ao tentar atualizar o agendamento: ', error);
+                throw error;
+            })
+        return response.data;
+    },
+
     async updateStatus(id, status) {
         const url = `${ApiUrl}/atualizarStatus/${id}`;
         const response = await axios.put(url, { status })

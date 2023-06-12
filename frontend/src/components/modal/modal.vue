@@ -12,7 +12,7 @@
     </div>
     <div class="modal-body">
 
-      <loading  :loading="loading"/>
+      <loading :loading="loading" />
 
       <form class="formModal" @submit.prevent="userId == false ? submitForm() : editarForm()">
 
@@ -106,7 +106,7 @@ export default {
   components: {
     modalEtapa01,
     modalEtapa02,
-    modalEtapa03, 
+    modalEtapa03,
     loading
   },
   data() {
@@ -186,7 +186,15 @@ export default {
           console.log(error);
         }
       } else if (this.tipo == "agenda") {
-        console.log("agendamento");
+        try {
+          await ApiController.updateOrdem(this.userId, this.agenda);
+          Swal.fire("", "Agendamento atualizado com sucesso!", "success");
+          this.$emit("atualizarCalendario");
+          this.toggle();
+          this.agenda = {};
+        } catch (error) {
+          console.log(error);
+        }
       } else if (this.tipo == "Pets") {
         try {
           await ApiController.editarAnimal(this.userId, this.animal);
@@ -223,7 +231,7 @@ export default {
                 "data-nome": raca.noma_raca,
               })
             );
-          }); 
+          });
 
           this.loading = false;
 
@@ -256,7 +264,7 @@ export default {
         } catch (error) {
           console.log(error);
         }
-      } else {
+      } else if (this.tipo == 'Pets') {
         try {
           this.loading = true;
           const animal = await ApiController.animal(this.userId);
@@ -275,15 +283,55 @@ export default {
           });
 
           $("#select-especie").on("change", (e) => {
-         
+
             this.animal.especie = $("#select-especie option:selected").val();
             this.watchEnabled = false;
             this.breeds = [];
             this.watchEnabled = true;
-            
+
           });
 
           this.loading = false;
+        } catch (error) {
+          console.log(error);
+        }
+      } else if (this.tipo == 'agenda') {
+        try {
+          this.loading = true
+          const agendaById = await ApiController.getOrdensById(this.userId);
+
+          $("#select-cliente").select2();
+          $("#select-cliente").val(agendaById.cliente_id).trigger("change");
+
+      
+          const petList = await ApiController.getpetVinculado(agendaById.cliente_id);
+
+
+          $("#select-pet").select2({
+            data: petList.map((pet) => ({
+              id: pet.id,
+              text: pet.name
+            }))
+          });
+
+        
+          // Definir a opção selecionada com base em agendaById.animal_id
+          $("#select-pet").val(agendaById.animal_id).trigger("change");
+
+
+          $("#select-funcionario").select2();
+          $("#select-funcionario").val(agendaById.funcionario_id).trigger("change");
+
+          $("#select-servico").select2();
+          $("#select-servico").val(agendaById.servico_id).trigger("change");
+
+          this.agenda.data_inicio = new Date(agendaById.data_inicio).toISOString().slice(0, 10)
+          this.agenda.data_termino = new Date(agendaById.data_termino).toISOString().slice(0, 10)
+
+          this.agenda.hora_inicio = agendaById.hora_inicio;
+          this.agenda.hora_termino = agendaById.hora_termino;
+
+          this.loading = false
         } catch (error) {
           console.log(error);
         }
@@ -350,7 +398,7 @@ export default {
         if (motivoExclusao) {
           this.loading = true
           await ApiController.deletarVinculo(clienteid, animalid);
-         
+
           await this.getTutorVinculado();
           await this.ClientesSemVinculo();
 
@@ -364,7 +412,7 @@ export default {
     },
   },
   mounted() {
- 
+
     if (this.userId != false) {
       this.titulo =
         this.tipo === "cliente"
@@ -376,7 +424,7 @@ export default {
               : "Editar Agenda";
 
       this.botaoConfirm = "Editar";
-    
+
       this.buscar();
 
       this.getTutorVinculado();
@@ -397,7 +445,7 @@ export default {
             tutor_id,
             animal_id
           );
-        
+
           await this.ClientesSemVinculo();
           this.tutores = response.data;
 
@@ -411,7 +459,7 @@ export default {
       });
     } else if (this.userId == false) {
 
-      
+
 
       $("#select-especie").select2({
         placeholder: "Selecione uma espécie",

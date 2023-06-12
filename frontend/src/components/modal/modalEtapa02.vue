@@ -96,19 +96,11 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6 col-sm-6">
-                        <DatePicker v-model="dataInicio" @click="formatDate(dataInicio, 'dataInicio')">
-                            <template #default="{ inputValue, inputEvents }">
-                                <BaseInput :modelValue="agenda.dataInicio" v-on="inputEvents" :label="'Data Início'" />
-                            </template>
-                        </DatePicker>
+                        <BaseInput v-model="agenda.data_inicio" :label="'Data Início'" :tipo="'date'"/>
                     </div>
                     <div class="col-6 col-sm-6">
-                        <DatePicker v-model="dataTermino" @click="formatDate(dataTermino, 'dataTermino')">
-                            <template #default="{ inputValue, inputEvents }">
-                                <BaseInput :modelValue="agenda.dataTermino" v-on="inputEvents" :label="'Data Término'"
-                                    :idInput="'inputDataTermino'" />
-                            </template>
-                        </DatePicker>
+                        <BaseInput v-model="agenda.data_termino" :label="'Data Término'"
+                        :idInput="'inputDataTermino'"  :tipo="'date'"/>
                     </div>
                 </div>
             </div>
@@ -117,14 +109,14 @@
             <div class="col-sm-12">
                 <div class="row">
                     <div class="col-6 col-sm-6">
-                        <BaseInput v-model="agenda.horaInicio" :label="'Hora Início'" :tipo="'time'"
+                        <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
                             @input="updateDuration" />
                     </div>
                     <div class="col-6 col-sm-6">
-                        <BaseInput v-model="agenda.horaTermino" :label="'Hora Término'" :tipo="'time'"
+                        <BaseInput v-model="agenda.hora_termino" :label="'Hora Término'" :tipo="'time'"
                             @input="updateDuration" />
 
-                            <BaseInput :modelValue="duration" :label="'Duração'" readonly />
+                            <BaseInput :modelValue="duration" readonly :idInput="'idDuracao'"/>
                     </div>
                 </div>
             </div>
@@ -167,8 +159,6 @@ export default {
                 { id: "dog", nome: "Cachorro" },
                 { id: "cat", nome: "Gato" },
             ],
-            dataInicio: new Date(),
-            dataTermino: new Date()
         }
     },
     props: [
@@ -206,49 +196,12 @@ export default {
         updateDuration() {
             this.$forceUpdate(); // Forçar a atualização da computed property duration
         },
-        formatDate(date, target) {
-            if (date) {
-                const day = date.getDate().toString().padStart(2, "0");
-                const month = (date.getMonth() + 1).toString().padStart(2, "0");
-                const year = date.getFullYear().toString();
-                const formattedDate = `${day}/${month}/${year}`;
-
-                if (target === "dataInicio") {
-                    this.agenda.dataInicio = formattedDate;
-                } else if (target === "dataTermino") {
-                    this.agenda.dataTermino = formattedDate;
-                }
-            } else {
-                this.agenda.dataInicio = null;
-                this.agenda.dataTermino = null;
-            }
-        }
-    },
-    setup() {
-        const date = ref(new Date());
-        const selectAttribute = ref({ dot: true });
-
-        const attrs = ref([
-            {
-                key: "today",
-                highlight: {
-                    fillMode: "solid",
-                    color: "blue",
-                },
-                dates: new Date(),
-            },
-        ]);
-        return {
-            attrs,
-            date,
-            selectAttribute,
-        };
     },
     computed: {
         duration() {
-            if (this.agenda.horaInicio && this.agenda.horaTermino) {
-                const [startHour, startMinute] = this.agenda.horaInicio.split(":");
-                const [endHour, endMinute] = this.agenda.horaTermino.split(":");
+            if (this.agenda.hora_inicio && this.agenda.hora_termino) {
+                const [startHour, startMinute] = this.agenda.hora_inicio.split(":");
+                const [endHour, endMinute] = this.agenda.hora_termino.split(":");
                 let durationMinutes =
                     (endHour - startHour) * 60 + (endMinute - startMinute);
                 if (durationMinutes < 0) {
@@ -271,14 +224,14 @@ export default {
             return "";
         },
     },
-    mounted() {
-        this.formatDate(this.dataInicio, 'dataInicio');
-        this.formatDate(this.dataTermino, 'dataTermino');
-    }
 }
 </script>
 
 <style>
+
+#idDuracao{
+    display: none;
+}
 .inputsAgendamento {
     display: flex;
     flex-direction: column;

@@ -1,5 +1,3 @@
-
-
 export function showNavbar(toggleId, navId, headerId, bodyId) {
     const toggle = document.getElementById(toggleId),
       nav = document.getElementById(navId),

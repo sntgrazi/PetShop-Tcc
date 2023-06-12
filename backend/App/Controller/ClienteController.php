@@ -78,7 +78,7 @@ final class ClienteController {
                     ->setN_casa($data['n_casa']);
        $clienteDAO->updateCliente($clienteModel);
 
-       $response->getBody()->write(json_encode(['message' => 'Cliente atualziado com sucesso']));
+       $response->getBody()->write(json_encode(['message' => 'Cliente atualizado com sucesso']));
        return  $response->withHeader('Content-Type', 'application/json');
     }
     

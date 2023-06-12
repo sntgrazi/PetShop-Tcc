@@ -72,6 +72,9 @@ $app->get('/ordem/{id}', OrdemServicoController::class . ':getOrdensById');
 $app->get('/Allordens', OrdemServicoController::class . ':getAllOrdens');
 $app->post('/inserirOrdem', OrdemServicoController::class . ':insertOrdem');
 $app->put('/atualizarStatus/{id}', OrdemServicoController::class . ':updateStatus');
+$app->put('/updateOrdem/{id}', OrdemServicoController::class . ':updateOrdem');
+$app->delete('/deleteOrdem/{id}', OrdemServicoController::class . ':deleteOrdem');
+
 
 // ProdutoCompradoController
 

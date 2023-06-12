@@ -3,16 +3,17 @@
     <div class="custom-container">
       <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
       <div class="custom-content">
-        <loading :loading="loading"/>
+        <loading :loading="loading" />
         <div class="custom-main-content">
           <modal v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true" :toggle="toggleform"
             :userId="userId" @atualizarCalendario="getAllOrdens" />
 
           <FullCalendar ref="calendar" :options="calendarOptions" />
 
-          <InfoAgenda :agendaDados="agendaDados" @atualizarcalendario="getAllOrdens" />
-        </div>
 
+        </div>
+        <InfoAgenda :agendaDados="agendaDados" @atualizarcalendario="getAllOrdens" :toggle="toggleform"
+          @deletarAgendamento="deletarAgendamento" />
 
       </div>
     </div>
@@ -23,7 +24,7 @@
 import topo from "@/components/topo.vue";
 import modal from "@/components/modal/modal.vue";
 import InfoAgenda from "@/components/InfoAgenda.vue";
-
+import Swal from "sweetalert2";
 import ApiController from "@/ApiController";
 import { ref } from "vue";
 import FullCalendar from '@fullcalendar/vue3'
@@ -91,10 +92,12 @@ export default {
       }
     },
     async getAgendamentosDetalhes(info) {
+
       const eventId = info.event.id
-      $('#offcanvasRight').offcanvas('show');
-      console.log(eventId)
+
+
       try {
+        this.loading = true;
         const eventData = await ApiController.getOrdensById(eventId)
         this.agendaDados = eventData
         const dataInicio = new Date(`${eventData.data_inicio}T00:00:00Z`); // Adiciona 'T00:00:00Z' para especificar o formato UTC
@@ -109,6 +112,9 @@ export default {
 
         this.agendaDados.hora_inicio = eventData.hora_inicio.substring(0, 5);
         this.agendaDados.hora_termino = eventData.hora_termino.substring(0, 5);
+
+        $('#offcanvasRight').offcanvas('show');
+        this.loading = false;
       } catch (error) {
         console.log("Erro ao listar a ordem: ", error);
       }
@@ -193,13 +199,35 @@ export default {
         console.log("Erro ao listar as ordens de serviços: ", error);
       }
     },
+    async deletarAgendamento(id) {
+      try {
+ 
+        const result = await Swal.fire({
+          title: "Você tem certeza que deseja deletar esse Agendamento?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Sim",
+          cancelButtonText: "Não",
+        });
 
+        if (result.isConfirmed) {
+          $('#offcanvasRight').offcanvas('hide');
+          await ApiController.deleteOrdem(id);
+          await this.getAllOrdens();
+          Swal.fire("", "Agendamento deletado com sucesso", "success");
+        }
+      } catch (error) {
+        console.error("Erro ao deletar o agendamento: ", error);
+      }
+    }
   },
   setup() {
     const formActive = ref(false);
     const userId = ref(false);
-
     const toggleform = (tipo, id = false) => {
+
       formActive.value = !formActive.value;
       userId.value = false;
 
@@ -209,12 +237,13 @@ export default {
       }
     };
 
-
     return {
       formActive,
       toggleform,
       userId,
     };
+
+
   },
   mounted() {
     this.loading = true;
