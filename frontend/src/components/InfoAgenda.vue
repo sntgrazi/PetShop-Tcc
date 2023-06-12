@@ -4,8 +4,10 @@
       <h5 class="offcanvas-title" id="offcanvasRightLabel">Agendamento</h5>
 
       <div class="btnAcaoOff">
-        <button @click="abriModalEdit(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-pen"></i></button>
-        <button @click="deletar(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-trash"></i></button>
+        <button @click="abriModalEdit(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i
+            class="fa-solid fa-pen"></i></button>
+        <button @click="deletar(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i
+            class="fa-solid fa-trash"></i></button>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
     </div>
@@ -32,12 +34,14 @@
 
         <div class="servicoDetalhes">
           <div class="detalhesTitulo">
-            <h4> Status </h4>
+            <h4>Status</h4>
           </div>
           <hr>
           <div class="detalhesInfoStatus">
-            <span> <i class="fa-sharp fa-regular fa-circle-dot"></i> </span>
-            <span>{{ agendaDados.status }}</span>
+            <span :class="getStatusClass(agendaDados.status)">
+              <i :class="getStatusIcon(agendaDados.status)"></i>
+            </span>
+            <span :class="getStatusClass(agendaDados.status)" >{{ agendaDados.status }}</span>
           </div>
         </div>
 
@@ -59,10 +63,12 @@
 
 
         <div class="btnAcoesAgendamento">
-          <button class="btnIniciar" type="button" v-if="this.agendaDados.status !== 'Concluído'"
+          <button class="btnIniciar" type="button"
+            v-if="this.agendaDados.status !== 'Concluído' && this.agendaDados.status !== 'Cancelado'"
             @click="atualizarStatus(this.agendaDados)"> {{
               getButtonText(this.agendaDados.status) }}</button>
-          <button class="btnCancelar" type="button" v-if="this.agendaDados.status !== 'Concluído'"> Cancelar
+          <button @click="cancelarAgendamento(this.agendaDados)" class="btnCancelar" type="button"
+            v-if="this.agendaDados.status !== 'Concluído' && this.agendaDados.status !== 'Cancelado'"> Cancelar
             Agendamento</button>
         </div>
       </div>
@@ -89,8 +95,6 @@ export default {
     },
     async atualizarStatus(agenda) {
       try {
-
-
         let mensagemAlerta = ''
         let status = ''
 
@@ -100,8 +104,10 @@ export default {
         } else if (agenda.status == 'Em atendimento') {
           status = 'Concluído';
           mensagemAlerta = 'Atendimeno Concluído';
+        } else if (agenda.status == 'Cancelado') {
+          status = 'Concluído';
+          mensagemAlerta = 'Atendimeno Concluído';
         }
-
 
         await ApiController.updateStatus(agenda.id, status);
         $('#offcanvasRight').offcanvas('hide');
@@ -113,16 +119,73 @@ export default {
         console.log('Erro ao tentar atualizar o status do agendamento: ', error)
       }
     },
-    abriModalEdit(id){
+    async cancelarAgendamento(agenda) {
+      try {
+        let status = 'Cancelado'
+
+        await ApiController.updateStatus(agenda.id, status);
+        $('#offcanvasRight').offcanvas('hide');
+        Swal.fire('', "Agendamento Cancelado", "success").then(() => {
+          window.location.reload();
+        });
+
+      } catch (error) {
+        console.log('Erro ao tentar atualizar o status do agendamento: ', error)
+      }
+    },
+    abriModalEdit(id) {
       console.log(id)
       $('#offcanvasRight').offcanvas('hide');
       this.toggle('info', id)
     },
-    deletar(id){
+    deletar(id) {
       this.$emit('deletarAgendamento', id)
+    },
+    getStatusClass(status) {
+      if (status === 'Aguardando atendimento') {
+        return 'statusAguardando';
+      } else if (status === 'Em atendimento') {
+        return 'statusEmAtendimento';
+      } else if (status === 'Concluído') {
+        return 'statusConcluido';
+      } else if (status === 'Cancelado') {
+        return 'statusCancelado';
+      } else {
+        return '';
+      }
+    },
+    getStatusIcon(status) {
+      if (status === 'Aguardando atendimento') {
+        return 'fa-sharp fa-regular fa-circle-dot';
+      } else if (status === 'Em atendimento') {
+        return 'fa-sharp fa-regular fa-circle';
+      } else if (status === 'Concluído') {
+        return 'fa-sharp fa-regular fa-check-circle';
+      } else if (status === 'Cancelado') {
+        return 'fa-sharp fa-regular fa-times-circle';
+      } else {
+        return '';
+      }
     }
   }
 
 }
 </script>
 
+<style>
+.statusAguardando {
+  color: orange;
+}
+
+.statusEmAtendimento {
+  color: blue;
+}
+
+.statusConcluido {
+  color: green;
+}
+
+.statusCancelado {
+  color: red;
+}
+</style>

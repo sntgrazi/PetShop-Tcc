@@ -58,11 +58,11 @@
                 <td>{{ tutorVinculado.nome }}</td>
                 <td class="btnTutores">
                   <button type="
-                    button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
+                        button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
                     <i class="fa-solid fa-user"></i>
                   </button>
                   <button type="
-                    button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
+                        button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
                     v-if="tutoresVinculados.length > 1">
                     <i class="fa-solid fa-trash"></i>
                   </button>
@@ -297,10 +297,10 @@ export default {
         }
       } else if (this.tipo == 'agenda') {
         try {
-          this.loading = true
+ 
           const agendaById = await ApiController.getOrdensById(this.userId);
 
-          $("#select-cliente").select2();
+      
           $("#select-cliente").val(agendaById.cliente_id).trigger("change");
 
 
@@ -318,11 +318,8 @@ export default {
           // Definir a opção selecionada com base em agendaById.animal_id
           $("#select-pet").val(agendaById.animal_id).trigger("change");
 
-
-          $("#select-funcionario").select2();
           $("#select-funcionario").val(agendaById.funcionario_id).trigger("change");
 
-          $("#select-servico").select2();
           $("#select-servico").val(agendaById.servico_id).trigger("change");
 
           this.agenda.data_inicio = new Date(agendaById.data_inicio).toISOString().slice(0, 10)
@@ -331,7 +328,7 @@ export default {
           this.agenda.hora_inicio = agendaById.hora_inicio;
           this.agenda.hora_termino = agendaById.hora_termino;
 
-          this.loading = false
+          
         } catch (error) {
           console.log(error);
         }
@@ -412,7 +409,7 @@ export default {
     },
     async getPetVinculado(id) {
       try {
-      
+
         this.pets = await ApiController.getpetVinculado(id);
         $("#select-pet").empty();
         $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
@@ -484,12 +481,12 @@ export default {
       });
 
 
-      $("#select-cliente").on("change", (e) => {
+      $("#select-cliente").on("change", async (e) => {
         // Obtém a raça selecionada
 
         this.agenda.cliente = $("#select-cliente option:selected").val();
 
-        this.getPetVinculado(this.agenda.cliente)
+        await this.getPetVinculado(this.agenda.cliente)
 
       });
 
@@ -536,7 +533,14 @@ export default {
         width: "100%",
       });
 
+      $("#select-cliente").on("change", async (e) => {
+        // Obtém a raça selecionada
 
+        this.agenda.cliente = $("#select-cliente option:selected").val();
+
+        await this.getPetVinculado(this.agenda.cliente)
+
+      });
 
 
       $("#select-pet").select2({

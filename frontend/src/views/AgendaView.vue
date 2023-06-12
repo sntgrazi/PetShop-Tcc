@@ -313,7 +313,6 @@ export default {
 }
 
 .detalhesInfoStatus>span {
-  color: orange;
   font-size: 20px;
 }
 
