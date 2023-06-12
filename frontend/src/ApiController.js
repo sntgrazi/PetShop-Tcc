@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { error } from 'jquery';
+
 
 const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
 

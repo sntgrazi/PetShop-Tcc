@@ -3,6 +3,7 @@
     <div class="custom-container">
       <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
       <div class="custom-content">
+        <loading :loading="loading"/>
         <div class="custom-main-content">
           <modal v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true" :toggle="toggleform"
             :userId="userId" @atualizarCalendario="getAllOrdens" />
@@ -22,12 +23,13 @@
 import topo from "@/components/topo.vue";
 import modal from "@/components/modal/modal.vue";
 import InfoAgenda from "@/components/InfoAgenda.vue";
+
 import ApiController from "@/ApiController";
 import { ref } from "vue";
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listPlugin from '@fullcalendar/list';
-import timeGridPlugin from '@fullcalendar/timegrid';
+import loading from '../components/loading.vue';
 
 
 export default {
@@ -36,14 +38,14 @@ export default {
     topo,
     modal,
     InfoAgenda,
-    //VueCal
+    loading,
     FullCalendar
   },
   data() {
     return {
       agendamentos: [],
       calendarOptions: {
-        plugins: [dayGridPlugin, listPlugin, timeGridPlugin],
+        plugins: [dayGridPlugin, listPlugin],
         initialView: 'listDay',
         height: "100%",
         locale: 'pt-br',
@@ -62,15 +64,16 @@ export default {
         eventClick: this.getAgendamentosDetalhes,
         eventMouseEnter: this.mouseHover,
         eventMouseLeave: this.mouseLeave,
-        eventDidMount: this.getCores,
       },
       agendaDados: [],
-
+      loading: true,
 
     }
   },
   methods: {
-
+    teste() {
+      console.log('Testando');
+    },
     mouseHover(info) {
       const eventElement = info.el;
       this.togglePointerCursor(eventElement);
@@ -113,11 +116,14 @@ export default {
     },
     async getAllOrdens() {
       try {
+
+        this.loading = true;
+
         const ordens = await ApiController.getAllOrdens();
         this.agendamentos = ordens;
         const eventos = this.agendamentos.map(agendamento => {
-        const startDateTime = new Date(`${agendamento.data_Inicio}T${agendamento.hora_inicio}`);
-        const endDateTime = new Date(`${agendamento.data_Termino}T${agendamento.hora_termino}`);
+          const startDateTime = new Date(`${agendamento.data_Inicio}T${agendamento.hora_inicio}`);
+          const endDateTime = new Date(`${agendamento.data_Termino}T${agendamento.hora_termino}`);
 
 
           return {
@@ -127,59 +133,66 @@ export default {
             end: endDateTime,
             extendedProps: {
               status: agendamento.status
-            }
+            },
 
           };
         });
 
+
+
+        this.calendarOptions.eventDidMount = function (info) {
+          const status = info.event.extendedProps.status;
+
+          if (status === 'Concluído') {
+            var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+            if (dotEl) {
+              dotEl.style.border = 'calc(10px/2) solid green';
+            }
+            var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+            if (dayGridDotEl) {
+              dayGridDotEl.style.border = 'calc(10px/2) solid green';
+            }
+          } else if (status === 'Em atendimento') {
+            var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+            if (dotEl) {
+              dotEl.style.border = 'calc(10px/2) solid #191970';
+            }
+            var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+            if (dayGridDotEl) {
+              dayGridDotEl.style.border = 'calc(10px/2) solid #191970';
+            }
+          } else if (status === 'Cancelado') {
+            var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+            if (dotEl) {
+              dotEl.style.border = 'calc(10px/2) solid red';
+            }
+            var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+            if (dayGridDotEl) {
+              dayGridDotEl.style.border = 'calc(10px/2) solid red';
+            }
+          } else if (status === 'Aguardando atendimento') {
+            var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
+            if (dotEl) {
+              dotEl.style.border = 'calc(10px/2) solid orange';
+            }
+            var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
+            if (dayGridDotEl) {
+              dayGridDotEl.style.border = 'calc(10px/2) solid orange';
+            }
+          }
+        };
+
+        this.$nextTick(() => {
+          this.$refs.calendar.getApi().setOption('eventDidMount', this.calendarOptions.eventDidMount);
+        });
+
         this.calendarOptions.events = eventos;
 
-
+        this.loading = false;
       } catch (error) {
         console.log("Erro ao listar as ordens de serviços: ", error);
       }
     },
-    getCores(info) {
-      if (info.event.extendedProps.status === 'Aguardando atendimento') {
-
-        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
-        if (dotEl) {
-          dotEl.style.border = 'calc(10px/2) solid yellow';
-        }
-        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
-        if (dayGridDotEl) {
-          dayGridDotEl.style.border = 'calc(10px/2) solid yellow';
-        }
-      } else if (info.event.extendedProps.status === 'Em atendimento') {
-        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
-        if (dotEl) {
-          dotEl.style.border = 'calc(10px/2) solid #191970';
-        }
-        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
-        if (dayGridDotEl) {
-          dayGridDotEl.style.border = 'calc(10px/2) solid #191970';
-        }
-      } else if (info.event.extendedProps.status === 'Cancelado') {
-        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
-        if (dotEl) {
-          dotEl.style.border = 'calc(10px/2) solid red';
-        }
-        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
-        if (dayGridDotEl) {
-          dayGridDotEl.style.border = 'calc(10px/2) solid red';
-        }
-      } else if (info.event.extendedProps.status === 'Concluído') {
-        var dotEl = info.el.getElementsByClassName('fc-list-event-dot')[0];
-        if (dotEl) {
-          dotEl.style.border = 'calc(10px/2) solid green';
-        }
-        var dayGridDotEl = info.el.getElementsByClassName('fc-daygrid-event-dot')[0];
-        if (dayGridDotEl) {
-          dayGridDotEl.style.border = 'calc(10px/2) solid green';
-        }
-      }
-    }
-
 
   },
   setup() {
@@ -204,6 +217,9 @@ export default {
     };
   },
   mounted() {
+    this.loading = true;
+
+
     this.getAllOrdens()
   }
 }
@@ -321,7 +337,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 .btnAcoesAgendamento>button {

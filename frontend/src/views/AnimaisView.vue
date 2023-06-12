@@ -3,6 +3,7 @@
     <div class="custom-container">
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="custom-content">
+        <loading :loading="loading" />
         <div class="custom-main-content">
           <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform"
             :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
@@ -23,6 +24,7 @@ import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
 import infoModal from "../components/modal/modalEtapa03.vue";
+import loading from '../components/loading.vue';
 
 export default {
   name: "AnimaisView",
@@ -31,11 +33,13 @@ export default {
     topo,
     modal,
     infoModal,
+    loading
   },
   data() {
     return {
       topoTabela: ["ID", "PET", "SEXO", "RAÇA", "AÇÕES"],
       dadosTabela: [],
+      loading: true
     };
   },
   setup() {
@@ -78,8 +82,11 @@ export default {
   methods: {
     async getAnimais() {
       try {
+        this.loading = true;
         const animais = await ApiController.getAnimais();
         this.dadosTabela = animais;
+
+        this.loading = false;
       } catch (error) {
         console.log("Erro ao listar os animais: ", error);
       }
@@ -98,8 +105,9 @@ export default {
 
         if (result.isConfirmed) {
           await ApiController.deletarAnimal(animalId);
+          await this.getAnimais();
           Swal.fire("", "Pet deletado com sucesso", "success");
-          this.getAnimais();
+         
          
         }
       } catch (error) {
@@ -108,6 +116,7 @@ export default {
     }
   },
   mounted() {
+    this.loading = true;
     this.getAnimais();
   },
 };

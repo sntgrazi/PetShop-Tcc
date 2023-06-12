@@ -11,6 +11,9 @@
       </button>
     </div>
     <div class="modal-body">
+
+      <loading  :loading="loading"/>
+
       <form class="formModal" @submit.prevent="userId == false ? submitForm() : editarForm()">
 
         <modalEtapa01 :inputsCadastro="inputsCadastro" :cliente="cliente" :inputsAnimais="inputsAnimais" :animal="animal"
@@ -78,11 +81,11 @@ import ApiController from "@/ApiController";
 import modalEtapa01 from './modalEtapa01.vue';
 import modalEtapa02 from './modalEtapa02.vue';
 import modalEtapa03 from './modalEtapa03.vue';
-import axios from "axios";
 import Swal from "sweetalert2";
 import $ from "jquery";
 import "select2/dist/css/select2.css";
 import "select2";
+import loading from '../loading.vue';
 
 export default {
   name: "Modal",
@@ -103,10 +106,12 @@ export default {
   components: {
     modalEtapa01,
     modalEtapa02,
-    modalEtapa03
+    modalEtapa03, 
+    loading
   },
   data() {
     return {
+      loading: true,
       // Cliente DATA
       etapaAtual: 1,
       cliente: {},
@@ -151,8 +156,8 @@ export default {
         try {
           await ApiController.inserirOrdem(this.agenda);
           Swal.fire("", "Agendamento feito com sucesso!", "success");
-          this.toggle();
           this.$emit('atualizarCalendario');
+          this.toggle();
           this.agenda = {};
         } catch (error) {
           console.log(error);
@@ -197,6 +202,7 @@ export default {
     async selectPet() {
       $("#select-especie").on("change", async (e) => {
         try {
+          this.loading = true
           // Obtém a espécie selecionada
           this.especie = e.target.value;
 
@@ -217,7 +223,9 @@ export default {
                 "data-nome": raca.noma_raca,
               })
             );
-          });
+          }); 
+
+          this.loading = false;
 
           $("#select-raca").trigger("change");
 
@@ -233,6 +241,7 @@ export default {
     async buscar() {
       if (this.tipo == "cliente") {
         try {
+          this.loading = true;
           const cliente = await ApiController.cliente(this.userId);
           this.cliente = cliente;
           this.endereco = cliente.endereco.split(",");
@@ -242,11 +251,14 @@ export default {
           this.cliente.cidade = this.endereco[3];
           this.cliente.uf = this.endereco[4];
           this.cliente.n_casa = this.endereco[5];
+
+          this.loading = false;
         } catch (error) {
           console.log(error);
         }
       } else {
         try {
+          this.loading = true;
           const animal = await ApiController.animal(this.userId);
           this.animal = animal;
 
@@ -263,17 +275,22 @@ export default {
           });
 
           $("#select-especie").on("change", (e) => {
+         
             this.animal.especie = $("#select-especie option:selected").val();
             this.watchEnabled = false;
             this.breeds = [];
             this.watchEnabled = true;
+            
           });
+
+          this.loading = false;
         } catch (error) {
           console.log(error);
         }
       }
     },
     async procurarEndereço() {
+
       const url = `https://viacep.com.br/ws/${this.cliente.cep}/json/`;
       try {
         const response = await fetch(url);
@@ -288,15 +305,18 @@ export default {
     },
     async getTutorVinculado() {
       try {
+        this.loading = true
         this.tutoresVinculados = await ApiController.getclienteVinculado(
           this.userId
         );
+        this.loading = false
       } catch (error) {
         console.log("Erro ao procurar tutores: ", error);
       }
     },
     async ClientesSemVinculo() {
       try {
+        this.loading = true
         const clientesAnimais = await ApiController.getClientes();
         await this.getTutorVinculado();
 
@@ -307,6 +327,7 @@ export default {
         });
 
         this.clienteSemVinculo = clienteSemVinculo;
+        this.loading = false
       } catch (error) {
         console.log("Erro ao listar os clientes: ", error);
       }
@@ -327,10 +348,15 @@ export default {
         });
 
         if (motivoExclusao) {
+          this.loading = true
           await ApiController.deletarVinculo(clienteid, animalid);
-          Swal.fire("", "Tutor removido com sucesso", "success");
+         
           await this.getTutorVinculado();
           await this.ClientesSemVinculo();
+
+          this.loading = false
+          Swal.fire("", "Tutor removido com sucesso", "success");
+
         }
       } catch (error) {
         console.error("Erro ao remover o vínculo: ", error);
@@ -338,7 +364,7 @@ export default {
     },
   },
   mounted() {
-
+ 
     if (this.userId != false) {
       this.titulo =
         this.tipo === "cliente"
@@ -350,6 +376,7 @@ export default {
               : "Editar Agenda";
 
       this.botaoConfirm = "Editar";
+    
       this.buscar();
 
       this.getTutorVinculado();
@@ -362,6 +389,7 @@ export default {
 
       $("#selectTutores").on("select2:select", async (e) => {
         try {
+          this.loading = true
           const tutor_id = e.params.data.id;
           const animal_id = this.userId;
 
@@ -369,16 +397,22 @@ export default {
             tutor_id,
             animal_id
           );
-          Swal.fire("", "Tutor vinculado com sucesso", "success");
-          this.ClientesSemVinculo();
+        
+          await this.ClientesSemVinculo();
           this.tutores = response.data;
 
+          this.loading = false
+
+          Swal.fire("", "Tutor vinculado com sucesso", "success");
           $("#selectTutores").val(null).trigger("change");
         } catch (error) {
           console.log("Erro ao adicionar um vinculo: ", error);
         }
       });
     } else if (this.userId == false) {
+
+      
+
       $("#select-especie").select2({
         placeholder: "Selecione uma espécie",
       });
@@ -394,7 +428,7 @@ export default {
         this.animal.especie = $("#select-especie option:selected").val();
       });
 
-
+      this.loading = false
       this.watchEnabled = false;
     }
   },
@@ -402,8 +436,11 @@ export default {
     "animal.especie": async function (newSpecies) {
       if (this.watchEnabled) {
         try {
+          this.loading = true;
           const data = await ApiController.buscarRaca(newSpecies);
           this.breeds = data;
+
+          this.loading = false;
           console.log(data)
         } catch (error) {
           console.error(error);

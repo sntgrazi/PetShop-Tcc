@@ -5,6 +5,7 @@
 
       <div class="btnAcaoOff">
         <button class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-pen"></i></button>
+        <button class="btnEditarOffCanvas" type="button"><i class="fa-solid fa-trash"></i></button>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
     </div>
@@ -61,7 +62,8 @@
           <button class="btnIniciar" type="button" v-if="this.agendaDados.status !== 'Concluído'"
             @click="atualizarStatus(this.agendaDados)"> {{
               getButtonText(this.agendaDados.status) }}</button>
-          <button class="btnCancelar" type="button"> Cancelar Agendamento</button>
+          <button class="btnCancelar" type="button" v-if="this.agendaDados.status !== 'Concluído'"> Cancelar
+            Agendamento</button>
         </div>
       </div>
     </div>
@@ -88,7 +90,7 @@ export default {
     async atualizarStatus(agenda) {
       try {
 
-        
+
         let mensagemAlerta = ''
         let status = ''
 
@@ -102,10 +104,11 @@ export default {
 
 
         await ApiController.updateStatus(agenda.id, status);
-        this.$emit('atualizarcalendario');
+        $('#offcanvasRight').offcanvas('hide');
+        Swal.fire('', mensagemAlerta, "success").then(() => {
+          window.location.reload();
+        });
 
-
-        Swal.fire('', mensagemAlerta, "success");
       } catch (error) {
         console.log('Erro ao tentar atualizar o status do agendamento: ', error)
       }
@@ -114,3 +117,4 @@ export default {
 
 }
 </script>
+

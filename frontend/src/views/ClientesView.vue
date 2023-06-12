@@ -1,12 +1,17 @@
 <template>
   <section>
+
     <div class="custom-container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
+
       <div class="custom-content">
+        <loading :loading="loading" />
         <div class="custom-main-content">
           <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true"
             @atualizarTabela="getClientes" :toggle="toggleform" :userId="userId" />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente" :tipo="'cliente'"/>
+
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente"
+            :tipo="'cliente'" />
         </div>
       </div>
     </div>
@@ -20,6 +25,7 @@ import ApiController from "@/ApiController";
 import modal from "@/components/modal/modal.vue";
 import { ref } from "vue";
 import Swal from "sweetalert2";
+import loading from '../components/loading.vue';
 
 export default {
   name: "ClientesView",
@@ -27,14 +33,18 @@ export default {
     tabela,
     topo,
     modal,
+    loading
   },
   data() {
     return {
       topoTabela: ["ID", "NOME", "CPF", "TELEFONE", "AÇÕES"],
       dadosTabela: [],
+      loading: true
     };
   },
   mounted() {
+    this.loading = true;
+
     this.getClientes();
 
     if (window.localStorage.getItem("redirecionado")) {
@@ -53,8 +63,11 @@ export default {
   methods: {
     async getClientes() {
       try {
+        this.loading = true;
         const clientes = await ApiController.getClientes();
         this.dadosTabela = clientes;
+
+        this.loading = false;
       } catch (error) {
         console.log("Erro ao listar os clientes: ", error);
       }
@@ -74,7 +87,6 @@ export default {
 
         if (result.isConfirmed) {
           await ApiController.deletarCliente(clienteId);
-          console.log("Cliente deletado com sucesso");
           await this.getClientes();
           Swal.fire("", "Cliente deletado com sucesso", "success");
         }
@@ -106,3 +118,5 @@ export default {
   },
 };
 </script>
+
+<style></style>

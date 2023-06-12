@@ -70,7 +70,7 @@ main.table {
 
 .table_body {
   width: 95%;
-  height: 65vh;
+  height: 75vh;
 
   margin: 0.8rem auto;
   border-radius: 0.8rem;
