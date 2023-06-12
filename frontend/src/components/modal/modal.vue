@@ -483,9 +483,9 @@ export default {
           $("#select-cliente").on("change", async (e) => {
             // Obtém a raça selecionada
 
-            this.agenda.cliente = $("#select-cliente option:selected").val();
+            this.agenda.cliente_id = $("#select-cliente option:selected").val();
 
-            await this.getPetVinculado(this.agenda.cliente)
+            await this.getPetVinculado(this.agenda.cliente_id)
 
           });
 
