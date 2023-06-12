@@ -58,11 +58,11 @@
                 <td>{{ tutorVinculado.nome }}</td>
                 <td class="btnTutores">
                   <button type="
-                button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
+                    button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
                     <i class="fa-solid fa-user"></i>
                   </button>
                   <button type="
-                button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
+                    button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
                     v-if="tutoresVinculados.length > 1">
                     <i class="fa-solid fa-trash"></i>
                   </button>
@@ -303,7 +303,7 @@ export default {
           $("#select-cliente").select2();
           $("#select-cliente").val(agendaById.cliente_id).trigger("change");
 
-      
+
           const petList = await ApiController.getpetVinculado(agendaById.cliente_id);
 
 
@@ -314,7 +314,7 @@ export default {
             }))
           });
 
-        
+
           // Definir a opção selecionada com base em agendaById.animal_id
           $("#select-pet").val(agendaById.animal_id).trigger("change");
 
@@ -410,6 +410,26 @@ export default {
         console.error("Erro ao remover o vínculo: ", error);
       }
     },
+    async getPetVinculado(id) {
+      try {
+      
+        this.pets = await ApiController.getpetVinculado(id);
+        $("#select-pet").empty();
+        $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
+
+        this.pets.forEach((pet) => {
+          $("#select-pet").append(
+            $("<option>", {
+              value: pet.id,
+              text: pet.nome_pet,
+            })
+          );
+        });
+
+      } catch (error) {
+        console.log("Erro ao listar os animais vinculados: ", error)
+      }
+    },
   },
   mounted() {
 
@@ -457,7 +477,87 @@ export default {
           console.log("Erro ao adicionar um vinculo: ", error);
         }
       });
+
+      $("#select-cliente").select2({
+        placeholder: "Selecione um cliente",
+        width: "100%"
+      });
+
+
+      $("#select-cliente").on("change", (e) => {
+        // Obtém a raça selecionada
+
+        this.agenda.cliente = $("#select-cliente option:selected").val();
+
+        this.getPetVinculado(this.agenda.cliente)
+
+      });
+
+
+      $("#select-servico").select2({
+        placeholder: "Selecione um serviço",
+        width: "100%",
+      });
+
+      $("#select-pet").select2({
+        placeholder: "Selecione um Pet",
+        width: "100%",
+      });
+
+      $("#select-funcionario").select2({
+        placeholder: "Selecione um Funcionário",
+        width: "100%"
+      });
+
     } else if (this.userId == false) {
+
+      $("#select-tutor").select2({
+        placeholder: "Selecione um Tutor",
+        width: "100%",
+      });
+
+      $("#select-tutor").on("change", (e) => {
+        // Obtém a raça selecionada
+        this.animal.tutor_id = $("#select-tutor option:selected").val();
+      });
+
+      $("#select-servico").select2({
+        placeholder: "Selecione um serviço",
+        width: "100%",
+      });
+
+      $("#select-servico").on("change", (e) => {
+        // Obtém a raça selecionada
+        this.agenda.servico = $("#select-servico option:selected").val();
+      });
+
+      $("#select-cliente").select2({
+        placeholder: "Selecione um cliente",
+        width: "100%",
+      });
+
+
+
+
+      $("#select-pet").select2({
+        placeholder: "Selecione um Pet",
+        width: "100%",
+      });
+
+      $("#select-pet").on("change", (e) => {
+        // Obtém a raça selecionada
+        this.agenda.pet = $("#select-pet option:selected").val();
+      });
+
+      $("#select-funcionario").select2({
+        placeholder: "Selecione um Funcionário",
+        width: "100%"
+      });
+
+      $("#select-funcionario").on("change", (e) => {
+        // Obtém a raça selecionada
+        this.agenda.funcionario = $("#select-funcionario option:selected").val();
+      });
 
 
 

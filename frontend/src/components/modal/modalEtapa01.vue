@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-4 col-sm-4">
                         <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                            " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+                        " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
                     </div>
                     <div class="col-2 col-sm-2">
                         <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
@@ -198,26 +198,7 @@ export default {
                 console.log("Erro ao listar os clientes: ", error)
             }
         },
-        async getPetVinculado(id) {
-            try {
-                this.loading = true
-                this.pets = await ApiController.getpetVinculado(id);
-                $("#select-pet").empty();
-                $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
 
-                this.pets.forEach((pet) => {
-                    $("#select-pet").append(
-                        $("<option>", {
-                            value: pet.id,
-                            text: pet.nome_pet,
-                        })
-                    );
-                });
-                this.loading = false
-            } catch (error) {
-                console.log("Erro ao listar os animais vinculados: ", error)
-            }
-        },
         async getFuncionarios() {
             try {
                 this.funcionarios = await ApiController.getFuncionarios();
@@ -238,61 +219,6 @@ export default {
         this.buscarClienteTabela();
         this.getFuncionarios();
 
-        $("#select-tutor").select2({
-            placeholder: "Selecione um Tutor",
-            width: "100%",
-        });
-
-        $("#select-tutor").on("change", (e) => {
-            // Obtém a raça selecionada
-            this.animal.tutor_id = $("#select-tutor option:selected").val();
-        });
-
-        $("#select-servico").select2({
-            placeholder: "Selecione um serviço",
-            width: "100%",
-        });
-
-        $("#select-servico").on("change", (e) => {
-            // Obtém a raça selecionada
-            this.agenda.servico = $("#select-servico option:selected").val();
-        });
-
-        $("#select-cliente").select2({
-            placeholder: "Selecione um cliente",
-            width: "100%",
-        });
-
-
-        $("#select-cliente").on("change", (e) => {
-            // Obtém a raça selecionada
-
-            this.agenda.cliente = $("#select-cliente option:selected").val();
-
-            this.getPetVinculado(this.agenda.cliente)
-
-        });
-
-
-        $("#select-pet").select2({
-            placeholder: "Selecione um Pet",
-            width: "100%",
-        });
-
-        $("#select-pet").on("change", (e) => {
-            // Obtém a raça selecionada
-            this.agenda.pet = $("#select-pet option:selected").val();
-        });
-
-        $("#select-funcionario").select2({
-            placeholder: "Selecione um Funcionário",
-            width: "100%"
-        });
-
-        $("#select-funcionario").on("change", (e) => {
-            // Obtém a raça selecionada
-            this.agenda.funcionario = $("#select-funcionario option:selected").val();
-        });
 
     },
 
