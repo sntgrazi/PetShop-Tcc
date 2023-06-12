@@ -42,6 +42,7 @@ class  ClienteAnimalDAO extends ConexaoDAO{
         $stm->execute([
             'id' => $clienteM->getId()
         ]);
+
         $tabela = $stm->fetchAll(\PDO::FETCH_ASSOC);
         return $tabela;
     }

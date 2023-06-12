@@ -41,7 +41,7 @@ final class OrdemServicoController {
         $ordemM = new OrdemServicoModel();
         $ordemM->setData_Inicio($data['data_inicio'])
              ->setData_Termino($data['data_termino'])
-             ->setCliente_id($data['cliente'])
+             ->setCliente_id($data['cliente_id'])
              ->setAnimal_id($data['pet'])
              ->setFuncionario_id($data['funcionario'])
              ->setServico_id($data['servico'])

@@ -58,11 +58,11 @@
                 <td>{{ tutorVinculado.nome }}</td>
                 <td class="btnTutores">
                   <button type="
-                        button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
+                                button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
                     <i class="fa-solid fa-user"></i>
                   </button>
                   <button type="
-                        button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
+                                button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
                     v-if="tutoresVinculados.length > 1">
                     <i class="fa-solid fa-trash"></i>
                   </button>
@@ -297,310 +297,311 @@ export default {
         }
       } else if (this.tipo == 'agenda') {
         try {
- 
-          const agendaById = await ApiController.getOrdensById(this.userId);
 
-      
-          $("#select-cliente").val(agendaById.cliente_id).trigger("change");
+          this.agenda = await ApiController.getOrdensById(this.userId);
 
+          if (this.agenda.cliente_id != undefined) {
 
-          const petList = await ApiController.getpetVinculado(agendaById.cliente_id);
+            // Preencher o select de clientes
+            $("#select-cliente").val(this.agenda.cliente_id).trigger("change");
 
-
-          $("#select-pet").select2({
-            data: petList.map((pet) => ({
-              id: pet.id,
-              text: pet.name
-            }))
-          });
+            await this.getPetVinculado(this.agenda.cliente_id);
 
 
-          // Definir a opção selecionada com base em agendaById.animal_id
-          $("#select-pet").val(agendaById.animal_id).trigger("change");
+            // Definir a opção selecionada com base em agendaById.animal_id
+            $("#select-pet").val(this.agenda.animal_id).trigger("change");
 
-          $("#select-funcionario").val(agendaById.funcionario_id).trigger("change");
+            $("#select-funcionario").val(this.agenda.funcionario_id).trigger("change");
 
-          $("#select-servico").val(agendaById.servico_id).trigger("change");
+            $("#select-servico").val(this.agenda.servico_id).trigger("change");
 
-          this.agenda.data_inicio = new Date(agendaById.data_inicio).toISOString().slice(0, 10)
-          this.agenda.data_termino = new Date(agendaById.data_termino).toISOString().slice(0, 10)
+            this.agenda.data_inicio = new Date(this.agenda.data_inicio).toISOString().slice(0, 10)
+            this.agenda.data_termino = new Date(this.agenda.data_termino).toISOString().slice(0, 10)
 
-          this.agenda.hora_inicio = agendaById.hora_inicio;
-          this.agenda.hora_termino = agendaById.hora_termino;
-
+            this.agenda.hora_inicio = this.agenda.hora_inicio;
+            this.agenda.hora_termino = this.agenda.hora_termino
           
-        } catch (error) {
-          console.log(error);
+          } else {
+            console.log("Erro ao renderizar os dados");
+          }
+
+
+          } catch (error) {
+            console.log(error);
+          }
         }
-      }
     },
     async procurarEndereço() {
 
-      const url = `https://viacep.com.br/ws/${this.cliente.cep}/json/`;
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        this.cliente.rua = data.logradouro;
-        this.cliente.bairro = data.bairro;
-        this.cliente.uf = data.uf;
-        this.cliente.cidade = data.localidade;
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async getTutorVinculado() {
-      try {
-        this.loading = true
-        this.tutoresVinculados = await ApiController.getclienteVinculado(
-          this.userId
-        );
-        this.loading = false
-      } catch (error) {
-        console.log("Erro ao procurar tutores: ", error);
-      }
-    },
-    async ClientesSemVinculo() {
-      try {
-        this.loading = true
-        const clientesAnimais = await ApiController.getClientes();
-        await this.getTutorVinculado();
-
-        const clienteSemVinculo = clientesAnimais.filter((cliente) => {
-          return !this.tutoresVinculados.some(
-            (tutor) => tutor.id === cliente.id
-          );
-        });
-
-        this.clienteSemVinculo = clienteSemVinculo;
-        this.loading = false
-      } catch (error) {
-        console.log("Erro ao listar os clientes: ", error);
-      }
-    },
-    async removerVinculo(clienteid, animalid) {
-      try {
-        const { value: motivoExclusao } = await Swal.fire({
-          title: "Motivo da exclusão",
-          input: "textarea",
-          inputPlaceholder: "Digite o motivo da exclusão...",
-          showCancelButton: true,
-          confirmButtonText: "OK",
-          cancelButtonText: "Cancelar",
-          inputAttributes: {
-            required: "required",
-          },
-          validationMessage: "Por favor, digite um motivo.",
-        });
-
-        if (motivoExclusao) {
-          this.loading = true
-          await ApiController.deletarVinculo(clienteid, animalid);
-
-          await this.getTutorVinculado();
-          await this.ClientesSemVinculo();
-
-          this.loading = false
-          Swal.fire("", "Tutor removido com sucesso", "success");
-
-        }
-      } catch (error) {
-        console.error("Erro ao remover o vínculo: ", error);
-      }
-    },
-    async getPetVinculado(id) {
-      try {
-
-        this.pets = await ApiController.getpetVinculado(id);
-        $("#select-pet").empty();
-        $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
-
-        this.pets.forEach((pet) => {
-          $("#select-pet").append(
-            $("<option>", {
-              value: pet.id,
-              text: pet.nome_pet,
-            })
-          );
-        });
-
-      } catch (error) {
-        console.log("Erro ao listar os animais vinculados: ", error)
-      }
-    },
-  },
-  mounted() {
-
-    if (this.userId != false) {
-      this.titulo =
-        this.tipo === "cliente"
-          ? "Editar Cliente"
-          : this.tituloModal === true
-            ? "Tutores"
-            : this.tipo == "Pets"
-              ? "Editar Pet"
-              : "Editar Agenda";
-
-      this.botaoConfirm = "Editar";
-
-      this.buscar();
-
-      this.getTutorVinculado();
-      this.ClientesSemVinculo();
-
-      $("#selectTutores").select2({
-        placeholder: "Selecione o tutor",
-        width: "100%",
-      });
-
-      $("#selectTutores").on("select2:select", async (e) => {
+        const url = `https://viacep.com.br/ws/${this.cliente.cep}/json/`;
         try {
-          this.loading = true
-          const tutor_id = e.params.data.id;
-          const animal_id = this.userId;
-
-          const response = await ApiController.adicionarVinculo(
-            tutor_id,
-            animal_id
-          );
-
-          await this.ClientesSemVinculo();
-          this.tutores = response.data;
-
-          this.loading = false
-
-          Swal.fire("", "Tutor vinculado com sucesso", "success");
-          $("#selectTutores").val(null).trigger("change");
-        } catch (error) {
-          console.log("Erro ao adicionar um vinculo: ", error);
-        }
-      });
-
-      $("#select-cliente").select2({
-        placeholder: "Selecione um cliente",
-        width: "100%"
-      });
-
-
-      $("#select-cliente").on("change", async (e) => {
-        // Obtém a raça selecionada
-
-        this.agenda.cliente = $("#select-cliente option:selected").val();
-
-        await this.getPetVinculado(this.agenda.cliente)
-
-      });
-
-
-      $("#select-servico").select2({
-        placeholder: "Selecione um serviço",
-        width: "100%",
-      });
-
-      $("#select-pet").select2({
-        placeholder: "Selecione um Pet",
-        width: "100%",
-      });
-
-      $("#select-funcionario").select2({
-        placeholder: "Selecione um Funcionário",
-        width: "100%"
-      });
-
-    } else if (this.userId == false) {
-
-      $("#select-tutor").select2({
-        placeholder: "Selecione um Tutor",
-        width: "100%",
-      });
-
-      $("#select-tutor").on("change", (e) => {
-        // Obtém a raça selecionada
-        this.animal.tutor_id = $("#select-tutor option:selected").val();
-      });
-
-      $("#select-servico").select2({
-        placeholder: "Selecione um serviço",
-        width: "100%",
-      });
-
-      $("#select-servico").on("change", (e) => {
-        // Obtém a raça selecionada
-        this.agenda.servico = $("#select-servico option:selected").val();
-      });
-
-      $("#select-cliente").select2({
-        placeholder: "Selecione um cliente",
-        width: "100%",
-      });
-
-      $("#select-cliente").on("change", async (e) => {
-        // Obtém a raça selecionada
-
-        this.agenda.cliente = $("#select-cliente option:selected").val();
-
-        await this.getPetVinculado(this.agenda.cliente)
-
-      });
-
-
-      $("#select-pet").select2({
-        placeholder: "Selecione um Pet",
-        width: "100%",
-      });
-
-      $("#select-pet").on("change", (e) => {
-        // Obtém a raça selecionada
-        this.agenda.pet = $("#select-pet option:selected").val();
-      });
-
-      $("#select-funcionario").select2({
-        placeholder: "Selecione um Funcionário",
-        width: "100%"
-      });
-
-      $("#select-funcionario").on("change", (e) => {
-        // Obtém a raça selecionada
-        this.agenda.funcionario = $("#select-funcionario option:selected").val();
-      });
-
-
-
-      $("#select-especie").select2({
-        placeholder: "Selecione uma espécie",
-      });
-
-      $("#select-raca").select2({
-        placeholder: "Selecione uma Raça",
-      });
-
-      this.selectPet();
-
-      $("#select-especie").on("change", (e) => {
-        // Obtém a raça selecionada
-        this.animal.especie = $("#select-especie option:selected").val();
-      });
-
-      this.loading = false
-      this.watchEnabled = false;
-    }
-  },
-  watch: {
-    "animal.especie": async function (newSpecies) {
-      if (this.watchEnabled) {
-        try {
-          this.loading = true;
-          const data = await ApiController.buscarRaca(newSpecies);
-          this.breeds = data;
-
-          this.loading = false;
-          console.log(data)
+          const response = await fetch(url);
+          const data = await response.json();
+          this.cliente.rua = data.logradouro;
+          this.cliente.bairro = data.bairro;
+          this.cliente.uf = data.uf;
+          this.cliente.cidade = data.localidade;
         } catch (error) {
           console.error(error);
         }
+      },
+    async getTutorVinculado() {
+        try {
+          this.loading = true
+          this.tutoresVinculados = await ApiController.getclienteVinculado(
+            this.userId
+          );
+          this.loading = false
+        } catch (error) {
+          console.log("Erro ao procurar tutores: ", error);
+        }
+      },
+    async ClientesSemVinculo() {
+        try {
+          this.loading = true
+          const clientesAnimais = await ApiController.getClientes();
+          await this.getTutorVinculado();
+
+          const clienteSemVinculo = clientesAnimais.filter((cliente) => {
+            return !this.tutoresVinculados.some(
+              (tutor) => tutor.id === cliente.id
+            );
+          });
+
+          this.clienteSemVinculo = clienteSemVinculo;
+          this.loading = false
+        } catch (error) {
+          console.log("Erro ao listar os clientes: ", error);
+        }
+      },
+    async removerVinculo(clienteid, animalid) {
+        try {
+          const { value: motivoExclusao } = await Swal.fire({
+            title: "Motivo da exclusão",
+            input: "textarea",
+            inputPlaceholder: "Digite o motivo da exclusão...",
+            showCancelButton: true,
+            confirmButtonText: "OK",
+            cancelButtonText: "Cancelar",
+            inputAttributes: {
+              required: "required",
+            },
+            validationMessage: "Por favor, digite um motivo.",
+          });
+
+          if (motivoExclusao) {
+            this.loading = true
+            await ApiController.deletarVinculo(clienteid, animalid);
+
+            await this.getTutorVinculado();
+            await this.ClientesSemVinculo();
+
+            this.loading = false
+            Swal.fire("", "Tutor removido com sucesso", "success");
+
+          }
+        } catch (error) {
+          console.error("Erro ao remover o vínculo: ", error);
+        }
+      },
+    async getPetVinculado(id) {
+        try {
+
+          this.pets = await ApiController.getpetVinculado(id);
+
+          $("#select-pet").empty();
+          $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
+
+          this.pets.forEach((pet) => {
+            $("#select-pet").append(
+              $("<option>", {
+                value: pet.id,
+                text: pet.nome_pet,
+              })
+            );
+          });
+
+        } catch (error) {
+          console.log("Erro ao listar os animais vinculados: ", error)
+        }
+      },
+    },
+    mounted() {
+
+      if (this.userId != false) {
+        this.titulo =
+          this.tipo === "cliente"
+            ? "Editar Cliente"
+            : this.tituloModal === true
+              ? "Tutores"
+              : this.tipo == "Pets"
+                ? "Editar Pet"
+                : "Editar Agenda";
+
+        this.botaoConfirm = "Editar";
+
+        this.buscar();
+
+        this.getTutorVinculado();
+        this.ClientesSemVinculo();
+
+        this.$nextTick(() => {
+          $("#selectTutores").select2({
+            placeholder: "Selecione o tutor",
+            width: "100%",
+          });
+
+          $("#selectTutores").on("select2:select", async (e) => {
+            try {
+              this.loading = true
+              const tutor_id = e.params.data.id;
+              const animal_id = this.userId;
+
+              const response = await ApiController.adicionarVinculo(
+                tutor_id,
+                animal_id
+              );
+
+              await this.ClientesSemVinculo();
+              this.tutores = response.data;
+
+              this.loading = false
+
+              Swal.fire("", "Tutor vinculado com sucesso", "success");
+              $("#selectTutores").val(null).trigger("change");
+            } catch (error) {
+              console.log("Erro ao adicionar um vinculo: ", error);
+            }
+          });
+
+          $("#select-cliente").select2({
+            placeholder: "Selecione um cliente",
+            width: "100%"
+          });
+
+
+          $("#select-cliente").on("change", async (e) => {
+            // Obtém a raça selecionada
+
+            this.agenda.cliente = $("#select-cliente option:selected").val();
+
+            await this.getPetVinculado(this.agenda.cliente)
+
+          });
+
+
+          $("#select-servico").select2({
+            placeholder: "Selecione um serviço",
+            width: "100%",
+          });
+
+          $("#select-pet").select2({
+            placeholder: "Selecione um Pet",
+            width: "100%",
+          });
+
+          $("#select-funcionario").select2({
+            placeholder: "Selecione um Funcionário",
+            width: "100%"
+          });
+        })
+
+      } else if (this.userId == false) {
+
+        this.$nextTick(() => {
+          $("#select-tutor").select2({
+            placeholder: "Selecione um Tutor",
+            width: "100%",
+          });
+
+          $("#select-tutor").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.animal.tutor_id = $("#select-tutor option:selected").val();
+          });
+
+          $("#select-servico").select2({
+            placeholder: "Selecione um serviço",
+            width: "100%",
+          });
+
+          $("#select-servico").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.agenda.servico = $("#select-servico option:selected").val();
+          });
+
+          $("#select-cliente").select2({
+            placeholder: "Selecione um cliente",
+            width: "100%",
+          });
+
+          $("#select-cliente").on("change", async (e) => {
+            // Obtém a raça selecionada
+
+            this.agenda.cliente_id = $("#select-cliente option:selected").val();
+
+            await this.getPetVinculado(this.agenda.cliente_id)
+
+          });
+
+
+          $("#select-pet").select2({
+            placeholder: "Selecione um Pet",
+            width: "100%",
+          });
+
+          $("#select-pet").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.agenda.pet = $("#select-pet option:selected").val();
+          });
+
+          $("#select-funcionario").select2({
+            placeholder: "Selecione um Funcionário",
+            width: "100%"
+          });
+
+          $("#select-funcionario").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.agenda.funcionario = $("#select-funcionario option:selected").val();
+          });
+
+
+
+          $("#select-especie").select2({
+            placeholder: "Selecione uma espécie",
+          });
+
+          $("#select-raca").select2({
+            placeholder: "Selecione uma Raça",
+          });
+
+          this.selectPet();
+
+          $("#select-especie").on("change", (e) => {
+            // Obtém a raça selecionada
+            this.animal.especie = $("#select-especie option:selected").val();
+          });
+        })
+
+        this.loading = false
+        this.watchEnabled = false;
       }
     },
-  },
-};
+    watch: {
+      "animal.especie": async function (newSpecies) {
+        if (this.watchEnabled) {
+          try {
+            this.loading = true;
+            const data = await ApiController.buscarRaca(newSpecies);
+            this.breeds = data;
+
+            this.loading = false;
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      },
+    },
+  };
 </script>
 
 <style>
