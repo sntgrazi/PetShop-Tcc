@@ -555,6 +555,7 @@ export default {
         this.animal.especie = $("#select-especie option:selected").val();
       });
 
+      this.loading = false;
       this.watchEnabled = false;
     }
   },
