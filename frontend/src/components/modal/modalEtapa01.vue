@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-4 col-sm-4">
                         <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                        " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+                            " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
                     </div>
                     <div class="col-2 col-sm-2">
                         <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
@@ -85,10 +85,7 @@
                 <div class="col-sm-12">
                     <div class="selectCampo">
                         <label for="cliente">Cliente</label>
-                        <select v-model="agenda.cliente" id="select-cliente" class="selectCliente">
-                            <option v-for="cliente in clientesTabela" :value="cliente.id" selected>
-                                {{ cliente.nome }}
-                            </option>
+                        <select v-model="agenda.cliente_id" id="select-cliente" class="selectCliente">
                         </select>
                     </div>
                 </div>
@@ -193,6 +190,18 @@ export default {
             try {
                 this.loading = true
                 this.clientesTabela = await ApiController.buscarClienteTabela();
+
+                $("#select-cliente").append($("<option>", { value: "", text: "Selecione um Cliente" }));
+
+                this.clientesTabela.forEach((cliente) => {
+                    $("#select-cliente").append(
+                        $("<option>", {
+                            value: cliente.id,
+                            text: cliente.nome,
+                        })
+                    );
+                });
+
                 this.loading = false
             } catch (error) {
                 console.log("Erro ao listar os clientes: ", error)
@@ -218,8 +227,6 @@ export default {
         this.getServicos();
         this.buscarClienteTabela();
         this.getFuncionarios();
-
-
     },
 
 
