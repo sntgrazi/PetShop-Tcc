@@ -51,8 +51,8 @@ export default {
         height: "100%",
         locale: 'pt-br',
         headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
+          left: 'today',
+          center: 'prev,title,next',
           right: 'dayGridMonth,dayGridWeek,listDay'
         },
         buttonText: {
@@ -260,6 +260,47 @@ export default {
 .fc .fc-toolbar.fc-header-toolbar {
   margin: 15px;
 }
+.fc-toolbar-chunk > div{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.fc-toolbar-chunk > div > .fc-prev-button{
+  border-radius: 50%;
+  margin-right: 10px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fc-toolbar-chunk > div > .fc-prev-button >  .fc-icon-chevron-left{
+  font-size: 25px;
+  vertical-align: baseline;
+
+}
+
+.fc-toolbar-chunk > div > .fc-next-button{
+  border-radius: 50%;
+  margin-left: 10px;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fc-toolbar-chunk > div > .fc-next-button > .fc-icon-chevron-right{
+  font-size: 25px;
+  vertical-align: baseline;
+
+}
+
+
 
 .fc .fc-list-empty {
   background-color: white;
