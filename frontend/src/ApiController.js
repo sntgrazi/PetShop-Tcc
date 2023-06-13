@@ -139,10 +139,7 @@ export default {
     },
 
     async getpetVinculado(id) {
-
-        console.log(id)
         const url = `${ApiUrl}/animalvinculado/${id}`;
-
         const response = await axios.get(url)
             .catch(error => {
                 console.error('Erro ao buscar os animais vinculados: ', error);

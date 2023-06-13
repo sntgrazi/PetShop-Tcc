@@ -134,7 +134,6 @@ export default {
       }
     },
     abriModalEdit(id) {
-      console.log(id)
       $('#offcanvasRight').offcanvas('hide');
       this.toggle('info', id)
     },
