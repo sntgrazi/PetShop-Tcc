@@ -13,7 +13,8 @@
             <td  v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
             <!-- Dados da tabela Cliente -->
 
-            <td v-if="this.tipo == 'cliente'">{{ dado.nome }}</td>
+            <td  @click="abrirInfoCliente(dado.id)" class="linhaName" v-if="this.tipo == 'cliente'">
+              {{ dado.nome }}</td>
             <td v-if="this.tipo == 'cliente'">{{ dado.cpf }}</td>
             <td v-if="this.tipo == 'cliente'">{{ dado.telefone }}</td>
 
@@ -50,6 +51,9 @@ export default {
     },
     modalTutores(id){
       this.$emit('tutor', id)
+    },
+    abrirInfoCliente(id){
+      this.$emit('infoCliente', id)
     }
   }
   
@@ -140,24 +144,22 @@ main.table {
 
 table {
   width: 100%;
-}
-
-td img {
-  width: 36px;
-  height: 36px;
-  margin-right: 0.5rem;
-  border-radius: 50%;
-
-  vertical-align: middle;
+  
 }
 
 table,
 th,
 td {
   border-collapse: collapse;
-  padding: 1rem;
+  padding: 1em;
   text-align: center;
+  cursor: pointer;
 }
+
+.linhaName{
+  text-decoration: underline;
+}
+
 
 thead th {
   position: sticky;
@@ -168,6 +170,7 @@ thead th {
   text-align: center;
   text-transform: capitalize;
   color: white;
+  
 }
 
 tbody tr:nth-child(even) {
@@ -177,6 +180,7 @@ tbody tr:nth-child(even) {
 tbody tr {
   --delay: 0.1s;
   transition: 0.5s ease-in-out var(--delay), background-color 0s;
+  
 }
 
 tbody tr.hide {
@@ -207,49 +211,11 @@ tbody tr.hide td img {
   transition: 0.2s ease-in-out 0.5s;
 }
 
-.status {
-  padding: 5px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.status.aguardando {
-  background-color: #c261ff;
-  color: #8800dc;
-}
-
-.status.atendendo {
-  background-color: rgb(96, 170, 255);
-  color: rgb(0, 38, 255);
-}
-
-.status.concluido {
-  background-color: rgb(144, 255, 144);
-  color: green;
-}
-
-.status.cancelado {
-  background-color: rgb(255, 169, 169);
-  color: red;
-}
-
-thead th:hover span.icon-arrow {
-  border: 1.4px solid #6c00bd;
-}
-
 thead th:hover {
   color: #02396f;
   transition: 1s;
 }
 
-thead th.active span.icon-arrow {
-  background-color: #6c00bd;
-  color: #fff;
-}
-
-thead th.asc span.icon-arrow {
-  transform: rotate(180deg);
-}
 
 thead th.active,
 tbody td.active {

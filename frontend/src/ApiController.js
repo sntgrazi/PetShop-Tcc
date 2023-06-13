@@ -5,6 +5,9 @@ const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
 
 export default {
 
+    // Requisições Clientes
+
+    
     async getClientes() {
         const url = `${ApiUrl}/clientes`;
         const response = await axios.get(url)
@@ -25,7 +28,7 @@ export default {
         return response.data;
     },
 
-    async cliente(id) {
+    async getClienteById(id) {
         const url = `${ApiUrl}/cliente/${id}`;
         const response = await axios.get(url)
             .catch(error => {
@@ -56,7 +59,7 @@ export default {
         return response.data;
     },
 
-    // Animais Rotas
+    // Requisição Animais
 
     async cadastrarAnimal(animal) {
 
@@ -81,7 +84,7 @@ export default {
 
     },
 
-    async animal(id) {
+    async getAnimalById(id) {
 
         const url = `${ApiUrl}/animal/${id}`;
         const response = await axios.get(url)
@@ -125,7 +128,7 @@ export default {
         return response.data;
     },
 
-    // Tabela de Relacionamento Cliente_Animal
+    // Requisição da Tabela de Relacionamento
 
     async getclienteVinculado(id) {
 

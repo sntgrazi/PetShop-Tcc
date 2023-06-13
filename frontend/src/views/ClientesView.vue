@@ -1,18 +1,16 @@
 <template>
   <section>
-
     <div class="custom-container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
-
       <div class="custom-content">
         <loading :loading="loading" />
         <div class="custom-main-content">
           <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true"
             @atualizarTabela="getClientes" :toggle="toggleform" :userId="userId" />
-
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente"
-            :tipo="'cliente'" />
+            :tipo="'cliente'" @infoCliente="offcanvasCliente"/>
         </div>
+        <infoCliente :cliente="informacoesCliente"/>
       </div>
     </div>
   </section>
@@ -26,6 +24,7 @@ import modal from "@/components/modal/modal.vue";
 import { ref } from "vue";
 import Swal from "sweetalert2";
 import loading from '../components/loading.vue';
+import infoCliente from "@/components/infoCliente.vue";
 
 export default {
   name: "ClientesView",
@@ -33,13 +32,15 @@ export default {
     tabela,
     topo,
     modal,
-    loading
+    loading, 
+    infoCliente
   },
   data() {
     return {
       topoTabela: ["ID", "NOME", "CPF", "TELEFONE", "AÇÕES"],
       dadosTabela: [],
-      loading: true
+      loading: true,
+      informacoesCliente: []
     };
   },
   mounted() {
@@ -93,6 +94,17 @@ export default {
       } catch (error) {
         console.error("Erro ao deletar o cliente: ", error);
       }
+    },
+    async offcanvasCliente(id){
+      try {
+        this.loading = true;
+        this.informacoesCliente = await ApiController.getClienteById(id)
+        $('#offcanvasRight').offcanvas('show');
+        this.loading = false;
+      } catch (error) {
+        console.log("Erro ao procurar as informações do cliente: ", error);
+      }
+
     }
   },
   setup() {

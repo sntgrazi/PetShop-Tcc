@@ -7,14 +7,10 @@
         <div class="custom-main-content">
           <modal v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true" :toggle="toggleform"
             :userId="userId" @atualizarCalendario="getAllOrdens" />
-
           <FullCalendar ref="calendar" :options="calendarOptions" />
-
-
         </div>
         <InfoAgenda :agendaDados="agendaDados" @atualizarcalendario="getAllOrdens" :toggle="toggleform"
           @deletarAgendamento="deletarAgendamento" />
-
       </div>
     </div>
   </section>
@@ -51,9 +47,9 @@ export default {
         height: "100%",
         locale: 'pt-br',
         headerToolbar: {
-          left: 'today',
+          left: '',
           center: 'prev,title,next',
-          right: 'dayGridMonth,dayGridWeek,listDay'
+          right: 'today,dayGridMonth,dayGridWeek,listDay'
         },
         buttonText: {
           today: "Hoje",
@@ -72,9 +68,6 @@ export default {
     }
   },
   methods: {
-    teste() {
-      console.log('Testando');
-    },
     mouseHover(info) {
       const eventElement = info.el;
       this.togglePointerCursor(eventElement);
@@ -83,7 +76,6 @@ export default {
       const eventElement = info.el;
       this.togglePointerCursor(eventElement);
     },
-
     togglePointerCursor(element) {
       if (element.classList.contains('pointer-cursor')) {
         element.classList.remove('pointer-cursor');
@@ -201,7 +193,7 @@ export default {
     },
     async deletarAgendamento(id) {
       try {
- 
+
         const result = await Swal.fire({
           title: "Você tem certeza que deseja deletar esse Agendamento?",
           icon: "warning",
@@ -236,7 +228,7 @@ export default {
         console.log(userId.value);
       }
     };
-    
+
 
     return {
       formActive,
@@ -248,8 +240,6 @@ export default {
   },
   mounted() {
     this.loading = true;
-
-
     this.getAllOrdens()
   }
 }
@@ -259,16 +249,17 @@ export default {
 <style>
 .fc .fc-toolbar.fc-header-toolbar {
   margin: 15px;
+ 
 }
-.fc-toolbar-chunk > div{
+
+.fc-toolbar-chunk>div {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  
 }
 
-.fc-toolbar-chunk > div > .fc-prev-button{
+.fc-toolbar-chunk>div>.fc-prev-button {
   border-radius: 50%;
   margin-right: 10px;
   height: 35px;
@@ -278,13 +269,13 @@ export default {
   justify-content: center;
 }
 
-.fc-toolbar-chunk > div > .fc-prev-button >  .fc-icon-chevron-left{
+.fc-toolbar-chunk>div>.fc-prev-button>.fc-icon-chevron-left {
   font-size: 25px;
   vertical-align: baseline;
 
 }
 
-.fc-toolbar-chunk > div > .fc-next-button{
+.fc-toolbar-chunk > div > .fc-next-button {
   border-radius: 50%;
   margin-left: 10px;
   height: 35px;
@@ -294,13 +285,11 @@ export default {
   justify-content: center;
 }
 
-.fc-toolbar-chunk > div > .fc-next-button > .fc-icon-chevron-right{
+.fc-toolbar-chunk > div > .fc-next-button>.fc-icon-chevron-right {
   font-size: 25px;
   vertical-align: baseline;
 
 }
-
-
 
 .fc .fc-list-empty {
   background-color: white;

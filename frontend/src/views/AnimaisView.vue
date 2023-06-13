@@ -7,8 +7,9 @@
         <div class="custom-main-content">
           <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform"
             :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
-            :infoTutores="mostrarInfoTutores"/>
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarAnimais" :tipo="'pet'"/>
+            :infoTutores="mostrarInfoTutores" />
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarAnimais"
+            :tipo="'pet'" />
         </div>
       </div>
     </div>
@@ -107,8 +108,8 @@ export default {
           await ApiController.deletarAnimal(animalId);
           await this.getAnimais();
           Swal.fire("", "Pet deletado com sucesso", "success");
-         
-         
+
+
         }
       } catch (error) {
         console.error("Erro ao deletar o Animal: ", error);

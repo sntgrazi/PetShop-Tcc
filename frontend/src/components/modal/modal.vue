@@ -250,7 +250,7 @@ export default {
       if (this.tipo == "cliente") {
         try {
           this.loading = true;
-          const cliente = await ApiController.cliente(this.userId);
+          const cliente = await ApiController.getClienteById(this.userId);
           this.cliente = cliente;
           this.endereco = cliente.endereco.split(",");
           this.cliente.cep = this.endereco[0];
@@ -267,7 +267,7 @@ export default {
       } else if (this.tipo == 'Pets') {
         try {
           this.loading = true;
-          const animal = await ApiController.animal(this.userId);
+          const animal = await ApiController.getAnimalById(this.userId);
           this.animal = animal;
 
           $("#select-especie").select2();

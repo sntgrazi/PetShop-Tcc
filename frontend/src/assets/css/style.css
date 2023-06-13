@@ -91,11 +91,12 @@ a {
   transition: all 0.5s ease;
 }
 
-.custom-sidebar ol, ul{
+.custom-sidebar ol,
+ul {
   padding-left: 0;
 }
 
-.custom-sidebar hr{
+.custom-sidebar hr {
   color: white;
   opacity: 1;
 }
@@ -226,7 +227,7 @@ a {
   transition: all 0.5s ease;
 }
 
-.custom-sidebar.open{
+.custom-sidebar.open {
   width: 230px;
 }
 
@@ -279,12 +280,12 @@ a {
   gap: 20px;
 }
 
-.titulo-modal > h3 {
+.titulo-modal>h3 {
   text-align: center;
   margin: 0;
 }
 
-.formModal{
+.formModal {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -395,7 +396,7 @@ a {
   width: 100%;
 }
 
-.selectCampoInfo > label {
+.selectCampoInfo>label {
   margin-bottom: 10px;
   color: #fff;
 }
@@ -468,10 +469,12 @@ a {
   .custom-container {
     margin-top: 60px;
   }
+
   .custom-content {
-    
+
     flex-direction: column;
   }
+
   main.table {
     width: 85vw;
   }
@@ -481,10 +484,11 @@ a {
   body {
     margin: calc(var(--header-height) + 1rem) 0 0 0;
     padding-left: calc(var(--nav-width) + 2rem);
-    box-sizing: content-box; /* Adicione esta linha */
+    box-sizing: content-box;
+    /* Adicione esta linha */
   }
 
-  .custom-header{
+  .custom-header {
     padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
   }
 
@@ -495,22 +499,23 @@ a {
   }
 
   /*Add padding body desktop*/
-  .body-pd { padding-left: calc(var(--nav-width) + 180px);
+  .body-pd {
+    padding-left: calc(var(--nav-width) + 180px);
   }
 }
 
 @media screen and (max-width: 750px) {
 
-  .custom-header{
+  .custom-header {
     background-color: white;
     width: 100%;
   }
 
-  .custom-sidebar.open{
+  .custom-sidebar.open {
     width: 78px;
   }
 
-  .custom-row{
+  .custom-row {
     margin-top: 30px;
   }
 
@@ -535,7 +540,7 @@ a {
     transition: all 0.5s ease;
   }
 
-  .form-inputs{
+  .form-inputs {
     width: 100%;
   }
 
@@ -554,7 +559,7 @@ a {
     padding: 10px;
   }
 
-  #selectTutores.selectTutores + .select2-container .select2-selection {
+  #selectTutores.selectTutores+.select2-container .select2-selection {
     width: 100%;
   }
 
@@ -563,8 +568,9 @@ a {
     flex-direction: column;
     gap: 10px;
     text-align: center;
-    
-}
+
+  }
+
 
 
 }
