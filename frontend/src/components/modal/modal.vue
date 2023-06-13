@@ -298,13 +298,9 @@ export default {
       } else if (this.tipo == 'agenda') {
         try {
           this.agenda = await ApiController.getOrdensById(this.userId);
+
+          $("#select-cliente").val(this.agenda.cliente_id).trigger("change");
           
-          console.log($("#select-cliente")); // Verifica se o elemento de seleção existe
-
-          $("#select-cliente").val(this.agenda.cliente_id).trigger('change');
-
-          console.log(this.agenda.cliente_id)
-
           await this.getPetVinculado(this.agenda.cliente_id);
 
           $("#select-pet").val(this.agenda.animal_id).trigger("change");
@@ -402,6 +398,7 @@ export default {
 
         this.pets = await ApiController.getpetVinculado(id);
 
+        $("#select-pet").empty();
         $("#select-pet").append($("<option>", { value: "", text: "Selecione um Pet" }));
 
         this.pets.forEach((pet) => {
@@ -419,6 +416,7 @@ export default {
     },
   },
   mounted() {
+
 
     if (this.userId != false) {
       this.titulo =
@@ -557,7 +555,6 @@ export default {
         this.animal.especie = $("#select-especie option:selected").val();
       });
 
-      this.loading = false
       this.watchEnabled = false;
     }
   },
