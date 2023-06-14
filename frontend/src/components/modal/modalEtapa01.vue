@@ -56,7 +56,7 @@
                     </div>
                     <div class="col-4 col-sm-4">
                         <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                        " :label="'Nascimento'" :idInput="'inputDataNascimento'" />
+                        " :label="'Nascimento'" :idInput="'inputDataNascimento'" :tipo="'date'"/>
                     </div>
                     <div class="col-2 col-sm-2">
                         <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"

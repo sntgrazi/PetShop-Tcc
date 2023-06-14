@@ -1,6 +1,6 @@
 <template>
   <section>
-    
+
     <div class="custom-container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="custom-content">
@@ -9,8 +9,8 @@
           <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true"
             @atualizarTabela="getClientes" :toggle="toggleform" :userId="userId" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente"
-            :tipo="'cliente'" @infoCliente="offcanvasCliente"/>
-            <infoCliente :cliente="informacoesCliente"/>
+            :tipo="'cliente'" @infoCliente="offcanvasCliente" />
+          <infoCliente :cliente="cliente" />
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@ export default {
     tabela,
     topo,
     modal,
-    loading, 
+    loading,
     infoCliente
   },
   data() {
@@ -41,7 +41,7 @@ export default {
       topoTabela: ["ID", "NOME", "CPF", "TELEFONE", "AÇÕES"],
       dadosTabela: [],
       loading: true,
-      informacoesCliente: []
+      cliente: []
     };
   },
   mounted() {
@@ -96,10 +96,18 @@ export default {
         console.error("Erro ao deletar o cliente: ", error);
       }
     },
-    async offcanvasCliente(id){
+    async offcanvasCliente(id) {
       try {
         this.loading = true;
-        this.informacoesCliente = await ApiController.getClienteById(id)
+        const informacoesCliente = await ApiController.getClienteById(id)
+        this.cliente = informacoesCliente
+        this.endereco = informacoesCliente.endereco.split(",");
+        this.cliente.cep = this.endereco[0];
+        this.cliente.bairro = this.endereco[1];
+        this.cliente.rua = this.endereco[2];
+        this.cliente.cidade = this.endereco[3];
+        this.cliente.uf = this.endereco[4];
+        this.cliente.n_casa = this.endereco[5];
         $('#offcanvasRight').offcanvas('show');
         this.loading = false;
       } catch (error) {
