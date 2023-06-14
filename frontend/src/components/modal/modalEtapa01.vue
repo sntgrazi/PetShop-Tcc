@@ -137,8 +137,8 @@
 </template>
 
 <script>
-import loading from "../loading.vue";
-import BaseInput from "../BaseInput.vue";
+import loading from "../Outros/loading.vue";
+import BaseInput from "../BaseInput/BaseInput.vue";
 import "select2/dist/css/select2.css";
 import "select2";
 import ApiController from "@/ApiController";

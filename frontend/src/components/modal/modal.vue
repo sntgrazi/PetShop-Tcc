@@ -85,7 +85,7 @@ import Swal from "sweetalert2";
 import $ from "jquery";
 import "select2/dist/css/select2.css";
 import "select2";
-import loading from '../loading.vue';
+import loading from '../Outros/loading.vue';
 
 export default {
   name: "Modal",

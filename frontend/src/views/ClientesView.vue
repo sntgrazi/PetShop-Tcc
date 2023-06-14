@@ -1,5 +1,6 @@
 <template>
   <section>
+    
     <div class="custom-container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="custom-content">
@@ -9,22 +10,22 @@
             @atualizarTabela="getClientes" :toggle="toggleform" :userId="userId" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente"
             :tipo="'cliente'" @infoCliente="offcanvasCliente"/>
+            <infoCliente :cliente="informacoesCliente"/>
         </div>
-        <infoCliente :cliente="informacoesCliente"/>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import tabela from "@/components/tabela.vue";
-import topo from "@/components/topo.vue";
+import tabela from "@/components/Outros/tabela.vue";
+import topo from "@/components/Outros/topo.vue";
 import ApiController from "@/ApiController";
 import modal from "@/components/modal/modal.vue";
 import { ref } from "vue";
 import Swal from "sweetalert2";
-import loading from '../components/loading.vue';
-import infoCliente from "@/components/infoCliente.vue";
+import loading from '../components/Outros/loading.vue';
+import infoCliente from "@/components/offCanvas/infoCliente.vue";
 
 export default {
   name: "ClientesView",

@@ -1,5 +1,6 @@
 <template>
   <main class="table">
+   
     <section class="table_body">
       <table>
         <thead>
@@ -10,27 +11,27 @@
         <tbody>
           <tr v-for="(dado, index) in dados" :key="index">
 
-            <td  v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
+            <td v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
             <!-- Dados da tabela Cliente -->
 
-            <td  @click="abrirInfoCliente(dado.id)" class="linhaName" v-if="this.tipo == 'cliente'">
+            <td @click="abrirInfoCliente(dado.id)" class="linhaName" v-if="this.tipo == 'cliente'">
               {{ dado.nome }}</td>
             <td v-if="this.tipo == 'cliente'">{{ dado.cpf }}</td>
             <td v-if="this.tipo == 'cliente'">{{ dado.telefone }}</td>
 
-             <!-- Dados da tabela Animal -->
-            <td v-if="this.tipo == 'pet'">{{ dado.nome_pet }}</td>
+            <!-- Dados da tabela Animal -->
+            <td @click="abrirInfoAnimal(dado.id)" class="linhaName" v-if="this.tipo == 'pet'">{{ dado.nome_pet }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.sexo }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.raca }}</td>
 
             <td>
-              <button class="btn-acoes" id="btn-editar" @click="() => toggle('info',dado.id)">
+              <button class="btn-acoes" id="btn-editar" @click="() => toggle('info', dado.id)">
                 <i class="fa-solid fa-pencil"></i>
               </button>
               <button class="btn-acoes" id="btn-deletar" @click="excluir(dado.id)">
                 <i class="fa-solid fa-trash"></i>
               </button>
-              <button class="btn-acoes" id="btn-tutores" v-if="this.tipo == 'pet'" @click="toggle('tutores',dado.id)">
+              <button class="btn-acoes" id="btn-tutores" v-if="this.tipo == 'pet'" @click="toggle('tutores', dado.id)">
                 <i class="fa-solid fa-user"></i>
               </button>
             </td>
@@ -46,21 +47,42 @@ export default {
   name: "tabela",
   props: ["topoTabela", "dados", "toggle", "tipo"],
   methods: {
-    excluir(id){
+    excluir(id) {
       this.$emit("deletar", id)
     },
-    modalTutores(id){
+    modalTutores(id) {
       this.$emit('tutor', id)
     },
-    abrirInfoCliente(id){
+    abrirInfoCliente(id) {
       this.$emit('infoCliente', id)
+    },
+    abrirInfoAnimal(id) {
+      this.$emit('infoAnimal', id)
     }
-  }
-  
+  },
 };
 </script>
 
 <style>
+
+.teste{
+  width: 280px;
+  background-color: #fff;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputSearch > input{
+  outline: none;
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 15px;
+  color: black;
+}
+
 main.table {
   width: 100%;
   height: 100vh;
@@ -144,7 +166,7 @@ main.table {
 
 table {
   width: 100%;
-  
+
 }
 
 table,
@@ -153,11 +175,16 @@ td {
   border-collapse: collapse;
   padding: 1em;
   text-align: center;
+
+}
+
+.linhaName {
+  text-decoration: underline;
   cursor: pointer;
 }
 
-.linhaName{
-  text-decoration: underline;
+.linhaName:hover {
+  color: blue;
 }
 
 
@@ -165,12 +192,12 @@ thead th {
   position: sticky;
   top: 0;
   left: 0;
-  background-color:#1E90FF;
+  background-color: #1E90FF;
   cursor: pointer;
   text-align: center;
   text-transform: capitalize;
   color: white;
-  
+
 }
 
 tbody tr:nth-child(even) {
@@ -180,7 +207,7 @@ tbody tr:nth-child(even) {
 tbody tr {
   --delay: 0.1s;
   transition: 0.5s ease-in-out var(--delay), background-color 0s;
-  
+
 }
 
 tbody tr.hide {
@@ -222,7 +249,12 @@ tbody td.active {
   color: #02396f;
 }
 
-tbody, td, tfoot, th, thead, tr{
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
   border-style: none;
 }
 
@@ -271,5 +303,4 @@ tbody, td, tfoot, th, thead, tr{
 .btn-pet:active {
   transform: scale(0.9);
   box-shadow: 2px 2px var(--black);
-}
-</style>
+}</style>

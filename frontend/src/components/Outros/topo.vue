@@ -1,5 +1,7 @@
 <template>
+  
   <div class="custom-row">
+  
     <button @click="btnModal" id="open-modal">
       <i :class="['fa regular', icon]"></i>
       {{ botaoAdd }}
@@ -49,7 +51,9 @@ export default {
         this.toggle('info', false);
       }
     }
-  }
+  },
+  
+
 };
 </script>
 
@@ -81,6 +85,8 @@ export default {
   transform: scale(0.95);
   box-shadow: 2px 2px var(--black);
 }
+
+
 
 
 @media screen and (max-width: 370px) {

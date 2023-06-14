@@ -143,7 +143,7 @@ import "select2/dist/css/select2.css";
 import "select2";
 import { DatePicker } from "v-calendar";
 import "v-calendar/style.css";
-import BaseInput from '../BaseInput.vue';
+import BaseInput from '../BaseInput/BaseInput.vue';
 import { ref } from "vue";
 
 

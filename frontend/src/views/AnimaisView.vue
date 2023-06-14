@@ -9,7 +9,8 @@
             :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
             :infoTutores="mostrarInfoTutores" />
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarAnimais"
-            :tipo="'pet'" />
+            :tipo="'pet'" @infoAnimal="offcanvasAnimal"/>
+          <InfoAnimal :pet="informacoesAnimal"/>
         </div>
       </div>
     </div>
@@ -18,14 +19,14 @@
 
 <script>
 
-import tabela from "@/components/tabela.vue";
-import topo from "@/components/topo.vue";
+import tabela from "@/components/Outros/tabela.vue";
+import topo from "@/components/Outros/topo.vue";
 import modal from "@/components/modal/modal.vue";
+import InfoAnimal from "@/components/offCanvas/InfoAnimal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
 import Swal from "sweetalert2";
-import infoModal from "../components/modal/modalEtapa03.vue";
-import loading from '../components/loading.vue';
+import loading from '../components/Outros/loading.vue';
 
 export default {
   name: "AnimaisView",
@@ -33,14 +34,15 @@ export default {
     tabela,
     topo,
     modal,
-    infoModal,
+    InfoAnimal,
     loading
   },
   data() {
     return {
       topoTabela: ["ID", "PET", "SEXO", "RAÇA", "AÇÕES"],
       dadosTabela: [],
-      loading: true
+      loading: true,
+      informacoesAnimal: []
     };
   },
   setup() {
@@ -114,6 +116,17 @@ export default {
       } catch (error) {
         console.error("Erro ao deletar o Animal: ", error);
       }
+    },
+    async offcanvasAnimal(id){
+      try {
+        this.loading = true;
+        this.informacoesAnimal = await ApiController.getAnimalById(id)
+        $('#offcanvasRight').offcanvas('show');
+        this.loading = false;
+      } catch (error) {
+        console.log("Erro ao procurar as informações do Pet: ", error);
+      }
+
     }
   },
   mounted() {

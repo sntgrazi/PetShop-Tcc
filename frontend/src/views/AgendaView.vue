@@ -1,5 +1,6 @@
 <template>
   <section>
+    
     <div class="custom-container">
       <topo :type="'Agenda'" :icon="'fa-calendar'" :toggle="toggleform" />
       <div class="custom-content">
@@ -17,16 +18,16 @@
 </template>
 
 <script>
-import topo from "@/components/topo.vue";
+import topo from "@/components/Outros/topo.vue";
 import modal from "@/components/modal/modal.vue";
-import InfoAgenda from "@/components/InfoAgenda.vue";
+import InfoAgenda from "@/components/offCanvas/InfoAgenda.vue";
 import Swal from "sweetalert2";
 import ApiController from "@/ApiController";
 import { ref } from "vue";
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import listPlugin from '@fullcalendar/list';
-import loading from '../components/loading.vue';
+import loading from '../components/Outros/loading.vue';
 
 
 export default {
@@ -241,6 +242,8 @@ export default {
   mounted() {
     this.loading = true;
     this.getAllOrdens()
+
+    
   }
 }
 
