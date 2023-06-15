@@ -34,7 +34,7 @@
         </div>
 
         <div class="inputsAnimais" v-if="inputsAnimais">
-
+            <div class="container-fluid">
             <div class="col-sm-12">
                 <div v-if="!userId">
                     <label for="tutor">Tutor</label>
@@ -49,16 +49,16 @@
 
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-md-12 col-sm-6">
+                    <div class="col-12 col-sm-6">
                         <BaseInput :modelValue="animal.nome_pet"
                             @update:modelValue="(newValue) => (animal.nome_pet = newValue)" :label="'Pet'"
                             :idInput="'inputPet'" />
                     </div>
-                    <div class="col-md-6 col-sm-4">
+                    <div class="col-6 col-sm-4">
                         <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
-                        " :label="'Nascimento'" :idInput="'inputDataNascimento'" :tipo="'date'"/>
+                            " :label="'Nascimento'" :idInput="'inputDataNascimento'" :tipo="'date'" />
                     </div>
-                    <div class="col-md-6 col-sm-2">
+                    <div class="col-6 col-sm-2">
                         <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
                             :label="'Sexo'" :idInput="'inputSexo'" />
                     </div>
@@ -79,62 +79,63 @@
                 </div>
             </div>
         </div>
-
-        <div class="inputAgendamento" v-if="inputsAgendamento">
-            <div class="form-inputs">
-                <div class="col-sm-12">
-                    <div class="selectCampo">
-                        <label for="cliente">Cliente</label>
-                        <select v-model="agenda.cliente_id" id="select-cliente" class="selectCliente">
-                            <option v-for="cliente in clientesTabela" :value="cliente.id" selected>
-                                {{ cliente.nome }}
-                            </option>
-                        </select>
-                    </div>
+    </div>
+    <div class="inputAgendamento" v-if="inputsAgendamento">
+        <div class="container-fluid">
+         <div class="form-inputs">
+            <div class="col-md-12 col-sm-12">
+                <div class="selectCampo">
+                    <label for="cliente">Cliente</label>
+                    <select v-model="agenda.cliente_id" id="select-cliente" class="selectCliente">
+                        <option v-for="cliente in clientesTabela" :value="cliente.id" selected>
+                            {{ cliente.nome }}
+                        </option>
+                    </select>
                 </div>
-                <div class="col-sm-12">
-                    <div class="selectCampo">
-                        <label for="pet">Pet</label>
-                        <select v-model="agenda.pet" id="select-pet" class="selectPet">
-                        </select>
-                    </div>
-                </div>
-
-
-                <div class="col-sm-12">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-7">
-                            <div class="selectCampo">
-                                <label for="tutor">Funcionário Responsável</label>
-                                <select v-model="agenda.funcionario" id="select-funcionario">
-                                    <option v-for="funcionario in funcionarios" :value="funcionario.id">{{ funcionario.nome
-                                    }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-5">
-                            <div class="selectCampo">
-                                <label for="servico">Serviço</label>
-                                <select v-model="agenda.servico" id="select-servico">
-                                    <option v-for="servico in servicos" :value="servico.id">{{ servico.nome_servico }}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </div>
+            <div class=" col-md-12 col-sm-12">
+                <div class="selectCampo">
+                    <label for="pet">Pet</label>
+                    <select v-model="agenda.pet" id="select-pet" class="selectPet">
+                    </select>
+                </div>
+            </div>
 
-        <div class="modal-footer" v-if="inputsAnimais || inputsCadastro || inputsAgendamento">
-            <button type="button" class="proxima-etapa" @click="proximo">
-                Próximo
-            </button>
+
+            <div class="col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-12 col-sm-7">
+                        <div class="selectCampo">
+                            <label for="tutor">Funcionário Responsável</label>
+                            <select v-model="agenda.funcionario" id="select-funcionario">
+                                <option v-for="funcionario in funcionarios" :value="funcionario.id">{{ funcionario.nome
+                                }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-5">
+                        <div class="selectCampo">
+                            <label for="servico">Serviço</label>
+                            <select v-model="agenda.servico" id="select-servico">
+                                <option v-for="servico in servicos" :value="servico.id">{{ servico.nome_servico }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-</template>
+    </div>
+
+    <div class="modal-footer" v-if="inputsAnimais || inputsCadastro || inputsAgendamento">
+        <button type="button" class="proxima-etapa" @click="proximo">
+            Próximo
+        </button>
+    </div>
+</div></template>
 
 <script>
 import loading from "../Outros/loading.vue";
@@ -191,9 +192,9 @@ export default {
         },
         async buscarClienteTabela() {
             try {
-    
+
                 this.clientesTabela = await ApiController.buscarClienteTabela();
-  
+
             } catch (error) {
                 console.log("Erro ao listar os clientes: ", error)
             }

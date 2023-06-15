@@ -2,123 +2,124 @@
     <div class="form-inputs" v-show="etapaAtual === 2">
 
         <div class="inputCadastroCliente" v-if="inputsCadastro">
+            <div class="container-fluid">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-7 col-sm-7">
+                            <div class="colunaForm">
+                                <BaseInput :modelValue="cliente.cep"
+                                    @update:modelValue="(newValue) => (cliente.cep = newValue)" :label="'Cep'"
+                                    :idInput="'inputCep'" />
 
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-7 col-sm-7">
-                        <div class="colunaForm">
-                            <BaseInput :modelValue="cliente.cep" @update:modelValue="(newValue) => (cliente.cep = newValue)"
-                                :label="'Cep'" :idInput="'inputCep'" />
-
-                            <button type="button" class="btn-pesquisar" @click="procurarEndereço">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                                <button type="button" class="btn-pesquisar" @click="procurarEndereço">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-5 col-sm-5">
+                            <BaseInput :modelValue="cliente.bairro"
+                                @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'Bairro'"
+                                :idInput="'inputBairro'" />
                         </div>
                     </div>
-                    <div class="col-5 col-sm-5">
-                        <BaseInput :modelValue="cliente.bairro"
-                            @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'Bairro'"
-                            :idInput="'inputBairro'" />
-                    </div>
                 </div>
-            </div>
 
-            <div class="col-sm-12">
-                <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => (cliente.rua = newValue)"
-                    :label="'Rua'" :idInput="'inputRua'" />
-            </div>
+                <div class="col-sm-12">
+                    <BaseInput :modelValue="cliente.rua" @update:modelValue="(newValue) => (cliente.rua = newValue)"
+                        :label="'Rua'" :idInput="'inputRua'" />
+                </div>
 
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-7 col-sm-7">
-                        <BaseInput :modelValue="cliente.cidade"
-                            @update:modelValue="(newValue) => (cliente.cidade = newValue)" :label="'Cidade'"
-                            :idInput="'inputCidade'" />
-                    </div>
-                    <div class="col-3 col-sm-3">
-                        <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)"
-                            :label="'Uf'" :idInput="'inputUf'" />
-                    </div>
-                    <div class="col-2 col-sm-2">
-                        <BaseInput :modelValue="cliente.n_casa"
-                            @update:modelValue="(newValue) => (cliente.n_casa = newValue)" :label="'N°'"
-                            :idInput="'inputN_Casa'" />
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-7 col-sm-7">
+                            <BaseInput :modelValue="cliente.cidade"
+                                @update:modelValue="(newValue) => (cliente.cidade = newValue)" :label="'Cidade'"
+                                :idInput="'inputCidade'" />
+                        </div>
+                        <div class="col-3 col-sm-3">
+                            <BaseInput :modelValue="cliente.uf" @update:modelValue="(newValue) => (cliente.uf = newValue)"
+                                :label="'Uf'" :idInput="'inputUf'" />
+                        </div>
+                        <div class="col-2 col-sm-2">
+                            <BaseInput :modelValue="cliente.n_casa"
+                                @update:modelValue="(newValue) => (cliente.n_casa = newValue)" :label="'N°'"
+                                :idInput="'inputN_Casa'" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="inputsAnimais" v-if="inputsAnimais">
-
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-md-12 col-sm-6">
-                        <div class="selectCampo">
-                            <label for="especie">Espécie</label>
-                            <select v-model="animal.especie" id="select-especie" class="selectEspecie">
-                                <option v-for="especie in especies" :value="especie.nome" selected>
-                                    {{ especie.nome }}
-                                </option>
-                            </select>
+            <div class="container-fluid">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-6">
+                            <div class="selectCampo">
+                                <label for="especie">Espécie</label>
+                                <select v-model="animal.especie" id="select-especie" class="selectEspecie">
+                                    <option v-for="especie in especies" :value="especie.nome" selected>
+                                        {{ especie.nome }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-12 col-sm-6">
-                        <div class="selectCampo">
-                            <label for="raca">Raça</label>
-                            <select v-model="animal.raca" id="select-raca" class="selectRaca">
-                                <option v-for="breed in breeds" :value="breed.noma_raca">
-                                    {{ breed.noma_raca }}
-                                </option>
-                            </select>
+                        <div class="col-md-12 col-sm-6">
+                            <div class="selectCampo">
+                                <label for="raca">Raça</label>
+                                <select v-model="animal.raca" id="select-raca" class="selectRaca">
+                                    <option v-for="breed in breeds" :value="breed.noma_raca">
+                                        {{ breed.noma_raca }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-md-12  col-sm-6">
-                        <BaseInput :modelValue="animal.pelagem"
-                            @update:modelValue="(newValue) => (animal.pelagem = newValue)" :label="'Pelagem'"
-                            :idInput="'inputPelagem'" />
-                    </div>
-                    <div class="col-md-12  col-sm-6">
-                        <BaseInput :modelValue="animal.porte" @update:modelValue="(newValue) => (animal.porte = newValue)"
-                            :label="'Porte'" :idInput="'inputPorte'" />
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-md-12  col-sm-6">
+                            <BaseInput :modelValue="animal.pelagem"
+                                @update:modelValue="(newValue) => (animal.pelagem = newValue)" :label="'Pelagem'"
+                                :idInput="'inputPelagem'" />
+                        </div>
+                        <div class="col-md-12  col-sm-6">
+                            <BaseInput :modelValue="animal.porte"
+                                @update:modelValue="(newValue) => (animal.porte = newValue)" :label="'Porte'"
+                                :idInput="'inputPorte'" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="inputsAgendamento" v-if="inputsAgendamento">
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-md-12 col-sm-6">
-                        <BaseInput v-model="agenda.data_inicio" :label="'Data Início'" :tipo="'date'" />
+            <div class="container-fluid">
+                <div class="col-md-12  col-sm-12">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <BaseInput v-model="agenda.data_inicio" :label="'Data Início'" :tipo="'date'" />
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <BaseInput v-model="agenda.data_termino" :label="'Data Término'" :idInput="'inputDataTermino'"
+                                :tipo="'date'" />
+                        </div>
                     </div>
-                    <div class="col-md-12 col-sm-6">
-                        <BaseInput v-model="agenda.data_termino" :label="'Data Término'" :idInput="'inputDataTermino'"
-                            :tipo="'date'" />
+                </div>
+
+                <div class="col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-6 col-sm-6">
+                            <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
+                                @input="updateDuration" />
+                        </div>
+                        <div class="col-6 col-sm-6">
+                            <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
+                                @input="updateDuration" />
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-12">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
-                            @input="updateDuration" />
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
-                            @input="updateDuration" />
-                    </div>
-                </div>
-            </div>
-
-
         </div>
-
         <div class="modal-footer" v-if="inputsAnimais || inputsCadastro || inputsAgendamento">
             <button type="button" class="proxima-etapa" @click="voltar">
                 <i class="fa-solid fa-arrow-left"></i> Voltar
