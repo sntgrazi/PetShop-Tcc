@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: containers-us-west-64.railway.app    Database: railway
 -- ------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE `funcionarios` (
   PRIMARY KEY (`id`),
   KEY `cargo_id` (`cargo_id`),
   CONSTRAINT `funcionarios_ibfk_1` FOREIGN KEY (`cargo_id`) REFERENCES `cargos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `funcionarios` (
 
 LOCK TABLES `funcionarios` WRITE;
 /*!40000 ALTER TABLE `funcionarios` DISABLE KEYS */;
-INSERT INTO `funcionarios` VALUES (1,'Marcos','(75) 99233-0055','000.000.000-00','44001325,Centro,Avenida Getúlio Vargas,Feira de Santana,BA,20',3);
+INSERT INTO `funcionarios` VALUES (1,'Marcos','(75) 99233-0055','000.000.000-00','44001325,Centro,Avenida Getúlio Vargas,Feira de Santana,BA,20',3),(2,'João Silva','123456789','11111111111','Rua A, 123',1),(3,'Maria Santos','987654321','22222222222','Avenida B, 456',2),(4,'Pedro Oliveira','555555555','33333333333','Rua C, 789',3),(5,'Ana Souza','111111111','44444444444','Avenida D, 987',4),(6,'Carlos Almeida','222222222','55555555555','Rua E, 654',5);
 /*!40000 ALTER TABLE `funcionarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 20:47:36
+-- Dump completed on 2023-06-15 16:40:44

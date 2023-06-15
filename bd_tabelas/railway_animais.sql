@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: containers-us-west-64.railway.app    Database: railway
 -- ------------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE `animais` (
   `pelagem` varchar(25) DEFAULT NULL,
   `porte` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `animais` (
 
 LOCK TABLES `animais` WRITE;
 /*!40000 ALTER TABLE `animais` DISABLE KEYS */;
-INSERT INTO `animais` VALUES (8,'abababa','a','a','a','a','dog','Akbash Dog','a','a'),(9,'a','a','a','aa','a','dog','Boerboel','a','a');
+INSERT INTO `animais` VALUES (1,'Max','2018-05-15','M','30 cm','5 kg','Cachorro','Doberman','Sem pelos','Médio'),(3,'Simba','2020-01-03','M','35 cm','6 kg','Gato','Bulldog','Curta','Pequeno'),(4,'Bella','2017-11-20','F','28 cm','3.5 kg','Cachorro','Golden Retriever','Média','Pequeno'),(5,'Thor','2020-06-01','M','40 cm','8 kg','Cachorro','Doberman','Curta','Médio'),(6,'Nina','2019-09-08','F','32 cm','5.5 kg','Gato','Siamese','Longa','Pequeno'),(7,'Toby','2018-03-12','M','33 cm','7 kg','Cachorro','Poodle','Média','Médio');
 /*!40000 ALTER TABLE `animais` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 20:48:05
+-- Dump completed on 2023-06-15 16:40:14

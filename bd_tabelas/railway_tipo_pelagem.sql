@@ -16,28 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `servicos`
+-- Table structure for table `tipo_pelagem`
 --
 
-DROP TABLE IF EXISTS `servicos`;
+DROP TABLE IF EXISTS `tipo_pelagem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `servicos` (
+CREATE TABLE `tipo_pelagem` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome_servico` varchar(200) DEFAULT NULL,
-  `valor` double DEFAULT NULL,
+  `tipo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `servicos`
+-- Dumping data for table `tipo_pelagem`
 --
 
-LOCK TABLES `servicos` WRITE;
-/*!40000 ALTER TABLE `servicos` DISABLE KEYS */;
-INSERT INTO `servicos` VALUES (1,'Banho e tosa',70);
-/*!40000 ALTER TABLE `servicos` ENABLE KEYS */;
+LOCK TABLES `tipo_pelagem` WRITE;
+/*!40000 ALTER TABLE `tipo_pelagem` DISABLE KEYS */;
+INSERT INTO `tipo_pelagem` VALUES (1,'Curta'),(2,'Média'),(3,'Longa'),(4,'Sem pelos'),(5,'Pelo duplo'),(6,'Pelo encaracolado'),(7,'Pelo liso'),(8,'Pelo ondulado'),(9,'Pelo sedoso'),(10,'Pelo lanoso');
+/*!40000 ALTER TABLE `tipo_pelagem` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-15 16:40:39
+-- Dump completed on 2023-06-15 16:40:05

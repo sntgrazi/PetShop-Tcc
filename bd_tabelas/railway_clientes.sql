@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: containers-us-west-64.railway.app    Database: railway
 -- ------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (3,'x','x','x','xx','44091388,Tomba,Rua André Vidal de Negreiros,Feira de Santana,BA,x');
+INSERT INTO `clientes` VALUES (1,'João da Silva','1234567890','123.456.789-00','joao@example.com','44002772,Centro,Praça Carlos Bahia,Feira de Santana,BA,70'),(2,'Maria Santos','9876543210','987.654.321-00','maria@example.com','44008100,Calumbi,Caminho 7,Feira de Santana,BA,0'),(3,'Pedro Souza','5555555555','555.555.555-00','pedro@example.com','44003462,Olhos D\'Água,Rua Líria,Feira de Santana,BA,11'),(4,'Ana Oliveira','1111111111','111.111.111-00','ana@example.com','Avenida D, 987'),(5,'Carlos Pereira','2222222222','222.222.222-00','carlos@example.com','Rua E, 654'),(6,'Mariana Rodrigues','3333333333','333.333.333-00','mariana@example.com','Avenida F, 321');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 20:48:00
+-- Dump completed on 2023-06-15 16:40:19

@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: containers-us-west-64.railway.app    Database: railway
 -- ------------------------------------------------------
@@ -38,7 +38,7 @@ CREATE TABLE `cliente_animal` (
 
 LOCK TABLES `cliente_animal` WRITE;
 /*!40000 ALTER TABLE `cliente_animal` DISABLE KEYS */;
-INSERT INTO `cliente_animal` VALUES (3,8),(3,9);
+INSERT INTO `cliente_animal` VALUES (3,3),(3,5),(3,6),(4,7);
 /*!40000 ALTER TABLE `cliente_animal` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 20:48:11
+-- Dump completed on 2023-06-15 16:40:33

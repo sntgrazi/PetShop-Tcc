@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 8.0.31, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: containers-us-west-64.railway.app    Database: railway
 -- ------------------------------------------------------
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `ordem_de_servico`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ordem_de_servico` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `data_ordem` date DEFAULT NULL,
+  `data_Inicio` date DEFAULT NULL,
   `cliente_id` int DEFAULT NULL,
   `animal_id` int DEFAULT NULL,
   `funcionario_id` int DEFAULT NULL,
@@ -32,17 +32,18 @@ CREATE TABLE `ordem_de_servico` (
   `hora_inicio` time DEFAULT NULL,
   `hora_termino` time DEFAULT NULL,
   `duracao` varchar(100) DEFAULT NULL,
-  `status` varchar(30) NOT NULL DEFAULT 'aguardando',
+  `status` varchar(30) NOT NULL DEFAULT 'Aguardando atendimento',
+  `data_Termino` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `cliente_id` (`cliente_id`),
-  KEY `animal_id` (`animal_id`),
-  KEY `funcionario_id` (`funcionario_id`),
-  KEY `servico_id` (`servico_id`),
-  CONSTRAINT `ordem_de_servico_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
-  CONSTRAINT `ordem_de_servico_ibfk_2` FOREIGN KEY (`animal_id`) REFERENCES `animais` (`id`),
-  CONSTRAINT `ordem_de_servico_ibfk_3` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionarios` (`id`),
-  CONSTRAINT `ordem_de_servico_ibfk_4` FOREIGN KEY (`servico_id`) REFERENCES `servicos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `ordem_de_servico_ibfk_1` (`cliente_id`),
+  KEY `ordem_de_servico_ibfk_2` (`animal_id`),
+  KEY `ordem_de_servico_ibfk_3` (`funcionario_id`),
+  KEY `ordem_de_servico_ibfk_4` (`servico_id`),
+  CONSTRAINT `ordem_de_servico_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ordem_de_servico_ibfk_2` FOREIGN KEY (`animal_id`) REFERENCES `animais` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ordem_de_servico_ibfk_3` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ordem_de_servico_ibfk_4` FOREIGN KEY (`servico_id`) REFERENCES `servicos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +52,7 @@ CREATE TABLE `ordem_de_servico` (
 
 LOCK TABLES `ordem_de_servico` WRITE;
 /*!40000 ALTER TABLE `ordem_de_servico` DISABLE KEYS */;
-INSERT INTO `ordem_de_servico` VALUES (1,'2023-05-20',3,8,1,1,'20:16:00','20:20:00','4 minutos','aguardando');
+INSERT INTO `ordem_de_servico` VALUES (18,'2023-06-15',4,7,1,1,'12:30:00','13:15:00','45 minutos','Concluído','2023-06-15');
 /*!40000 ALTER TABLE `ordem_de_servico` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -64,4 +65,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-05-29 20:47:47
+-- Dump completed on 2023-06-15 16:39:56

@@ -16,28 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `servicos`
+-- Table structure for table `racas`
 --
 
-DROP TABLE IF EXISTS `servicos`;
+DROP TABLE IF EXISTS `racas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `servicos` (
+CREATE TABLE `racas` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome_servico` varchar(200) DEFAULT NULL,
-  `valor` double DEFAULT NULL,
+  `noma_raca` varchar(100) DEFAULT NULL,
+  `especie` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `servicos`
+-- Dumping data for table `racas`
 --
 
-LOCK TABLES `servicos` WRITE;
-/*!40000 ALTER TABLE `servicos` DISABLE KEYS */;
-INSERT INTO `servicos` VALUES (1,'Banho e tosa',70);
-/*!40000 ALTER TABLE `servicos` ENABLE KEYS */;
+LOCK TABLES `racas` WRITE;
+/*!40000 ALTER TABLE `racas` DISABLE KEYS */;
+INSERT INTO `racas` VALUES (1,'Labrador','Cachorro'),(2,'Poodle','Cachorro'),(3,'Bulldog','Cachorro'),(4,'Golden Retriever','Cachorro'),(5,'Doberman','Cachorro'),(6,'Rottweiler','Cachorro'),(7,'Siamese','Gato'),(8,'Persa','Gato'),(9,'Angorá','Gato'),(10,'Sphynx','Gato'),(11,'Bengal','Gato'),(12,'Maine Coon','Gato'),(13,'Sem raça definida','Cachorro'),(14,'Sem raça definida','Gato');
+/*!40000 ALTER TABLE `racas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-15 16:40:39
+-- Dump completed on 2023-06-15 16:40:24
