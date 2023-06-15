@@ -1,16 +1,16 @@
 <template>
   <section>
-
     <div class="custom-container">
       <topo :type="'Clientes'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="custom-content">
         <loading :loading="loading" />
         <div class="custom-main-content">
-          <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true"
-            @atualizarTabela="getClientes" :toggle="toggleform" :userId="userId" />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarCliente"
+          <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true" :toggle="toggleform"
+            @atualizarTabela="getClientes"  :userId="userId" />
+
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" 
             :tipo="'cliente'" @infoCliente="offcanvasCliente" />
-          <infoCliente :cliente="cliente" />
+          <infoCliente :cliente="cliente" :toggle="toggleform" @deletar="deletarCliente"/>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      topoTabela: ["ID", "NOME", "CPF", "TELEFONE", "AÇÕES"],
+      topoTabela: ["ID", "NOME", "CPF", "TELEFONE", "EMAIL"],
       dadosTabela: [],
       loading: true,
       cliente: []

@@ -105,4 +105,20 @@ final class AnimalController {
         $response->getBody()->write(json_encode($animal));
         return $response->withHeader('Content-Type', 'application/json');
     }
+
+    public function buscarPorte(Request $request, Response $response, array $args){
+        $animalDAO = new AnimalDAO();
+        $portes = $animalDAO->buscarPorte();
+
+        $response->getBody()->write(json_encode($portes));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function buscarPelagem(Request $request, Response $response, array $args){
+        $animalDAO = new AnimalDAO();
+        $pelagens = $animalDAO->buscarPelagem();
+
+        $response->getBody()->write(json_encode($pelagens));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
 }

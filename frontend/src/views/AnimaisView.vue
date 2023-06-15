@@ -8,9 +8,9 @@
           <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform"
             :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
             :infoTutores="mostrarInfoTutores" />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :toggle="toggleform" @deletar="deletarAnimais"
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" 
             :tipo="'pet'" @infoAnimal="offcanvasAnimal"/>
-          <InfoAnimal :pet="informacoesAnimal"/>
+          <InfoAnimal :pet="informacoesAnimal" @deletar="deletarAnimais" :toggle="toggleform" :tipo="'pet'"/>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      topoTabela: ["ID", "PET", "SEXO", "RAÇA", "AÇÕES"],
+      topoTabela: ["ID", "PET", "SEXO", "RAÇA", "PORTE"],
       dadosTabela: [],
       loading: true,
       informacoesAnimal: []
@@ -58,9 +58,11 @@ export default {
 
 
       if (tipo == 'tutores') {
+   
         mostrarInfoTutores.value = true;
         inputsAnimais.value = false;
         tituloModal.value = true;
+        $('#offcanvasRight').offcanvas('hide');
       } else if (tipo == 'info') {
         mostrarInfoTutores.value = false;
         inputsAnimais.value = true;
@@ -107,6 +109,7 @@ export default {
         });
 
         if (result.isConfirmed) {
+          $('#offcanvasRight').offcanvas('hide');
           await ApiController.deletarAnimal(animalId);
           await this.getAnimais();
           Swal.fire("", "Pet deletado com sucesso", "success");

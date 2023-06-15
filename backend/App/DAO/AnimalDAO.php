@@ -99,4 +99,21 @@ class AnimalDAO extends ConexaoDAO{
         return $animal;
     }
 
+    public function buscarPorte(): array{
+        $sql = 'SELECT * from tipo_porte';
+
+        $portes = $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $portes;
+    }
+
+    public function buscarPelagem(): array{
+        $sql = 'SELECT * from tipo_pelagem';
+
+        $pelagens = $this->pdo->query($sql)->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $pelagens;
+    }
+
+
 }

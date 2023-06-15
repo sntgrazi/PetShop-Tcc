@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { error } from 'jquery';
 
 
 const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
@@ -198,6 +199,7 @@ export default {
         return response.data;
     },
 
+
     // Funcionarios
 
     async getFuncionarios() {
@@ -273,6 +275,28 @@ export default {
                 throw error;
             })
         return response.data;
+    },
+
+    async buscarPortes(){
+        const url = `${ApiUrl}/buscarPortes`;
+        const response = await axios.get(url).catch(
+            error => {
+                console.error('Erro ao tentar buscar os portes: ', error);
+                throw error;
+            })
+
+        return response.data
+    },
+
+    async buscarPelagens(){
+        const url = `${ApiUrl}/buscarPelagens`;
+        const response = await axios.get(url).catch(
+            error => {
+                console.error('Erro ao tentar buscar as pelagens: ', error);
+                throw error;
+            })
+
+        return response.data
     }
 
 }

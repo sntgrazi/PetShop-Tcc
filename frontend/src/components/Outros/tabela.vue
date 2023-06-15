@@ -18,23 +18,13 @@
               {{ dado.nome }}</td>
             <td v-if="this.tipo == 'cliente'">{{ dado.cpf }}</td>
             <td v-if="this.tipo == 'cliente'">{{ dado.telefone }}</td>
+            <td v-if="this.tipo == 'cliente'">{{ dado.email }}</td>
 
             <!-- Dados da tabela Animal -->
             <td @click="abrirInfoAnimal(dado.id)" class="linhaName" v-if="this.tipo == 'pet'">{{ dado.nome_pet }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.sexo }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.raca }}</td>
-
-            <td>
-              <button class="btn-acoes" id="btn-editar" @click="() => toggle('info', dado.id)">
-                <i class="fa-solid fa-pencil"></i>
-              </button>
-              <button class="btn-acoes" id="btn-deletar" @click="excluir(dado.id)">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-              <button class="btn-acoes" id="btn-tutores" v-if="this.tipo == 'pet'" @click="toggle('tutores', dado.id)">
-                <i class="fa-solid fa-user"></i>
-              </button>
-            </td>
+            <td v-if="this.tipo == 'pet'">{{ dado.porte }}</td>
           </tr>
         </tbody>
       </table>
@@ -45,11 +35,8 @@
 <script>
 export default {
   name: "tabela",
-  props: ["topoTabela", "dados", "toggle", "tipo"],
+  props: ["topoTabela", "dados", "tipo"],
   methods: {
-    excluir(id) {
-      this.$emit("deletar", id)
-    },
     modalTutores(id) {
       this.$emit('tutor', id)
     },
@@ -256,36 +243,6 @@ th,
 thead,
 tr {
   border-style: none;
-}
-
-.btn-acoes {
-  border: none;
-  font-size: 20px;
-  margin: 0 5px;
-  width: 35px;
-  height: 35px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #fff;
-  box-shadow: 0 1px 1px 0 #000000;
-  transition: 0.1s all;
-}
-
-.btn-acoes:active {
-  transform: scale(0.9);
-  box-shadow: 2px 2px var(--black);
-}
-
-#btn-editar {
-  background-color: #1E90FF;
-}
-
-#btn-deletar {
-  background-color: red;
-}
-
-#btn-tutores {
-  background-color: rgb(70, 69, 69);
 }
 
 .btn-pet {

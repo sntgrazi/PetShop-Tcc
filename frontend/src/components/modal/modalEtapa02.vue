@@ -53,7 +53,7 @@
             <div class="container-fluid">
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-md-12 col-sm-6">
+                        <div class="col-md-6  col-sm-6">
                             <div class="selectCampo">
                                 <label for="especie">Espécie</label>
                                 <select v-model="animal.especie" id="select-especie" class="selectEspecie">
@@ -63,7 +63,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12 col-sm-6">
+                        <div class="col-md-6  col-sm-6">
                             <div class="selectCampo">
                                 <label for="raca">Raça</label>
                                 <select v-model="animal.raca" id="select-raca" class="selectRaca">
@@ -78,20 +78,31 @@
 
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-md-12  col-sm-6">
-                            <BaseInput :modelValue="animal.pelagem"
-                                @update:modelValue="(newValue) => (animal.pelagem = newValue)" :label="'Pelagem'"
-                                :idInput="'inputPelagem'" />
+                        <div class="col-md-6  col-sm-6">
+                            <div class="selectCampo">
+                                <label for="pelagem">Pelagem</label>
+                                <select v-model="animal.pelagem" id="select-pelagem" class="selectPelagem">
+                                    <option v-for="pelagem in pelagens" :value="pelagem.tipo">
+                                        {{ pelagem.tipo }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-12  col-sm-6">
-                            <BaseInput :modelValue="animal.porte"
-                                @update:modelValue="(newValue) => (animal.porte = newValue)" :label="'Porte'"
-                                :idInput="'inputPorte'" />
+                        <div class="col-md-6 col-sm-6">
+                            <div class="selectCampo">
+                                <label for="porte">Porte</label>
+                                <select v-model="animal.porte" id="select-porte" class="selectPorte">
+                                    <option v-for="porte in portes" :value="porte.tipo">
+                                        {{ porte.tipo }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="inputsAgendamento" v-if="inputsAgendamento">
             <div class="container-fluid">
                 <div class="col-md-12  col-sm-12">
@@ -137,13 +148,13 @@
 </template>
 
 <script>
+import $ from "jquery";
 import "select2/dist/css/select2.css";
 import "select2";
 import { DatePicker } from "v-calendar";
 import "v-calendar/style.css";
 import BaseInput from '../BaseInput/BaseInput.vue';
-import { ref } from "vue";
-
+import ApiController from "@/ApiController";
 
 export default {
     name: 'modalEtapa02',
@@ -157,6 +168,8 @@ export default {
                 { id: "dog", nome: "Cachorro" },
                 { id: "cat", nome: "Gato" },
             ],
+            portes: [],
+            pelagens: []
         }
     },
     props: [
@@ -216,8 +229,48 @@ export default {
             } else {
                 this.agenda.duracao = "";
             }
-        }
+        },
+        async buscarPortes() {
+            try {
+                const portes = await ApiController.buscarPortes();
+                this.portes = portes
+            } catch (error) {
+                console.log('Erro ao tentar buscas os portes: ', error)
+            }
+        },
+        async buscarPelagens() {
+            try {
+                const pelagens = await ApiController.buscarPelagens();
+                this.pelagens = pelagens
+            } catch (error) {
+                console.log('Erro ao tentar buscas as pelagens: ', error)
+            }
+        },
+        
     },
+    mounted() {
+        this.buscarPortes();
+        this.buscarPelagens();
+
+        if (this.userId != false) {
+            $("#select-porte").select2({
+                width: "100%",
+            });
+
+            $("#select-porte").on("change", (e) => {
+                this.animal.sexo = $("#select-sexo option:selected").val();
+            });
+
+            $("#select-pelagem").select2({
+                width: "100%",
+            });
+
+            $("#select-pelagem").on("change", (e) => {
+                this.animal.pelagem = $("#select-pelagem option:selected").val();
+            });
+        }
+    }
+
 }
 </script>
 

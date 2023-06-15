@@ -15,3 +15,5 @@ export function showNavbar(toggleId, navId, headerId, bodyId) {
       body.classList.toggle("body-pd");
     }
 }
+
+

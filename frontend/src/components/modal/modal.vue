@@ -270,6 +270,21 @@ export default {
           const animal = await ApiController.getAnimalById(this.userId);
           this.animal = animal;
 
+          $("#select-sexo").val(animal.sexo).trigger("change");
+          $("#select-sexo").on("change", (e) => {
+            this.animal.sexo = $("#select-sexo option:selected").val();
+          });
+
+          $("#select-porte").val(animal.porte).trigger("change");
+          $("#select-porte").on("change", (e) => {
+            this.animal.porte = $("#select-porte option:selected").val();
+          });
+
+          $("#select-pelagem").val(animal.pelagem).trigger("change");
+          $("#select-pelagem").on("change", (e) => {
+            this.animal.pelagem = $("#select-pelagem option:selected").val();
+          });
+
           $("#select-especie").select2();
           $("#select-especie").val(animal.especie).trigger("change");
 
@@ -277,6 +292,7 @@ export default {
           $("#select-raca").select2({
             placeholder: "Selecione uma Raça",
           });
+
 
           $("#select-raca").on("change", (e) => {
             this.animal.raca = $("#select-raca option:selected").val();
@@ -300,10 +316,12 @@ export default {
           this.agenda = await ApiController.getOrdensById(this.userId);
 
           $("#select-cliente").val(this.agenda.cliente_id).trigger("change");
-          
+
           await this.getPetVinculado(this.agenda.cliente_id);
 
           $("#select-pet").val(this.agenda.animal_id).trigger("change");
+
+
 
           $("#select-funcionario").val(this.agenda.funcionario_id).trigger("change");
 
@@ -414,10 +432,9 @@ export default {
         console.log("Erro ao listar os animais vinculados: ", error)
       }
     },
+
   },
   mounted() {
-
-
     if (this.userId != false) {
       this.titulo =
         this.tipo === "cliente"
@@ -483,6 +500,9 @@ export default {
         width: "100%"
       });
 
+      $("#select-sexo").select2({
+        width: "100%"
+      });
 
     } else if (this.userId == false) {
 
@@ -494,6 +514,24 @@ export default {
       $("#select-tutor").on("change", (e) => {
         // Obtém a raça selecionada
         this.animal.tutor_id = $("#select-tutor option:selected").val();
+      });
+
+      $("#select-porte").select2({
+        placeholder: "Selecione o porte",
+        width: "100%"
+      });
+
+      $("#select-porte").on("change", (e) => {
+        this.animal.porte = $("#select-porte option:selected").val();
+      });
+
+      $("#select-pelagem").select2({
+        placeholder: "Selecione a pelagem",
+        width: "100%"
+      });
+
+      $("#select-pelagem").on("change", (e) => {
+        this.animal.pelagem = $("#select-pelagem option:selected").val();
       });
 
       $("#select-servico").select2({
@@ -510,18 +548,15 @@ export default {
         width: "100%",
       });
 
-    
-
       $("#select-cliente").on("change", async (e) => {
 
         this.agenda.cliente_id = $("#select-cliente option:selected").val();
         this.loading = true
         await this.getPetVinculado(this.agenda.cliente_id)
-      
+
         this.loading = false
       });
-      
-    
+
       $("#select-pet").select2({
         placeholder: "Selecione um Pet",
         width: "100%",
