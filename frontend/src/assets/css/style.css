@@ -455,7 +455,6 @@ ul {
   height: 100%;
 }
 
-
 /* ===== MEDIA QUERIES=====*/
 
 @media (max-width: 1000px) {
@@ -558,6 +557,8 @@ ul {
     margin-left: 45%;
     padding: 10px;
   }
+
+ 
 
   #selectTutores.selectTutores+.select2-container .select2-selection {
     width: 100%;

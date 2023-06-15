@@ -103,7 +103,7 @@
 
                 <div class="col-sm-12">
                     <div class="row">
-                        <div class="col-7 col-sm-7">
+                        <div class="col-md-6 col-sm-7">
                             <div class="selectCampo">
                                 <label for="tutor">Funcionário Responsável</label>
                                 <select v-model="agenda.funcionario" id="select-funcionario">
@@ -113,7 +113,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-5 col-sm-5">
+                        <div class="col-md-6 col-sm-5">
                             <div class="selectCampo">
                                 <label for="servico">Serviço</label>
                                 <select v-model="agenda.servico" id="select-servico">

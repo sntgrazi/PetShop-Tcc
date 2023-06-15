@@ -502,7 +502,6 @@ export default {
       });
 
       $("#select-servico").on("change", (e) => {
-        // Obtém a raça selecionada
         this.agenda.servico = $("#select-servico option:selected").val();
       });
 
@@ -511,22 +510,24 @@ export default {
         width: "100%",
       });
 
+    
+
       $("#select-cliente").on("change", async (e) => {
-        // Obtém a raça selecionada
 
         this.agenda.cliente_id = $("#select-cliente option:selected").val();
-
+        this.loading = true
         await this.getPetVinculado(this.agenda.cliente_id)
-
+      
+        this.loading = false
       });
-
+      
+    
       $("#select-pet").select2({
         placeholder: "Selecione um Pet",
         width: "100%",
       });
 
       $("#select-pet").on("change", (e) => {
-        // Obtém a raça selecionada
         this.agenda.pet = $("#select-pet option:selected").val();
       });
 
@@ -536,7 +537,6 @@ export default {
       });
 
       $("#select-funcionario").on("change", (e) => {
-        // Obtém a raça selecionada
         this.agenda.funcionario = $("#select-funcionario option:selected").val();
       });
 
@@ -551,10 +551,8 @@ export default {
       this.selectPet();
 
       $("#select-especie").on("change", (e) => {
-        // Obtém a raça selecionada
         this.animal.especie = $("#select-especie option:selected").val();
       });
-
       this.loading = false;
       this.watchEnabled = false;
     }

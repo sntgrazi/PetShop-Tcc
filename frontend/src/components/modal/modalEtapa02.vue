@@ -1,6 +1,6 @@
 <template>
     <div class="form-inputs" v-show="etapaAtual === 2">
-        
+
         <div class="inputCadastroCliente" v-if="inputsCadastro">
 
             <div class="col-sm-12">
@@ -91,20 +91,17 @@
         </div>
 
         <div class="inputsAgendamento" v-if="inputsAgendamento">
-
-
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-6 col-sm-6">
-                        <BaseInput v-model="agenda.data_inicio" :label="'Data Início'" :tipo="'date'"/>
+                    <div class="col-md-6 col-sm-6">
+                        <BaseInput v-model="agenda.data_inicio" :label="'Data Início'" :tipo="'date'" />
                     </div>
-                    <div class="col-6 col-sm-6">
-                        <BaseInput v-model="agenda.data_termino" :label="'Data Término'"
-                        :idInput="'inputDataTermino'"  :tipo="'date'"/>
+                    <div class="col-md-6 col-sm-6">
+                        <BaseInput v-model="agenda.data_termino" :label="'Data Término'" :idInput="'inputDataTermino'"
+                            :tipo="'date'" />
                     </div>
                 </div>
             </div>
-
 
             <div class="col-sm-12">
                 <div class="row">
@@ -113,13 +110,13 @@
                             @input="updateDuration" />
                     </div>
                     <div class="col-6 col-sm-6">
-                        <BaseInput v-model="agenda.hora_termino" :label="'Hora Término'" :tipo="'time'"
+                        <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
                             @input="updateDuration" />
-
-                        <BaseInput :modelValue="duration" readonly :idInput="'idDuracao'"/>
                     </div>
                 </div>
             </div>
+
+
         </div>
 
         <div class="modal-footer" v-if="inputsAnimais || inputsCadastro || inputsAgendamento">
@@ -194,16 +191,13 @@ export default {
             }
         },
         updateDuration() {
-            this.$forceUpdate(); // Forçar a atualização da computed property duration
+            this.duration(); // Forçar a atualização da computed property duration
         },
-    },
-    computed: {
         duration() {
             if (this.agenda.hora_inicio && this.agenda.hora_termino) {
                 const [startHour, startMinute] = this.agenda.hora_inicio.split(":");
                 const [endHour, endMinute] = this.agenda.hora_termino.split(":");
-                let durationMinutes =
-                    (endHour - startHour) * 60 + (endMinute - startMinute);
+                let durationMinutes = (endHour - startHour) * 60 + (endMinute - startMinute);
                 if (durationMinutes < 0) {
                     durationMinutes += 24 * 60; // Adicionar 24 horas em minutos
                 }
@@ -218,24 +212,22 @@ export default {
                 }
 
                 this.agenda.duracao = durationString.trim();
-
-                return durationString.trim();
+            } else {
+                this.agenda.duracao = "";
             }
-            return "";
-        },
+        }
     },
 }
 </script>
 
 <style>
-
-#idDuracao{
+#idDuracao {
     display: none;
 }
+
 .inputsAgendamento {
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .infoAgendamento {
@@ -246,14 +238,6 @@ export default {
     #select-especie.selectEspecie+.select2-container .select2-selection {
         width: 100%;
     }
-
-    .inputsAgendamento {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-
-
 
 
 }
