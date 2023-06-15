@@ -49,16 +49,16 @@
 
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-6 col-sm-6">
+                    <div class="col-md-12 col-sm-6">
                         <BaseInput :modelValue="animal.nome_pet"
                             @update:modelValue="(newValue) => (animal.nome_pet = newValue)" :label="'Pet'"
                             :idInput="'inputPet'" />
                     </div>
-                    <div class="col-4 col-sm-4">
+                    <div class="col-md-6 col-sm-4">
                         <BaseInput :modelValue="animal.data_nascimento" @update:modelValue="(newValue) => (animal.data_nascimento = newValue)
                         " :label="'Nascimento'" :idInput="'inputDataNascimento'" :tipo="'date'"/>
                     </div>
-                    <div class="col-2 col-sm-2">
+                    <div class="col-md-6 col-sm-2">
                         <BaseInput :modelValue="animal.sexo" @update:modelValue="(newValue) => (animal.sexo = newValue)"
                             :label="'Sexo'" :idInput="'inputSexo'" />
                     </div>

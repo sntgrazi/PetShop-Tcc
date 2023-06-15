@@ -52,7 +52,7 @@
 
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-6 col-sm-6">
+                    <div class="col-md-12 col-sm-6">
                         <div class="selectCampo">
                             <label for="especie">Espécie</label>
                             <select v-model="animal.especie" id="select-especie" class="selectEspecie">
@@ -62,7 +62,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-6 col-sm-6">
+                    <div class="col-md-12 col-sm-6">
                         <div class="selectCampo">
                             <label for="raca">Raça</label>
                             <select v-model="animal.raca" id="select-raca" class="selectRaca">
@@ -77,12 +77,12 @@
 
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-6 col-sm-6">
+                    <div class="col-md-12  col-sm-6">
                         <BaseInput :modelValue="animal.pelagem"
                             @update:modelValue="(newValue) => (animal.pelagem = newValue)" :label="'Pelagem'"
                             :idInput="'inputPelagem'" />
                     </div>
-                    <div class="col-6 col-sm-6">
+                    <div class="col-md-12  col-sm-6">
                         <BaseInput :modelValue="animal.porte" @update:modelValue="(newValue) => (animal.porte = newValue)"
                             :label="'Porte'" :idInput="'inputPorte'" />
                     </div>
@@ -93,10 +93,10 @@
         <div class="inputsAgendamento" v-if="inputsAgendamento">
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-12 col-sm-6">
                         <BaseInput v-model="agenda.data_inicio" :label="'Data Início'" :tipo="'date'" />
                     </div>
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-12 col-sm-6">
                         <BaseInput v-model="agenda.data_termino" :label="'Data Término'" :idInput="'inputDataTermino'"
                             :tipo="'date'" />
                     </div>
@@ -105,11 +105,11 @@
 
             <div class="col-sm-12">
                 <div class="row">
-                    <div class="col-6 col-sm-6">
+                    <div class="col-md-6 col-sm-6">
                         <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
                             @input="updateDuration" />
                     </div>
-                    <div class="col-6 col-sm-6">
+                    <div class="col-md-6 col-sm-6">
                         <BaseInput v-model="agenda.hora_inicio" :label="'Hora Início'" :tipo="'time'"
                             @input="updateDuration" />
                     </div>
