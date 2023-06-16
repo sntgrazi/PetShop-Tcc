@@ -331,15 +331,6 @@ ul {
   gap: 5px;
 }
 
-.selectsForm{
-  border: none;
-  border-radius: 10px;
-  padding: 0.3em;
-  box-shadow: 0 0.4rem 0.8rem #0005;
-  font-size: 1.2em;
-  background-color: #fff;
-}
-
 .modal-footer {
   margin-top: 1rem;
   display: flex;
@@ -567,9 +558,12 @@ ul {
     padding: 10px;
   }
 
- 
-
   #selectTutores.selectTutores+.select2-container .select2-selection {
+    width: 100%;
+  }
+
+  .select2-container .select2-selection,
+  #select-tutor.selectTutor+.select2-container .select2-selection {
     width: 100%;
   }
 
@@ -580,8 +574,6 @@ ul {
     text-align: center;
 
   }
-
-
 
 }
 

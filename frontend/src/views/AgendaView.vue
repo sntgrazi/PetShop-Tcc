@@ -6,8 +6,9 @@
       <div class="custom-content">
         <loading :loading="loading" />
         <div class="custom-main-content">
-          <modal v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true" :toggle="toggleform"
-            :userId="userId" @atualizarCalendario="getAllOrdens" />
+          <modalAgenda v-if="formActive" :tipo="'agenda'" :icon="'fa-calendar'" :inputsAgendamento="true" :toggle="toggleform"
+          :userId="userId" @atualizarCalendario="getAllOrdens" />
+
           <FullCalendar ref="calendar" :options="calendarOptions" />
         </div>
         <InfoAgenda :agendaDados="agendaDados" @atualizarcalendario="getAllOrdens" :toggle="toggleform"
@@ -19,7 +20,7 @@
 
 <script>
 import topo from "@/components/Outros/topo.vue";
-import modal from "@/components/modal/modal.vue";
+import modalAgenda from "@/components/modal/modalAgenda.vue";
 import InfoAgenda from "@/components/offCanvas/InfoAgenda.vue";
 import Swal from "sweetalert2";
 import ApiController from "@/ApiController";
@@ -34,7 +35,7 @@ export default {
   name: "AgendaView",
   components: {
     topo,
-    modal,
+    modalAgenda,
     InfoAgenda,
     loading,
     FullCalendar

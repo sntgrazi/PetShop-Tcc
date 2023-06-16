@@ -5,12 +5,15 @@
       <div class="custom-content">
         <loading :loading="loading" />
         <div class="custom-main-content">
-          <modal v-if="formActive" :tipo="'cliente'" :icon="'fa-user'" :inputsCadastro="true" :toggle="toggleform"
-            @atualizarTabela="getClientes"  :userId="userId" />
+
+          <modalCliente v-if="formActive" :userId="userId" :toggle="toggleform" :tipo="'cliente'" :icon="'fa-user'"
+           @atualizarTabela="getClientes" :inputsCadastro="true" />
 
           <tabela :topoTabela="topoTabela" :dados="dadosTabela" 
             :tipo="'cliente'" @infoCliente="offcanvasCliente" />
+            
           <infoCliente :cliente="cliente" :toggle="toggleform" @deletar="deletarCliente"/>
+
         </div>
       </div>
     </div>
@@ -21,7 +24,7 @@
 import tabela from "@/components/Outros/tabela.vue";
 import topo from "@/components/Outros/topo.vue";
 import ApiController from "@/ApiController";
-import modal from "@/components/modal/modal.vue";
+import modalCliente from "@/components/modal/modalCliente.vue";
 import { ref } from "vue";
 import Swal from "sweetalert2";
 import loading from '../components/Outros/loading.vue';
@@ -32,7 +35,7 @@ export default {
   components: {
     tabela,
     topo,
-    modal,
+    modalCliente,
     loading,
     infoCliente
   },

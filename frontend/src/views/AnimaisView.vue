@@ -5,12 +5,12 @@
       <div class="custom-content">
         <loading :loading="loading" />
         <div class="custom-main-content">
-          <modal v-if="formActive" :tituloModal="tituloModal" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform"
-            :userId="userId" :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais"
-            :infoTutores="mostrarInfoTutores" />
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" 
-            :tipo="'pet'" @infoAnimal="offcanvasAnimal"/>
-          <InfoAnimal :pet="informacoesAnimal" @deletar="deletarAnimais" :toggle="toggleform" :tipo="'pet'"/>
+          
+          <modalPet v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
+            :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais" :infoTutores="mostrarInfoTutores" />
+
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :tipo="'pet'" @infoAnimal="offcanvasAnimal" />
+          <InfoAnimal :pet="informacoesAnimal" @deletar="deletarAnimais" :toggle="toggleform" :tipo="'pet'" />
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
 
 import tabela from "@/components/Outros/tabela.vue";
 import topo from "@/components/Outros/topo.vue";
-import modal from "@/components/modal/modal.vue";
+import modalPet from "@/components/modal/modalPet.vue";
 import InfoAnimal from "@/components/offCanvas/InfoAnimal.vue";
 import { ref } from "vue";
 import ApiController from "@/ApiController";
@@ -33,7 +33,7 @@ export default {
   components: {
     tabela,
     topo,
-    modal,
+    modalPet,
     InfoAnimal,
     loading
   },
@@ -58,7 +58,7 @@ export default {
 
 
       if (tipo == 'tutores') {
-   
+
         mostrarInfoTutores.value = true;
         inputsAnimais.value = false;
         tituloModal.value = true;
@@ -120,7 +120,7 @@ export default {
         console.error("Erro ao deletar o Animal: ", error);
       }
     },
-    async offcanvasAnimal(id){
+    async offcanvasAnimal(id) {
       try {
         this.loading = true;
         this.informacoesAnimal = await ApiController.getAnimalById(id)
