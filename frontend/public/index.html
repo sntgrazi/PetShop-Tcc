@@ -20,7 +20,7 @@
 
   <title>PetShop</title>
 </head>
- 
+
 <body id="body-pd">
   <div id="app"></div>
   <script>
@@ -31,6 +31,12 @@
     if (isLoginPage) {
       document.body.style.margin = '0';
       document.body.style.paddingLeft = '10px';
+
+      if (window.innerWidth <= 850) {
+        document.body.style.overflow = 'auto';
+      } else {
+        document.body.style.overflow = 'hidden';
+      }
     }
   </script>
 </body>

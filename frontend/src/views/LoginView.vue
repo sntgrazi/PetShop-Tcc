@@ -187,7 +187,7 @@ main {
     position: relative;
     width: 100%;
     max-width: 1020px;
-    height: 600px;
+    height: 595px;
     background-color: #1E90FF;
     border-radius: 3.3rem;
     box-shadow: 0 60px 40px -30px rgba(0, 0, 0, 0.27);
