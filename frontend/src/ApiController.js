@@ -2,7 +2,7 @@ import axios from 'axios';
 import { error } from 'jquery';
 
 
-const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
+const ApiUrl = 'http://localhost:84';
 
 export default {
 

@@ -4,7 +4,7 @@
             <div class="inner-box">
                 <!--Login-->
                 <div class="forms-wrap">
-                    <form action="index.html" autocomplete="off" class="sign-in-form">
+                    <form @submit.prevent="login()" autocomplete="off" class="sign-in-form">
                         <div class="logo">
                             <img src="../assets/img/image.png" alt="easyclass">
                             <h4>Doo pet's</h4>
@@ -12,22 +12,21 @@
 
                         <div class="heading">
                             <h2>Bem vindo ao Doo Pet's</h2>
-                            <h6>Não tem cadastro?</h6>
-                            <a href="#" class="toggle">Cadastre-se</a>
+
                         </div>
 
                         <div class="actual-form">
                             <div class="input-wrap"> <!--Login-->
-                                <input type="email" minlength="4" class="input-field" autocomplete="off" required />
+                                <input v-model="loginDados.email" type="email" minlength="4" class="input-field" autocomplete="off" required />
                                 <label>Email</label>
                             </div>
 
                             <div class="input-wrap">
-                                <input type="password" minlength="4" class="input-field" autocomplete="off" required />
+                                <input v-model="loginDados.senha" type="password" minlength="4" class="input-field" autocomplete="off" required />
                                 <label>Senha</label>
                             </div>
 
-                            <input type="submit" value="Entrar" class="sign-btn" />
+                            <button type="submit" class="sign-btn" > Entrar</button>
 
                             <p class="text">
                                 Esqueceu a
@@ -37,9 +36,7 @@
                     </form>
                     <!--Fim de Login-->
 
-                    <!--Cadastro-->
-
-                    <form action="index.html" autocomplete="off" class="sign-up-form">
+                    <!--  <form action="index.html" autocomplete="off" class="sign-up-form">
                         <div class="logo">
                             <img src="../assets/img/image.png" alt="easyclass" />
                             <h3>Doo pet's</h3>
@@ -69,9 +66,9 @@
                             <input type="submit" value="Cadastrar" class="sign-btn" />
 
                         </div>
-                    </form>
+                    </form> -->
 
-                    <!--Fim cadastro-->
+                   
                 </div>
                 <!-- Carousel -->
                 <div class="carousel">
@@ -105,10 +102,19 @@
  import { onBeforeUnmount } from 'vue';
 export default {
     name: 'LoginView',
+    data(){
+        return{
+            loginDados:[]
+        }
+    },
+    methods: {
+        login(){
+            console.log(this.loginDados)
+        }
+    },
     mounted() {
+
         const inputs = document.querySelectorAll(".input-field");
-        const toggle_btn = document.querySelectorAll(".toggle");
-        const main = document.querySelector("main");
         const bullets = document.querySelectorAll(".bullets span");
         const images = document.querySelectorAll(".image");
 
@@ -119,12 +125,6 @@ export default {
             inp.addEventListener("blur", () => {
                 if (inp.value != "") return;
                 inp.classList.remove("active");
-            });
-        });
-
-        toggle_btn.forEach(btn => {
-            btn.addEventListener("click", () => {
-                main.classList.toggle("sign-up-mode");
             });
         });
 

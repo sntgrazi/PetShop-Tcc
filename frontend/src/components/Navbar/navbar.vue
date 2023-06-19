@@ -16,7 +16,7 @@
     <ul class="custom-nav-list">
       <hr />
       <li>
-        <router-link to="/">
+        <router-link to="/agenda">
           <a href="#">
             <i class="fa-solid fa-calendar-days"></i>
             <span class="custom-links_name">Agenda</span>
