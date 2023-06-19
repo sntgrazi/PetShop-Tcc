@@ -1,7 +1,5 @@
 <template>
-  
   <div class="custom-row">
-  
     <button @click="btnModal" id="open-modal">
       <i :class="['fa regular', icon]"></i>
       {{ botaoAdd }}
@@ -21,7 +19,9 @@ export default {
           ? "Novo Cliente"
           : this.type === "Pets"
             ? "Novo Pet"
-            : "Novo Agendamento"
+            : this.type === 'Agenda' 
+            ? "Novo Agendamento" 
+            : "Novo Produto/Serviço"
     };
   },
   methods: {

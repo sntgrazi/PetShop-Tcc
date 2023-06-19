@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="shortcut icon" href="assets/img/pet.ico" type="image/x-icon">
+
+        <!-- ===== BOX ICONS ===== -->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+        <!-- ===== CSS ===== -->
+        <link rel="stylesheet" href="assets/css/cliente.css">
+
+        <title>Fornecedores</title>
+    </head>
+
+    <!--- Nav --->
+
+    <body id="body-pd">
+        <header class="header" id="header">
+            <div class="header__toggle">
+                <i class='bx bx-menu' id="header-toggle"></i>
+            </div>
+
+            <div class="header__img">
+                <img src="assets/img/perfil.jpg" alt="">
+            </div>
+        </header>
+
+        <!-- Barra lateral-->
+
+        <div class="l-navbar" id="nav-bar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav__logo">                 
+                        <i class='bx bx-layer nav__logo-icon'></i>
+                        <span class="nav__logo-name">PETSHOP</span>
+                    </a>
+                    <hr />
+                    <div class="nav__list">
+                        <a href="index.html" class="nav__link">
+                        <i class='bx bxs-calendar nav__icon'></i>
+                            <span class="nav__name">Agenda</span>
+                        </a>
+
+                        <a href="caixa.html" class="nav__link">
+                            <i class='bx bx-money nav__icon'></i>
+                            <span class="nav__name">Caixa</span>
+                        </a>
+                        
+                        <a href="cliente.html" class="nav__link">
+                            <i class='bx bxs-user nav__icon'></i>
+                            <span class="nav__name">Clientes</span>
+                        </a>
+
+                        <a href="animal.html" class="nav__link">
+                            <span class="material-symbols-sharp nav__icon">pets</span>
+                            <span class="nav__name">Animais</span>
+                        </a>
+
+                        <a href="estoque.html" class="nav__link">
+                            <span class="material-symbols-sharp nav__icon">inventory</span>
+                            <span class="nav__name">Estoque</span>
+                        </a>
+                        <hr />
+                        <a href="#" class="nav__link">
+                            <span class="material-symbols-sharp nav__icon">settings</span>
+                            <span class="nav__name">Configurações</span>
+                        </a>
+                    </div>
+                    
+                </div>
+
+                <a href="#" class="nav__link">
+                    <i class='bx bx-log-out nav__icon' ></i>
+                    <span class="nav__name">Log Out</span>
+            </a>
+            </nav>
+        </div>
+            
+
+        <!--- Aplicando vue.js--->
+        
+        <div id="app"></div>
+        
+        <!--===== MAIN JS =====-->
+        <script src="assets/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <script>
+
+            var app = new Vue({
+
+            el: '#app',
+
+                /* Conteudo */
+
+            template: 
+            `
+            <section>
+            <div class="container">
+                <div class="row">
+                    <h1 class="title">Fornecedor</h1>
+                    <button v-on:click="toggleModal" id="open-modal">Novo Fornecedor</button>
+                </div>
+                    <div id="fade" class="hide"></div>
+                    <div id="modal" class="hide">
+                    <div cl...................ass="modal-header">
+                        <h2>Adicionar Fornecedor</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="rowModal">
+                        <div class="columnModal">
+                        <h5>Razão Social</h5>
+                        <input v-model="RazaoSocial" type="text" placeholder="Razão Social" list="faixa">
+                        <h5>Email</h5>
+                        <input v-model="email" type="text" placeholder="Email" list="faixa2">
+                        <h5>Tipo de Produto</h5>
+                        <input v-model="tipoProduto" type="text" placeholder="Tipo de Produto" list="faixa4">
+                        <h5>Inscriçaõ Estadual</h5>
+                        <input v-model="inscEstadual" type="text" placeholder="Insc. Estadual" list="faixa3">
+                        </div>
+                        <div class="columnModal">
+                        <h5>CNPJ</h5>
+                        <input v-model="Cnpj" type="text" placeholder="Cnpj" list="faixa5">
+                        <h5>telefone</h5>
+                        <input v-model="telefone" type="text" placeholder="telefone" list="faixa6">
+                        <h5>cep</h5>
+                        <input v-model="cep" type="text" placeholder="cep" list="faixa7">
+                        <h5>Endereço</h5>
+                        <input v-model="endereço" type="text" placeholder="endereço" list="faixa8">
+                        </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button v-on:click="toggleModal" v-on:click="addProduto" type="submit" class="confirm">Confirmar</button>
+                            <button v-on:click="toggleModal" id="close-modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+                    <div class="content">
+                        <div class="main-content">
+                            <div class="boxHeader">
+                                <h1 class="boxTitle">Lista de Fornecedores</h1>
+                            </div>
+                            <div class="boxContent">
+                                <hr />
+                                <main class="table">
+                                    <section class="table__header">
+                                        <div class="input-group">
+                                            <input v-on:click="searchTable" type="search" placeholder="Pesquisar">
+                                            <img src="assets/img/search.png" alt="">
+                                        </div>
+                                    </section>
+                                    <section class="table__body">
+                                        <table>
+                                            <thead>
+                                                <tr >
+                                                    <th> Foto <span class="icon-arrow">&UpArrow;</span></th>
+                                                    <th> Razão Social <span class="icon-arrow">&UpArrow;</span></th>
+                                                    <th> CNPJ <span class="icon-arrow">&UpArrow;</span></th>
+                                                    <th> Insc. Estadual <span class="icon-arrow">&UpArrow;</span></th>
+                                                    <th> Telefone <span class="icon-arrow">&UpArrow;</span></th>
+                                                    <th> Tipo de Produto <span class="icon-arrow">&UpArrow;</span></th>
+                                                    <th> ações<span class="icon-arrow">&UpArrow;</span></th>
+
+                                                    
+                                                    <th>  <span class=""</span></th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-for="(comment, index) in comments">
+                                                    <td class="nomeImg"> <img src="assets/img/dog.jpg" alt="">{{comment.foto}}</td>
+                                                    <td> {{comment.razaoS}} </tb>
+                                                    <td> {{comment.cnpjj}} </tb>
+                                                    <td> {{comment.inscEstaduall}}</td>
+                                                    <td> {{comment.telefonee}} </td>
+                                                    <td> {{comment.tipoProdutoo}}</td>
+
+                                                    <td><button class="edit"><i class='bx bx-edit-alt'></i></button> <button v-on:click="removeContent" class="delete"><i class='bx bx-trash' ></i></button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </main>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </section>
+            `
+            ,
+
+
+            data: {
+                comments: [],
+                Fotoo: '',
+                razaoS: '',
+                emall: '',
+                cnpjj: '',
+                tipoProdutoo: '',
+                telefonee: '',
+                inscEstaduall: '',
+                cepp: '',
+                DescriçãoProduto: '',
+                enderecoo: ''
+            },
+
+            methods: {
+
+                addProduto(){
+                   
+                    this.comments.push({
+                        fotoo:this.Foto,
+                        razaoS: this.RazaoSocial,
+                        emaill: this.email,
+                        cnpjj: this.Cnpj,
+                        tipoProdutoo: this.tipoProduto,
+                        telefonee: this.telefone,
+                        inscEstaduall: this.inscEstadual,
+                        cepp: this.cep,
+                        DescriçãoProdutoo: this.DescriçãoProduto,
+                        enderecoo: this.endereco
+                    });
+
+                    this.fotoo = '';
+                    this.nameCliente = '';
+                    this.email = '';
+                    this.tipoProduto = '';
+                    this.telefone = '';
+                    this.DescriçãoProduto = '';
+                    this.inscEstadual = '';
+                    this.cep = '';
+                    this.endereco ='';
+                },
+
+                removeContent(index){
+                    this.comments.splice(index, 1)
+                },
+                
+                
+                toggleModal(){
+                    const openModalButton = document.querySelector("#open-modal");
+                    const closeModalButton = document.querySelector("#close-modal");
+                    const modal = document.querySelector("#modal");
+                    const fade = document.querySelector("#fade");
+                    
+                    modal.classList.toggle("hide");
+                    fade.classList.toggle("hide");
+                    
+                },
+
+                searchTable(){
+                    const search = document.querySelector('.input-group input'),
+                    table_headings = document.querySelectorAll('thead th'),
+                    table_rows = document.querySelectorAll('tbody tr');
+                    
+
+                // 1. Searching for specific data of HTML table
+                search.addEventListener('input', searchTable);
+
+                function searchTable() {
+                    table_rows.forEach((row, i) => {
+                        let table_data = row.textContent.toLowerCase(),
+                            search_data = search.value.toLowerCase();
+
+                        row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
+                        row.style.setProperty('--delay', i / 25 + 's');
+                    })
+
+                    document.querySelectorAll('tbody tr:not(.hide)').forEach((visible_row, i) => {
+                        visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+                    });
+                }
+
+                },
+
+                sortTable(){
+                    // 2. Sorting | Ordering data of HTML table
+
+                const search = document.querySelector('.input-group input'), 
+                table_headings = document.querySelectorAll('thead th'),
+                table_rows = document.querySelectorAll('tbody tr');
+
+                table_headings.forEach((head, i) => {
+                    let sort_asc = true;
+                    head.onclick = () => {
+                        table_headings.forEach(head => head.classList.remove('active'));
+                        head.classList.add('active');
+
+                        document.querySelectorAll('td').forEach(td => td.classList.remove('active'));
+                        table_rows.forEach(row => {
+                            row.querySelectorAll('td')[i].classList.add('active');
+                        })
+
+                        head.classList.toggle('asc', sort_asc);
+                        sort_asc = head.classList.contains('asc') ? false : true;
+
+                        sortTable(i, sort_asc);
+                    }
+                })
+
+
+                function sortTable(column, sort_asc) {
+                    [...table_rows].sort((a, b) => {
+                        let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
+                            second_row = b.querySelectorAll('td')[column].textContent.toLowerCase();
+
+                        return sort_asc ? (first_row < second_row ? 1 : -1) : (first_row < second_row ? -1 : 1);
+                    })
+                        .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
+                }
+                }
+            }
+            })
+        </script>
+    </body>
+</html>

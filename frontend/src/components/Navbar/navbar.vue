@@ -25,10 +25,12 @@
         <span class="custom-tooltip">Agenda</span>
       </li>
       <li>
-        <a href="#">
-          <i class="fa-solid fa-basket-shopping"></i>
-          <span class="custom-links_name">Caixa</span>
-        </a>
+        <router-link to="/caixa">
+          <a href="#">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span class="custom-links_name">Caixa</span>
+          </a>
+        </router-link>
         <span class="custom-tooltip">Caixa</span>
       </li>
       <li>
@@ -50,10 +52,12 @@
         <span class="custom-tooltip">Pets</span>
       </li>
       <li>
-        <a href="#">
-          <i class="fa-solid fa-box"></i>
-          <span class="custom-links_name">Estoque</span>
-        </a>
+        <router-link to="/estoque">
+          <a href="#">
+            <i class="fa-solid fa-box"></i>
+            <span class="custom-links_name">Estoque</span>
+          </a>
+        </router-link>
         <span class="custom-tooltip">Estoque</span>
       </li>
       <hr />
@@ -63,6 +67,15 @@
           <span class="custom-links_name">Configurações</span>
         </a>
         <span class="custom-tooltip">Configurações</span>
+      </li>
+      <li>
+        <router-link to="/funcionarios">
+        <a href="#">
+          <i class="fa-solid fa-user"></i>
+          <span class="custom-links_name">Funcionários</span>
+        </a>
+        </router-link>
+        <span class="custom-tooltip">Funcionários</span>
       </li>
       <li class="custom-profile">
         <a href="#">
@@ -76,7 +89,7 @@
 </template>
 
 <script>
-import "@/assets/css/style.css";  
+import "@/assets/css/style.css";
 import { showNavbar } from "@/assets/js/funcoes";
 
 export default {
@@ -91,6 +104,9 @@ export default {
       showNavbar("header-toggle", "nav-bar", "header", "body-pd");
     });
 
+    var isLoginPage = window.location.pathname === '/';
+
+    if (!isLoginPage) {
     window.addEventListener("click", event => {
       const nav = document.getElementById("nav-bar");
       if (nav.classList.contains("open") && !event.target.closest("#nav-bar")) {
@@ -98,8 +114,11 @@ export default {
       }
     });
   }
+  }
 };
 </script>
 
 <style>
+
+
 </style>

@@ -1,6 +1,7 @@
 <template>
     <div class="custom-form-overlay"></div>
     <div class="custom-modal" :class="{ active: active }">
+
         <div class="modal-header">
             <div class="titulo-modal">
                 <i :class="['fa regular', icon]"></i>
@@ -11,6 +12,7 @@
             </button>
         </div>
         <div class="modal-body">
+            <loading :loading="loading" />
             <form class="formModal" @submit.prevent="userId == false ? FormCadastro() : FormEdit()">
                 <div class="form-inputs" v-show="etapaAtual === 1">
                     <div class="inputAgendamento" v-if="inputsAgendamento">
@@ -130,7 +132,8 @@ export default {
     props: ['tipo', 'icon', 'inputsAgendamento', 'toggle', 'userId', 'active'],
     emits: ['atualizarCalendario'],
     components: {
-        BaseInput
+        BaseInput,
+        loading
     },
     data() {
         return {
@@ -140,7 +143,8 @@ export default {
             servicos: [],
             clientes: [],
             funcionarios: [],
-            etapaAtual: 1
+            etapaAtual: 1,
+            loading: true
         }
     },
     methods: {
@@ -186,6 +190,7 @@ export default {
         },
         async buscarDadoAgendamento() {
             try {
+                this.loading = true
                 this.agenda = await ApiController.getOrdensById(this.userId);
 
                 $("#select-cliente").select2();
@@ -208,6 +213,18 @@ export default {
                 this.agenda.hora_inicio = this.agenda.hora_inicio;
                 this.agenda.hora_termino = this.agenda.hora_termino
 
+
+                
+              
+                $("#select-cliente").on("change", async (e) => {
+                    this.agenda.cliente_id = $("#select-cliente option:selected").val();
+                    this.loading = true
+                    await this.buscarPetVinculado(this.agenda.cliente_id)
+
+                    this.loading = false
+                });
+
+                this.loading = false
             } catch (error) {
                 console.log(error);
             }
@@ -323,8 +340,12 @@ export default {
             $("#select-funcionario").on("change", (e) => {
                 this.agenda.funcionario_id = $("#select-funcionario option:selected").val();
             });
+
+            this.loading = false
         } else {
             this.buscarDadoAgendamento()
+            
+            
 
             $("#select-servico").select2({
                 placeholder: "Selecione um serviço",
@@ -334,15 +355,6 @@ export default {
             $("#select-cliente").select2({
                 placeholder: "Selecione um cliente",
                 width: "100%",
-            });
-
-            $("#select-cliente").on("change", async (e) => {
-
-                this.agenda.cliente_id = $("#select-cliente option:selected").val();
-                this.loading = true
-                await this.buscarPetVinculado(this.agenda.cliente_id)
-
-                this.loading = false
             });
 
 
@@ -355,6 +367,7 @@ export default {
                 placeholder: "Selecione um Funcionário",
                 width: "100%"
             });
+
 
         }
     }
