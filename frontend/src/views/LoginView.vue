@@ -103,6 +103,7 @@
 <script>
 import { onBeforeUnmount } from 'vue';
 import ApiController from "@/ApiController";
+import Swal from "sweetalert2";
 
 export default {
     name: 'LoginView',
