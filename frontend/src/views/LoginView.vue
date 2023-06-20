@@ -116,9 +116,15 @@ export default {
         async login() {
             try {
                 await ApiController.login(this.email, this.senha);
-               
+
             } catch (error) {
                 console.log("Erro ao tentar fazer login: ", error);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Senha incorreta',
+                    text: 'A senha informada está incorreta. Por favor, tente novamente.',
+                });
             }
         }
     },
