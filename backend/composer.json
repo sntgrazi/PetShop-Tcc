@@ -2,7 +2,8 @@
     "require": {
         "slim/slim": "^4.11",
         "slim/psr7": "^1.6",
-        "vlucas/phpdotenv": "^5.4"
+        "vlucas/phpdotenv": "^5.4",
+        "firebase/php-jwt": "^6.7"
     },
     "autoload": {
         "psr-4": {

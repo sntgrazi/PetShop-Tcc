@@ -25,6 +25,11 @@
             <td v-if="this.tipo == 'pet'">{{ dado.sexo }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.raca }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.porte }}</td>
+
+            <td v-if="this.tipo == 'funcionario'">{{ dado.nome }}</td>
+            <td v-if="this.tipo == 'funcionario'">{{ dado.cpf }}</td>
+            <td v-if="this.tipo == 'funcionario'">{{ dado.telefone }}</td>
+            <td v-if="this.tipo == 'funcionario'">{{ dado.nome_cargo }}</td>
           </tr>
         </tbody>
       </table>

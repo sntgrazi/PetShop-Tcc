@@ -70,20 +70,21 @@
       </li>
       <li>
         <router-link to="/funcionarios">
-        <a href="#">
-          <i class="fa-solid fa-user"></i>
-          <span class="custom-links_name">Funcionários</span>
-        </a>
+          <a href="#">
+            <i class="fa-solid fa-user"></i>
+            <span class="custom-links_name">Funcionários</span>
+          </a>
         </router-link>
         <span class="custom-tooltip">Funcionários</span>
       </li>
       <li class="custom-profile">
-        <a href="#">
+        <a href="#" @click="logout()">
           <i class="bx bx-log-out" id="log_out"></i>
           <span class="custom-links_name">Sair</span>
         </a>
         <span class="custom-tooltip">Sair</span>
       </li>
+
     </ul>
   </div>
 </template>
@@ -91,11 +92,28 @@
 <script>
 import "@/assets/css/style.css";
 import { showNavbar } from "@/assets/js/funcoes";
+import Swal from 'sweetalert2';
 
 export default {
   name: "Navbar",
   methods: {
-    showNavbar: showNavbar
+    showNavbar: showNavbar,
+    logout() {
+      Swal.fire({
+        title: 'Deseja sair?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.removeItem('token');
+      
+      // Redirecione para a página de login
+           window.location.href = '/';
+        }
+      });
+    }
   },
   mounted() {
     const toggle = document.getElementById("header-toggle");
@@ -107,18 +125,15 @@ export default {
     var isLoginPage = window.location.pathname === '/';
 
     if (!isLoginPage) {
-    window.addEventListener("click", event => {
-      const nav = document.getElementById("nav-bar");
-      if (nav.classList.contains("open") && !event.target.closest("#nav-bar")) {
-        showNavbar("header-toggle", "nav-bar", "header", "body-pd");
-      }
-    });
-  }
+      window.addEventListener("click", event => {
+        const nav = document.getElementById("nav-bar");
+        if (nav.classList.contains("open") && !event.target.closest("#nav-bar")) {
+          showNavbar("header-toggle", "nav-bar", "header", "body-pd");
+        }
+      });
+    }
   }
 };
 </script>
 
-<style>
-
-
-</style>
+<style></style>

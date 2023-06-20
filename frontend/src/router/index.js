@@ -6,6 +6,26 @@ import Estoque from '../views/EstoqueView.vue';
 import Caixa from '../views/CaixaView.vue';
 import Funcionarios from '../views/FuncionariosView.vue';
 import Login from '../views/LoginView.vue';
+import Swal from "sweetalert2";
+
+function verificarAutenticacao(to, from, next) {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    next();
+  } else {
+      // Se o token não existir, redirecione para a página de login
+    Swal.fire({
+      icon: 'info',
+      title: 'Faça login para acessar esta página',
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true
+    }).then(() => {
+        window.location.href = '/';
+    });
+  }
+}
 
 const routes = [
   {
@@ -19,32 +39,44 @@ const routes = [
   {
     path: '/clientes',
     name: 'Clientes',
-    component: Clientes
+    component: Clientes,
+    beforeEnter: verificarAutenticacao
   },
   {
     path: '/agenda',
     name: 'Agenda',
-    component: Agenda
+    component: Agenda,
+    beforeEnter: verificarAutenticacao,
+    
+    
   },
   {
     path: '/pets',
     name: 'Pets',
-    component: Pets
+    component: Pets,
+   
+    beforeEnter: verificarAutenticacao
   },
   {
     path: '/estoque',
     name: 'Estoque',
-    component: Estoque
+    component: Estoque,
+  
+    beforeEnter: verificarAutenticacao
   },
   {
     path: '/caixa',
     name: 'Caixa',
-    component: Caixa
+    component: Caixa,
+
+    beforeEnter: verificarAutenticacao
   },
   {
     path: '/funcionarios',
     name: 'Funcionarios',
-    component: Funcionarios
+    component: Funcionarios,
+  
+    beforeEnter: verificarAutenticacao
   },
 ]
 

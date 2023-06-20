@@ -15,9 +15,12 @@ export default {
   },
   computed: {
     mostrarNavbar() {
-      const router = useRouter();
-      return router.currentRoute.value.meta.mostrarNavbar !== false;
-    },
+      const token = localStorage.getItem('token');
+      const rotaAtual = this.$route;
+
+      // Verifica se há um token e se a rota atual permite mostrar a navbar
+      return token && (rotaAtual.meta.mostrarNavbar !== false);
+    }
   },
 };
 </script>

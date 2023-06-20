@@ -9,6 +9,7 @@ use App\Controller\ClienteAnimalController;
 use App\Controller\ServicosController;
 use App\Controller\FuncionariosController;
 use App\Controller\OrdemServicoController;
+use App\Controller\AuthController;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -27,6 +28,7 @@ $app->addBodyParsingMiddleware();
 
 $app->AddErrorMiddleware(true,true,true);
 
+$app->post('/', AuthController::class . ':login');
 
 $app->get('/animais', AnimalController::class . ':getAnimais');    
 $app->get('/animal/{id}', AnimalController::class . ':getAnimal');                            
@@ -55,11 +57,14 @@ $app->delete('/deleteCliente/{id}', ClienteController::class . ':deleteCliente')
 
 // ColaboradorController
 
-$app->get('/funcionarios', FuncionariosController::class . ':getFuncionarios');    
-//$app->get('/colaborador/{id}', ColaboradorController::class . ':getColaborador');                            
-// $app->post('/inserirFuncionario', FuncionariosController::class . ':insertFuncionario');
-//$app->put('/update/{id}', ColaboradorController::class . ':updateColaborador');
-//$app->delete('/delete/{id}', ColaboradorController::class . ':deleteColaborador');
+$app->get('/cargos', FuncionariosController::class . ':getAllCargos');   
+
+$app->get('/funcionarios', FuncionariosController::class . ':getAllFuncionarios'); 
+$app->get('/funcionario/{id}', FuncionariosController::class . ':getFuncionarioById'); 
+$app->post('/inserirFuncionario', FuncionariosController::class . ':CadastroFuncionario');
+$app->put('/updateFuncionario/{id}', FuncionariosController::class . ':editarFuncionario');   
+$app->delete('/deleteFuncionario/{id}', FuncionariosController::class . ':deleteFuncionario');      
+
 
 // CompraController
 

@@ -561,14 +561,12 @@ export default {
 .select2-container .select2-selection {
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 40px;
-  border: none;
-  border-radius: 10px;
+  height: 45px;
+  border: 1px solid black;
+  border-radius: 7px;
   font-size: 17px;
   outline: none;
-  box-shadow: 0 0.4rem 0.8rem #0005;
   color: #000;
-
 }
 
 .select2-container .select2-dropdown .select2-search input {

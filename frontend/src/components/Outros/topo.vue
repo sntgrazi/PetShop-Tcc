@@ -21,6 +21,8 @@ export default {
             ? "Novo Pet"
             : this.type === 'Agenda' 
             ? "Novo Agendamento" 
+            : this.type === 'Funcionario' 
+            ? "Novo Funcionário" 
             : "Novo Produto/Serviço"
     };
   },

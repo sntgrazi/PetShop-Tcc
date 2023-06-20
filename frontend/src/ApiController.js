@@ -1,14 +1,43 @@
 import axios from 'axios';
-import { error } from 'jquery';
+import Swal from "sweetalert2";
 
-
-const ApiUrl = 'http://localhost:84';
+const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
 
 export default {
 
+
+    async login(email, senha) {
+        const url = `${ApiUrl}/`;
+        const response = await axios.post(url, {
+            email: email, senha: senha
+        }).catch(error => {
+            console.error('Erro ao tentar fazer login: ', error);
+            throw error
+        })
+        const token = response.data.token;
+
+        localStorage.setItem('token', token);
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Login feito com sucesso',
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+            willClose: () => {
+                window.location.href = '/agenda';
+            }
+        });
+    },
+
     // Requisições Clientes
 
-    
     async getClientes() {
         const url = `${ApiUrl}/clientes`;
         const response = await axios.get(url)
@@ -213,6 +242,17 @@ export default {
         return response.data;
     },
 
+    async getAllCargos() {
+        const url = `${ApiUrl}/cargos`;
+        const response = await axios.get(url)
+            .catch(error => {
+                console.error("Erro ao listar os Cargos: ", error);
+                throw error
+            })
+
+        return response.data;
+    },
+
     //Ordem de servico
 
     async getOrdensById(id) {
@@ -277,7 +317,7 @@ export default {
         return response.data;
     },
 
-    async buscarPortes(){
+    async buscarPortes() {
         const url = `${ApiUrl}/buscarPortes`;
         const response = await axios.get(url).catch(
             error => {
@@ -288,7 +328,7 @@ export default {
         return response.data
     },
 
-    async buscarPelagens(){
+    async buscarPelagens() {
         const url = `${ApiUrl}/buscarPelagens`;
         const response = await axios.get(url).catch(
             error => {

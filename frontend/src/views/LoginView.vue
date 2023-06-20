@@ -17,16 +17,18 @@
 
                         <div class="actual-form">
                             <div class="input-wrap"> <!--Login-->
-                                <input v-model="loginDados.email" type="email" minlength="4" class="input-field" autocomplete="off" required />
+                                <input v-model="email" type="email" minlength="4" class="input-field" autocomplete="off"
+                                    required />
                                 <label>Email</label>
                             </div>
 
                             <div class="input-wrap">
-                                <input v-model="loginDados.senha" type="password" minlength="4" class="input-field" autocomplete="off" required />
+                                <input v-model="senha" type="password" minlength="6" class="input-field" autocomplete="off"
+                                    required />
                                 <label>Senha</label>
                             </div>
 
-                            <button type="submit" class="sign-btn" > Entrar</button>
+                            <button type="submit" class="sign-btn"> Entrar</button>
 
                             <p class="text">
                                 Esqueceu a
@@ -68,7 +70,7 @@
                         </div>
                     </form> -->
 
-                   
+
                 </div>
                 <!-- Carousel -->
                 <div class="carousel">
@@ -99,17 +101,25 @@
 </template>
 
 <script>
- import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount } from 'vue';
+import ApiController from "@/ApiController";
+
 export default {
     name: 'LoginView',
-    data(){
-        return{
-            loginDados:[]
+    data() {
+        return {
+            email: '',
+            senha: ''
         }
     },
     methods: {
-        login(){
-            console.log(this.loginDados)
+        async login() {
+            try {
+                await ApiController.login(this.email, this.senha);
+               
+            } catch (error) {
+                console.log("Erro ao tentar fazer login: ", error);
+            }
         }
     },
     mounted() {
@@ -161,7 +171,7 @@ export default {
         let intervalId = setInterval(nextImage, interval);
 
         // Limpar o intervalo quando o componente for destruído
-       
+
         onBeforeUnmount(() => {
             clearInterval(intervalId);
         });
