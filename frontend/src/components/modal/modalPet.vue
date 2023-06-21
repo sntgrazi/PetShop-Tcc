@@ -230,9 +230,9 @@ export default {
     },
     async bucarDadosAnimal() {
       try {
-        this.loading = true;
         const animal = await ApiController.getAnimalById(this.userId);
         this.animal = animal;
+
         $("#select-sexo").select2();
         $("#select-sexo").val(animal.sexo).trigger("change");
         $("#select-sexo").on("change", (e) => {
@@ -272,7 +272,7 @@ export default {
 
         });
 
-        this.loading = false;
+     
       } catch (error) {
         console.log(error);
       }
@@ -385,6 +385,7 @@ export default {
     }
   },
   mounted() {
+    this.loading = true;
     this.buscarCliente()
     this.buscarPortes();
     this.buscarPelagens();

@@ -109,9 +109,11 @@ export default {
         });
 
         if (result.isConfirmed) {
+          this.loading = true
           $('#offcanvasRight').offcanvas('hide');
           await ApiController.deletarAnimal(animalId);
           await this.getAnimais();
+          this.loading = false
           Swal.fire("", "Pet deletado com sucesso", "success");
 
 

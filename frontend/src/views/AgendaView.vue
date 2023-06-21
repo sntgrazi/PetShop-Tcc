@@ -207,9 +207,11 @@ export default {
         });
 
         if (result.isConfirmed) {
+          this.loading = true
           $('#offcanvasRight').offcanvas('hide');
           await ApiController.deleteOrdem(id);
           await this.getAllOrdens();
+          this.loading = false
           Swal.fire("", "Agendamento deletado com sucesso", "success");
         }
       } catch (error) {

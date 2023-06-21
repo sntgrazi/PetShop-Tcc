@@ -123,8 +123,8 @@ export default {
 
                 Swal.fire({
                     icon: 'error',
-                    title: 'Senha incorreta',
-                    text: 'A senha informada está incorreta. Por favor, tente novamente.',
+                    title: 'Usuário/Senha inválidos',
+                    text: 'Por favor, tente novamente.',
                 });
             }
         }

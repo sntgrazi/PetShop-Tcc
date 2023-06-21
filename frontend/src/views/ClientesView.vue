@@ -91,8 +91,11 @@ export default {
         });
 
         if (result.isConfirmed) {
+          this.loading = true
+          $('#offcanvasRight').offcanvas('hide');
           await ApiController.deletarCliente(clienteId);
           await this.getClientes();
+          this.loading = false
           Swal.fire("", "Cliente deletado com sucesso", "success");
         }
       } catch (error) {

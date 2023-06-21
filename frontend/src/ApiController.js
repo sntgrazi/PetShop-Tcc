@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Swal from "sweetalert2";
 
-const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
+const ApiUrl = 'http://localhost:84';
 
 export default {
 
@@ -13,6 +13,7 @@ export default {
         }).catch(error => {
             console.error('Erro ao tentar fazer login: ', error);
             throw error
+
         })
         const token = response.data.token;
 
@@ -239,6 +240,47 @@ export default {
                 throw error
             })
 
+        return response.data;
+    },
+    async cadastrarFuncionario(funcionario) {
+
+        const url = `${ApiUrl}/inserirFuncionario`;
+        const response = await axios.post(url, funcionario)
+            .catch(error => {
+                console.error('Erro ao cadastrar um novo funcionário: ', error);
+                throw error;
+            })
+        return response.data;
+    },
+
+    async getFuncionarioById(id) {
+        const url = `${ApiUrl}/funcionario/${id}`;
+        const response = await axios.get(url)
+            .catch(error => {
+                console.error('Erro ao buscar o funcionário: ', error);
+                throw error;
+            })
+        return response.data;
+    },
+
+    async editarFuncionario(id, funcionarioAtualizado) {
+        const url = `${ApiUrl}/updateFuncionario/${id}`;
+        const response = await axios.put(url, funcionarioAtualizado)
+            .catch(error => {
+                console.error('Erro ao editar um funcionário: ', error);
+                throw error;
+            })
+        return response.data;
+    },
+
+    async deletarFuncionario(id) {
+
+        const url = `${ApiUrl}/deleteFuncionario/${id}`;
+        const response = await axios.delete(url)
+            .catch(error => {
+                console.error('Erro ao tentar deletar um funcionário: ', error);
+                throw error;
+            })
         return response.data;
     },
 

@@ -37,7 +37,7 @@ class FuncionariosDAO extends ConexaoDAO{
     }
 
     public function cadastrarFuncionario(FuncionarioModel $funcionarioM): void{
-        $sql = 'INSERT INTO funcionarios VALUES (null, :nome, :telefone, :cpf, :endereco, :cargo_id)';
+        $sql = 'INSERT INTO funcionarios VALUES (null, :nome, :telefone, :cpf, :email ,:endereco, :cargo_id)';
 
         $stm = $this->pdo
         ->prepare($sql);
@@ -46,14 +46,15 @@ class FuncionariosDAO extends ConexaoDAO{
             'nome' => $funcionarioM->getNome(),
             'telefone' => $funcionarioM->getTelefone(),
             'cpf' => $funcionarioM->getCpf(),
-            'endereco' => $funcionarioM->getEndereco(),
+            'email' => $funcionarioM->getEmail(),
+            'endereco' => $endereco = $funcionarioM->getCep() . ',' . $funcionarioM->getBairro() . ',' . $funcionarioM->getRua() . ',' . $funcionarioM->getCidade() . ',' . $funcionarioM->getUf() . ',' . $funcionarioM->getN_casa(),
             'cargo_id' => $funcionarioM->getCargo()
         ]);
 
     }
 
     public function editarFuncionario(FuncionarioModel $funcionarioM): void{
-        $sql = 'UPDATE funcionarios SET nome = :nome, telefone = :telefone, cpf = :cpf, endereco = :endereco, cargo_id = :cargo_id WHERE id = :id';
+        $sql = 'UPDATE funcionarios SET nome = :nome, telefone = :telefone, cpf = :cpf, email = :email ,endereco = :endereco, cargo_id = :cargo_id WHERE id = :id';
 
         $stm = $this->pdo->prepare($sql);
 
@@ -61,7 +62,8 @@ class FuncionariosDAO extends ConexaoDAO{
             'nome' => $funcionarioM->getNome(),
             'telefone' => $funcionarioM->getTelefone(),
             'cpf' => $funcionarioM->getCpf(),
-            'endereco' => $funcionarioM->getEndereco(),
+            'email' => $funcionarioM->getEmail(),
+            'endereco' => $endereco = $funcionarioM->getCep() . ',' . $funcionarioM->getBairro() . ',' . $funcionarioM->getRua() . ',' . $funcionarioM->getCidade() . ',' . $funcionarioM->getUf() . ',' . $funcionarioM->getN_casa(),
             'cargo_id' => $funcionarioM->getCargo(),
             'id' => $funcionarioM->getId()
         ]);

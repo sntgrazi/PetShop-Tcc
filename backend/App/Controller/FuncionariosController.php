@@ -47,7 +47,13 @@ final class FuncionariosController{
         $funcionariosM ->setNome($data['nome'])
                        ->setTelefone($data['telefone'])
                        ->setCpf($data['cpf'])
-                       ->setEndereco($data['endereco'])
+                       ->setEmail($data['email'])
+                       ->setCep($data['cep'])
+                       ->setBairro($data['bairro'])
+                       ->setRua($data['rua'])
+                       ->setCidade($data['cidade'])
+                       ->setUf($data['uf'])
+                       ->setN_casa($data['n_casa'])
                        ->setCargo($data['cargo_id']);
         $funcionariosDAO->cadastrarFuncionario($funcionariosM);
 
@@ -60,14 +66,20 @@ final class FuncionariosController{
 
         $id = $args['id'];
         $data = $request->getParsedBody();
-
+    
         $funcionariosDAO = new FuncionariosDAO();
         $funcionariosM = new FuncionarioModel();
         $funcionariosM -> setId($id)
-        -> setNome($data['nome'])
-        -> setTelefone($data['telefone'])
-        -> setCpf($data['cpf'])
-        -> setEndereco($data['endereco'])
+        ->setNome($data['nome'])
+        ->setTelefone($data['telefone'])
+        ->setCpf($data['cpf'])
+        ->setEmail($data['email'])
+        ->setCep($data['cep'])
+        ->setBairro($data['bairro'])
+        ->setRua($data['rua'])
+        ->setCidade($data['cidade'])
+        ->setUf($data['uf'])
+        ->setN_casa($data['n_casa'])
         -> setCargo($data['cargo_id']);
         $funcionariosDAO->editarFuncionario($funcionariosM);
 

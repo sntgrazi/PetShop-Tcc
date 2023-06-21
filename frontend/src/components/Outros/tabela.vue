@@ -26,7 +26,7 @@
             <td v-if="this.tipo == 'pet'">{{ dado.raca }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.porte }}</td>
 
-            <td v-if="this.tipo == 'funcionario'">{{ dado.nome }}</td>
+            <td @click="abrirInfoFuncionario(dado.id)" class="linhaName" v-if="this.tipo == 'funcionario'">{{ dado.nome }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.cpf }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.telefone }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.nome_cargo }}</td>
@@ -50,6 +50,9 @@ export default {
     },
     abrirInfoAnimal(id) {
       this.$emit('infoAnimal', id)
+    },
+    abrirInfoFuncionario(id) {
+      this.$emit('infoFuncionario', id)
     }
   },
 };

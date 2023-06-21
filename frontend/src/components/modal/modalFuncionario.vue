@@ -12,6 +12,7 @@
         </div>
         <div class="modal-body">
             <form class="formModal" @submit.prevent="userId == false ? FormCadastro() : FormEdit()">
+                <loading :loading="loading" />
                 <div class="form-inputs" v-show="etapaAtual === 1">
                     <div class="inputCadastroCliente">
                         <div class="container-fluid">
@@ -74,8 +75,8 @@
                                     <div class="col-7 col-sm-7">
                                         <div class="colunaForm">
                                             <BaseInput :modelValue="funcionario.cep"
-                                                @update:modelValue="(newValue) => (funcionario.cep = newValue)" :label="'Cep'"
-                                                :idInput="'inputCep'" />
+                                                @update:modelValue="(newValue) => (funcionario.cep = newValue)"
+                                                :label="'Cep'" :idInput="'inputCep'" />
 
                                             <button type="button" class="btn-pesquisar" @click="procurarEndereço">
                                                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -84,8 +85,8 @@
                                     </div>
                                     <div class="col-5 col-sm-5">
                                         <BaseInput :modelValue="funcionario.bairro"
-                                            @update:modelValue="(newValue) => (funcionario.bairro = newValue)" :label="'Bairro'"
-                                            :idInput="'inputBairro'" />
+                                            @update:modelValue="(newValue) => (funcionario.bairro = newValue)"
+                                            :label="'Bairro'" :idInput="'inputBairro'" />
                                     </div>
                                 </div>
                             </div>
@@ -100,8 +101,8 @@
                                 <div class="row">
                                     <div class="col-7 col-sm-7">
                                         <BaseInput :modelValue="funcionario.cidade"
-                                            @update:modelValue="(newValue) => (funcionario.cidade = newValue)" :label="'Cidade'"
-                                            :idInput="'inputCidade'" />
+                                            @update:modelValue="(newValue) => (funcionario.cidade = newValue)"
+                                            :label="'Cidade'" :idInput="'inputCidade'" />
                                     </div>
                                     <div class="col-3 col-sm-3">
                                         <BaseInput :modelValue="funcionario.uf"
@@ -138,20 +139,25 @@ import "select2/dist/css/select2.css";
 import "select2";
 import $ from "jquery";
 import ApiController from '@/ApiController';
+import Swal from 'sweetalert2';
+import loading from '../Outros/loading.vue';
 
 export default {
     name: 'modalFuncionario',
     props: ['toggle', 'icon', 'active', 'userId'],
     components: {
-        BaseInput
+        BaseInput,
+        loading
     },
+    emits: ['atualizarTabela'],
     data() {
         return {
             titulo: this.userId == false ? "Cadastrar Funcionário" : "Editar Funcionário",
             botaoConfirm: this.userId == false ? "Cadastrar" : "Editar",
             etapaAtual: 1,
-            funcionario: [],
-            cargos: []
+            funcionario: {},
+            cargos: [],
+            loading: true
         }
     },
     methods: {
@@ -163,7 +169,9 @@ export default {
         },
         async buscarCargos() {
             try {
+                this.loading = true
                 this.cargos = await ApiController.getAllCargos();
+                this.loading = false
             } catch (error) {
                 console.log("Erro ao listar os cargos: ", error)
             }
@@ -171,33 +179,93 @@ export default {
         async procurarEndereço() {
             const url = `https://viacep.com.br/ws/${this.funcionario.cep}/json/`;
             try {
+
                 const response = await fetch(url);
                 const data = await response.json();
                 this.funcionario.rua = data.logradouro;
                 this.funcionario.bairro = data.bairro;
                 this.funcionario.uf = data.uf;
                 this.funcionario.cidade = data.localidade;
+           
             } catch (error) {
                 console.error(error);
             }
         },
-        FormCadastro(){
-            console.log(this.funcionario)
-        }
+        async buscarDadosFuncionario() {
+            try {
+                this.loading = true
+                const funcionario = await ApiController.getFuncionarioById(this.userId);
+                this.funcionario = funcionario;
+                
+                this.endereco = funcionario.endereco.split(",");
+                this.funcionario.cep = this.endereco[0];
+                this.funcionario.bairro = this.endereco[1];
+                this.funcionario.rua = this.endereco[2];
+                this.funcionario.cidade = this.endereco[3];
+                this.funcionario.uf = this.endereco[4];
+                this.funcionario.n_casa = this.endereco[5];
+
+
+                $("#select-cargo").select2();
+                $("#select-cargo").val(funcionario.cargo_id).trigger("change");
+
+                this.loading = false
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async FormCadastro() {
+            try {
+                this.loading = true
+                await ApiController.cadastrarFuncionario(this.funcionario);
+           
+                Swal.fire("", "Funcionário cadastrado com sucesso!", "success");
+                this.$emit("atualizarTabela");
+                this.toggle();
+                this.funcionario = {};
+                this.loading = false
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async FormEdit() {
+            try {
+                this.loading = true
+                await ApiController.editarFuncionario(this.userId, this.funcionario);
+                
+                Swal.fire("", "Funcionário atualizado com sucesso!", "success");
+                this.$emit("atualizarTabela");
+                this.toggle();
+                this.funcionario = {};
+                this.loading = false
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
 
     },
     mounted() {
         this.buscarCargos();
 
-        $("#select-cargo").select2({
-            placeholder: "Selecione o cargo",
-            width: "100%",
-        });
+        if (this.userId == false) {
+            $("#select-cargo").select2({
+                placeholder: "Selecione o cargo",
+                width: "100%",
+            });
 
-        $("#select-cargo").on("change", (e) => {
-        // Obtém a raça selecionada
-        this.funcionario.cargo_id = $("#select-cargo option:selected").val();
-      });
+            $("#select-cargo").on("change", (e) => {
+                this.funcionario.cargo_id = $("#select-cargo option:selected").val();
+            });
+
+        } else {
+            this.buscarDadosFuncionario();
+      
+            $("#select-cargo").select2({
+                placeholder: "Selecione o cargo",
+                width: "100%",
+            });
+        }
     }
 }
 </script>
