@@ -39,40 +39,6 @@ final class ClienteController {
     {
         $data = $request->getParsedBody();
 
-        // Validar campos obrigatórios
-        $requiredFields = ['nome', 'telefone', 'cpf', 'email', 'n_casa'];
-        foreach ($requiredFields as $field) {
-            if (empty($data[$field])) {
-                return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Campo '.$field.' é obrigatório.']));
-            }
-        }
-
-        // Validar formato do nome apenas letras e espaço
-        if (!preg_match('/^[a-zA-Z\s]+$/', $data['nome'])) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Nome inválido.']));
-        }
-
-        // Validar formato do telefone Ex: (75)91111-2222
-        if (!preg_match('/^\(\d{2}\)\d{4,5}-\d{4}$/', $data['telefone'])) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Telefone inválido.']));
-        }
-
-        // Validar formato do CPF Ex: 111.222.333-55
-        if (!preg_match('/^\d{3}\.\d{3}\.\d{3}-\d{2}$/', $data['cpf'])) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'CPF inválido.']));
-        }
-
-        // Validar formato do email (Só funciona se tiver @)
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Email inválido.']));
-        }
-
-        // Validar formato do número da casa
-        if (!is_numeric($data['n_casa'])) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Número da casa inválido.']));
-        }
-
-
         $clienteDAO = new ClienteDAO();
         $cliente = new ClienteModel();
         $cliente->setNome($data['nome']) 
