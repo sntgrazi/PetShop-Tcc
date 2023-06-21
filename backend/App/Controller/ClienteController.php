@@ -72,21 +72,6 @@ final class ClienteController {
             return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Número da casa inválido.']));
         }
 
-         // Verificar unicidade do número de telefone
-        $clienteDAO = new ClienteDAO();
-        if ($clienteDAO->telefoneExists($data['telefone'])) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Número de telefone já cadastrado.']));
-        }
-
-        // Verificar unicidade do CPF
-        if ($clienteDAO->cpfExists($data['cpf'])) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'CPF já cadastrado.']));
-        }
-
-        // Verificar unicidade do email
-        if ($clienteDAO->emailExists($data['email'])) {
-            return $response->withStatus(400)->getBody()->write(json_encode(['message' => 'Email já cadastrado.']));
-        }
 
         $clienteDAO = new ClienteDAO();
         $cliente = new ClienteModel();
