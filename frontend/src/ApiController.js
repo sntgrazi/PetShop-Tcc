@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import Swal from "sweetalert2";
 
 const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
@@ -36,6 +37,21 @@ export default {
             }
         });
     },
+
+    async autenticarSenha(email, senha) {
+        const url = `${ApiUrl}/senhaAcesso`;
+        const data = { email, senha };
+        
+        const response = await axios.post(url, data).catch(error => {
+                Swal.fire({
+                  title: 'Senha incorreta!',
+                  icon: 'error',
+                });
+        })
+
+        return response.data.senhaCorreta;
+    },
+    
 
     // Requisições Clientes
 

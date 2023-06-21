@@ -21,4 +21,16 @@ class UserDAO extends ConexaoDAO{
         return $user;
 
     }
+
+    public function getSenhaAcesso(UserModel $userM){
+        $sql = 'SELECT senhaAcesso from usuarios WHERE email = :email';
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([
+            'email' => $userM->getEmail()
+        ]);
+        
+        $senha = $stm->fetch(\PDO::FETCH_ASSOC);
+        return $senha;
+   
+    }
 }

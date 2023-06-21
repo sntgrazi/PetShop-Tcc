@@ -8,7 +8,7 @@ final class UserModel{
 
     private $senha;
 
-    
+    private $senhaAcesso;
 
     public function getEmail(): string{
         return $this->email;
@@ -27,6 +27,20 @@ final class UserModel{
 
     public function setSenha(string $senha): UserModel{
         $this->senha = $senha;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of senhaAcesso
+     */ 
+    public function getSenhaAcesso(): string{
+        return $this->senhaAcesso;
+    }
+
+ 
+    public function setSenhaAcesso(string $senhaAcesso): UserModel{
+        $this->senhaAcesso = $senhaAcesso;
 
         return $this;
     }

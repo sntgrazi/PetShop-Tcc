@@ -47,4 +47,31 @@ final class AuthController{
         return $response;
     }
 
+    public function verificaSenha(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        
+        $userDAO = new UserDAO();
+        $userModel = new UserModel();
+        $userModel->setEmail($data['email']);
+        $senhadigitada = $data['senha'];
+    
+        $senhaArmazenada = $userDAO->getSenhaAcesso($userModel);
+
+        if ($senhadigitada == $senhaArmazenada['senhaAcesso']) {
+            $senhaCorreta = true;
+            $response = $response->withStatus(200)
+                ->withHeader('Content-Type', 'application/json');
+            $response->getBody()->write(json_encode(['senhaCorreta' => $senhaCorreta]));
+        } else {
+            $senhaCorreta = false;
+            $response = $response->withStatus(401)
+                ->withHeader('Content-Type', 'application/json');
+            $response->getBody()->write(json_encode(['senhaCorreta' => $senhaCorreta]));
+        }
+    
+        return $response;
+    }
+    
+    
+
 }

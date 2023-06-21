@@ -108,6 +108,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.removeItem('token');
+          localStorage.removeItem('email');
       
       // Redirecione para a página de login
            window.location.href = '/';

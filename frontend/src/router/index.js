@@ -7,6 +7,7 @@ import Caixa from '../views/CaixaView.vue';
 import Funcionarios from '../views/FuncionariosView.vue';
 import Login from '../views/LoginView.vue';
 import Swal from "sweetalert2";
+import ApiController from '@/ApiController';
 
 function verificarAutenticacao(to, from, next) {
   const token = localStorage.getItem('token');
@@ -14,7 +15,7 @@ function verificarAutenticacao(to, from, next) {
   if (token) {
     next();
   } else {
-      // Se o token não existir, redirecione para a página de login
+    // Se o token não existir, redirecione para a página de login
     Swal.fire({
       icon: 'info',
       title: 'Faça login para acessar esta página',
@@ -22,10 +23,50 @@ function verificarAutenticacao(to, from, next) {
       timer: 2500,
       timerProgressBar: true
     }).then(() => {
-        window.location.href = '/';
+      window.location.href = '/';
     });
   }
 }
+
+function verificarAutenticacaoFuncionario(to, from, next) {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    verificarSenha(next);
+  } else {
+    // Se o token não existir, redirecione para a página de login
+    Swal.fire({
+      icon: 'info',
+      title: 'Faça login para acessar esta página',
+      showConfirmButton: false,
+      timer: 2500,
+      timerProgressBar: true
+    }).then(() => {
+      window.location.href = '/';
+    });
+  }
+}
+
+function verificarSenha(next) {
+  Swal.fire({
+    title: 'Digite a senha de acesso:',
+    input: 'password',
+    showCancelButton: true,
+    confirmButtonText: 'Acessar',
+    cancelButtonText: 'Cancelar',
+    showLoaderOnConfirm: true,
+    preConfirm: async (senha) => {
+      const email = localStorage.getItem('email');
+      const result = await ApiController.autenticarSenha(email, senha);
+      if (result) {
+        next();
+      } 
+    },
+  });
+}
+
+
+
 
 const routes = [
   {
@@ -47,21 +88,21 @@ const routes = [
     name: 'Agenda',
     component: Agenda,
     beforeEnter: verificarAutenticacao,
-    
-    
+
+
   },
   {
     path: '/pets',
     name: 'Pets',
     component: Pets,
-   
+
     beforeEnter: verificarAutenticacao
   },
   {
     path: '/estoque',
     name: 'Estoque',
     component: Estoque,
-  
+
     beforeEnter: verificarAutenticacao
   },
   {
@@ -75,8 +116,8 @@ const routes = [
     path: '/funcionarios',
     name: 'Funcionarios',
     component: Funcionarios,
-  
-    beforeEnter: verificarAutenticacao
+
+    beforeEnter: verificarAutenticacaoFuncionario
   },
 ]
 

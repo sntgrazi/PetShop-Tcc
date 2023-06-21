@@ -117,7 +117,7 @@ export default {
         async login() {
             try {
                 await ApiController.login(this.email, this.senha);
-
+                localStorage.setItem('email', this.email);
             } catch (error) {
                 console.log("Erro ao tentar fazer login: ", error);
 
