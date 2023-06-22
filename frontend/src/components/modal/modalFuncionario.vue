@@ -119,7 +119,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="proxima-etapa" @click="voltar">
-                                voltar
+                                Voltar
                             </button>
 
                             <button class="confirm">
