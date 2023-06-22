@@ -8,7 +8,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
 final class FuncionariosController{
-
     public function getAllFuncionarios(Request $request, Response $response, array $args){
         $funcionariosDAO = new FuncionariosDAO();
         $funcionarios = $funcionariosDAO->getAllFuncionarios();
