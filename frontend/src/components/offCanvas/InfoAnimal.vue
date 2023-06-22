@@ -18,7 +18,6 @@
     <div class="offcanvas-body">
       <div class="informacoes">
         <span>{{ pet.nome_pet }}</span>
-
       </div>
     </div>
   </div>
