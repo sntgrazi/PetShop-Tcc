@@ -275,9 +275,8 @@ export default {
 
             this.cliente.telefone = formatted;
         },
-
-
     },
+    
     mounted() {  
         if (this.userId != false) {
             this.loading = true

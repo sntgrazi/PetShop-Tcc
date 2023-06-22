@@ -26,12 +26,12 @@
                                     <div class="row">
                                         <div class="col-7 col-sm-7">
                                             <BaseInput :modelValue="funcionario.cpf"
-                                                @update:modelValue="(newValue) => (funcionario.cpf = newValue)"
+                                            @update:modelValue="formatarCPF"
                                                 :label="'Cpf'" :idInput="'inputCpf'" />
                                         </div>
                                         <div class="col-5 col-sm-5">
                                             <BaseInput :modelValue="funcionario.telefone"
-                                                @update:modelValue="(newValue) => (funcionario.telefone = newValue)"
+                                            @update:modelValue="formatarTelefone"
                                                 :label="'Telefone'" :idInput="'inputTelefone'" />
                                         </div>
                                     </div>
@@ -216,6 +216,13 @@ export default {
         },
         async FormCadastro() {
             try {
+
+                const camposValidos = this.validarCampos();
+
+                if (!camposValidos) {
+                    return;
+                }
+
                 this.loading = true
                 await ApiController.cadastrarFuncionario(this.funcionario);
            
@@ -230,6 +237,13 @@ export default {
         },
         async FormEdit() {
             try {
+
+                const camposValidos = this.validarCampos();
+
+                if (!camposValidos) {
+                    return;
+                }
+
                 this.loading = true
                 await ApiController.editarFuncionario(this.userId, this.funcionario);
                 
@@ -243,7 +257,66 @@ export default {
             }
         },
 
+        validarCampos() {
+            // Verificar se todos os campos obrigatórios estão preenchidos
+            if (
+                !this.funcionario.nome ||
+                !this.funcionario.cpf ||
+                !this.funcionario.telefone ||
+                !this.funcionario.email ||
+                !this.funcionario.n_casa
+            ) {
+                Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+                return false;
+            }
 
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(this.funcionario.email)) {
+                Swal.fire("", "Por favor, insira um endereço de e-mail válido.", "error");
+                return; // Retorna para interromper o envio do formulário
+            }
+
+            // Verificar o formato correto do nome
+            const regexNome = /^[A-Za-z\s]+$/;
+            if (!regexNome.test(this.funcionario.nome)) {
+                Swal.fire("Erro", "Digite apenas letras e espaços no campo Nome.", "error");
+                return false;
+            }
+
+            // ...
+
+            return true;
+        },
+
+
+        formatarCPF(cpf) {
+            // Remove qualquer caractere que não seja número
+            const cleaned = cpf.replace(/\D/g, '');
+
+            // Aplica a formatação XXX.XXX.XXX-XX
+            const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})$/);
+            const formatted = !match
+                ? cleaned
+                : [match[1], match[2], match[3]].filter(Boolean).join('.') + (match[4] ? `-${match[4]}` : '');
+
+            // Atualiza o valor do campo do CPF
+            this.funcionario.cpf = formatted;
+        },
+
+        formatarTelefone(telefone) {
+            const cleaned = telefone.replace(/\D/g, '');
+            let formatted = '';
+
+            if (cleaned.length === 11) {
+                formatted = cleaned.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (cleaned.length === 10) {
+                formatted = cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+            } else {
+                formatted = cleaned;
+            }
+
+            this.funcionario.telefone = formatted;
+        },
     },
     mounted() {
         this.buscarCargos();

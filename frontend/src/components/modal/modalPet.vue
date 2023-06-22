@@ -412,7 +412,12 @@ export default {
                 !this.animal.altura ||
                 !this.animal.peso ||
                 !this.animal.data_nascimento ||
-                !this.animal.sexo
+                !this.animal.sexo ||
+                !this.animal.especie ||
+                !this.animal.raca ||
+                !this.animal.porte ||
+                !this.animal.pelagem
+
             ) {
                 Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
                 return false;
