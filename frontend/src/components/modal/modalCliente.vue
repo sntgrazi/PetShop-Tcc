@@ -228,6 +228,12 @@ export default {
             return false;
             }
 
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(this.cliente.email)) {
+                Swal.fire("", "Por favor, insira um endereço de e-mail válido.", "error");
+                return; // Retorna para interromper o envio do formulário
+            }
+
             // Verificar o formato correto do nome
             const regexNome = /^[A-Za-z\s]+$/;
             if (!regexNome.test(this.cliente.nome)) {
