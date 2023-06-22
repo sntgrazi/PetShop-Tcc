@@ -12,6 +12,7 @@
         </div>
         <div class="modal-body">
             <form class="formModal" @submit.prevent="userId == false ? FormCadastro() : FormEdit()">
+                <loading :loading="loading" />
                 <div class="form-inputs" v-show="etapaAtual === 1">
 
                     <div class="inputCadastroCliente">
@@ -140,6 +141,7 @@ export default {
             cliente: {},
             titulo: this.userId == false ? "Cadastrar Cliente" : "Editar Cliente",
             botaoConfirm: this.userId == false ? "Cadastrar" : "Editar",
+            loading: true
         }
     },
     methods: {
@@ -203,9 +205,13 @@ export default {
             }
         },
     },
-    mounted() {
+    mounted() {  
         if (this.userId != false) {
+            this.loading = true
             this.buscarDadosCliente()
+          
+        }  else {
+            this.loading = false
         }
     }
 }

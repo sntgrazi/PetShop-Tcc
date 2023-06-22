@@ -238,7 +238,9 @@ export default {
         },
         async buscarClientes() {
             try {
+                this.loading = true
                 this.clientes = await ApiController.buscarClienteTabela();
+                this.loading = false
             } catch (error) {
                 console.log("Erro ao listar os clientes: ", error)
             }
@@ -300,6 +302,7 @@ export default {
         this.buscarFuncionarios();
 
         if (this.userId == false) {
+       
             $("#select-servico").select2({
                 placeholder: "Selecione um serviço",
                 width: "100%",
@@ -341,7 +344,6 @@ export default {
                 this.agenda.funcionario_id = $("#select-funcionario option:selected").val();
             });
 
-            this.loading = false
         } else {
             this.buscarDadoAgendamento()
             

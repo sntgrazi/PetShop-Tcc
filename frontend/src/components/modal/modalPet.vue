@@ -12,6 +12,7 @@
     </div>
     <div class="modal-body">
       <form class="formModal" @submit.prevent="userId == false ? FormCadastro() : FormEdit()">
+        <loading :loading="loading" />
         <div class="form-inputs" v-show="etapaAtual === 1">
           <div class="inputsAnimais" v-if="inputsAnimais">
             <div class="container-fluid">
@@ -189,6 +190,7 @@ import "select2/dist/css/select2.css";
 import "select2";
 import $ from "jquery";
 import Swal from "sweetalert2";
+import loading from '../Outros/loading.vue';
 
 
 export default {
@@ -196,7 +198,8 @@ export default {
   props: ['tipo', 'icon', 'toggle', 'userId', 'inputsAnimais', 'infoTutores', 'active'],
   emits: ["atualizarTabela"],
   components: {
-    BaseInput
+    BaseInput,
+    loading
   },
   data() {
     return {
@@ -219,6 +222,7 @@ export default {
       titulo: this.userId == false ? "Cadastrar Pet" : "Editar Pet",
       botaoConfirm: this.userId == false ? "Cadastrar" : "Editar",
       watchEnabled: true,
+      loading: true
     }
   },
   methods: {
@@ -253,7 +257,9 @@ export default {
 
         $("#select-especie").select2();
         $("#select-especie").val(animal.especie).trigger("change");
-
+        $("#select-especie").on("change", (e) => {
+          this.animal.especie = $("#select-especie option:selected").val();
+        });
 
         $("#select-raca").select2({
           placeholder: "Selecione uma Raça",
@@ -442,7 +448,7 @@ export default {
           this.loading = true
           // Obtém a espécie selecionada
           this.especie = e.target.value;
-
+          this.animal.especie = this.especie;
           // Busca as raças correspondentes na API The Dog API
           const response = await ApiController.buscarRaca(this.especie);
           const racas = response;
@@ -470,6 +476,7 @@ export default {
             // Obtém a raça selecionada
             this.animal.raca = $("#select-raca option:selected").data("nome");
           });
+
         } catch (error) {
           console.log(error);
         }

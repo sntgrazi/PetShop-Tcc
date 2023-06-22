@@ -3,9 +3,8 @@
     <div class="custom-container">
       <topo :type="'Pets'" :icon="'fa-plus'" :toggle="toggleform" />
       <div class="custom-content">
-        <loading :loading="loading" />
         <div class="custom-main-content">
-          
+          <loading :loading="loading" />
           <modalPet v-if="formActive" :tipo="'Pets'" :icon="'fa-paw'" :toggle="toggleform" :userId="userId"
             :inputsAnimais="inputsAnimais" @atualizarTabela="getAnimais" :infoTutores="mostrarInfoTutores" />
 
