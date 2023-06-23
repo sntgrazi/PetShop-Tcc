@@ -4,7 +4,7 @@
             <topo :type="'Estoque'" :icon="'fa-plus'" :toggle="toggleform" />
             <div class="custom-content">
                 <div class="custom-main-content">
-                    <tabela :topoTabela="topoTabela"  />
+                    <tabela :topoTabela="topoTabela"  :tipo="'estoque'" :dados="dadosTabela"/>
                 </div>
             </div>
         </div>
@@ -13,18 +13,20 @@
 
 <script>
 import tabela from '../components/Outros/tabela.vue';
-import topo from '../components/Outros/topo.vue';
+import topo from '../components/Outros/topo.vue'; 
 import { ref } from 'vue';
 
 
 export default {
     name: 'EstoqueView',
     components: {
-        topo
+        topo,
+        tabela
     },
     data() {
         return {
-            topoTabela: ['']
+            topoTabela: ['COD', 'PRODUTO', 'QUANTIDADE', 'VALOR'],
+            dadosTabela: ['aa', 'aaa', 'aaaa', 'aaaaa']
         }
     },
     setup() {

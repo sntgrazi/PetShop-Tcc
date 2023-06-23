@@ -52,14 +52,16 @@
         <span class="custom-tooltip">Pets</span>
       </li>
       <li>
-        <router-link to="/estoque">
-          <a href="#">
-            <i class="fa-solid fa-box"></i>
-            <span class="custom-links_name">Estoque</span>
-          </a>
-        </router-link>
-        <span class="custom-tooltip">Estoque</span>
+        <a href="#">
+          <i class="fa-solid fa-box"></i>
+          <span class="custom-links_name">Estoque</span>
+        </a>
+        <div class="custom-opcao">
+          <router-link to="/produtos" id="dropdown-link">Produtos</router-link>
+          <router-link to="/fornecedores" id="dropdown-link">Fornecedores</router-link>
+        </div>
       </li>
+
       <hr />
       <li>
         <a href="#">
@@ -109,12 +111,24 @@ export default {
         if (result.isConfirmed) {
           localStorage.removeItem('token');
           localStorage.removeItem('email');
-      
-      // Redirecione para a página de login
-           window.location.href = '/';
+
+          // Redirecione para a página de login
+          window.location.href = '/';
         }
       });
-    }
+    },
+    showDropdown() {
+      this.dropdownVisible = true;
+    },
+    cancelHideDropdownTimer() {
+      clearTimeout(this.hideDropdownTimer);
+    },
+  },
+  data() {
+    return {
+      dropdownVisible: false,
+      hideDropdownTimer: null
+    };
   },
   mounted() {
     const toggle = document.getElementById("header-toggle");
@@ -137,4 +151,40 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+
+.custom-sidebar li .custom-opcao {
+  position: absolute;
+  top: -20px;
+  left: calc(100% + 15px);
+  z-index: 9999;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0;
+  white-space: nowrap;
+  transition-delay: 0.2s;
+  /* Atraso de 1 segundo */
+}
+
+.custom-sidebar li:hover .custom-opcao {
+  opacity: 1;
+  transition-delay: 0s;
+  top: 50%;
+  transform: translateY(-50%);
+
+}
+
+#dropdown-link{
+  background: transparent;
+  color: black;
+}
+
+#dropdown-link:hover{
+  color: blue;
+}
+</style>
