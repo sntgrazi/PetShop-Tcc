@@ -21,10 +21,6 @@
         <div class="row">
           <div class="col-md-12">
             <div class="mb-3">
-              <h6>Nome do Tutor</h6>
-              <p>Tutor</p>
-            </div>
-            <div class="mb-3">
               <h6>Pet</h6>
               <p>{{ pet.nome_pet }}</p>
             </div>

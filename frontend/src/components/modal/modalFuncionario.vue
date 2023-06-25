@@ -264,7 +264,6 @@ export default {
                 !this.funcionario.cpf ||
                 !this.funcionario.telefone ||
                 !this.funcionario.email ||
-                !this.funcionario.cargo ||
                 !this.funcionario.n_casa
             ) {
                 Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");

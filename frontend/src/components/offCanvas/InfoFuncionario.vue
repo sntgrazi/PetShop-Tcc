@@ -80,6 +80,11 @@
 export default {
     name: 'InfoFuncionario',
     props: ['funcionario', 'toggle'],
+    data() {
+        return {
+        endereco: []
+     }
+    },
     methods: {
         abriModalEdit(id) {
             $('#offcanvasRight').offcanvas('hide');
