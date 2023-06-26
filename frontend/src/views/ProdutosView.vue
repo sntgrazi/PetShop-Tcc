@@ -5,7 +5,12 @@
             <div class="custom-content">
                 <loading :loading="loading" />
                 <div class="custom-main-content">
-                    <tabela :topoTabela="topoTabela"  />
+                    <modalProdutos v-if="formActive" :toggle="toggleform" :userId="userId" :icon="'fa-bag-shopping'"
+                        @atualizarTabela="getAllServicos" @atualizarTabelaP="getAllProdutos" />
+                    <tabela ref="tabela" :topoTabela="topoTabela" :tipo="'estoque'" :dados="dadosTabela"
+                        @dadosProdutos="getAllProdutos" @dadosServicos="getAllServicos" :dadosServicos="dadosTabelaServicos"
+                        :toggle="toggleform" @deletar="deletarServico" @infoProduto="offcanvasProdutos" />
+                    <InfoProduto :produto="produtos" :toggle="toggleform" @deletar="deletarProduto" />
                 </div>
             </div>
         </div>
@@ -25,11 +30,19 @@ import InfoProduto from '@/components/offCanvas/InfoProduto.vue';
 export default {
     name: 'EstoqueView',
     components: {
-        topo
+        topo,
+        tabela,
+        modalProdutos,
+        loading,
+        InfoProduto
     },
     data() {
         return {
-            topoTabela: ['']
+            topoTabela: [],
+            dadosTabela: [],
+            dadosTabelaServicos: [],
+            loading: false,
+            produtos: [],
         }
     },
     mounted() {
