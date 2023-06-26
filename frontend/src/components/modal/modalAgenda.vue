@@ -275,6 +275,13 @@ export default {
         },
         async FormCadastro() {
             try {
+
+                const camposValidos = this.validarCampos();
+
+                if (!camposValidos) {
+                    return;
+                }
+
                 await ApiController.inserirOrdem(this.agenda);
                 Swal.fire("", "Agendamento feito com sucesso!", "success");
                 this.$emit("atualizarCalendario");
@@ -286,6 +293,13 @@ export default {
         },
         async FormEdit() {
             try {
+
+                const camposValidos = this.validarCampos();
+
+                if (!camposValidos) {
+                    return;
+                }
+
                 await ApiController.updateOrdem(this.userId, this.agenda);
                 Swal.fire("", "Agendamento atualizado com sucesso!", "success");
                 this.$emit("atualizarCalendario");
@@ -294,7 +308,20 @@ export default {
             } catch (error) {
                 console.log(error);
             }
-        }
+        },
+
+        validarCampos() {
+            // Verificar se todos os campos obrigatórios estão preenchidos
+            if (
+                !this.agenda.cliente_id ||
+                !this.agenda.animal_id ||
+                !this.agenda.funcionario_id ||
+                !this.agenda.servico_id
+            ) {
+                Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+                return false;
+            }
+        },
     },
     mounted() {
         this.buscarServicos();

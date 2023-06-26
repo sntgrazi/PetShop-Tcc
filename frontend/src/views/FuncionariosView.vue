@@ -57,7 +57,15 @@ export default {
         async offcanvasFuncionario(id) {
             try {
                 this.loading = true
-                this.funcionario = await ApiController.getFuncionarioById(id)
+                const informacoesFuncionario = await ApiController.getFuncionarioById(id)
+                this.funcionario = informacoesFuncionario
+                this.endereco = informacoesFuncionario.endereco.split(",");
+                this.funcionario.cep = this.endereco[0];
+                this.funcionario.bairro = this.endereco[1];
+                this.funcionario.rua = this.endereco[2];
+                this.funcionario.cidade = this.endereco[3];
+                this.funcionario.uf = this.endereco[4];
+                this.funcionario.n_casa = this.endereco[5];
                 $('#offcanvasRight').offcanvas('show');
                 this.loading = false
             } catch (error) {

@@ -103,10 +103,10 @@ export default {
           mensagemAlerta = 'Atendimento Iniciado';
         } else if (agenda.status == 'Em atendimento') {
           status = 'Concluído';
-          mensagemAlerta = 'Atendimeno Concluído';
+          mensagemAlerta = 'Atendimento Concluído';
         } else if (agenda.status == 'Cancelado') {
           status = 'Concluído';
-          mensagemAlerta = 'Atendimeno Concluído';
+          mensagemAlerta = 'Atendimento Concluído';
         }
 
         await ApiController.updateStatus(agenda.id, status);

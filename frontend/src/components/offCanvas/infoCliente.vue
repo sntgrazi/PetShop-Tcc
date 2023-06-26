@@ -1,7 +1,6 @@
 <template>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-      <i style="font-size: 30px; color: #1e90ff;" class='bx bxs-user'></i>
       <h5 style="color: #1e90ff;" class="offcanvas-title" id="offcanvasRightLabel">Cliente</h5>
       <div class="btnAcaoOff">
         <button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(cliente.id)">

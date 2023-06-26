@@ -246,10 +246,6 @@ export default {
             return true;
         },
 
-        validarNome() {
-            const regex = /^[A-Za-z\s]+$/;
-            return regex.test(this.cliente.nome);
-        },
 
         formatarCPF(cpf) {
             // Remove qualquer caractere que não seja número
@@ -279,9 +275,8 @@ export default {
 
             this.cliente.telefone = formatted;
         },
-
-
     },
+    
     mounted() {  
         if (this.userId != false) {
             this.loading = true
