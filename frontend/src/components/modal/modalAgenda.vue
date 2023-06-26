@@ -214,8 +214,8 @@ export default {
                 this.agenda.hora_termino = this.agenda.hora_termino
 
 
-                
-              
+
+
                 $("#select-cliente").on("change", async (e) => {
                     this.agenda.cliente_id = $("#select-cliente option:selected").val();
                     this.loading = true
@@ -274,14 +274,12 @@ export default {
             }
         },
         async FormCadastro() {
+            const camposValidos = this.validarCampos();
+
+            if (!camposValidos) {
+                return;
+            }
             try {
-
-                const camposValidos = this.validarCampos();
-
-                if (!camposValidos) {
-                    return;
-                }
-
                 await ApiController.inserirOrdem(this.agenda);
                 Swal.fire("", "Agendamento feito com sucesso!", "success");
                 this.$emit("atualizarCalendario");
@@ -321,6 +319,8 @@ export default {
                 Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
                 return false;
             }
+
+            return true;
         },
     },
     mounted() {
@@ -329,7 +329,7 @@ export default {
         this.buscarFuncionarios();
 
         if (this.userId == false) {
-       
+
             $("#select-servico").select2({
                 placeholder: "Selecione um serviço",
                 width: "100%",
@@ -373,8 +373,6 @@ export default {
 
         } else {
             this.buscarDadoAgendamento()
-            
-            
 
             $("#select-servico").select2({
                 placeholder: "Selecione um serviço",

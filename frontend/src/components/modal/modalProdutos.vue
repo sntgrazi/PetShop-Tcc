@@ -196,8 +196,6 @@ export default {
 
     async FormCadastro() {
 
-      
-
       if (this.tipoSelecionado == 1) {
         const camposValidos = this.validarCamposProduto();
 

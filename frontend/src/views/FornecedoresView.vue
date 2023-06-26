@@ -3,85 +3,54 @@
         <div class="custom-container">
             <topo :type="'Fornecedor'" :icon="'fa-plus'" :toggle="toggleform" />
             <div class="custom-content">
+                <loading :loading="loading" />
                 <div class="custom-main-content">
-<<<<<<< HEAD
-                    <ModalFornecedor v-if="formActive" :userId="userId" :toggle="toggleform" :tipo="'fornecedor'" :icon="'fa-truck-field'"/>
-
-                    <tabela :dados="dadosTabela" :topoTabela="topoTabela"
-                    :tipo="'fornecedor'"/>
-                    
-=======
+              
+                    <ModalFornecedor v-if="formActive" :userId="userId" :toggle="toggleform" :tipo="'fornecedor'" :icon="'fa-user'"/>
                     <ModalFornecedor v-if="formActive" :userId="userId" :toggle="toggleform" :tipo="'fornecedor'"
                         :icon="'fa-user'" @atualizarTabela="buscarFornecedores"/>
 
                     <tabela :dados="dadosTabela" :topoTabela="topoTabela" :tipo="'fornecedor'"
                         :toggle="toggleform" @deletar="deletarFornecedor"/>
 
->>>>>>> 572e667 (adicionando novas telas)
+
                 </div>
             </div>
         </div>
     </section>
 </template>
-
 <script>
 import topo from "@/components/Outros/topo.vue";
-
 import { ref } from 'vue';
 import ModalFornecedor from '../components/modal/modalFornecedor.vue';
 import tabela from "@/components/Outros/tabela.vue";
 import ApiController from "@/ApiController";
-<<<<<<< HEAD
-=======
 import Swal from "sweetalert2";
->>>>>>> 572e667 (adicionando novas telas)
+import loading from "@/components/Outros/loading.vue";
 
 export default {
     name: 'FornecedoresView',
     components: {
         topo,
         ModalFornecedor,
-<<<<<<< HEAD
-        tabela
-    },
-    data(){
-        return{
-            topoTabela: ['ID', 'NOME', 'CNPJ', 'TELEFONE'],
-            dadosTabela: []
-        }
-    },
-    methods: {
-        async getAllFornecedores(){
-            try{    
-                this.loading = true
-                const fornecedores = await ApiController.getFornecedores();
-                this.dadosTabela = fornecedores;
-                console.log(this.dadosTabela)
-                this.loading = false
-            }catch (error){
-                console.log('Erro ao buscar os fornecedores: ', error)
-            }
-        }
-    },
-    mounted(){
-        this.getAllFornecedores();
-=======
         tabela,
+        loading
     },
     data() {
         return {
             dadosTabela: [],
             topoTabela: ['ID', 'NOME', 'CNPJ', 'TELEFONE', 'EMAIL', 'AÇÕES'],
-            fornecedor: []
+            fornecedor: [],
+            loading: true
         }
     },
     methods: {
         async buscarFornecedores() {
             try {
-                this.loanding = true
+                this.loading = true
                 const fornecedor = await ApiController.getFornecedores();
                 this.dadosTabela = fornecedor;
-                this.loanding = false
+                this.loading = false
             } catch (error) {
                 console.log(error)
             }
@@ -97,7 +66,6 @@ export default {
                     confirmButtonText: "Sim",
                     cancelButtonText: "Não",
                 });
-
                 if (result.isConfirmed) {
                     this.loading = true
                     $('#offcanvasRight').offcanvas('hide');
@@ -113,23 +81,18 @@ export default {
     },
     mounted() {
         this.buscarFornecedores();
->>>>>>> 572e667 (adicionando novas telas)
     },
     setup() {
         const formActive = ref(false);
         const userId = ref(false);
-
         const toggleform = (tipo, id = false) => {
             formActive.value = !formActive.value;
             userId.value = false;
-
             if (id) {
                 userId.value = id;
                 console.log(userId.value);
             }
         };
-
-
         return {
             formActive,
             toggleform,
@@ -137,4 +100,5 @@ export default {
         };
     },
 }
+
 </script>

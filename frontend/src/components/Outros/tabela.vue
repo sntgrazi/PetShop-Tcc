@@ -38,13 +38,6 @@
             <td v-if="this.tipo == 'funcionario'">{{ dado.telefone }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.nome_cargo }}</td>
 
-<<<<<<< HEAD
-            <td @click="abrirInfoFuncionario(dado.id)" class="linhaName" v-if="this.tipo == 'fornecedor'">{{ dado.nome_fantasia }}
-            </td>
-            <td v-if="this.tipo == 'fornecedor'">{{ dado.telefone }}</td>
-            <td v-if="this.tipo == 'fornecedor'">{{ dado.cnpj }}</td>
-
-=======
             <td v-if="this.tipo == 'fornecedor'">{{
               dado.nome_fantasia }}
             </td>
@@ -60,7 +53,7 @@
                 <i class="fa-solid fa-trash"></i>
               </button>
             </td>
->>>>>>> 572e667 (adicionando novas telas)
+
           </tr>
 
           <tr v-if="abaAtiva === 'produtos' && this.tipo == 'estoque'" v-for="(dado, index) in dados" :key="index">
@@ -295,7 +288,7 @@ td {
   border-collapse: collapse;
   padding: 1em;
   text-align: center;
-  cursor: default
+  
 
 }
 
