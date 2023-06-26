@@ -11,7 +11,7 @@
   <div class="custom-sidebar" id="nav-bar">
     <div class="custom-logo-details">
       <img src="../../assets/img/image.png" alt="">
-      <div class="custom-logo_name"> DOO'PETS</div>
+      <div class="custom-logo_name"> <img src="../../assets/img/fonte.png" alt=""></div>
     </div>
     <ul class="custom-nav-list">
       <hr />
@@ -152,6 +152,10 @@ export default {
 </script>
 
 <style>
+.custom-logo_name > img{
+  width: 90px;
+}
+
 .custom-logo-details > img{
   width: 50px;
 }
