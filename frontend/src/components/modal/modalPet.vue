@@ -409,7 +409,8 @@ export default {
             if (
                 !this.animal.nome_pet ||
                 !this.animal.altura ||
-                !this.animal.peso 
+                !this.animal.peso ||
+                !this.animal.data_nascimento
 
             ) {
                 Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");

@@ -73,11 +73,11 @@
                 <div class="row" v-show="tipoSelecionado != 2">
                   <div class="col-4 col-sm-4">
                     <BaseInput :modelValue="produtos.valor_compra" @update:modelValue="(newValue) => (produtos.valor_compra = newValue)
-                      " :label="'Valor Compra'" />
+                      " :label="'Valor Compra (R$)'" />
                   </div>
                   <div class="col-4 col-sm-4">
                     <BaseInput :modelValue="produtos.valor_venda" @update:modelValue="(newValue) => (produtos.valor_venda = newValue)
-                      " :label="'Valor Venda'" />
+                      " :label="'Valor Venda (R$)'" />
                   </div>
                   <div class="col-4 col-sm-4">
                     <BaseInput :modelValue="produtos.data_validade" @update:modelValue="(newValue) => (produtos.data_validade = newValue)
@@ -272,8 +272,12 @@ export default {
     validarCamposProduto() {
       // Verificar se todos os campos obrigatórios estão preenchidos
       if (
-          !this.servicos.nome_servico ||
-          !this.servicos.valor
+          !this.produtos.nome ||
+          !this.produtos.quantidade ||
+          !this.produtos.cod_barras ||
+          !this.produtos.valor_compra ||
+          !this.produtos.valor_venda ||
+          !this.produtos.data_validade
       ) {
           Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
           return false;
@@ -281,12 +285,16 @@ export default {
 
       // Verificar o formato correto do nome
       const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/u;
-      if (!regexNome.test(this.servicos.nome_servico)) {
+      if (!regexNome.test(this.produtos.nome)) {
         Swal.fire("Erro", "Digite apenas letras, espaços e acentos no campo Nome.", "error");
         return false;
       }
 
-      // ...
+      const regexNumeros = /^[0-9.,]+$/;
+      if (!regexNumeros.test(this.produtos.valor_compra) || !regexNumeros.test(this.produtos.valor_venda ) | !regexNumeros.test(this.produtos.quantidade )) {
+        Swal.fire("Erro", "Digite apenas números nos campos de Valor Compra e Valor Venda.", "error");
+        return false;
+      }
 
       return true;
   },
@@ -308,7 +316,12 @@ export default {
         return false;
       }
 
-      // ...
+      // Verificar se o valor do serviço é um número
+    const regexNumeros = /^[0-9.,]+$/;
+    if (!regexNumeros.test(this.servicos.valor)) {
+      Swal.fire("Erro", "Digite apenas números no campo de Valor.", "error");
+      return false;
+    }
 
       return true;
   },
