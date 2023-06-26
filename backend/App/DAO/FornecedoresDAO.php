@@ -35,7 +35,7 @@ class FornecedoresDAO extends ConexaoDAO
 
     public function cadastrarFornecedor(FornecedoresModel $fornecedor): void
     {
-        $sql = 'INSERT INTO fornecedores (nome_fantasia, telefone, email, endereco, cnpj) VALUES (:nome_fantasia, :telefone, :email, :endereco, :cnpj)';
+        $sql = 'INSERT INTO fornecedores (nome_fantasia, telefone, email, cnpj) VALUES (:nome_fantasia, :telefone, :email, :cnpj)';
 
         $stm = $this->pdo->prepare($sql);
 
@@ -43,14 +43,13 @@ class FornecedoresDAO extends ConexaoDAO
             'nome_fantasia' => $fornecedor->getNomeFantasia(),
             'telefone' => $fornecedor->getTelefone(),
             'email' => $fornecedor->getEmail(),
-            'endereco' => $fornecedor->getEndereco(),
             'cnpj' => $fornecedor->getCnpj()
         ]);
     }
 
     public function atualizarFornecedor(FornecedoresModel $fornecedor): void
     {
-        $sql = 'UPDATE fornecedores SET nome_fantasia = :nome_fantasia, telefone = :telefone, email = :email, endereco = :endereco, cnpj = :cnpj WHERE id = :id';
+        $sql = 'UPDATE fornecedores SET nome_fantasia = :nome_fantasia, telefone = :telefone, email = :email, cnpj = :cnpj WHERE id = :id';
 
         $stm = $this->pdo->prepare($sql);
 
@@ -59,7 +58,6 @@ class FornecedoresDAO extends ConexaoDAO
             'nome_fantasia' => $fornecedor->getNomeFantasia(),
             'telefone' => $fornecedor->getTelefone(),
             'email' => $fornecedor->getEmail(),
-            'endereco' => $fornecedor->getEndereco(),
             'cnpj' => $fornecedor->getCnpj()
         ]);
     }

@@ -10,8 +10,8 @@
 
   <div class="custom-sidebar" id="nav-bar">
     <div class="custom-logo-details">
-      <i class="fa-solid fa-shield-dog custom-icon"></i>
-      <div class="custom-logo_name">PETSHOP</div>
+      <img src="../../assets/img/image.png" alt="">
+      <div class="custom-logo_name"> DOO'PETS</div>
     </div>
     <ul class="custom-nav-list">
       <hr />
@@ -152,7 +152,9 @@ export default {
 </script>
 
 <style>
-
+.custom-logo-details > img{
+  width: 50px;
+}
 
 .custom-sidebar li .custom-opcao {
   position: absolute;

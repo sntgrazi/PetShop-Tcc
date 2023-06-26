@@ -460,7 +460,7 @@ export default {
     },
 
     async getFornecedorById(id) {
-        const url = `${ApiUrl}/fornecedores/${id}`;
+        const url = `${ApiUrl}/fornecedor/${id}`;
         const response = await axios.get(url).catch(error => {
             console.error(`Erro ao buscar fornecedor com ID ${id}: `, error);
             throw error;

@@ -75,7 +75,7 @@ $app->delete('/deleteFuncionario/{id}', FuncionariosController::class . ':delete
 $app->get('/fornecedores', FornecedoresController::class . ':getAllFornecedores');
 $app->get('/fornecedor/{id}', FornecedoresController::class . ':getFornecedorById');
 $app->post('/cadastrarFornecedores', FornecedoresController::class . ':cadastrarFornecedor');
-$app->put('/atualizarFornecedores/{id}', FornecedoresController::class . ':atualizarFornecedor');
+$app->put('/atualizarFornecedor/{id}', FornecedoresController::class . ':atualizarFornecedor');
 $app->delete('/deletarFornecedor/{id}', FornecedoresController::class . ':deletarFornecedor');
 
 
