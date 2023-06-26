@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import Swal from "sweetalert2";
 
-const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
+const ApiUrl = 'http://localhost:84';
 
 export default {
 
@@ -41,17 +41,17 @@ export default {
     async autenticarSenha(email, senha) {
         const url = `${ApiUrl}/senhaAcesso`;
         const data = { email, senha };
-        
+
         const response = await axios.post(url, data).catch(error => {
-                Swal.fire({
-                  title: 'Senha incorreta!',
-                  icon: 'error',
-                });
+            Swal.fire({
+                title: 'Senha incorreta!',
+                icon: 'error',
+            });
         })
 
         return response.data.senhaCorreta;
     },
-    
+
 
     // Requisições Clientes
 
@@ -232,7 +232,7 @@ export default {
         return response.data;
     },
 
-    // Buscar Servicos
+    // Servicos
 
     async getServicos() {
         const url = `${ApiUrl}/servicos`;
@@ -241,6 +241,47 @@ export default {
                 console.error("Erro ao buscar os servicos: ", error);
                 throw error
             })
+
+        return response.data;
+    },
+
+    async getServicosById(id) {
+        const url = `${ApiUrl}/servicoById/${id}`;
+        const response = await axios.get(url)
+            .catch(error => {
+                console.error("Erro ao buscar o servico: ", error);
+                throw error
+            })
+
+        return response.data;
+    },
+
+    async cadastrarServico(servico) {
+        const url = `${ApiUrl}/cadastrarServico`;
+        const response = await axios.post(url, servico).catch(error => {
+            console.error('Erro ao cadastrar um novo serviço: ', error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async atualizarServico(id, servico) {
+        const url = `${ApiUrl}/atualizarServico/${id}`;
+        const response = await axios.put(url, servico).catch(error => {
+            console.error(`Erro ao atualizar serviço com ID ${id}: `, error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async deletarServico(id) {
+        const url = `${ApiUrl}/deletarServico/${id}`
+        const response = await axios.delete(url).catch(error => {
+            console.error(`Erro ao deletar serviço com ID ${id}: `, error);
+            throw error;
+        })
 
         return response.data;
     },
@@ -395,6 +436,114 @@ export default {
             })
 
         return response.data
+    },
+
+    // Fornecedores 
+
+    async getFornecedores() {
+        const url = `${ApiUrl}/fornecedores`;
+        const response = await axios.get(url).catch(error => {
+            console.error('Erro ao buscar os fornecedores: ', error);
+            throw error;
+        })
+        return response.data;
+    },
+
+    async cadastrarFornecedor(fornecedor) {
+        const url = `${ApiUrl}/cadastrarFornecedores`;
+        const response = await axios.post(url, fornecedor).catch(error => {
+            console.error('Erro ao cadastrar um novo fornecedor: ', error);
+            throw error;
+        });
+
+        return response.data;
+    },
+
+    async getFornecedorById(id) {
+        const url = `${ApiUrl}/fornecedores/${id}`;
+        const response = await axios.get(url).catch(error => {
+            console.error(`Erro ao buscar fornecedor com ID ${id}: `, error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async atualizarFornecedor(id, fornecedor) {
+        const url = `${ApiUrl}/atualizarFornecedor/${id}`;
+        const response = await axios.put(url, fornecedor).catch(error => {
+            console.error(`Erro ao atualizar fornecedor com ID ${id}: `, error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async deletarFornecedor(id) {
+        const url = `${ApiUrl}/deletarFornecedor/${id}`;
+        const response = await axios.delete(url).catch(error => {
+            console.error(`Erro ao deletar fornecedor com ID ${id}: `, error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    // Produtos 
+
+    async buscarProdutos() {
+        const url = `${ApiUrl}/Allprodutos`;
+        const response = await axios.get(url).catch(error => {
+            console.error('Erro ao tentar buscar os produtos: ', error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async cadastrarProduto(produto) {
+        const url = `${ApiUrl}/cadastrarProduto`;
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        };
+        const response = await axios.post(url, produto, config).catch(error => {
+            console.error('Erro ao cadastrar um novo produto: ', error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async atualizarProduto(id, produto) {
+        const url = `${ApiUrl}/atualizarProduto/${id}`;
+        const response = await axios.put(url, produto).catch(error => {
+            console.error(`Erro ao atualizar produto com ID ${id}: `, error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async deletarProduto(id) {
+        const url = `${ApiUrl}/deletarProduto/${id}`;
+        const response = await axios.delete(url).catch(error => {
+            console.error(`Erro ao deletar produto com ID ${id}: `, error);
+            throw error;
+        })
+
+        return response.data;
+    },
+
+    async getProdutoById(id) {
+        const url = `${ApiUrl}/produto/${id}`;
+        const response = await axios.get(url).catch(error => {
+            console.error(`Erro ao buscar produto com ID ${id}: `, error);
+            throw error;
+        })
+
+        return response.data;
     }
 
 }
