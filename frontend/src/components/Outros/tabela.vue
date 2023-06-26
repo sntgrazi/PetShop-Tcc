@@ -4,7 +4,7 @@
     <section class="table_body">
       <div class="abas" v-if="this.tipo == 'estoque'">
         <button @click="selecionarAba('produtos')" :class="{ 'active': abaAtiva === 'produtos' }">Produtos</button>
-        <button @click="selecionarAba('servicos')" :class="{ 'active': abaAtiva === 'servicos' }">Servicos</button>
+        <button @click="selecionarAba('servicos')" :class="{ 'active': abaAtiva === 'servicos' }">Serviços</button>
       </div>
       <table>
         <thead>
@@ -56,7 +56,7 @@
           <tr v-if="abaAtiva === 'servicos' && this.tipo == 'estoque'" v-for="(dado, index) in dadosServicos"
             :key="index">
             <td>{{ dado.id }}</td>
-            <td @click="abrirInfoServico(dado.id)" class="linhaName">{{ dado.nome_servico }}</td>
+            <td>{{ dado.nome_servico }}</td>
             <td>R$ {{ dado.valor }}</td>
             <td><button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(dado.id)">
                 <i class="fa-solid fa-pen"></i>
@@ -276,6 +276,7 @@ td {
   border-collapse: collapse;
   padding: 1em;
   text-align: center;
+  cursor: default
 
 }
 

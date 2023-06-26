@@ -235,7 +235,7 @@ export default {
             }
 
             // Verificar o formato correto do nome
-            const regexNome = /^[A-Za-z\s]+$/;
+            const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
             if (!regexNome.test(this.cliente.nome)) {
                 Swal.fire("Erro", "Digite apenas letras e espaços no campo Nome.", "error");
                 return false;

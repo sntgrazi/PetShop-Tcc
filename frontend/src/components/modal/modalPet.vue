@@ -407,16 +407,9 @@ export default {
     validarCampos() {
             // Verificar se todos os campos obrigatórios estão preenchidos
             if (
-                !this.animal.tutor_id ||
                 !this.animal.nome_pet ||
                 !this.animal.altura ||
-                !this.animal.peso ||
-                !this.animal.data_nascimento ||
-                !this.animal.sexo ||
-                !this.animal.especie ||
-                !this.animal.raca ||
-                !this.animal.porte ||
-                !this.animal.pelagem
+                !this.animal.peso 
 
             ) {
                 Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
@@ -424,7 +417,7 @@ export default {
             }
 
             // Verificar o formato correto do nome
-            const regexNome = /^[A-Za-z\s]+$/;
+            const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
             if (!regexNome.test(this.animal.nome_pet)) {
                 Swal.fire("Erro", "Digite apenas letras e espaços no nome do pet.", "error");
                 return false;
