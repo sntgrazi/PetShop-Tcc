@@ -58,11 +58,11 @@
             <td>{{ dado.id }}</td>
             <td>{{ dado.nome_servico }}</td>
             <td>R$ {{ dado.valor }}</td>
-            <td><button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(dado.id)">
+            <td><button style="color: rgb(52, 136, 149);" class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(dado.id)">
                 <i class="fa-solid fa-pen"></i>
               </button>
               <button class="btnEditarOffCanvas" id="btn-deletar" @click="excluir(dado.id)">
-                <i class="fa-solid fa-trash"></i>
+                <i style="color: red;" class="fa-solid fa-trash"></i>
               </button>
             </td>
           </tr>
