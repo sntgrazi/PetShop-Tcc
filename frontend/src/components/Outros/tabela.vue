@@ -1,15 +1,21 @@
 <template>
+  <loading v-show="this.tipo == 'estoque'" :loading="loading" />
   <main class="table">
-   
     <section class="table_body">
+      <div class="abas" v-if="this.tipo == 'estoque'">
+        <button @click="selecionarAba('produtos')" :class="{ 'active': abaAtiva === 'produtos' }">Produtos</button>
+        <button @click="selecionarAba('servicos')" :class="{ 'active': abaAtiva === 'servicos' }">Servicos</button>
+      </div>
       <table>
         <thead>
           <tr>
-            <th v-for="(topo, index) in topoTabela" :key="index">{{ topo }}</th>
+            <th v-show="this.tipo != 'estoque'" v-for="(topo, index) in topoTabela" :key="index">{{ topo }}</th>
+            <th v-show="this.tipo == 'estoque'" v-for="(topo, index) in  topoTabelaProduto" :key="index">{{ topo }}</th>
           </tr>
         </thead>
+
         <tbody>
-          <tr v-for="(dado, index) in dados" :key="index">
+          <tr v-show="this.tipo != 'estoque'" v-for="(dado, index) in dados" :key="index">
 
             <td v-if="topoTabela.includes('ID')">{{ dado.id }}</td>
             <!-- Dados da tabela Cliente -->
@@ -26,16 +32,35 @@
             <td v-if="this.tipo == 'pet'">{{ dado.raca }}</td>
             <td v-if="this.tipo == 'pet'">{{ dado.porte }}</td>
 
-            <td @click="abrirInfoFuncionario(dado.id)" class="linhaName" v-if="this.tipo == 'funcionario'">{{ dado.nome }}</td>
+            <td @click="abrirInfoFuncionario(dado.id)" class="linhaName" v-if="this.tipo == 'funcionario'">{{ dado.nome }}
+            </td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.cpf }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.telefone }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.nome_cargo }}</td>
-
-            <td @click="abrirInfoFuncionario(dado.id)" class="linhaName" v-if="this.tipo == 'estoque'"> aa</td>
-            <td v-if="this.tipo == 'estoque'">aa</td>
-            <td v-if="this.tipo == 'estoque'">aa</td>
-            <td v-if="this.tipo == 'estoque'">aa</td>
           </tr>
+
+          <tr v-if="abaAtiva === 'produtos' && this.tipo == 'estoque'" v-for="(dado, index) in dados" :key="index">
+            <td >{{ dado.cod_barras }}</td>
+            <td @click="abrirInfoProduto(dado.id)" class="linhaName"> {{ dado.nome }}</td>
+            <td>{{ dado.quantidade }}</td>
+            <td>R$ {{ dado.valor_venda }}</td>
+            <td>{{ dado.data_validade }}</td>
+          </tr>
+
+          <tr v-if="abaAtiva === 'servicos' && this.tipo == 'estoque'" v-for="(dado, index) in dadosServicos"
+            :key="index">
+            <td>{{ dado.id }}</td>
+            <td @click="abrirInfoServico(dado.id)" class="linhaName">{{ dado.nome_servico }}</td>
+            <td>R$ {{ dado.valor }}</td>
+            <td><button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(dado.id)">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="btnEditarOffCanvas" id="btn-deletar" @click="excluir(dado.id)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+
         </tbody>
       </table>
     </section>
@@ -43,10 +68,47 @@
 </template>
 
 <script>
+
+import loading from './loading.vue';
+
 export default {
   name: "tabela",
-  props: ["topoTabela", "dados", "tipo"],
+  props: ["topoTabela", "dados", "tipo", "dadosServicos", "toggle"],
+  emits: ['dadosServicos', 'dadosProdutos', 'infoAnimal', 'infoCliente', 'infoFuncionario', 'info', 'deletar', 'abrirModalEdit', 'infoProduto'],
+  components: {
+    loading
+  },
+  data() {
+    return {
+      abaAtiva: '',
+      topoTabelaProduto: [],
+      loading: false,
+    }
+  },
+  watch: {
+    abaAtiva(novaAba) {
+  if (novaAba === 'produtos') {
+    this.topoTabelaProduto = ['COD. BARRAS', 'PRODUTO', 'QUANTIDADE', 'VALOR', 'VALIDADE'];
+    localStorage.setItem('abaAtiva', novaAba);
+    localStorage.removeItem('abaAtivaServicos');
+  } else if (novaAba === 'servicos') {
+    this.topoTabelaProduto = ['ID', 'NOME', 'VALOR', 'AÇÕES'];
+    localStorage.setItem('abaAtivaServicos', novaAba);
+    localStorage.removeItem('abaAtiva');
+  }
+},
+
+  },
+  mounted() {
+    this.abaAtiva = 'produtos';
+  },
   methods: {
+    excluir(id) {
+      this.$emit("deletar", id)
+    },
+    abriModalEdit(id) {
+      this.toggle('info', id)
+    },
     modalTutores(id) {
       this.$emit('tutor', id)
     },
@@ -58,14 +120,47 @@ export default {
     },
     abrirInfoFuncionario(id) {
       this.$emit('infoFuncionario', id)
-    }
+    },
+    abrirInfoProduto(id) {
+      this.$emit('infoProduto', id)
+    },
+    selecionarAba(aba) {
+      this.abaAtiva = aba
+
+      if (this.abaAtiva == 'produtos') {
+        this.$emit('dadosProdutos')
+      } else if (this.abaAtiva == 'servicos') {
+        this.$emit('dadosServicos')
+      }
+    },
   },
 };
 </script>
 
 <style>
+.abas {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
 
-.teste{
+.abas>button {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.abas>button.active {
+  border-bottom: 2px solid #007bff;
+}
+
+
+.teste {
   width: 280px;
   background-color: #fff;
   border-radius: 15px;
@@ -74,7 +169,7 @@ export default {
   justify-content: center;
 }
 
-.inputSearch > input{
+.inputSearch>input {
   outline: none;
   width: 250px;
   height: 40px;
@@ -200,6 +295,14 @@ thead th {
 
 }
 
+thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
 tbody tr:nth-child(even) {
   background-color: #ffffff0b;
 }
@@ -273,4 +376,5 @@ tr {
 .btn-pet:active {
   transform: scale(0.9);
   box-shadow: 2px 2px var(--black);
-}</style>
+}
+</style>

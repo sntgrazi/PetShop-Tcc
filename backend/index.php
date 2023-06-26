@@ -10,7 +10,9 @@ use App\Controller\ServicosController;
 use App\Controller\FuncionariosController;
 use App\Controller\OrdemServicoController;
 use App\Controller\AuthController;
-use Psr\Http\Message\ResponseInterface as Response;
+use App\Controller\ProdutoController;
+use App\Controller\FornecedoresController;
+ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
 require "vendor/autoload.php";
@@ -70,11 +72,12 @@ $app->delete('/deleteFuncionario/{id}', FuncionariosController::class . ':delete
 // CompraController
 
 // FornecedorController
-//$app->get('/fornecedores', FornecedorController::class . ':getFornecedores');    
-//$app->get('/fornecedor/{id}', FornecedorController::class . ':getFornecedor');                            
-//$app->post('/inserir', FornecedorController::class . ':insertFornecedor');
-//$app->put('/update/{id}', FornecedorController::class . ':updateFornecedor');
-//$app->delete('/delete/{id}', FornecedorController::class . ':deleteFornecedor');
+$app->get('/fornecedores', FornecedoresController::class . ':getAllFornecedores');
+$app->get('/fornecedor/{id}', FornecedoresController::class . ':getFornecedorById');
+$app->post('/cadastrarFornecedores', FornecedoresController::class . ':cadastrarFornecedor');
+$app->put('/atualizarFornecedores/{id}', FornecedoresController::class . ':atualizarFornecedor');
+$app->delete('/deletarFornecedor/{id}', FornecedoresController::class . ':deletarFornecedor');
+
 
 // OrdemDeServicoController
 
@@ -89,20 +92,22 @@ $app->delete('/deleteOrdem/{id}', OrdemServicoController::class . ':deleteOrdem'
 // ProdutoCompradoController
 
 // ProdutoController
-//$app->get('/produtos', ProdutoController::class . ':getProdutos');    
-//$app->get('/produto/{id}', ProdutoController::class . ':getProduto');                            
-//$app->post('/inserir', ProdutoController::class . ':insertProduto');
-//$app->put('/update/{id}', ProdutoController::class . ':updateProduto');
-//$app->delete('/delete/{id}', ProdutoController::class . ':deleteProduto');
+$app->get('/Allprodutos', ProdutoController::class . ':getAllProdutos');
+$app->post('/cadastrarProduto', ProdutoController::class . ':cadastrarProduto');
+$app->get('/produto/{id}', ProdutoController::class . ':getProdutoWithFornecedorById');
+$app->put('/atualizarProduto/{id}', ProdutoController::class . ':atualizarProduto');
+$app->delete('/deletarProduto/{id}', ProdutoController::class . ':deletarProduto');
+
 
 // ProdutoVendidoController
 
 // ServicoController
-$app->get('/servicos', ServicosController::class . ':getServicos');    
-//$app->get('/servico/{id}', ServicoController::class . ':getServico');                            
-//$app->post('/inserir', ServicoController::class . ':insertServico');
-//$app->put('/update/{id}', ServicoController::class . ':updateServico');
-//$app->delete('/delete/{id}', ServicoController::class . ':deleteServico');
+$app->get('/servicos', ServicosController::class . ':getServicos');
+$app->get('/servicoById/{id}', ServicosController::class . ':getServicoById');
+$app->post('/cadastrarServico', ServicosController::class . ':cadastrarServico');
+$app->put('/atualizarServico/{id}', ServicosController::class . ':atualizarServico');
+$app->delete('/deletarServico/{id}', ServicosController::class . ':deletarServico');
+
 
 // VendaController
 

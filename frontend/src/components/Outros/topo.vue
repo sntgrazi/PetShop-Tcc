@@ -23,6 +23,8 @@ export default {
             ? "Novo Agendamento" 
             : this.type === 'Funcionario' 
             ? "Novo Funcionário" 
+            : this.type === 'Fornecedor'
+            ? "Novo Fornecedor"
             : "Novo Produto/Serviço"
     };
   },

@@ -240,7 +240,7 @@ ul {
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 550px;
+  width: 600px;
   max-width: 90%;
   background-color: #02396f;
   padding: 1.2rem;
@@ -329,6 +329,7 @@ ul {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  margin-top: 4px;
   gap: 5px;
 }
 
