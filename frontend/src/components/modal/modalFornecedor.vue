@@ -11,7 +11,7 @@
             </button>
         </div>
         <div class="modal-body">
-
+            
         </div>
     </div>
 </template>
@@ -19,8 +19,16 @@
 <script>
 
 
-    export default {
-         name: 'modalForncedor',    
-       
+export default {
+    name: 'modalForncedor',
+    props: ['icon', 'userId', 'toggle', 'tipo', 'active'],
+    data() {
+        return {
+            titulo: this.userId == false ? "Cadastrar Fornecedor" : "Editar Fornecedor",
+            botaoConfirm: this.userId == false ? "Cadastrar" : "Editar",
+            loading: true
+        }
     }
+
+}
 </script>

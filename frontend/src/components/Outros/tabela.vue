@@ -37,6 +37,12 @@
             <td v-if="this.tipo == 'funcionario'">{{ dado.cpf }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.telefone }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.nome_cargo }}</td>
+
+            <td @click="abrirInfoFuncionario(dado.id)" class="linhaName" v-if="this.tipo == 'fornecedor'">{{ dado.nome_fantasia }}
+            </td>
+            <td v-if="this.tipo == 'fornecedor'">{{ dado.telefone }}</td>
+            <td v-if="this.tipo == 'fornecedor'">{{ dado.cnpj }}</td>
+
           </tr>
 
           <tr v-if="abaAtiva === 'produtos' && this.tipo == 'estoque'" v-for="(dado, index) in dados" :key="index">
