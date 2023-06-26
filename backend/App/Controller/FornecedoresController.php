@@ -41,7 +41,6 @@ final class FornecedoresController
         $fornecedor->setNomeFantasia($data['nome_fantasia'])
             ->setTelefone($data['telefone'])
             ->setEmail($data['email'])
-            ->setEndereco($data['endereco'])
             ->setCnpj($data['cnpj']);
 
         $fornecedoresDAO->cadastrarFornecedor($fornecedor);
@@ -61,7 +60,6 @@ final class FornecedoresController
             ->setNomeFantasia($data['nome_fantasia'])
             ->setTelefone($data['telefone'])
             ->setEmail($data['email'])
-            ->setEndereco($data['endereco'])
             ->setCnpj($data['cnpj']);
 
         $fornecedoresDAO->atualizarFornecedor($fornecedorM);

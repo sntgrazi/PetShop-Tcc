@@ -37,20 +37,37 @@
             <td v-if="this.tipo == 'funcionario'">{{ dado.cpf }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.telefone }}</td>
             <td v-if="this.tipo == 'funcionario'">{{ dado.nome_cargo }}</td>
+
+            <td v-if="this.tipo == 'fornecedor'">{{
+              dado.nome_fantasia }}
+            </td>
+            <td v-if="this.tipo == 'fornecedor'">{{ dado.cnpj }}</td>
+            <td v-if="this.tipo == 'fornecedor'">{{ dado.telefone }}</td>
+            <td v-if="this.tipo == 'fornecedor'">{{ dado.email }}</td>
+            <td v-if="this.tipo == 'fornecedor'">
+              <button class="btnEditarOffCanvas" id="btn-editar"
+                @click="abriModalEdit(dado.id)">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button class="btnEditarOffCanvas" id="btn-deletar" @click="excluir(dado.id)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
           </tr>
 
           <tr v-if="abaAtiva === 'produtos' && this.tipo == 'estoque'" v-for="(dado, index) in dados" :key="index">
-            <td >{{ dado.cod_barras }}</td>
+            <td>{{ dado.cod_barras }}</td>
             <td @click="abrirInfoProduto(dado.id)" class="linhaName"> {{ dado.nome }}</td>
             <td>{{ dado.quantidade }}</td>
             <td>R$ {{ dado.valor_venda }}</td>
             <td>{{ dado.data_validade }}</td>
+
           </tr>
 
           <tr v-if="abaAtiva === 'servicos' && this.tipo == 'estoque'" v-for="(dado, index) in dadosServicos"
             :key="index">
             <td>{{ dado.id }}</td>
-            <td @click="abrirInfoServico(dado.id)" class="linhaName">{{ dado.nome_servico }}</td>
+            <td>{{ dado.nome_servico }}</td>
             <td>R$ {{ dado.valor }}</td>
             <td><button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(dado.id)">
                 <i class="fa-solid fa-pen"></i>
@@ -74,7 +91,7 @@ import loading from './loading.vue';
 export default {
   name: "tabela",
   props: ["topoTabela", "dados", "tipo", "dadosServicos", "toggle"],
-  emits: ['dadosServicos', 'dadosProdutos', 'infoAnimal', 'infoCliente', 'infoFuncionario', 'info', 'deletar', 'abrirModalEdit', 'infoProduto'],
+  emits: ['dadosServicos', 'dadosProdutos', 'infoAnimal', 'infoCliente', 'infoFuncionario', 'info', 'deletar', 'abrirModalEdit', 'infoProduto', 'infoFornecedor'],
   components: {
     loading
   },
@@ -87,16 +104,16 @@ export default {
   },
   watch: {
     abaAtiva(novaAba) {
-  if (novaAba === 'produtos') {
-    this.topoTabelaProduto = ['COD. BARRAS', 'PRODUTO', 'QUANTIDADE', 'VALOR', 'VALIDADE'];
-    localStorage.setItem('abaAtiva', novaAba);
-    localStorage.removeItem('abaAtivaServicos');
-  } else if (novaAba === 'servicos') {
-    this.topoTabelaProduto = ['ID', 'NOME', 'VALOR', 'AÇÕES'];
-    localStorage.setItem('abaAtivaServicos', novaAba);
-    localStorage.removeItem('abaAtiva');
-  }
-},
+      if (novaAba === 'produtos') {
+        this.topoTabelaProduto = ['COD. BARRAS', 'PRODUTO', 'QUANTIDADE', 'VALOR', 'VALIDADE'];
+        localStorage.setItem('abaAtiva', novaAba);
+        localStorage.removeItem('abaAtivaServicos');
+      } else if (novaAba === 'servicos') {
+        this.topoTabelaProduto = ['ID', 'NOME', 'VALOR', 'AÇÕES'];
+        localStorage.setItem('abaAtivaServicos', novaAba);
+        localStorage.removeItem('abaAtiva');
+      }
+    },
 
   },
   mounted() {
