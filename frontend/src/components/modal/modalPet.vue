@@ -616,7 +616,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   height: 45px;
-  border: 1px solid black;
+  border: none;
   border-radius: 7px;
   font-size: 17px;
   outline: none;
