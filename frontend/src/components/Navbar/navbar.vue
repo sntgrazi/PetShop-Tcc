@@ -164,28 +164,36 @@ export default {
   position: absolute;
   top: -20px;
   left: calc(100% + 15px);
-  z-index: 9999;
+  z-index: 99;
   background: #fff;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   padding: 6px 12px;
   border-radius: 4px;
   font-size: 15px;
   font-weight: 400;
-  opacity: 0;
+  visibility: hidden;
   white-space: nowrap;
-  transition-delay: 0.2s;
+  transition-delay: 0.4s;
   /* Atraso de 1 segundo */
 }
 
-.custom-sidebar li:hover .custom-opcao {
-  opacity: 1;
+.custom-sidebar li:hover .custom-opcao{
+  visibility: visible;
   transition-delay: 0s;
   top: 50%;
   transform: translateY(-50%);
 
 }
 
+.custom-sidebar li:hover .custom-opcao > #dropdown-link{
+  visibility: visible;
+  transition-delay: 0s;
+  
+}
+
 #dropdown-link{
+  visibility: hidden;
+  transform: translateY(10%);
   background: transparent;
   color: black;
 }
