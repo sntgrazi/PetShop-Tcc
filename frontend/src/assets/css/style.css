@@ -242,7 +242,7 @@ ul {
   transform: translate(-50%, -50%);
   width: 600px;
   max-width: 90%;
-  background-color: #02396f;
+  background-color: #1E90FF;
   padding: 1.2rem;
   border-radius: 0.5rem;
   z-index: 10;
@@ -308,7 +308,7 @@ ul {
   width: 100%;
   padding: 8px;
   margin-bottom: 2px;
-  border: 1px solid black;
+  border: none;
   border-radius: 8px;
   box-sizing: border-box;
   font-size: 17px;

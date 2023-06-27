@@ -1,7 +1,7 @@
 <template>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">Funcionario</h5>
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Funcionário</h5>
             <div class="btnAcaoOff">
                 <button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(funcionario.id)">
                     <i style="color: rgb(52, 136, 149);" class="fa-solid fa-pen"></i>
