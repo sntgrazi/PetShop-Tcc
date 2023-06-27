@@ -174,10 +174,12 @@ export default {
 .product-item {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .product-info {
     flex-grow: 1;
+    color: black;
 }
 
 .product-actions {
@@ -187,11 +189,12 @@ export default {
 }
 
 .product-actions button {
-    background-color: #007bff;
+    background-color: #1E90FF;
     color: #fff;
     border: none;
     padding: 0.5rem;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .product-actions button:hover {
@@ -205,7 +208,7 @@ export default {
 
 .total {
     color: white;
-    background-color: black;
+    background-color: #1E90FF;
     border-radius: 5px;
     width: 140px;
     height: 55px;
@@ -215,18 +218,27 @@ export default {
     justify-content: space-between;
 }
 
+#searchTerm{
+    border: none;
+    box-shadow: 0 0rem 0.2rem rgba(131, 129, 129, 0.658);
+}
+
 .total-valor {
     padding-right: 10px;
     text-align: center;
 }
 
+.fa-solid{
+    color: rgb(255, 255, 255);
+}
+
 .total-valor>span {
     font-size: 14px;
-    color: gray;
+    color: rgb(255, 255, 255);
 }
 
 .total-valor >.textTotal {
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 16px;
 }
 
@@ -275,12 +287,16 @@ export default {
     gap: 15px;
 }
 
+.left-content, .right-content{
+    box-shadow: 0 0rem 0.5rem rgba(131, 129, 129, 0.658);
+}
+
 .left-content {
     display: flex;
     flex-direction: column;
     height: 80%;
-    width: 60%;
-    background-color: gray;
+    width: 50%;
+    background-color: white;
 
     border-radius: 15px;
 }
@@ -289,8 +305,10 @@ export default {
     display: flex;
     height: 80%;
     width: 50%;
-    background-color: rgb(129, 127, 127);
+    background-color: white;
     margin: 15px;
+
+    border-radius: 15px;
 }
 
 .super-content {
@@ -300,5 +318,18 @@ export default {
     justify-content: center;
     width: 100%;
     height: 100%;
+    background-color: #e2ebf4;
+}
+
+@media screen and (max-width: 600px) {
+    .super-content{
+        flex-direction: column;
+    }
+
+    .left-content, .right-content{
+        width: 100%;
+        overflow: scroll;
+    }
+    
 }
 </style>
