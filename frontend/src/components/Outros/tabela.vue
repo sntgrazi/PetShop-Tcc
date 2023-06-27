@@ -47,10 +47,10 @@
             <td v-if="this.tipo == 'fornecedor'">
               <button class="btnEditarOffCanvas" id="btn-editar"
                 @click="abriModalEdit(dado.id)">
-                <i class="fa-solid fa-pen"></i>
+                <i style="color: rgb(8, 83, 153);" class="fa-solid fa-pen"></i>
               </button>
               <button class="btnEditarOffCanvas" id="btn-deletar" @click="excluir(dado.id)">
-                <i class="fa-solid fa-trash"></i>
+                <i style="color: red;" class="fa-solid fa-trash"></i>
               </button>
             </td>
           </tr>
@@ -70,10 +70,10 @@
             <td>{{ dado.nome_servico }}</td>
             <td>R$ {{ dado.valor }}</td>
             <td><button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(dado.id)">
-                <i class="fa-solid fa-pen"></i>
+                <i style="color: rgb(8, 83, 153);" class="fa-solid fa-pen"></i>
               </button>
               <button class="btnEditarOffCanvas" id="btn-deletar" @click="excluir(dado.id)">
-                <i class="fa-solid fa-trash"></i>
+                <i style="color: red;" class="fa-solid fa-trash"></i>
               </button>
             </td>
           </tr>
