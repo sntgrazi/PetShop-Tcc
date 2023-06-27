@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import Swal from "sweetalert2";
 
-const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
+const ApiUrl = 'http://localhost:84';
 
 export default {
 
@@ -499,6 +499,16 @@ export default {
         })
 
         return response.data;
+    },
+
+    async buscarProdutosCod(cod) {
+        const url = `${ApiUrl}/produtoCod/${cod}`;
+        const response = await axios.get(url).catch(error => {
+            console.error('Erro ao tentar buscar o produtos: ', error);
+            throw error;
+        })
+
+        return response.data[0];
     },
 
     async cadastrarProduto(produto) {

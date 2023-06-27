@@ -98,6 +98,8 @@ $app->get('/produto/{id}', ProdutoController::class . ':getProdutoWithFornecedor
 $app->put('/atualizarProduto/{id}', ProdutoController::class . ':atualizarProduto');
 $app->delete('/deletarProduto/{id}', ProdutoController::class . ':deletarProduto');
 
+$app->get('/produtoCod/{cod_barras}', ProdutoController::class . ':getProdutoByCodBarras');
+
 
 // ProdutoVendidoController
 

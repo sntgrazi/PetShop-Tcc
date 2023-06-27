@@ -52,6 +52,20 @@ class ProdutoController
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function getProdutoByCodBarras(Request $request, Response $response, array $args): Response
+    {
+        $cod = intval($args['cod_barras']);
+
+        $produtoDAO = new ProdutoDAO();
+        $produtoM = new ProdutoModel();
+        $produtoM->setCod_barras($cod);
+
+        $produto = $produtoDAO->getProdutoByCodigoBarras($produtoM);
+
+        $response->getBody()->write(json_encode($produto));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
     public function atualizarProduto(Request $request, Response $response, array $args): Response
     {
         $id = $args['id'];

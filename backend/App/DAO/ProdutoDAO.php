@@ -50,7 +50,18 @@ class ProdutoDAO extends ConexaoDAO{
         $produto = $stm->fetch(\PDO::FETCH_ASSOC);
         return $produto;
     }
+
+    public function getProdutoByCodigoBarras(ProdutoModel $produtoM): array {
+        $sql = 'SELECT * FROM produtos WHERE cod_barras = :cod_barras';
     
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([
+            'cod_barras' => $produtoM->getCod_barras()
+        ]);
+    
+        $produtos = $stm->fetchAll(\PDO::FETCH_ASSOC);
+        return $produtos;
+    }
 
     public function atualizarProduto(ProdutoModel $produtoM): void {
         $sql = 'UPDATE produtos SET 

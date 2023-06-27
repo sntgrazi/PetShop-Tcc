@@ -1,10 +1,10 @@
 <template>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-      <h5 style="color: #1e90ff;" class="offcanvas-title" id="offcanvasRightLabel">Cliente</h5>
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Cliente</h5>
       <div class="btnAcaoOff">
         <button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(cliente.id)">
-          <i style="color: rgb(52, 136, 149);" class="fa-solid fa-pen"></i>
+          <i style="color: rgb(8, 83, 153);" class="fa-solid fa-pen"></i>
         </button>
         <button class="btnEditarOffCanvas" id="btn-deletar" @click="excluir(cliente.id)">
           <i style="color: red;" class="fa-solid fa-trash"></i>
@@ -50,13 +50,15 @@
               <h6>Bairro</h6>
               <p>{{ cliente.bairro }}</p>
             </div>
-            <div class="mb-3">
+            <div class="mb-duo">
+             <div class="linhaEnd">
               <h6>Nº</h6>
               <p>{{ cliente.n_casa }}</p>
-            </div>
-            <div class="mb-3">
+             </div>
+             <div class="linhaen">
               <h6>Uf</h6>
               <p>{{ cliente.uf }}</p>
+             </div>
             </div>
           </div>
           <div class="col-md-6">
@@ -103,7 +105,7 @@ export default {
 
 .btnAcaoOff {
   display: flex;
-  gap: 10px;
+  gap: 5px;
 }
 
 .btnEditarOffCanvas {
@@ -119,14 +121,10 @@ export default {
   color: #007bff;
 }
 
-.informacoes {
-  padding: 20px;
-}
 
 h4 {
   font-size: 22px;
   font-weight: bold;
-  margin-bottom: 20px;
 }
 
 h6 {
@@ -139,31 +137,18 @@ p {
   margin: 0;
 }
 
-.row {
-  margin-left: -15px;
-  margin-right: -15px;
-}
-
-.col-md-6 {
-  padding-left: 15px;
-  padding-right: 15px;
+.mb-duo{
+  display: flex;
+  gap: 40px;
+  margin-bottom: 15px;
 }
 
 .mb-3 {
   margin-bottom: 15px;
 }
 
-.mb-4 {
-  margin-bottom: 20px;
-}
-
 .mt-4 {
   margin-top: 20px;
 }
 
-.hr-separator {
-  border: none;
-  border-top: 1px solid #ddd;
-  margin: 20px 0;
-}
 </style>

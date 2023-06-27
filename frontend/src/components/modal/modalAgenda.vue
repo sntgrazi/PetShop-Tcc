@@ -321,6 +321,8 @@ export default {
                 Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
                 return false;
             }
+
+            return true;
         },
     },
     mounted() {

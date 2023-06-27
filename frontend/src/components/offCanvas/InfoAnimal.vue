@@ -1,7 +1,7 @@
 <template>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasRightLabel" style="color: #1e90ff;">Pet</h5>
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Pet</h5>
       <div class="btnAcaoOff">
         <button class="btnEditarOffCanvas" id="btn-tutores" v-if="this.tipo == 'pet'" @click="toggle('tutores', pet.id)">
           <i style="color: rgb(18, 99, 180);" class="fa-solid fa-user"></i>

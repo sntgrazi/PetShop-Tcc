@@ -6,7 +6,6 @@
 <script>
 
 import Navbar from './components/Navbar/navbar.vue';
-import { useRouter } from 'vue-router';
 
 export default {
   name: "App",
