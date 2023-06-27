@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-7 col-sm-7" v-show="tipoSelecionado == 2">
                   <BaseInput :modelValue="servicos.valor" @update:modelValue="(newValue) => (servicos.valor = newValue)
-                    " :label="'Valor'" />
+                    " :label="'Valor (R$)'" />
                 </div>
               </div>
             </div>
@@ -73,11 +73,11 @@
                 <div class="row" v-show="tipoSelecionado != 2">
                   <div class="col-4 col-sm-4">
                     <BaseInput :modelValue="produtos.valor_compra" @update:modelValue="(newValue) => (produtos.valor_compra = newValue)
-                      " :label="'Valor Compra'" />
+                      " :label="'Valor Compra (R$)'" />
                   </div>
                   <div class="col-4 col-sm-4">
                     <BaseInput :modelValue="produtos.valor_venda" @update:modelValue="(newValue) => (produtos.valor_venda = newValue)
-                      " :label="'Valor Venda'" />
+                      " :label="'Valor Venda (R$)'" />
                   </div>
                   <div class="col-4 col-sm-4">
                     <BaseInput :modelValue="produtos.data_validade" @update:modelValue="(newValue) => (produtos.data_validade = newValue)
@@ -195,7 +195,14 @@ export default {
     },
 
     async FormCadastro() {
+
       if (this.tipoSelecionado == 1) {
+        const camposValidos = this.validarCamposProduto();
+
+        if (!camposValidos) {
+            return;
+        }
+
         try {
           await ApiController.cadastrarProduto(this.produtos);
           Swal.fire("", "Produto cadastrado com sucesso!", "success");
@@ -206,6 +213,12 @@ export default {
           console.log(error);
         }
       } else if (this.tipoSelecionado == 2) {
+        const camposValidos = this.validarCamposServicos();
+
+        if (!camposValidos) {
+            return;
+        }
+
         try {
           await ApiController.cadastrarServico(this.servicos);
           Swal.fire("", "Servico cadastrado com sucesso!", "success");
@@ -219,6 +232,12 @@ export default {
     },
     async FormEdit() {
       if (this.tipoSelecionado == 1) {
+        const camposValidos = this.validarCamposProduto();
+
+        if (!camposValidos) {
+            return;
+        }
+
         try {
           await ApiController.atualizarProduto(this.userId, this.produtos);
           Swal.fire("", "Produto atualizado com sucesso!", "success");
@@ -229,6 +248,13 @@ export default {
           console.log(error);
         }
       } else if (this.tipoSelecionado == 2) {
+
+        const camposValidos = this.validarCamposServicos();
+
+        if (!camposValidos) {
+            return;
+        }
+        
         try {
           await ApiController.atualizarServico(this.userId, this.servicos);
           Swal.fire("", "Serviço atualizado com sucesso!", "success");
@@ -239,8 +265,64 @@ export default {
           console.log(error);
         }
       }
+    },
+
+    validarCamposProduto() {
+      // Verificar se todos os campos obrigatórios estão preenchidos
+      if (
+          !this.produtos.nome ||
+          !this.produtos.quantidade ||
+          !this.produtos.cod_barras ||
+          !this.produtos.valor_compra ||
+          !this.produtos.valor_venda ||
+          !this.produtos.data_validade
+      ) {
+          Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+          return false;
+      }
+
+      // Verificar o formato correto do nome
+      const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/u;
+      if (!regexNome.test(this.produtos.nome)) {
+        Swal.fire("Erro", "Digite apenas letras, espaços e acentos no campo Nome.", "error");
+        return false;
+      }
+
+      const regexNumeros = /^[0-9.,]+$/;
+      if (!regexNumeros.test(this.produtos.valor_compra) || !regexNumeros.test(this.produtos.valor_venda ) | !regexNumeros.test(this.produtos.quantidade )) {
+        Swal.fire("Erro", "Digite apenas números nos campos de Valor Compra e Valor Venda.", "error");
+        return false;
+      }
+
+      return true;
+  },
+
+    validarCamposServicos() {
+      // Verificar se todos os campos obrigatórios estão preenchidos
+      if (
+          !this.servicos.nome_servico ||
+          !this.servicos.valor
+      ) {
+          Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+          return false;
+      }
+
+      // Verificar o formato correto do nome
+      const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/u;
+      if (!regexNome.test(this.servicos.nome_servico)) {
+        Swal.fire("Erro", "Digite apenas letras, espaços e acentos no campo Nome.", "error");
+        return false;
+      }
+
+      // Verificar se o valor do serviço é um número
+    const regexNumeros = /^[0-9.,]+$/;
+    if (!regexNumeros.test(this.servicos.valor)) {
+      Swal.fire("Erro", "Digite apenas números no campo de Valor.", "error");
+      return false;
     }
 
+      return true;
+  },
 
   },
   mounted() {
