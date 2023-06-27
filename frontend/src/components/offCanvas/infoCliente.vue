@@ -1,72 +1,70 @@
 <template>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasRightLabel">Cliente</h5>
+      <h5 style="color: #1e90ff;" class="offcanvas-title" id="offcanvasRightLabel">Cliente</h5>
       <div class="btnAcaoOff">
         <button class="btnEditarOffCanvas" id="btn-editar" @click="abriModalEdit(cliente.id)">
-          <i class="fa-solid fa-pen"></i>
+          <i style="color: rgb(52, 136, 149);" class="fa-solid fa-pen"></i>
         </button>
         <button class="btnEditarOffCanvas" id="btn-deletar" @click="excluir(cliente.id)">
-          <i class="fa-solid fa-trash"></i>
+          <i style="color: red;" class="fa-solid fa-trash"></i>
         </button>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
     </div>
     <div class="offcanvas-body">
       <div class="informacoes">
-        <h4>Dados Pessoais</h4>
-        <hr>
-        <div class="dadosPessoais">
-          <div class="colunaDados">
-            <div class="dadosDetalhes">
+        <h4 style="color: #1e90ff;" class="mb-4">Dados Pessoais</h4>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="mb-3">
               <h6>Nome</h6>
               <p>{{ cliente.nome }}</p>
             </div>
-
-            <div class="dadosDetalhes">
+            <div class="mb-3">
               <h6>Cpf</h6>
               <p>{{ cliente.cpf }}</p>
             </div>
           </div>
-          <div class="colunaDados">
-            <div class="dadosDetalhes">
+          <div class="col-md-12">
+            <div class="mb-3">
               <h6>Telefone</h6>
               <p>{{ cliente.telefone }}</p>
             </div>
-            <div class="dadosDetalhes">
+            <div class="mb-3">
               <h6>Email</h6>
               <p>{{ cliente.email }}</p>
             </div>
           </div>
         </div>
+        <hr class="mb-4">
 
-        <h4> Endereço </h4>
-        <hr>
-        <div class="dadosPessoais">
-          <div class="colunaDados">
-            <div class="dadosDetalhes">
+        <h4 style="color: #1e90ff;" class="mt-4 mb-4">Endereço</h4>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
               <h6>Cep</h6>
               <p>{{ cliente.cep }}</p>
             </div>
-            <div class="dadosDetalhes">
+            <div class="mb-3">
               <h6>Bairro</h6>
               <p>{{ cliente.bairro }}</p>
             </div>
-            <div class="dadosDetalhes">
+            <div class="mb-3">
               <h6>Nº</h6>
               <p>{{ cliente.n_casa }}</p>
             </div>
-            <div class="dadosDetalhes">
+            <div class="mb-3">
               <h6>Uf</h6>
               <p>{{ cliente.uf }}</p>
             </div>
           </div>
-          <div class="colunaDados">
-            <div class="dadosDetalhes">
+          <div class="col-md-6">
+            <div class="mb-3">
               <h6>Cidade</h6>
               <p>{{ cliente.cidade }}</p>
             </div>
-            <div class="dadosDetalhes">
+            <div class="mb-3">
               <h6>Rua</h6>
               <p>{{ cliente.rua }}</p>
             </div>
@@ -84,7 +82,6 @@ export default {
   data() {
     return {
       endereco: []
-
     }
   },
   methods: {
@@ -96,30 +93,77 @@ export default {
       this.toggle('info', id)
     },
   }
-
-
 }
-
 </script>
 
 <style>
-.dadosPessoais {
+.offcanvas-title {
+  color: #333;
+}
+
+.btnAcaoOff {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+}
+
+.btnEditarOffCanvas {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.btnEditarOffCanvas:hover {
+  color: #007bff;
+}
+
+.informacoes {
+  padding: 20px;
+}
+
+h4 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+h6 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+p {
+  margin: 0;
+}
+
+.row {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.col-md-6 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.mb-3 {
   margin-bottom: 15px;
-  width: 100%;
 }
 
-.colunaDados {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 50px;
+.mb-4 {
+  margin-bottom: 20px;
 }
 
-.dadosDetalhes {
-  width: 100%;
+.mt-4 {
+  margin-top: 20px;
+}
+
+.hr-separator {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
 }
 </style>

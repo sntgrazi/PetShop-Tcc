@@ -63,11 +63,7 @@ import Swal from 'sweetalert2';
 
 export default {
     name: 'modalForncedor',
-    props: ['active', 'userId', 'toggle', 'tipo', 'icon'],
-    emits: ['atualizarTabela'],
-    components: {
-        BaseInput,
-    },
+    props: ['icon', 'userId', 'toggle', 'tipo', 'active'],
     data() {
         return {
             titulo: this.userId == false ? "Cadastrar Fornecedor" : "Editar Fornecedor",

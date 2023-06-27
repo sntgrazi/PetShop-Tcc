@@ -369,6 +369,13 @@ export default {
     },
     async FormCadastro() {
       try {
+
+        const camposValidos = this.validarCampos();
+
+        if (!camposValidos) {
+            return;
+        }
+
         await ApiController.cadastrarAnimal(this.animal);
         Swal.fire("", "Animal cadastrado com sucesso!", "success");
         this.$emit("atualizarTabela");
@@ -380,6 +387,13 @@ export default {
     },
     async FormEdit() {
       try {
+
+        const camposValidos = this.validarCampos();
+
+        if (!camposValidos) {
+            return;
+        }
+
         await ApiController.editarAnimal(this.userId, this.animal);
         Swal.fire("", "Animal atualizado com sucesso!", "success");
         this.$emit("atualizarTabela");
@@ -388,8 +402,40 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+
+    validarCampos() {
+            // Verificar se todos os campos obrigatórios estão preenchidos
+            if (
+                !this.animal.tutor_id ||
+                !this.animal.nome_pet ||
+                !this.animal.altura ||
+                !this.animal.peso ||
+                !this.animal.data_nascimento ||
+                !this.animal.sexo ||
+                !this.animal.especie ||
+                !this.animal.raca ||
+                !this.animal.porte ||
+                !this.animal.pelagem
+
+            ) {
+                Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+                return false;
+            }
+
+            // Verificar o formato correto do nome
+            const regexNome = /^[A-Za-z\s]+$/;
+            if (!regexNome.test(this.animal.nome_pet)) {
+                Swal.fire("Erro", "Digite apenas letras e espaços no nome do pet.", "error");
+                return false;
+            }
+
+            // ...
+
+            return true;
+        },
   },
+
   mounted() {
     this.loading = true;
     this.buscarCliente()

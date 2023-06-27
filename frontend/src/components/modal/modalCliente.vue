@@ -26,13 +26,11 @@
                                 <div class="col-sm-12">
                                     <div class="row">
                                         <div class="col-6 col-sm-6">
-                                            <BaseInput :modelValue="cliente.cpf"
-                                                @update:modelValue="(newValue) => (cliente.cpf = newValue)" :label="'Cpf'"
-                                                :idInput="'inputCpf'" />
+                                            <BaseInput :modelValue="cliente.cpf" @update:modelValue="formatarCPF"
+                                                :label="'Cpf'" :idInput="'inputCpf'" />
                                         </div>
                                         <div class="col-6 col-sm-6">
-                                            <BaseInput :modelValue="cliente.telefone"
-                                                @update:modelValue="(newValue) => (cliente.telefone = newValue)"
+                                            <BaseInput :modelValue="cliente.telefone" @update:modelValue="formatarTelefone"
                                                 :label="'Telefone'" :idInput="'inputTelefone'" />
                                         </div>
                                     </div>
@@ -147,6 +145,13 @@ export default {
     methods: {
         async FormCadastro() {
             try {
+
+                const camposValidos = this.validarCampos();
+
+                if (!camposValidos) {
+                    return;
+                }
+
                 await ApiController.cadastrarCliente(this.cliente);
                 Swal.fire("", "Cliente cadastrado com sucesso!", "success");
                 this.$emit("atualizarTabela");
@@ -158,6 +163,11 @@ export default {
         },
         async FormEdit() {
             try {
+                const camposValidos = this.validarCampos();
+
+                if (!camposValidos) {
+                    return;
+                }
                 await ApiController.editarCliente(this.userId, this.cliente);
                 Swal.fire("", "Cliente atualizado com sucesso!", "success");
                 this.$emit("atualizarTabela");
@@ -204,7 +214,69 @@ export default {
                 console.error(error);
             }
         },
+
+        validarCampos() {
+            // Verificar se todos os campos obrigatórios estão preenchidos
+            if (
+                !this.cliente.nome ||
+                !this.cliente.cpf ||
+                !this.cliente.telefone ||
+                !this.cliente.email ||
+                !this.cliente.n_casa
+            ) {
+                Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+                return false;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(this.cliente.email)) {
+                Swal.fire("", "Por favor, insira um endereço de e-mail válido.", "error");
+                return; // Retorna para interromper o envio do formulário
+            }
+
+            // Verificar o formato correto do nome
+            const regexNome = /^[A-Za-z\s]+$/;
+            if (!regexNome.test(this.cliente.nome)) {
+                Swal.fire("Erro", "Digite apenas letras e espaços no campo Nome.", "error");
+                return false;
+            }
+
+            // ...
+
+            return true;
+        },
+
+
+        formatarCPF(cpf) {
+            // Remove qualquer caractere que não seja número
+            const cleaned = cpf.replace(/\D/g, '');
+
+            // Aplica a formatação XXX.XXX.XXX-XX
+            const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,3})(\d{0,2})$/);
+            const formatted = !match
+                ? cleaned
+                : [match[1], match[2], match[3]].filter(Boolean).join('.') + (match[4] ? `-${match[4]}` : '');
+
+            // Atualiza o valor do campo do CPF
+            this.cliente.cpf = formatted;
+        },
+
+        formatarTelefone(telefone) {
+            const cleaned = telefone.replace(/\D/g, '');
+            let formatted = '';
+
+            if (cleaned.length === 11) {
+                formatted = cleaned.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (cleaned.length === 10) {
+                formatted = cleaned.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+            } else {
+                formatted = cleaned;
+            }
+
+            this.cliente.telefone = formatted;
+        },
     },
+    
     mounted() {  
         if (this.userId != false) {
             this.loading = true
