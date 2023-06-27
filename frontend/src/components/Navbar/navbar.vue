@@ -174,7 +174,6 @@ export default {
   opacity: 0;
   white-space: nowrap;
   transition-delay: 0.2s;
-  /* Atraso de 1 segundo */
 }
 
 .custom-sidebar li:hover .custom-opcao {
