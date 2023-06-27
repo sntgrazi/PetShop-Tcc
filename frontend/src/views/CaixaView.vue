@@ -278,7 +278,7 @@ export default {
 .left-content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 80%;
     width: 60%;
     background-color: gray;
 
