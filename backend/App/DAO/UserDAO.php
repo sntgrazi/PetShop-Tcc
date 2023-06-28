@@ -33,4 +33,16 @@ class UserDAO extends ConexaoDAO{
         return $senha;
    
     }
+
+    public function inserirUser(UserModel $userM): void {
+        $sql = 'INSERT INTO usuarios (email, senha) VALUES (:email, :senha)';
+
+        $stm = $this->pdo
+        ->prepare($sql);
+
+        $stm->execute([
+            'email' => $userM->getEmail(),
+            'senha' => $userM->getSenha(),
+        ]);
+    }
 }

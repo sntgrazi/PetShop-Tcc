@@ -71,6 +71,21 @@ final class AuthController{
     
         return $response;
     }
+
+    public function inserirUser(Request $request, Response $response, $args)
+    {
+        $data = $request->getParsedBody();
+        $userDAO = new UserDAO();
+        $userModel = new UserModel();
+        $userModel->setEmail($data['email'])
+            ->setSenha(password_hash($data['senha'], PASSWORD_DEFAULT)); 
+
+        $userDAO->inserirUser($userModel);
+
+        $response->getBody()->write(json_encode(['message' => 'Usuário cadastrado com sucesso']));
+        return  $response->withHeader('Content-Type', 'application/json');
+    }
+
     
     
 

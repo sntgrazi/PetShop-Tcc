@@ -31,6 +31,7 @@ $app->addBodyParsingMiddleware();
 $app->AddErrorMiddleware(true,true,true);
 
 $app->post('/', AuthController::class . ':login');
+$app->post('/register', AuthController::class . ':inserirUser');
 $app->post('/senhaAcesso', AuthController::class . ':verificaSenha');
 
 $app->get('/animais', AnimalController::class . ':getAnimais');    
