@@ -237,7 +237,7 @@ ul {
 
 .custom-modal {
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 600px;
@@ -578,12 +578,10 @@ ul {
     text-align: center;
 
   }
-
-}
-
-@media screen and (max-width: 350px) {
-  #modal {
+  .custom-modal {
     position: absolute;
     margin-top: 3rem;
   }
+
 }
+
