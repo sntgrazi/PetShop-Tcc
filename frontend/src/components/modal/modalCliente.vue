@@ -84,23 +84,24 @@
 
                             <div class="col-sm-12">
                                 <div class="row">
-                                    <div class="col-7 col-sm-7">
+                                    <div class="col-12 col-sm-6">
                                         <BaseInput :modelValue="cliente.cidade"
                                             @update:modelValue="(newValue) => (cliente.cidade = newValue)" :label="'Cidade'"
                                             :idInput="'inputCidade'" />
                                     </div>
-                                    <div class="col-3 col-sm-3">
+                                    <div class="col-6 col-sm-3">
                                         <BaseInput :modelValue="cliente.uf"
-                                            @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'Uf'"
+                                            @update:modelValue="(newValue) => (cliente.uf = newValue)" :label="'UF'"
                                             :idInput="'inputUf'" />
                                     </div>
-                                    <div class="col-2 col-sm-2">
+                                    <div class="col-6 col-sm-3">
                                         <BaseInput :modelValue="cliente.n_casa"
                                             @update:modelValue="(newValue) => (cliente.n_casa = newValue)" :label="'N°'"
                                             :idInput="'inputN_Casa'" />
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="proxima-etapa" @click="voltar">

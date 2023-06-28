@@ -25,14 +25,13 @@
                                 <div class="col-md-12 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-7">
-                                            <BaseInput :modelValue="funcionario.cpf"
-                                            @update:modelValue="formatarCPF"
+                                            <BaseInput :modelValue="funcionario.cpf" @update:modelValue="formatarCPF"
                                                 :label="'Cpf'" :idInput="'inputCpf'" />
                                         </div>
                                         <div class="col-md-6 col-sm-5">
                                             <BaseInput :modelValue="funcionario.telefone"
-                                            @update:modelValue="formatarTelefone"
-                                                :label="'Telefone'" :idInput="'inputTelefone'" />
+                                                @update:modelValue="formatarTelefone" :label="'Telefone'"
+                                                :idInput="'inputTelefone'" />
                                         </div>
                                     </div>
                                 </div>
@@ -99,23 +98,24 @@
 
                             <div class="col-sm-12">
                                 <div class="row">
-                                    <div class="col-7 col-sm-7">
+                                    <div class="col-12 col-sm-7">
                                         <BaseInput :modelValue="funcionario.cidade"
                                             @update:modelValue="(newValue) => (funcionario.cidade = newValue)"
                                             :label="'Cidade'" :idInput="'inputCidade'" />
                                     </div>
-                                    <div class="col-3 col-sm-3">
+                                    <div class="col-6 col-sm-3">
                                         <BaseInput :modelValue="funcionario.uf"
-                                            @update:modelValue="(newValue) => (funcionario.uf = newValue)" :label="'Uf'"
+                                            @update:modelValue="(newValue) => (funcionario.uf = newValue)" :label="'UF'"
                                             :idInput="'inputUf'" />
                                     </div>
-                                    <div class="col-2 col-sm-2">
+                                    <div class="col-6 col-sm-2">
                                         <BaseInput :modelValue="funcionario.n_casa"
                                             @update:modelValue="(newValue) => (funcionario.n_casa = newValue)" :label="'N°'"
                                             :idInput="'inputN_Casa'" />
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="proxima-etapa" @click="voltar">
@@ -186,7 +186,7 @@ export default {
                 this.funcionario.bairro = data.bairro;
                 this.funcionario.uf = data.uf;
                 this.funcionario.cidade = data.localidade;
-           
+
             } catch (error) {
                 console.error(error);
             }
@@ -196,7 +196,7 @@ export default {
                 this.loading = true
                 const funcionario = await ApiController.getFuncionarioById(this.userId);
                 this.funcionario = funcionario;
-                
+
                 this.endereco = funcionario.endereco.split(",");
                 this.funcionario.cep = this.endereco[0];
                 this.funcionario.bairro = this.endereco[1];
@@ -225,7 +225,7 @@ export default {
 
                 this.loading = true
                 await ApiController.cadastrarFuncionario(this.funcionario);
-           
+
                 Swal.fire("", "Funcionário cadastrado com sucesso!", "success");
                 this.$emit("atualizarTabela");
                 this.toggle();
@@ -246,7 +246,7 @@ export default {
 
                 this.loading = true
                 await ApiController.editarFuncionario(this.userId, this.funcionario);
-                
+
                 Swal.fire("", "Funcionário atualizado com sucesso!", "success");
                 this.$emit("atualizarTabela");
                 this.toggle();
@@ -333,7 +333,7 @@ export default {
 
         } else {
             this.buscarDadosFuncionario();
-      
+
             $("#select-cargo").select2({
                 placeholder: "Selecione o cargo",
                 width: "100%",
