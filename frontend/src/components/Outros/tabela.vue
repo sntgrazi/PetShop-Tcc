@@ -109,7 +109,7 @@ export default {
         localStorage.setItem('abaAtiva', novaAba);
         localStorage.removeItem('abaAtivaServicos');
       } else if (novaAba === 'servicos') {
-        this.topoTabelaProduto = ['ID', 'NOME', 'VALOR', 'AÇÕES'];
+        this.topoTabelaProduto = ['COD', 'NOME', 'VALOR', 'AÇÕES'];
         localStorage.setItem('abaAtivaServicos', novaAba);
         localStorage.removeItem('abaAtiva');
       }

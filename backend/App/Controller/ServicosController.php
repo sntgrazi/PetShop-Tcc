@@ -18,7 +18,7 @@ final class ServicosController{
     }
 
     public function getServicoById(Request $request, Response $response, array $args){
-        $id = $args['id']; // Obtém o ID do serviço a partir dos parâmetros da rota
+        $id = $args['id'];
         $servicosDAO = new ServicosDAO();
         $servicoM = new ServicosModel();
         $servicoM->setId($id);

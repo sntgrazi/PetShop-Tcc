@@ -192,7 +192,7 @@ export default {
             try {
                 this.loading = true
                 this.agenda = await ApiController.getOrdensById(this.userId);
-
+                console.log(this.agenda)
                 $("#select-cliente").select2();
                 $("#select-cliente").val(this.agenda.cliente_id).trigger("change");
 
@@ -297,7 +297,7 @@ export default {
                 if (!camposValidos) {
                     return;
                 }
-
+                console.log(this.agenda);
                 await ApiController.updateOrdem(this.userId, this.agenda);
                 Swal.fire("", "Agendamento atualizado com sucesso!", "success");
                 this.$emit("atualizarCalendario");
@@ -388,6 +388,10 @@ export default {
             $("#select-pet").select2({
                 placeholder: "Selecione um Pet",
                 width: "100%",
+            });
+
+            $("#select-pet").on("change", (e) => {
+                this.agenda.animal_id = $("#select-pet option:selected").val();
             });
 
             $("#select-funcionario").select2({

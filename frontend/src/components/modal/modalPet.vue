@@ -393,7 +393,7 @@ export default {
         if (!camposValidos) {
             return;
         }
-
+        
         await ApiController.editarAnimal(this.userId, this.animal);
         Swal.fire("", "Animal atualizado com sucesso!", "success");
         this.$emit("atualizarTabela");

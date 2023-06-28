@@ -85,7 +85,7 @@ export default {
                 this.loading = true;
                 const produto = await ApiController.buscarProdutosCod(this.searchTerm);
                 if (produto) {
-                    if (produto.quantidade === 0) {
+                    if (produto.tabela === 'produtos' && produto.quantidade === 0) {
                         Swal.fire("", "Produto sem estoque.", "warning");
                         this.searchTerm = "";
                     } else {
@@ -101,6 +101,7 @@ export default {
                 console.log("Erro ao listar o produto: ", error);
             }
         },
+
         addProduct() {
             if (this.selectedProduct) {
                 const existingProduct = this.selectedProducts.find(
@@ -108,7 +109,10 @@ export default {
                 );
 
                 if (existingProduct) {
-                    if (existingProduct.quantity < existingProduct.quantidade) {
+                    if (
+                        existingProduct.tabela === 'servicos' ||
+                        existingProduct.quantity < existingProduct.quantidade
+                    ) {
                         existingProduct.quantity++;
                     } else {
                         Swal.fire("", "Quantidade máxima atingida.", "warning");
@@ -121,12 +125,16 @@ export default {
                 this.searchTerm = "";
             }
         },
-
         increaseQuantity(product) {
-            if (product.quantity < product.quantidade) {
+            if (product.tabela === 'servicos') {
+                // Para serviços, não há limite de quantidade
                 product.quantity++;
             } else {
-                Swal.fire("", "Quantidade máxima atingida.", "warning");
+                if (product.quantity < product.quantidade) {
+                    product.quantity++;
+                } else {
+                    Swal.fire("", "Quantidade máxima atingida.", "warning");
+                }
             }
         },
 
@@ -218,7 +226,7 @@ export default {
     justify-content: space-between;
 }
 
-#searchTerm{
+#searchTerm {
     border: none;
     box-shadow: 0 0rem 0.2rem rgba(131, 129, 129, 0.658);
 }
@@ -228,7 +236,7 @@ export default {
     text-align: center;
 }
 
-.icon-dollar .fa-solid{
+.icon-dollar .fa-solid {
     color: rgb(255, 255, 255);
 }
 
@@ -237,7 +245,7 @@ export default {
     color: rgb(255, 255, 255);
 }
 
-.total-valor >.textTotal {
+.total-valor>.textTotal {
     color: rgb(255, 255, 255);
     font-size: 16px;
 }
@@ -285,7 +293,8 @@ export default {
     gap: 15px;
 }
 
-.left-content, .right-content{
+.left-content,
+.right-content {
     box-shadow: 0 0rem 0.5rem rgba(131, 129, 129, 0.658);
 }
 
@@ -318,14 +327,15 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-    .super-content{
+    .super-content {
         flex-direction: column;
     }
 
-    .left-content, .right-content{
+    .left-content,
+    .right-content {
         width: 100%;
         overflow: scroll;
     }
-    
+
 }
 </style>

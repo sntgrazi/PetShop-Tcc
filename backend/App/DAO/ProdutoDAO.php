@@ -52,11 +52,18 @@ class ProdutoDAO extends ConexaoDAO{
     }
 
     public function getProdutoByCodigoBarras(ProdutoModel $produtoM): array {
-        $sql = 'SELECT * FROM produtos WHERE cod_barras = :cod_barras';
+        $sql = 'SELECT "produtos" AS tabela, id, nome, valor_venda, quantidade
+        FROM produtos
+        WHERE cod_barras = :cod  
+        UNION ALL      
+        SELECT "servicos" AS tabela, id, nome_servico, valor, Null
+        FROM servicos
+        WHERE id = :cod
+       ';
     
         $stm = $this->pdo->prepare($sql);
         $stm->execute([
-            'cod_barras' => $produtoM->getCod_barras()
+            'cod' => $produtoM->getCod_barras()
         ]);
     
         $produtos = $stm->fetchAll(\PDO::FETCH_ASSOC);

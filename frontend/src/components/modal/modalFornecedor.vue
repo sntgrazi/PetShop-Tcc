@@ -17,12 +17,12 @@
                     <div class="container-fluid">
                         <div class="col-sm-12">
                             <div class="row">
-                                <div class="col-7 col-sm-7 ">
+                                <div class="col-md-7 col-sm-7">
                                     <BaseInput :modelValue="fornecedor.nome_fantasia"
                                         @update:modelValue="(newValue) => (fornecedor.nome_fantasia = newValue)"
                                         :label="'Nome'" :idInput="'inputName'" />
                                 </div>
-                                <div class="col-5 col-sm-5">
+                                <div class="col-md-5 col-sm-5">
                                     <BaseInput :modelValue="fornecedor.cnpj" @update:modelValue="formatarCNPJ"
                                         :label="'Cnpj'" />
                                 </div>
@@ -31,11 +31,11 @@
 
                         <div class="col-sm-12">
                             <div class="row">
-                                <div class="col-5 col-sm-5 ">
+                                <div class="col-md-6 col-sm-5 ">
                                     <BaseInput :modelValue="fornecedor.telefone" @update:modelValue="formatarTelefone"
                                         :label="'Telefone'" :idInput="'inputName'" />
                                 </div>
-                                <div class="col-7 col-sm-7">
+                                <div class="col-md-6 col-sm-7">
                                     <BaseInput :modelValue="fornecedor.email" @update:modelValue="(newValue) => (fornecedor.email = newValue)
                                         " :label="'Email'" />
                                 </div>
