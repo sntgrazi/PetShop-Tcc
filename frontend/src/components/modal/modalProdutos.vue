@@ -76,11 +76,11 @@
                   <div class="col-6 col-sm-4">
                     <BaseInput :modelValue="produtos.valor_compra"
                       @update:modelValue="(newValue) => (produtos.valor_compra = newValue)"
-                      :label="'Valor Compra (R$)'" />
+                      :label="'Valor de compra (R$)'" />
                   </div>
                   <div class="col-6 col-sm-4">
                     <BaseInput :modelValue="produtos.valor_venda"
-                      @update:modelValue="(newValue) => (produtos.valor_venda = newValue)" :label="'Valor Venda (R$)'" />
+                      @update:modelValue="(newValue) => (produtos.valor_venda = newValue)" :label="'Valor de venda (R$)'" />
                   </div>
                   <div class="col-12 col-sm-4">
                     <BaseInput :modelValue="produtos.data_validade"
