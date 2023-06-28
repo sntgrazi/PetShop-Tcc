@@ -242,7 +242,7 @@ ul {
   transform: translate(-50%, -50%);
   width: 600px;
   max-width: 90%;
-  background-color: #1E90FF;
+  background-color: #045aaf;
   padding: 1.2rem;
   border-radius: 0.5rem;
   z-index: 10;
@@ -386,8 +386,9 @@ ul {
   font-size: 1em;
   cursor: pointer;
   margin-top: 45px;
-  margin-left: 48%;
+  margin-left: 40%;
 }
+
 
 .selectCampoInfo {
   display: flex;
@@ -557,7 +558,7 @@ ul {
     border: none;
     font-size: 1em;
     cursor: pointer;
-    margin-left: 45%;
+    margin-left: 80%;
     padding: 10px;
   }
 

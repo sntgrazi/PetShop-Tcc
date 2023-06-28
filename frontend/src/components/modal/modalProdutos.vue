@@ -16,9 +16,9 @@
         enctype="multipart/form-data">
         <div class="form-inputs">
           <div class="container-fluid">
-            <div class="col-sm-12">
+            <div class="col-md-12 col-sm-12">
               <div class="row">
-                <div class="col-5 col-sm-5">
+                <div class="col-m-6 col-sm-5">
                   <div class="selectCampo">
                     <label for="tipo">Tipo</label>
                     <select v-model="tipoSelecionado" id="select-tipo" class="selectsForm selecTipo">
@@ -30,11 +30,11 @@
                   </div>
 
                 </div>
-                <div class="col-7 col-sm-7 " v-show="tipoSelecionado != 2">
+                <div class="col-m-6 col-sm-7 " v-show="tipoSelecionado != 2">
                   <BaseInput :modelValue="produtos.nome" @update:modelValue="(newValue) => (produtos.nome = newValue)
                     " :label="'Nome'" :idInput="'inputName'" />
                 </div>
-                <div class="col-7 col-sm-7" v-show="tipoSelecionado == 2">
+                <div class="col-m-6 col-sm-7" v-show="tipoSelecionado == 2">
                   <BaseInput :modelValue="servicos.valor" @update:modelValue="(newValue) => (servicos.valor = newValue)
                     " :label="'Valor (R$)'" />
                 </div>
@@ -43,49 +43,54 @@
 
 
             <div class="row">
-              <div class="col-sm-12">
+              <div class="col-md-12 col-sm-12">
                 <div class="row" v-show="tipoSelecionado != 2">
-                  <div class="col-3 col-sm-3">
-                    <BaseInput :modelValue="produtos.quantidade" @update:modelValue="(newValue) => (produtos.quantidade = newValue)
-                      " :label="'Quantidade'" :idInput="'inputCpf'" />
-                  </div>
-                  <div class="col-4 col-sm-4">
-                    <BaseInput :modelValue="produtos.cod_barras" @update:modelValue="(newValue) => (produtos.cod_barras = newValue)
-                      " :label="'Cod. Barras'" :idInput="'inputTelefone'" />
-                  </div>
-                  <div class="col-5 col-sm-5">
+                  <div class="col-12 col-sm-4 col-md-5">
                     <div class="selectCampo">
                       <label for="tipo">Fornecedor</label>
                       <select v-model="produtos.fornecedor_id" id="select-fornecedor"
                         class="selectsForm selectFornecedor">
-                        <option v-for="fornecedor in fornecedores" :value="fornecedor.id">
-                          {{ fornecedor.nome_fantasia }}
+                        <option v-for="fornecedor in fornecedores" :value="fornecedor.id">{{ fornecedor.nome_fantasia }}
                         </option>
                       </select>
                     </div>
+                  </div>
+                  <div class="col-6 col-sm-3">
+                    <BaseInput :modelValue="produtos.quantidade"
+                      @update:modelValue="(newValue) => (produtos.quantidade = newValue)" :label="'Quantidade'"
+                      :idInput="'inputCpf'" />
+                  </div>
+                  <div class="col-6 col-sm-4">
+                    <BaseInput :modelValue="produtos.cod_barras"
+                      @update:modelValue="(newValue) => (produtos.cod_barras = newValue)" :label="'Cod. Barras'"
+                      :idInput="'inputTelefone'" />
                   </div>
                 </div>
               </div>
             </div>
 
+
             <div class="row">
               <div class="col-sm-12">
                 <div class="row" v-show="tipoSelecionado != 2">
-                  <div class="col-4 col-sm-4">
-                    <BaseInput :modelValue="produtos.valor_compra" @update:modelValue="(newValue) => (produtos.valor_compra = newValue)
-                      " :label="'Valor Compra (R$)'" />
+                  <div class="col-6 col-sm-4">
+                    <BaseInput :modelValue="produtos.valor_compra"
+                      @update:modelValue="(newValue) => (produtos.valor_compra = newValue)"
+                      :label="'Valor Compra (R$)'" />
                   </div>
-                  <div class="col-4 col-sm-4">
-                    <BaseInput :modelValue="produtos.valor_venda" @update:modelValue="(newValue) => (produtos.valor_venda = newValue)
-                      " :label="'Valor Venda (R$)'" />
+                  <div class="col-6 col-sm-4">
+                    <BaseInput :modelValue="produtos.valor_venda"
+                      @update:modelValue="(newValue) => (produtos.valor_venda = newValue)" :label="'Valor Venda (R$)'" />
                   </div>
-                  <div class="col-4 col-sm-4">
-                    <BaseInput :modelValue="produtos.data_validade" @update:modelValue="(newValue) => (produtos.data_validade = newValue)
-                      " :label="'Data de Vencimento'" :tipo="'date'" />
+                  <div class="col-12 col-sm-4">
+                    <BaseInput :modelValue="produtos.data_validade"
+                      @update:modelValue="(newValue) => (produtos.data_validade = newValue)" :label="'Data de Vencimento'"
+                      :tipo="'date'" />
                   </div>
                 </div>
               </div>
             </div>
+
 
 
             <div class="row">
@@ -200,7 +205,7 @@ export default {
         const camposValidos = this.validarCamposProduto();
 
         if (!camposValidos) {
-            return;
+          return;
         }
 
         try {
@@ -216,7 +221,7 @@ export default {
         const camposValidos = this.validarCamposServicos();
 
         if (!camposValidos) {
-            return;
+          return;
         }
 
         try {
@@ -235,7 +240,7 @@ export default {
         const camposValidos = this.validarCamposProduto();
 
         if (!camposValidos) {
-            return;
+          return;
         }
 
         try {
@@ -252,9 +257,9 @@ export default {
         const camposValidos = this.validarCamposServicos();
 
         if (!camposValidos) {
-            return;
+          return;
         }
-        
+
         try {
           await ApiController.atualizarServico(this.userId, this.servicos);
           Swal.fire("", "Serviço atualizado com sucesso!", "success");
@@ -270,15 +275,15 @@ export default {
     validarCamposProduto() {
       // Verificar se todos os campos obrigatórios estão preenchidos
       if (
-          !this.produtos.nome ||
-          !this.produtos.quantidade ||
-          !this.produtos.cod_barras ||
-          !this.produtos.valor_compra ||
-          !this.produtos.valor_venda ||
-          !this.produtos.data_validade
+        !this.produtos.nome ||
+        !this.produtos.quantidade ||
+        !this.produtos.cod_barras ||
+        !this.produtos.valor_compra ||
+        !this.produtos.valor_venda ||
+        !this.produtos.data_validade
       ) {
-          Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
-          return false;
+        Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+        return false;
       }
 
       // Verificar o formato correto do nome
@@ -289,22 +294,22 @@ export default {
       }
 
       const regexNumeros = /^[0-9.,]+$/;
-      if (!regexNumeros.test(this.produtos.valor_compra) || !regexNumeros.test(this.produtos.valor_venda ) | !regexNumeros.test(this.produtos.quantidade )) {
+      if (!regexNumeros.test(this.produtos.valor_compra) || !regexNumeros.test(this.produtos.valor_venda) | !regexNumeros.test(this.produtos.quantidade)) {
         Swal.fire("Erro", "Digite apenas números nos campos de Valor Compra e Valor Venda.", "error");
         return false;
       }
 
       return true;
-  },
+    },
 
     validarCamposServicos() {
       // Verificar se todos os campos obrigatórios estão preenchidos
       if (
-          !this.servicos.nome_servico ||
-          !this.servicos.valor
+        !this.servicos.nome_servico ||
+        !this.servicos.valor
       ) {
-          Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
-          return false;
+        Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+        return false;
       }
 
       // Verificar o formato correto do nome
@@ -315,14 +320,14 @@ export default {
       }
 
       // Verificar se o valor do serviço é um número
-    const regexNumeros = /^[0-9.,]+$/;
-    if (!regexNumeros.test(this.servicos.valor)) {
-      Swal.fire("Erro", "Digite apenas números no campo de Valor.", "error");
-      return false;
-    }
+      const regexNumeros = /^[0-9.,]+$/;
+      if (!regexNumeros.test(this.servicos.valor)) {
+        Swal.fire("Erro", "Digite apenas números no campo de Valor.", "error");
+        return false;
+      }
 
       return true;
-  },
+    },
 
   },
   mounted() {
@@ -382,5 +387,4 @@ export default {
   font-size: 17px;
   outline: none;
   color: #000;
-}
-</style>
+}</style>

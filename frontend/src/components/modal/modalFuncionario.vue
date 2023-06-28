@@ -16,20 +16,20 @@
                 <div class="form-inputs" v-show="etapaAtual === 1">
                     <div class="inputCadastroCliente">
                         <div class="container-fluid">
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <BaseInput :modelValue="funcionario.nome"
                                     @update:modelValue="(newValue) => (funcionario.nome = newValue)" :label="'Nome'"
                                     :idInput="'inputName'" />
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-md-12 col-sm-12">
                                     <div class="row">
-                                        <div class="col-7 col-sm-7">
+                                        <div class="col-md-6 col-sm-7">
                                             <BaseInput :modelValue="funcionario.cpf"
                                             @update:modelValue="formatarCPF"
                                                 :label="'Cpf'" :idInput="'inputCpf'" />
                                         </div>
-                                        <div class="col-5 col-sm-5">
+                                        <div class="col-md-6 col-sm-5">
                                             <BaseInput :modelValue="funcionario.telefone"
                                             @update:modelValue="formatarTelefone"
                                                 :label="'Telefone'" :idInput="'inputTelefone'" />
@@ -38,14 +38,14 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <div class="row">
-                                    <div class="col-7 col-sm-7">
+                                    <div class="col-md-6 col-sm-7">
                                         <BaseInput :modelValue="funcionario.email"
                                             @update:modelValue="(newValue) => (funcionario.email = newValue)"
                                             :label="'Email'" :idInput="'inputEmail'" />
                                     </div>
-                                    <div class="col-5 col-sm-5">
+                                    <div class="col-md-6 col-sm-5">
                                         <div class="selectCampo">
                                             <label for="cargo">Cargo</label>
                                             <select v-model="funcionario.cargo_id" id="select-cargo"
@@ -70,9 +70,9 @@
                 <div class="form-inputs" v-show="etapaAtual === 2">
                     <div class="inputCadastroCliente">
                         <div class="container-fluid">
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <div class="row">
-                                    <div class="col-7 col-sm-7">
+                                    <div class="col-md-6 col-sm-7">
                                         <div class="colunaForm">
                                             <BaseInput :modelValue="funcionario.cep"
                                                 @update:modelValue="(newValue) => (funcionario.cep = newValue)"
@@ -83,7 +83,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-5 col-sm-5">
+                                    <div class="col-md-6 col-sm-5">
                                         <BaseInput :modelValue="funcionario.bairro"
                                             @update:modelValue="(newValue) => (funcionario.bairro = newValue)"
                                             :label="'Bairro'" :idInput="'inputBairro'" />
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <BaseInput :modelValue="funcionario.rua"
                                     @update:modelValue="(newValue) => (funcionario.rua = newValue)" :label="'Rua'"
                                     :idInput="'inputRua'" />

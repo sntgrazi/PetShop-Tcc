@@ -228,7 +228,7 @@ export default {
     text-align: center;
 }
 
-.fa-solid{
+.icon-dollar .fa-solid{
     color: rgb(255, 255, 255);
 }
 
@@ -259,9 +259,7 @@ export default {
     font-weight: bold;
 }
 
-.form-field input[type="text"],
-.form-field input[type="number"],
-.form-field select {
+.form-field input[type="text"] {
     width: 70%;
     padding: 5px;
     border: 1px solid #ccc;
@@ -297,7 +295,6 @@ export default {
     height: 80%;
     width: 50%;
     background-color: white;
-
     border-radius: 15px;
 }
 
@@ -307,7 +304,6 @@ export default {
     width: 50%;
     background-color: white;
     margin: 15px;
-
     border-radius: 15px;
 }
 
@@ -318,7 +314,7 @@ export default {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: #e2ebf4;
+    background-color: white;
 }
 
 @media screen and (max-width: 600px) {

@@ -17,19 +17,19 @@
 
                     <div class="inputCadastroCliente">
                         <div class="container-fluid">
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <BaseInput :modelValue="cliente.nome"
                                     @update:modelValue="(newValue) => (cliente.nome = newValue)" :label="'Nome'"
                                     :idInput="'inputName'" />
                             </div>
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-md-12 col-sm-12">
                                     <div class="row">
-                                        <div class="col-6 col-sm-6">
+                                        <div class="col-md-6 col-sm-6">
                                             <BaseInput :modelValue="cliente.cpf" @update:modelValue="formatarCPF"
                                                 :label="'Cpf'" :idInput="'inputCpf'" />
                                         </div>
-                                        <div class="col-6 col-sm-6">
+                                        <div class="col-md-6 col-sm-6">
                                             <BaseInput :modelValue="cliente.telefone" @update:modelValue="formatarTelefone"
                                                 :label="'Telefone'" :idInput="'inputTelefone'" />
                                         </div>
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <BaseInput :modelValue="cliente.email"
                                     @update:modelValue="(newValue) => (cliente.email = newValue)" :label="'Email'"
                                     :idInput="'inputEmail'" />
@@ -55,9 +55,9 @@
                 <div class="form-inputs" v-show="etapaAtual === 2">
                     <div class="inputCadastroCliente">
                         <div class="container-fluid">
-                            <div class="col-sm-12">
+                            <div class="col-md-12 col-sm-12">
                                 <div class="row">
-                                    <div class="col-7 col-sm-7">
+                                    <div class="col-md-6 col-sm-7">
                                         <div class="colunaForm">
                                             <BaseInput :modelValue="cliente.cep"
                                                 @update:modelValue="(newValue) => (cliente.cep = newValue)" :label="'Cep'"
@@ -68,7 +68,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="col-5 col-sm-5">
+                                    <div class="col-md-6 col-sm-5">
                                         <BaseInput :modelValue="cliente.bairro"
                                             @update:modelValue="(newValue) => (cliente.bairro = newValue)" :label="'Bairro'"
                                             :idInput="'inputBairro'" />
@@ -276,13 +276,13 @@ export default {
             this.cliente.telefone = formatted;
         },
     },
-    
-    mounted() {  
+
+    mounted() {
         if (this.userId != false) {
             this.loading = true
             this.buscarDadosCliente()
-          
-        }  else {
+
+        } else {
             this.loading = false
         }
     }
