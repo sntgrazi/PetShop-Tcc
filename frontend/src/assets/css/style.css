@@ -248,6 +248,19 @@ ul {
   z-index: 10;
 }
 
+.custom-modal-P{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  max-width: 90%;
+  background-color: #045aaf;
+  padding: 1.2rem;
+  border-radius: 0.5rem;
+  z-index: 10;
+}
+
 .custom-form-overlay {
   position: fixed;
   top: 0;
@@ -579,6 +592,11 @@ ul {
 
   }
   .custom-modal {
+    position: absolute;
+    margin-top: 2rem;
+  }
+
+  .custom-modal-P{
     position: absolute;
     margin-top: 3rem;
   }

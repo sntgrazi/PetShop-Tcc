@@ -1,6 +1,6 @@
 <template>
   <div class="custom-form-overlay"></div>
-  <div class="custom-modal" :class="{ active: active }">
+  <div class="custom-modal-P" :class="{ active: active }">
     <div class="modal-header">
       <div class="titulo-modal">
         <i :class="['fa regular', icon]"></i>
