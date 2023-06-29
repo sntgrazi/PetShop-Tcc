@@ -111,7 +111,6 @@
                                     </p>
                                     <p v-if="venda.metodos_pagamento !== null">Métodos de pagamento: {{
                                         venda.metodos_pagamento }}</p>
-                                    <p v-if="venda.parcelas !== null">Parcelas: {{ venda.parcelas }}</p>
                                     <p>==================================</p>
                                     <p v-if="venda.produto_id !== null">ID do produto: {{ venda.produto_id }}</p>
                                     <p v-if="venda.nome_produto !== null">Nome do produto: {{ venda.nome_produto }}</p>
