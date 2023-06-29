@@ -595,6 +595,7 @@ export default {
     background-color: white;
     margin: 15px;
     display: flex;
+    margin-left: 20px;
     flex-direction: column;
     align-items: flex-start;
     border-radius: 15px;
@@ -623,6 +624,7 @@ export default {
     }
 
     .right-content {
+        margin-top: 20px;
         overflow-x: scroll;
     }
 
@@ -672,6 +674,7 @@ export default {
     }
 
     .right-content {
+        margin-top: 20px;
         overflow-x: scroll;
     }
 
