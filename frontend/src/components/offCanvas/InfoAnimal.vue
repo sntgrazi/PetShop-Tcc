@@ -35,10 +35,14 @@
               <p>{{ pet.sexo }}</p>
             </div>
           </div>
-          <div class="col-md-12">
-            <div class="mb-3">
+          <div class="mb-duo">
+            <div class="linhaEnd">
               <h6>Altura</h6>
               <p>{{ pet.altura }}</p>
+            </div>
+            <div class="linhaen">
+              <h6>Peso</h6>
+              <p>{{ pet.peso }}</p>
             </div>
           </div>
         </div>

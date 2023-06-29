@@ -54,11 +54,11 @@
                 <div class="row">
                   <div class="col-6 col-sm-6">
                     <BaseInput :modelValue="animal.altura" @update:modelValue="(newValue) => (animal.altura = newValue)
-                      " :label="'Altura'" :idInput="'inputAltura'" />
+                      " :label="'Altura (cm)'" :idInput="'inputAltura'" />
                   </div>
                   <div class="col-6 col-sm-6">
                     <BaseInput :modelValue="animal.peso" @update:modelValue="(newValue) => (animal.peso = newValue)
-                      " :label="'Peso'" :idInput="'inputPeso'" />
+                      " :label="'Peso (kg)'" :idInput="'inputPeso'" />
                   </div>
                 </div>
               </div>
