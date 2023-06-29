@@ -7,12 +7,11 @@
         <div class="custom-main-content">
 
           <modalCliente v-if="formActive" :userId="userId" :toggle="toggleform" :tipo="'cliente'" :icon="'fa-user'"
-           @atualizarTabela="getClientes" :inputsCadastro="true" />
+            @atualizarTabela="getClientes" :inputsCadastro="true" />
 
-          <tabela :topoTabela="topoTabela" :dados="dadosTabela" 
-            :tipo="'cliente'" @infoCliente="offcanvasCliente" />
-            
-          <infoCliente :cliente="cliente" :toggle="toggleform" @deletar="deletarCliente"/>
+          <tabela :topoTabela="topoTabela" :dados="dadosTabela" :tipo="'cliente'" @infoCliente="offcanvasCliente" />
+
+          <infoCliente :cliente="cliente" :toggle="toggleform" @deletar="deletarCliente" />
 
         </div>
       </div>
@@ -63,6 +62,10 @@ export default {
       });
 
       window.localStorage.removeItem("redirecionado");
+    }
+
+    if (this.$route.params.id) {
+      this.offcanvasCliente(this.$route.params.id)
     }
   },
   methods: {
@@ -143,6 +146,7 @@ export default {
       userId,
     };
   },
+
 };
 </script>
 
