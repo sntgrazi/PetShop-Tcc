@@ -312,12 +312,6 @@ export default {
         return false;
       }
 
-      // Verificar o formato correto do nome
-      const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/u;
-      if (!regexNome.test(this.servicos.nome_servico)) {
-        Swal.fire("Erro", "Digite apenas letras, espaços e acentos no campo Nome.", "error");
-        return false;
-      }
 
       // Verificar se o valor do serviço é um número
       const regexNumeros = /^[0-9.,]+$/;
