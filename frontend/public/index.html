@@ -39,8 +39,7 @@
       }
     }
 
-    window.addEventListener('beforeunload', function () {
-      // Remova o token do localStorage
+    window.addEventListener('unload', function() {
       localStorage.removeItem('token');
     });
   </script>
