@@ -74,9 +74,9 @@ class VendasDAO extends ConexaoDAO{
     }
 
     public function getHistoricoVendas(): array {
-        $sql = 'SELECT V.data_venda, V.valor_total, V.quantidade_produtos, V.metodos_pagamento, V.parcelas,
-               PV.produto_id, P.nome AS nome_produto, PV.quantidade_vendida AS quantidade_produto,
-               SV.servico_id, S.nome_servico AS nome_servico, SV.quantidade_vendida AS quantidade_servico
+        $sql = 'SELECT V.id, V.data_venda, V.valor_total, V.quantidade_produtos, V.metodos_pagamento, V.parcelas,
+        PV.produto_id, P.nome AS nome_produto, PV.quantidade_vendida AS quantidade_produto,
+        SV.servico_id, S.nome_servico AS nome_servico, SV.quantidade_vendida AS quantidade_servico
         FROM Vendas V
         LEFT JOIN produtos_venda PV ON V.id = PV.venda_id
         LEFT JOIN produtos P ON PV.produto_id = P.id

@@ -104,6 +104,7 @@
                         <div class="offcanvas-body">
                             <ul id="historicoList">
                                 <li v-for="(venda, index) in historico" :key="index">
+                                    <p>ID da venda: {{ venda.id }}</p>
                                     <p>Data da venda: {{ venda.data_venda }}</p>
                                     <p>Valor total: R$ {{ venda.valor_total }}</p>
                                     <p v-if="venda.quantidade_produtos !== null">Quantidade: {{ venda.quantidade_produtos }}
@@ -197,6 +198,8 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.limparCampos();
+
+                    localStorage.removeItem("selectedProducts");
                     Swal.fire('', 'Venda cancelada com sucesso', 'success');
                 }
             });
@@ -264,6 +267,8 @@ export default {
                 confirmButtonColor: "#3085d6",
                 icon: "info"
             }).then(() => {
+                // Limpar o localStorage ao fechar a venda ou cancelar
+                localStorage.removeItem("selectedProducts");
                 Swal.fire("", "Venda realizada com sucesso", "success");
 
                 // Limpar os campos de inputs após realizar a venda
@@ -331,7 +336,13 @@ export default {
                     this.selectedProducts.push(this.selectedProduct);
                 }
                 this.searchTerm = "";
+
+                // Armazenar no localStorage
+                localStorage.setItem("selectedProducts", JSON.stringify(this.selectedProducts));
             }
+        },
+        beforeDestroy() {
+
         },
         increaseQuantity(product) {
             if (product.tabela === "servicos") {
@@ -375,6 +386,10 @@ export default {
     },
     mounted() {
         this.loading = false
+        const storedProducts = localStorage.getItem("selectedProducts");
+        if (storedProducts) {
+            this.selectedProducts = JSON.parse(storedProducts);
+        }
     }
 };
 </script>

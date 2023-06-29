@@ -64,13 +64,6 @@
 
       <hr />
       <li>
-        <a href="#">
-          <i class="fa-solid fa-gear"></i>
-          <span class="custom-links_name">Configurações</span>
-        </a>
-        <span class="custom-tooltip">Configurações</span>
-      </li>
-      <li>
         <router-link to="/funcionarios">
           <a href="#">
             <i class="fa-solid fa-user"></i>
