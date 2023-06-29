@@ -350,12 +350,16 @@ export default {
 }
 
 .tituloRight {
-    background-color: rgb(197, 195, 195);
+    background-color: #1e90ff;
     width: 100%;
+    padding: 10px;
     text-align: center;
     border-radius: 15px 15px 0 0;
     font-size: 18px;
+    color: white;
 }
+
+
 
 .payment-form {
     display: flex;
@@ -522,12 +526,12 @@ export default {
     height: 90%;
     width: 50%;
     background-color: white;
-    border: 1px solid rgb(134, 134, 134);
     margin: 15px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     border-radius: 15px;
+    box-shadow: 0 0rem 0.2rem rgba(131, 129, 129, 0.658);
 }
 
 .super-content {
@@ -539,6 +543,7 @@ export default {
     height: 100%;
     background-color: white;
     border-radius: 20px;
+    
 }
 
 @media screen and (max-width: 600px) {
@@ -546,10 +551,43 @@ export default {
         flex-direction: column;
     }
 
+    .left-content{
+        overflow: scroll;
+    }
+
+    .right-content{
+        overflow-x: scroll;
+    }
+
     .left-content,
     .right-content {
         width: 100%;
-        overflow: scroll;
+    }
+
+    .payment-form {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .form-field-pay{
+        width: 90%;
+    }
+
+    .select-payMethod{
+        width: 100%;
+    }
+
+    .select-payParc {
+        width: 100%;
+    }
+
+    .btn-removerForma{
+        margin-left: 0px;
+        margin-top: 5px;
+    }
+
+    .my-button{
+        margin-bottom: 5px;
     }
 }
 </style>
