@@ -564,6 +564,16 @@ export default {
         })
 
         return response.data;
+    },
+
+    async historico() {
+        const url = `${ApiUrl}/historico-vendas`;
+        const response = await axios.get(url).catch(error => {
+            console.error(`Erro ao tentar buscar o: `, error);
+            throw error;
+        })
+
+        return response.data;
     }
 
 }

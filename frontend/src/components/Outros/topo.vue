@@ -1,4 +1,5 @@
 <template>
+  <loading :loading="loading" />
   <div class="custom-row">
     <button @click="btnModal" id="open-modal">
       <i :class="['fa regular', icon]"></i>
@@ -9,26 +10,33 @@
 
 <script>
 import Swal from "sweetalert2";
+import ApiController from "@/ApiController";
+import loading from "./loading.vue";
+
 export default {
   name: "topo",
-  props: ["type", "icon", "toggle"],
+  props: ["type", "icon", "toggle", "buscarHistorico"],
   data() {
     return {
       botaoAdd:
         this.type === "Clientes"
           ? "Novo Cliente"
           : this.type === "Pets"
-            ? "Novo Pet"
-            : this.type === 'Agenda' 
-            ? "Novo Agendamento" 
-            : this.type === 'Funcionario' 
-            ? "Novo Funcionário" 
-            : this.type === 'Fornecedor'
-            ? "Novo Fornecedor"
-            : this.type === 'Caixa'
-            ? "Histórico"
-            : "Novo Produto/Serviço"
+          ? "Novo Pet"
+          : this.type === "Agenda"
+          ? "Novo Agendamento"
+          : this.type === "Funcionario"
+          ? "Novo Funcionário"
+          : this.type === "Fornecedor"
+          ? "Novo Fornecedor"
+          : this.type === "Caixa"
+          ? "Histórico"
+          : "Novo Produto/Serviço",
+          loading: true
     };
+  },
+  components: {
+    loading
   },
   methods: {
     btnModal() {
@@ -40,11 +48,11 @@ export default {
           confirmButtonText: "Sim",
           cancelButtonText: "Não",
           cancelButtonColor: "red",
-          allowOutsideClick: false
-        }).then(result => {
+          allowOutsideClick: false,
+        }).then((result) => {
           if (result.isConfirmed) {
             // Abrir modal para cadastrar novo pet
-            this.toggle('info', null);
+            this.toggle("info", null);
           } else if (result.dismiss === Swal.DismissReason.close) {
             // Nada a fazer, o modal foi fechado pelo botão de fechar
           } else {
@@ -53,17 +61,17 @@ export default {
             window.location.href = "/clientes";
           }
         });
-      }else if(this.type == 'Caixa') {
-          console.log('caixa')
-          $('#historicoCanvas').offcanvas('show');
-      } 
-      else {
-        this.toggle('info', false);
+      } else if (this.type == "Caixa") {
+        this.buscarHistorico();
+      } else {
+        this.toggle("info", false);
       }
-    }
+    },
   },
-  
 
+  mounted(){
+    this.loading = false
+  }
 };
 </script>
 
@@ -95,9 +103,6 @@ export default {
   transform: scale(0.95);
   box-shadow: 2px 2px var(--black);
 }
-
-
-
 
 @media screen and (max-width: 370px) {
   #open-modal {

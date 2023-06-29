@@ -27,5 +27,14 @@ final class VendasController{
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 
+    public function getHistoricoVendas(Request $request, Response $response, array $args) {
+        $vendasDAO = new VendasDAO();
+        $historicoVendas = $vendasDAO->getHistoricoVendas();
+    
+        $response->getBody()->write(json_encode($historicoVendas));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+    }
+    
+
 }
 

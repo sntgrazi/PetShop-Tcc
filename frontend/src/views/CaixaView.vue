@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="custom-container">
-            <topo :type="'Caixa'" :icon="'fa-clock-rotate-left'" />
+            <topo :type="'Caixa'" :icon="'fa-clock-rotate-left'" :buscarHistorico="buscarHistorico" />
             <div class="custom-content">
                 <div class="custom-main-content">
                     <loading :loading="loading" />
@@ -103,7 +103,24 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul id="historicoList">
-                                <!-- Lista de vendas será carregada dinamicamente via JavaScript -->
+                                <li v-for="(venda, index) in historico" :key="index">
+                                    <p>Data da venda: {{ venda.data_venda }}</p>
+                                    <p>Valor total: R$ {{ venda.valor_total }}</p>
+                                    <p v-if="venda.quantidade_produtos !== null">Quantidade: {{ venda.quantidade_produtos }}
+                                    </p>
+                                    <p v-if="venda.metodos_pagamento !== null">Métodos de pagamento: {{
+                                        venda.metodos_pagamento }}</p>
+                                    <p v-if="venda.parcelas !== null">Parcelas: {{ venda.parcelas }}</p>
+                                    <p v-if="venda.produto_id !== null">ID do produto: {{ venda.produto_id }}</p>
+                                    <p v-if="venda.nome_produto !== null">Nome do produto: {{ venda.nome_produto }}</p>
+                                    <p v-if="venda.quantidade_produto !== null">Quantidade do produto: {{
+                                        venda.quantidade_produto }}</p>
+                                    <p v-if="venda.servico_id !== null">ID do serviço: {{ venda.servico_id }}</p>
+                                    <p v-if="venda.nome_servico !== null">Nome do serviço: {{ venda.nome_servico }}</p>
+                                    <p v-if="venda.quantidade_servico !== null">Quantidade do serviço: {{
+                                        venda.quantidade_servico }}</p>
+                                </li>
+                                <li v-if="historico.length === 0">Não há vendas.</li>
                             </ul>
                         </div>
                     </div>
@@ -137,7 +154,8 @@ export default {
             ],
             formAdicionado: false,
             installments: Array.from({ length: 12 }, (_, index) => `${index + 1}x`), // Array de parcelas no formato "1x" a "12x"
-            paymentMethods: ['Crédito', 'Débito', 'Boleto', 'Pix'], // Array com os métodos de pagamento
+            paymentMethods: ['Crédito', 'Débito', 'Boleto', 'Pix'],
+            historico: {} // Array com os métodos de pagamento
         };
     },
     components: {
@@ -145,6 +163,17 @@ export default {
         loading
     },
     methods: {
+        async buscarHistorico() {
+            try {
+                this.loading = true
+                const historico = await ApiController.historico();
+                this.historico = historico;
+                this.loading = false
+                $("#historicoCanvas").offcanvas("show");
+            } catch (error) {
+                console.log("Erro ao buscar o histórico: ", error);
+            }
+        },
         cancelarVenda() {
             Swal.fire({
                 title: 'Cancelar Venda',
@@ -272,7 +301,6 @@ export default {
                 console.log("Erro ao listar o produto: ", error);
             }
         },
-
         addProduct() {
             if (this.selectedProduct) {
                 const existingProduct = this.selectedProducts.find(
@@ -307,13 +335,11 @@ export default {
                 }
             }
         },
-
         decreaseQuantity(product) {
             if (product.quantity > 1) {
                 product.quantity--;
             }
         },
-
         removeProduct(product) {
             const index = this.selectedProducts.indexOf(product);
             if (index !== -1) {
@@ -337,13 +363,29 @@ export default {
             return quantity;
         },
     },
-    mounted(){
+    mounted() {
         this.loading = false
     }
 };
 </script>
 
 <style>
+#historicoList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#historicoList li {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#historicoList li p {
+    margin: 5px 0;
+}
+
 #btn-adicionar {
     background-color: #095ba8;
     color: #fff;

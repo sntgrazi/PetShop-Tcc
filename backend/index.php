@@ -116,5 +116,7 @@ $app->delete('/deletarServico/{id}', ServicosController::class . ':deletarServic
 // VendaController
 
 $app->post('/venda', VendasController::class . ':cadastrarVenda');
+$app->get('/historico-vendas', VendasController::class . ':getHistoricoVendas');
+
 
 $app->run();
