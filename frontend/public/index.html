@@ -38,6 +38,11 @@
         document.body.style.overflow = 'hidden';
       }
     }
+
+    window.addEventListener('beforeunload', function () {
+      // Remova o token do localStorage
+      localStorage.removeItem('token');
+    });
   </script>
 </body>
 
