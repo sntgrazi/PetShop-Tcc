@@ -112,10 +112,12 @@
                                     <p v-if="venda.metodos_pagamento !== null">Métodos de pagamento: {{
                                         venda.metodos_pagamento }}</p>
                                     <p v-if="venda.parcelas !== null">Parcelas: {{ venda.parcelas }}</p>
+                                    <p>==================================</p>
                                     <p v-if="venda.produto_id !== null">ID do produto: {{ venda.produto_id }}</p>
                                     <p v-if="venda.nome_produto !== null">Nome do produto: {{ venda.nome_produto }}</p>
                                     <p v-if="venda.quantidade_produto !== null">Quantidade do produto: {{
                                         venda.quantidade_produto }}</p>
+                                    <p>==================================</p>
                                     <p v-if="venda.servico_id !== null">ID do serviço: {{ venda.servico_id }}</p>
                                     <p v-if="venda.nome_servico !== null">Nome do serviço: {{ venda.nome_servico }}</p>
                                     <p v-if="venda.quantidade_servico !== null">Quantidade do serviço: {{
