@@ -712,7 +712,6 @@ export default {
 
     .my-button {
         margin-bottom: 5px;
-        width: 30%;
     }
 }
 </style>
