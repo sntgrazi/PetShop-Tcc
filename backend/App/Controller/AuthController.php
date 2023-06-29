@@ -29,8 +29,6 @@ final class AuthController{
         // Define a senha recuperada no objeto $userModel
         $userModel->setSenha($user['senha']);
     
-        var_dump($userModel->getSenha());
-        var_dump($user['senha']);
     
         if (password_verify($userModel->getSenha(), $user['senha'])) {
             $response = $response->withStatus(401);

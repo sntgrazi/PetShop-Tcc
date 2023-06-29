@@ -16,7 +16,7 @@ export default {
             throw error
 
         })
-        const token = response.data.token;
+        const token = response.data;
 
         localStorage.setItem('token', token);
 

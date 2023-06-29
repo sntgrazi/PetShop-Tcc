@@ -49,15 +49,18 @@
                                 <h6>Bairro</h6>
                                 <p>{{ funcionario.bairro }}</p>
                             </div>
-                            <div class="mb-3">
-                                <h6>Nº</h6>
-                                <p>{{ funcionario.n_casa }}</p>
-                            </div>
-                            <div class="mb-3">
-                                <h6>Uf</h6>
-                                <p>{{ funcionario.uf }}</p>
+                            <div class="mb-duo">
+                                <div class="linhaEnd">
+                                    <h6>Nº</h6>
+                                    <p>{{ funcionario.n_casa }}</p>
+                                </div>
+                                <div class="linhaen">
+                                    <h6>Uf</h6>
+                                    <p>{{ funcionario.uf }}</p>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <h6>Cidade</h6>
@@ -82,8 +85,8 @@ export default {
     props: ['funcionario', 'toggle'],
     data() {
         return {
-        endereco: []
-     }
+            endereco: []
+        }
     },
     methods: {
         abriModalEdit(id) {

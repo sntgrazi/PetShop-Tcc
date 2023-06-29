@@ -53,7 +53,11 @@ export default {
             window.location.href = "/clientes";
           }
         });
-      } else {
+      }else if(this.type == 'Caixa') {
+          console.log('caixa')
+          $('#historicoCanvas').offcanvas('show');
+      } 
+      else {
         this.toggle('info', false);
       }
     }

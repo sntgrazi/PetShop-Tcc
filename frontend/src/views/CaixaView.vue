@@ -1,9 +1,10 @@
 <template>
     <section>
         <div class="custom-container">
-            <topo :type="'Caixa'" />
+            <topo :type="'Caixa'" :icon="'fa-clock-rotate-left'" />
             <div class="custom-content">
                 <div class="custom-main-content">
+                    <loading :loading="loading" />
                     <div class="super-content">
                         <div class="left-content">
                             <div id="search" class="form-field">
@@ -71,7 +72,7 @@
                                 </div>
 
                                 <div class="form-field-pay">
-                                    <label>Valor</label>
+                                    <label>Valor (R$)</label>
                                     <input type="text" v-model="paymentForm.valor_total" />
                                 </div>
                                 <div class="form-field-pay">
@@ -86,11 +87,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="my-button" v-if="!formAdicionado" @click="adicionarFormaPagamento">Adicionar
+                            <button id="btn-adicionar" v-if="!formAdicionado" @click="adicionarFormaPagamento">Adicionar
                                 Forma de Pagamento</button>
                             <div class="my-button-venda">
+                                <button class="my-button" id="cancelar-btn" @click="cancelarVenda">Cancelar Venda</button>
                                 <button class="my-button" @click="fecharVenda">Fechar Venda</button>
                             </div>
+                        </div>
+                    </div>
+                    <div id="historicoCanvas" class="offcanvas offcanvas-end">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title">Histórico de Vendas</h5>
+                            <button id="historicoCloseBtn" class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul id="historicoList">
+                                <!-- Lista de vendas será carregada dinamicamente via JavaScript -->
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -105,6 +119,7 @@ import ApiController from "@/ApiController.js";
 import Swal from "sweetalert2";
 import "select2/dist/css/select2.css";
 import "select2";
+import loading from '../components/Outros/loading.vue';
 
 export default {
     data() {
@@ -127,8 +142,26 @@ export default {
     },
     components: {
         topo,
+        loading
     },
     methods: {
+        cancelarVenda() {
+            Swal.fire({
+                title: 'Cancelar Venda',
+                text: 'Deseja realmente cancelar a venda?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim',
+                cancelButtonText: 'Não'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.limparCampos();
+                    Swal.fire('', 'Venda cancelada com sucesso', 'success');
+                }
+            });
+        },
         async fecharVenda() {
             let metodosPagamento = [];
             let valorTotal = 0;
@@ -158,6 +191,14 @@ export default {
                 return;
             }
 
+            if (valorTotal > parseFloat(this.totalValue)) {
+                Swal.fire("", "O valor a ser pago não pode ser maior que o total ao lado.", "warning");
+                return;
+            } else if (valorTotal < parseFloat(this.totalValue)) {
+                Swal.fire("", "O valor a ser pago não pode ser menor que o total ao lado.", "warning");
+                return;
+            }
+
             const resultado = {
                 metodos_pagamento: metodosPagamento,
                 valor_total: valorTotal,
@@ -170,14 +211,14 @@ export default {
             });
 
             Swal.fire({
-                title: "Nota Fiscal",
+                title: "Resumo",
                 html: `
             <p><strong>Métodos de Pagamento:</strong> ${metodosPagamento.join(', ')}</p>
             <p><strong>Valor Total:</strong> R$ ${valorTotal.toFixed(2)}</p>
             <p><strong>Parcelas:</strong> ${parcelasTotal}x</p>
             <p><strong>Produtos:</strong></p>
             <ul>
-                ${this.selectedProducts.map(product => `<li>${product.nome} - R$ ${product.valor_venda} (${product.quantidade})</li>`).join('')}
+                ${this.selectedProducts.map(product => `<li>${product.nome} - R$ ${product.valor_venda} (${product.quantity})</li>`).join('')}
             </ul>
         `,
                 confirmButtonText: "OK",
@@ -187,17 +228,17 @@ export default {
                 Swal.fire("", "Venda realizada com sucesso", "success");
 
                 // Limpar os campos de inputs após realizar a venda
-                this.paymentForms.forEach((form) => {
-                    form.metodos_pagamento = '';
-                    form.valor_total = '';
-                    form.parcelas = '';
-                });
-
-                this.selectedProducts = []; // Limpar o array de produtos selecionados
+                this.limparCampos()
             });
         },
-
-
+        limparCampos() {
+            this.paymentForms.forEach((form) => {
+                form.metodos_pagamento = '';
+                form.valor_total = '';
+                form.parcelas = '';
+            });
+            this.selectedProducts = [];
+        },
         adicionarFormaPagamento() {
             this.paymentForms.push({
                 metodos_pagamento: "",
@@ -296,20 +337,46 @@ export default {
             return quantity;
         },
     },
+    mounted(){
+        this.loading = false
+    }
 };
 </script>
 
 <style>
+#btn-adicionar {
+    background-color: #095ba8;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+#cancelar-btn {
+    background-color: red;
+}
+
+#cancelar-btn:hover {
+    background-color: rgb(185, 5, 5);
+}
+
 .my-button-venda {
-    height: 90%;
     width: 100%;
+    height: 90%;
     display: flex;
     align-items: flex-end;
+    justify-content: center;
+
     margin-bottom: 15px;
 }
 
 .my-button {
-    background-color: #007bff;
+    width: 40%;
+    height: 55px;
+    background-color: #0e8f2a;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -320,7 +387,7 @@ export default {
 }
 
 .my-button:hover {
-    background-color: #0056b3;
+    background-color: #157a08;
 }
 
 .btn-removerForma {
@@ -543,7 +610,7 @@ export default {
     height: 100%;
     background-color: white;
     border-radius: 20px;
-    
+
 }
 
 @media screen and (max-width: 600px) {
@@ -551,11 +618,11 @@ export default {
         flex-direction: column;
     }
 
-    .left-content{
+    .left-content {
         overflow: scroll;
     }
 
-    .right-content{
+    .right-content {
         overflow-x: scroll;
     }
 
@@ -569,11 +636,11 @@ export default {
         width: 100%;
     }
 
-    .form-field-pay{
+    .form-field-pay {
         width: 90%;
     }
 
-    .select-payMethod{
+    .select-payMethod {
         width: 100%;
     }
 
@@ -581,12 +648,16 @@ export default {
         width: 100%;
     }
 
-    .btn-removerForma{
+    .btn-removerForma {
         margin-left: 0px;
         margin-top: 5px;
     }
 
-    .my-button{
+    #btn-adicionar {
+        margin-bottom: 15px;
+    }
+
+    .my-button {
         margin-bottom: 5px;
     }
 }

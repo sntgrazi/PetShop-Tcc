@@ -11,6 +11,7 @@
             </button>
         </div>
         <div class="modal-body">
+            <loading :loading="loading" />
             <form class="formModal" @submit.prevent="userId == false ? FormCadastro() : FormEdit()"
                 enctype="multipart/form-data">
                 <div class="form-inputs">
@@ -60,6 +61,7 @@
 import ApiController from '@/ApiController';
 import BaseInput from '../BaseInput/BaseInput.vue';
 import Swal from 'sweetalert2';
+import loading from '../Outros/loading.vue';
 
 export default {
     name: 'modalForncedor',
@@ -67,6 +69,7 @@ export default {
     emits: ['atualizarTabela'],
     components: {
         BaseInput,
+        loading
     },
     data() {
         return {
@@ -186,6 +189,7 @@ export default {
         },
     },
     mounted() {
+        this.loading = false
         if (this.userId) {
             this.buscarFornecedor();
         }
