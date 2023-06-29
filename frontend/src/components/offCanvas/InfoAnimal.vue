@@ -38,11 +38,11 @@
           <div class="mb-duo">
             <div class="linhaEnd">
               <h6>Altura</h6>
-              <p>{{ pet.altura }}</p>
+              <p>{{ pet.altura }} cm</p>
             </div>
             <div class="linhaen">
               <h6>Peso</h6>
-              <p>{{ pet.peso }}</p>
+              <p>{{ pet.peso }} kg</p>
             </div>
           </div>
         </div>
