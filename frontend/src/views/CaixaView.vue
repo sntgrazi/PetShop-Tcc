@@ -337,7 +337,7 @@ export default {
             return quantity;
         },
     },
-    mounted(){
+    mounted() {
         this.loading = false
     }
 };
@@ -345,7 +345,7 @@ export default {
 
 <style>
 #btn-adicionar {
-    background-color: #095ba8;
+    background-color: #1E90FF;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -609,7 +609,7 @@ export default {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: white;
+    background-color: #e2ebf4;
     border-radius: 20px;
 
 }
