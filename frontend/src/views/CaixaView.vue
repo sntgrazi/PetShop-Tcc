@@ -613,6 +613,55 @@ export default {
 
 }
 
+@media screen and (max-width: 1020px) {
+    .super-content {
+        flex-direction: column;
+    }
+
+    .left-content {
+        overflow: scroll;
+    }
+
+    .right-content {
+        overflow-x: scroll;
+    }
+
+    .left-content,
+    .right-content {
+        width: 100%;
+    }
+
+    .payment-form {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .form-field-pay {
+        width: 90%;
+    }
+
+    .select-payMethod {
+        width: 100%;
+    }
+
+    .select-payParc {
+        width: 100%;
+    }
+
+    .btn-removerForma {
+        margin-left: 0px;
+        margin-top: 5px;
+    }
+
+    #btn-adicionar {
+        margin-bottom: 15px;
+    }
+
+    .my-button {
+        margin-bottom: 5px;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .super-content {
         flex-direction: column;
@@ -659,6 +708,7 @@ export default {
 
     .my-button {
         margin-bottom: 5px;
+        width: 30%;
     }
 }
 </style>
