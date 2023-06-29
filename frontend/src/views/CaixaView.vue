@@ -284,9 +284,7 @@ export default {
     color: white;
 }
 
-.left-content, .right-content{
-    box-shadow: 0 0rem 0.5rem rgba(131, 129, 129, 0.658);
-}
+
 
 .payment-form {
     display: flex;
@@ -458,6 +456,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     border-radius: 15px;
+    box-shadow: 0 0rem 0.2rem rgba(131, 129, 129, 0.658);
 }
 
 .super-content {
@@ -469,6 +468,7 @@ export default {
     height: 100%;
     background-color: white;
     border-radius: 20px;
+    
 }
 
 @media screen and (max-width: 600px) {
