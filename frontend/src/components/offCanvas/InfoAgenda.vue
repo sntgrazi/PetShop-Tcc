@@ -5,9 +5,9 @@
 
       <div class="btnAcaoOff">
         <button @click="abriModalEdit(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i
-            class="fa-solid fa-pen"></i></button>
+          style="color: rgb(8, 83, 153);" class="fa-solid fa-pen"></i></button>
         <button @click="deletar(agendaDados.id)" class="btnEditarOffCanvas" type="button"><i
-            class="fa-solid fa-trash"></i></button>
+          style="color: red;" class="fa-solid fa-trash"></i></button>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
     </div>

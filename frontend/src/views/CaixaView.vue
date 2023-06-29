@@ -97,7 +97,7 @@
                     </div>
                     <div id="historicoCanvas" class="offcanvas offcanvas-end">
                         <div class="offcanvas-header">
-                            <h5 class="offcanvas-title">Histórico de Vendas</h5>
+                            <h5 style="color: #1e90ff;" class="offcanvas-title">Histórico de Vendas</h5>
                             <button id="historicoCloseBtn" class="btn-close text-reset"
                                 data-bs-dismiss="offcanvas"></button>
                         </div>
