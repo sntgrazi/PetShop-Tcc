@@ -586,6 +586,7 @@ export default {
     margin: 15px;
     background-color: white;
     border-radius: 15px;
+    box-shadow: 0 0rem 0.2rem rgba(131, 129, 129, 0.658);
 }
 
 .right-content {
