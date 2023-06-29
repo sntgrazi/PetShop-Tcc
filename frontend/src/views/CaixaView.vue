@@ -387,7 +387,7 @@ export default {
 }
 
 #btn-adicionar {
-    background-color: #095ba8;
+    background-color: #1E90FF;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -628,6 +628,7 @@ export default {
     margin: 15px;
     background-color: white;
     border-radius: 15px;
+    box-shadow: 0 0rem 0.2rem rgba(131, 129, 129, 0.658);
 }
 
 .right-content {
@@ -637,6 +638,7 @@ export default {
     background-color: white;
     margin: 15px;
     display: flex;
+    margin-left: 20px;
     flex-direction: column;
     align-items: flex-start;
     border-radius: 15px;
@@ -650,7 +652,7 @@ export default {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: white;
+    background-color: #e2ebf4;
     border-radius: 20px;
 
 }
@@ -665,6 +667,7 @@ export default {
     }
 
     .right-content {
+        margin-top: 20px;
         overflow-x: scroll;
     }
 
@@ -714,6 +717,7 @@ export default {
     }
 
     .right-content {
+        margin-top: 20px;
         overflow-x: scroll;
     }
 
@@ -750,7 +754,6 @@ export default {
 
     .my-button {
         margin-bottom: 5px;
-        width: 30%;
     }
 }
 </style>
