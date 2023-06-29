@@ -1,12 +1,12 @@
-# Doo Pets
+# Doo Pets 🐾
 
 ![PetShop Manager](https://cdn.discordapp.com/attachments/1057810774308958218/1122962809265848361/Screenshot_3-removebg-preview.png)
 
-## Descrição
+## Descrição 📄
 
 O Doo Pets é um sistema de gerenciamento completo e intuitivo desenvolvido como trabalho de conclusão de curso para o curso de Desenvolvimento de Sistemas do SENAI. O sistema tem como objetivo auxiliar os petshops no gerenciamento eficiente de suas atividades diárias, oferecendo uma solução abrangente para agendamento de serviços, controle de estoque, registro de clientes, animais, funcionários, produtos, serviços e fornecedores, além de facilitar a realização de vendas e geração de relatórios.
 
-## Características
+## Características ✨
 
 - **Controle de Estoque:** Gerencie todo o estoque de produtos disponíveis no petshop, permitindo a adição, edição e remoção de itens. Saiba sempre o que está disponível e evite a falta de produtos essenciais.
 
@@ -18,15 +18,15 @@ O Doo Pets é um sistema de gerenciamento completo e intuitivo desenvolvido como
 
 - **Relatórios Gerenciais:** Tenha acesso a relatórios completos e personalizáveis, que fornecem informações importantes sobre vendas, estoque, clientes e serviços. Tome decisões estratégicas baseadas em dados confiáveis e atualizados.
 
-## Integrantes do Projeto
+## Integrantes do Projeto 👥
 
-- John Lucas - Desenvolvedor Web
-- Grazielle Santana - Desenvolvedora Full-Stack
-- Carla Saionara - Desenvolvedora Front-End e UX/UI Designer
-- John Vitor - Analista de Requisitos, levantamento de documentação e suporte Front-End
-- Carlos Daniel - Banco de dados (DBA)
+- [John Lucas](https://github.com/jxhnlcs) - Desenvolvedor Web
+- [Grazielle Santana](https://github.com/sntgrazi) - Desenvolvedora Full-Stack
+- [Carla Saionara](https://github.com/csaionaraa) - Desenvolvedora Front-End e UX/UI Designer
+- [John Vitor](https://github.com/mclJohn) - Analista de Requisitos, levantamento de documentação e suporte Front-End
+- [Carlos Daniel](https://github.com/danfarias20) - Banco de dados (DBA)
 
-## Tecnologias Utilizadas
+## Tecnologias Utilizadas 🛠️
 
 - Framework Web: Vue.js
 - Framework API: Slim Framework
@@ -34,7 +34,7 @@ O Doo Pets é um sistema de gerenciamento completo e intuitivo desenvolvido como
 - Linguagens Web: HTML, CSS, JavaScript
 - Ferramentas de Controle de Versão: Git, GitHub
 
-## Instalação e Configuração
+## Instalação e Configuração ⚙️
 
 1. Clone este repositório: `git clone https://github.com/sntgrazi/PetShop-Tcc.git`
 2. Navegue até o diretório do web: `cd frontend`
@@ -45,6 +45,6 @@ O Doo Pets é um sistema de gerenciamento completo e intuitivo desenvolvido como
 9. Inicie o servidor do front-end: `npm run serve`
 10. Acesse o sistema no seu navegador: `http://localhost:8080`
 
-## Contribuição
+## Contribuição 🤝
 
 Sinta-se à vontade para contribuir com melhorias neste projeto. Se você encontrou algum problema ou tem alguma sugestão, abra uma issue ou envie um pull request.
