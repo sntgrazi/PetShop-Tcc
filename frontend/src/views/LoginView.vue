@@ -30,10 +30,6 @@
 
                             <button type="submit" class="sign-btn"> Entrar</button>
 
-                            <p class="text">
-                                Esqueceu a
-                                <a class="textpass" href="#">senha?</a>
-                            </p>
                         </div>
                     </form>
                     <!--Fim de Login-->
@@ -82,9 +78,9 @@
                     <div class="text-slider">
                         <div class="text-wrap">
                             <div class="text-group">
-                                <h3>Deixe o seu bichinho glamuroso!</h3>
-                                <h3>Felicidade é comer ração de qualidade!</h3>
-                                <h3>Banho e tosa para o seu bichinho!</h3>
+                                <h3>Atividades centralizadas em um só sistema</h3>
+                                <h3>Eficiência e praticidade</h3>
+                                <h3>Processos de petshop automatizados</h3>
                             </div>
                         </div>
                         <div class="bullets">
@@ -157,7 +153,7 @@ export default {
             currentImage.classList.add("show");
 
             const textSlider = document.querySelector(".text-group");
-            textSlider.style.transform = `translateY(${-(index - 1) * 2.4}rem)`;
+            textSlider.style.transform = `translateY(${-(index - 1) * 2.53}rem)`;
 
             bullets.forEach((bull) => bull.classList.remove("active"));
             bullets[index - 1].classList.add("active");
@@ -278,11 +274,11 @@ form.sign-up-form {
 .heading h2 {
     font-size: 2.1rem;
     font-weight: 600;
-    color: #04294d;
+    color: #ffffff;
 }
 
 .heading h6 {
-    color: #04294d;
+    color: #ffffff;
     font-weight: bold;
     font-size: 0.9rem;
     display: inline;
@@ -317,7 +313,7 @@ form.sign-up-form {
     border-bottom: 1px solid #fdfafa;
     padding: 0;
     font-size: 0.95rem;
-    color: #151111;
+    color: #ffffff;
     transition: 0.4s;
 }
 
@@ -330,10 +326,11 @@ label {
     color: #ffffff;
     pointer-events: none;
     transition: 0.4s;
+    font-weight: 500;
 }
 
 .active {
-    border-bottom-color: #151111;
+    border-bottom-color: #dfdfdf;
 }
 
 .active+label {
@@ -352,12 +349,14 @@ label {
     border-radius: 0.2rem;
     font-size: 0.8rem;
     margin-bottom: 2rem;
+    font-weight: bold;
 }
 
 .sign-btn:hover {
     background-color: #ffffff;
     color: #151111;
     transition: 1s;
+    font-weight: bold;
 }
 
 .text {
