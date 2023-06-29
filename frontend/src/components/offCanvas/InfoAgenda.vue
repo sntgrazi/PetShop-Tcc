@@ -31,7 +31,6 @@
             </div>
           </div>
         </div>
-
         <div class="servicoDetalhes">
           <div class="detalhesTitulo">
             <h4>Status</h4>
