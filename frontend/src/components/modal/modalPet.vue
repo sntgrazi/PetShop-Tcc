@@ -610,7 +610,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   height: 45px;
-  border: none;
+  border: 1px solid black;
   border-radius: 7px;
   font-size: 17px;
   outline: none;

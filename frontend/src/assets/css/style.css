@@ -321,7 +321,7 @@ ul {
   width: 100%;
   padding: 8px;
   margin-bottom: 2px;
-  border: none;
+  border: 1px solid black;
   border-radius: 8px;
   box-sizing: border-box;
   font-size: 17px;
@@ -344,6 +344,7 @@ ul {
   flex-direction: column;
   margin-top: 4px;
   gap: 5px;
+  
 }
 
 .modal-footer {
