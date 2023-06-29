@@ -164,12 +164,11 @@
               <tr v-for="tutorVinculado in tutoresVinculados" :key="tutorVinculado">
                 <td>{{ tutorVinculado.nome }}</td>
                 <td class="btnTutores">
-                  <button type="
-                                button" class="btn-acoes" v-if="tutoresVinculados.length >= 1">
+                  <button type="button" class="btn-acoes" @click="abrirOffCanvas(tutorVinculado.id)"
+                    v-if="tutoresVinculados.length >= 1">
                     <i class="fa-solid fa-user"></i>
                   </button>
-                  <button type="
-                                button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
+                  <button type="button" @click="removerVinculo(tutorVinculado.id, userId)" class="btn-acoes"
                     v-if="tutoresVinculados.length > 1">
                     <i class="fa-solid fa-trash"></i>
                   </button>
@@ -226,6 +225,9 @@ export default {
     }
   },
   methods: {
+    abrirOffCanvas(id) {
+      this.$router.push({ name: 'clientes', params: { id: id } });
+    },
     proximo() {
       this.etapaAtual = 2
     },
@@ -278,7 +280,7 @@ export default {
 
         });
 
-     
+
       } catch (error) {
         console.log(error);
       }
@@ -373,7 +375,7 @@ export default {
         const camposValidos = this.validarCampos();
 
         if (!camposValidos) {
-            return;
+          return;
         }
 
         await ApiController.cadastrarAnimal(this.animal);
@@ -391,9 +393,9 @@ export default {
         const camposValidos = this.validarCampos();
 
         if (!camposValidos) {
-            return;
+          return;
         }
-        
+
         await ApiController.editarAnimal(this.userId, this.animal);
         Swal.fire("", "Animal atualizado com sucesso!", "success");
         this.$emit("atualizarTabela");
@@ -405,29 +407,29 @@ export default {
     },
 
     validarCampos() {
-            // Verificar se todos os campos obrigatórios estão preenchidos
-            if (
-                !this.animal.nome_pet ||
-                !this.animal.altura ||
-                !this.animal.peso ||
-                !this.animal.data_nascimento
+      // Verificar se todos os campos obrigatórios estão preenchidos
+      if (
+        !this.animal.nome_pet ||
+        !this.animal.altura ||
+        !this.animal.peso ||
+        !this.animal.data_nascimento
 
-            ) {
-                Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
-                return false;
-            }
+      ) {
+        Swal.fire("Erro", "Preencha todos os campos obrigatórios.", "error");
+        return false;
+      }
 
-            // Verificar o formato correto do nome
-            const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
-            if (!regexNome.test(this.animal.nome_pet)) {
-                Swal.fire("Erro", "Digite apenas letras e espaços no nome do pet.", "error");
-                return false;
-            }
+      // Verificar o formato correto do nome
+      const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
+      if (!regexNome.test(this.animal.nome_pet)) {
+        Swal.fire("Erro", "Digite apenas letras e espaços no nome do pet.", "error");
+        return false;
+      }
 
-            // ...
+      // ...
 
-            return true;
-        },
+      return true;
+    },
   },
 
   mounted() {
@@ -606,6 +608,12 @@ export default {
 </script>
 
 <style>
+.btn-acoes{
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+}
+
 .select2-container .select2-selection {
   overflow: hidden;
   text-overflow: ellipsis;

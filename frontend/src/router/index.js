@@ -76,6 +76,12 @@ const routes = [
     }
   },
   {
+    path: '/clientes/:id',
+    name: 'clientes',
+    component: Clientes,
+    beforeEnter: verificarAutenticacao
+  },
+  {
     path: '/clientes',
     name: 'Clientes',
     component: Clientes,
