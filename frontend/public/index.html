@@ -39,14 +39,7 @@
       }
     }
 
-    window.addEventListener('unload', function() {
-      const currentPage = window.location.pathname; // Obtém o caminho da página atual
     
-      // Verifica se o usuário está na página desejada antes de remover o token
-      if (currentPage != '/') {
-        localStorage.removeItem('token');
-      }
-    });
   </script>
 </body>
 
