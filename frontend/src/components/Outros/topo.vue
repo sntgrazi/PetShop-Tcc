@@ -25,6 +25,8 @@ export default {
             ? "Novo Funcionário" 
             : this.type === 'Fornecedor'
             ? "Novo Fornecedor"
+            : this.type === 'Caixa'
+            ? "Histórico"
             : "Novo Produto/Serviço"
     };
   },

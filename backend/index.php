@@ -12,6 +12,7 @@ use App\Controller\OrdemServicoController;
 use App\Controller\AuthController;
 use App\Controller\ProdutoController;
 use App\Controller\FornecedoresController;
+use App\Controller\VendasController;
  use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\RequestInterface as Request;
 
@@ -114,5 +115,6 @@ $app->delete('/deletarServico/{id}', ServicosController::class . ':deletarServic
 
 // VendaController
 
+$app->post('/venda', VendasController::class . ':cadastrarVenda');
 
 $app->run();

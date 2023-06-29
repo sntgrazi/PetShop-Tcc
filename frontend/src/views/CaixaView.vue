@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="custom-container">
-            <topo :type="'Funcionario'" :icon="'fa-plus'" />
+            <topo :type="'Caixa'" />
             <div class="custom-content">
                 <div class="custom-main-content">
                     <div class="super-content">
@@ -64,7 +64,7 @@
                             <div v-for="(paymentForm, index) in paymentForms" :key="index" class="payment-form">
                                 <div class="form-field-pay">
                                     <label>Forma de Pagamento</label>
-                                    <select v-model="paymentForm.paymentMethod" id="select-payMethod"
+                                    <select v-model="paymentForm.metodos_pagamento" id="select-payMethod"
                                         class="select-payMethod">
                                         <option v-for="method in paymentMethods" :value="method">{{ method }}</option>
                                     </select>
@@ -72,13 +72,12 @@
 
                                 <div class="form-field-pay">
                                     <label>Valor</label>
-                                    <input type="text" v-model="paymentForm.paymentAmount" />
+                                    <input type="text" v-model="paymentForm.valor_total" />
                                 </div>
                                 <div class="form-field-pay">
                                     <label>Parcelas</label>
                                     <div class="input-group-p">
-                                        <select v-model="paymentForm.installments" id="select-payParc"
-                                            class="select-payParc">
+                                        <select v-model="paymentForm.parcelas" id="select-payParc" class="select-payParc">
                                             <option v-for="installment in installments" :value="installment">{{ installment
                                             }}</option>
                                         </select>
@@ -88,9 +87,10 @@
                                 </div>
                             </div>
                             <button class="my-button" v-if="!formAdicionado" @click="adicionarFormaPagamento">Adicionar
-                                Forma de
-                                Pagamento
-                            </button>
+                                Forma de Pagamento</button>
+                            <div class="my-button-venda">
+                                <button class="my-button" @click="fecharVenda">Fechar Venda</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,6 @@
 import topo from "@/components/Outros/topo.vue";
 import ApiController from "@/ApiController.js";
 import Swal from "sweetalert2";
-import $ from "jquery";
 import "select2/dist/css/select2.css";
 import "select2";
 
@@ -116,9 +115,9 @@ export default {
             loading: true,
             paymentForms: [
                 {
-                    paymentMethod: "",
-                    paymentAmount: "",
-                    installments: "",
+                    metodos_pagamento: "",
+                    valor_total: "",
+                    parcelas: "",
                 },
             ],
             formAdicionado: false,
@@ -130,11 +129,80 @@ export default {
         topo,
     },
     methods: {
+        async fecharVenda() {
+            let metodosPagamento = [];
+            let valorTotal = 0;
+            let parcelasTotal = 0;
+            let allInputsFilled = true; // Variável para verificar se todos os inputs estão preenchidos
+            let hasSelectedProducts = this.selectedProducts.length > 0; // Verificar se há pelo menos um produto selecionado
+
+            this.paymentForms.forEach((form) => {
+                if (!form.metodos_pagamento || !form.valor_total || !form.parcelas) {
+                    allInputsFilled = false;
+                } else {
+                    let valor = parseFloat(form.valor_total);
+                    valorTotal += valor;
+
+                    metodosPagamento.push(form.metodos_pagamento);
+                    parcelasTotal += parseInt(form.parcelas);
+                }
+            });
+
+            if (!hasSelectedProducts) {
+                Swal.fire("", "Selecione pelo menos um produto antes de fechar a venda.", "warning");
+                return;
+            }
+
+            if (!allInputsFilled) {
+                Swal.fire("", "Preencha todos os campos antes de fechar a venda.", "warning");
+                return;
+            }
+
+            const resultado = {
+                metodos_pagamento: metodosPagamento,
+                valor_total: valorTotal,
+                parcelas: parcelasTotal + "x",
+                produtos: this.selectedProducts
+            };
+
+            await ApiController.cadastrarVenda(resultado).catch(error => {
+                console.log("Erro ao tentar realizar a venda: ", error)
+            });
+
+            Swal.fire({
+                title: "Nota Fiscal",
+                html: `
+            <p><strong>Métodos de Pagamento:</strong> ${metodosPagamento.join(', ')}</p>
+            <p><strong>Valor Total:</strong> R$ ${valorTotal.toFixed(2)}</p>
+            <p><strong>Parcelas:</strong> ${parcelasTotal}x</p>
+            <p><strong>Produtos:</strong></p>
+            <ul>
+                ${this.selectedProducts.map(product => `<li>${product.nome} - R$ ${product.valor_venda} (${product.quantidade})</li>`).join('')}
+            </ul>
+        `,
+                confirmButtonText: "OK",
+                confirmButtonColor: "#3085d6",
+                icon: "info"
+            }).then(() => {
+                Swal.fire("", "Venda realizada com sucesso", "success");
+
+                // Limpar os campos de inputs após realizar a venda
+                this.paymentForms.forEach((form) => {
+                    form.metodos_pagamento = '';
+                    form.valor_total = '';
+                    form.parcelas = '';
+                });
+
+                this.selectedProducts = []; // Limpar o array de produtos selecionados
+            });
+        },
+
+
         adicionarFormaPagamento() {
             this.paymentForms.push({
-                paymentMethod: "",
-                paymentAmount: "",
-                installments: "",
+                metodos_pagamento: "",
+                valor_total: "",
+                parcelas: "",
             });
             this.formAdicionado = true;
         },
@@ -183,7 +251,6 @@ export default {
                     this.selectedProduct.quantity = 1;
                     this.selectedProducts.push(this.selectedProduct);
                 }
-
                 this.searchTerm = "";
             }
         },
@@ -233,6 +300,14 @@ export default {
 </script>
 
 <style>
+.my-button-venda {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 15px;
+}
+
 .my-button {
     background-color: #007bff;
     color: #fff;

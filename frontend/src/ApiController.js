@@ -554,6 +554,16 @@ export default {
         })
 
         return response.data;
+    },
+
+    async cadastrarVenda(venda) {
+        const url = `${ApiUrl}/venda`;
+        const response = await axios.post(url,venda).catch(error => {
+            console.error(`Erro ao tentar realizar a venda: `, error);
+            throw error;
+        })
+
+        return response.data;
     }
 
 }
