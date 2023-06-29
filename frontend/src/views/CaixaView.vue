@@ -365,6 +365,7 @@ export default {
             const index = this.selectedProducts.indexOf(product);
             if (index !== -1) {
                 this.selectedProducts.splice(index, 1);
+                localStorage.setItem("selectedProducts", JSON.stringify(this.selectedProducts));
             }
         },
     },
