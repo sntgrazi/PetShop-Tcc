@@ -286,12 +286,6 @@ export default {
         return false;
       }
 
-      // Verificar o formato correto do nome
-      const regexNome = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/u;
-      if (!regexNome.test(this.produtos.nome)) {
-        Swal.fire("Erro", "Digite apenas letras, espaços e acentos no campo Nome.", "error");
-        return false;
-      }
 
       const regexNumeros = /^[0-9.,]+$/;
       if (!regexNumeros.test(this.produtos.valor_compra) || !regexNumeros.test(this.produtos.valor_venda) | !regexNumeros.test(this.produtos.quantidade)) {
