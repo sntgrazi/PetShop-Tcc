@@ -78,7 +78,7 @@
                     <div class="text-slider">
                         <div class="text-wrap">
                             <div class="text-group">
-                                <h3>Atividades centralizadas em um só sistema</h3>
+                                <h3>Funcionalidades integradas</h3>
                                 <h3>Eficiência e praticidade</h3>
                                 <h3>Processos de petshop automatizados</h3>
                             </div>
