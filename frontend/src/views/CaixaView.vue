@@ -131,6 +131,7 @@
 </template>
   
 <script>
+import moment from 'moment';
 import topo from "@/components/Outros/topo.vue";
 import ApiController from "@/ApiController.js";
 import Swal from "sweetalert2";
@@ -165,15 +166,24 @@ export default {
     methods: {
         async buscarHistorico() {
             try {
-                this.loading = true
+                this.loading = true;
                 const historico = await ApiController.historico();
+
+                // Ajustar a diferença de fuso horário (3 horas) no horário do servidor
+                historico.forEach((venda) => {
+                    const dataVenda = new Date(venda.data_venda);
+                    dataVenda.setHours(dataVenda.getHours() - 3); // Subtrai 3 horas
+                    venda.data_venda = dataVenda.toLocaleString();
+                });
+
                 this.historico = historico;
-                this.loading = false
+                this.loading = false;
                 $("#historicoCanvas").offcanvas("show");
             } catch (error) {
                 console.log("Erro ao buscar o histórico: ", error);
             }
         },
+
         cancelarVenda() {
             Swal.fire({
                 title: 'Cancelar Venda',
@@ -467,8 +477,6 @@ export default {
     font-size: 18px;
     color: white;
 }
-
-
 
 .payment-form {
     display: flex;
