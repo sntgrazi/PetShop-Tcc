@@ -19,7 +19,7 @@
           </div>
           <hr>
           <h6>Data e Hora</h6>
-          <p> {{ agendaDados.data_inicio }} - {{ agendaDados.hora_inicio }} ás {{ agendaDados.hora_termino }}</p>
+          <p> {{ agendaDados.data_inicio }} - {{ agendaDados.hora_inicio }} às {{ agendaDados.hora_termino }}</p>
           <div class="servicoDetalhescolumn">
             <div class="colunaDetalhes">
               <h6>Duração Aprox.</h6>
