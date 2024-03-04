@@ -1,7 +1,5 @@
 # Doo Pets 🐾
 
-![PetShop Manager](https://cdn.discordapp.com/attachments/1057810774308958218/1122962809265848361/Screenshot_3-removebg-preview.png)
-
 ## Descrição 📄
 
 O Doo Pets é um sistema de gerenciamento completo e intuitivo desenvolvido como trabalho de conclusão de curso para o curso de Desenvolvimento de Sistemas do SENAI. O sistema tem como objetivo auxiliar os petshops no gerenciamento eficiente de suas atividades diárias, oferecendo uma solução abrangente para agendamento de serviços, controle de estoque, registro de clientes, animais, funcionários, produtos, serviços e fornecedores, além de facilitar a realização de vendas e geração de relatórios.
