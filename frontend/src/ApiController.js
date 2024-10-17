@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import Swal from "sweetalert2";
 
-const ApiUrl = 'https://apipetshop.sntapi.live/';
+const ApiUrl = 'https://apipetshop.sntapi.live';
 
 export default {
 
