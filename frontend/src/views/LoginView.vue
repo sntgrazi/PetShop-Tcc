@@ -34,7 +34,7 @@
                     </form>
                     <!--Fim de Login-->
 
-                    <!--  <form action="index.html" autocomplete="off" class="sign-up-form">
+                     <form action="index.html" autocomplete="off" class="sign-up-form">
                         <div class="logo">
                             <img src="../assets/img/image.png" alt="easyclass" />
                             <h3>Doo pet's</h3>
@@ -64,7 +64,7 @@
                             <input type="submit" value="Cadastrar" class="sign-btn" />
 
                         </div>
-                    </form> -->
+                    </form>
 
 
                 </div>
