@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import Swal from "sweetalert2";
 
-const ApiUrl = 'https://petshoptcc.ew.r.appspot.com';
+const ApiUrl = 'http://168.75.93.16/';
 
 export default {
 
